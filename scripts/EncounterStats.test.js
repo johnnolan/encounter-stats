@@ -2,6 +2,7 @@ import { beforeAll } from "@jest/globals";
 import EncounterStats from "./EncounterStats.js";
 const mockDataCreateCombat = require("../mockData/hookcreateCombat.json");
 const hookMidiQolAttackRollComplete = require("../mockData/hookmidi-qolAttackRollComplete.json");
+const hookupdateCombatarg2 = require("../mockData/hookupdateCombatarg2.json");
 
 const stats = new EncounterStats(false);
 
@@ -140,6 +141,102 @@ describe("On a second attack made", () => {
     });
     test("Expect the combatants to have 2 entries", () => {
       expect(statsData.rounds[0].events.length).toBe(2);
+    });
+  });
+});
+
+describe("On a new round", () => {
+  beforeAll(() => {
+    stats._updateCombat(hookupdateCombatarg2);
+    statsData = stats.getEncounterStats()[0];
+  });
+
+  describe("A new round should be created", () => {
+    test("Expect the combatants to have 2 entries", () => {
+      expect(statsData.rounds.length).toBe(2);
+    });
+
+    test("Expect the rounds to be ordered and numbered correctly", () => {
+      expect(statsData.rounds[0].round).toBe(2);
+      expect(statsData.rounds[1].round).toBe(1);
+    });
+  });
+
+  describe("On an attack made", () => {
+    beforeAll(() => {
+      stats._trackAttack(hookMidiQolAttackRollComplete);
+      statsData = stats.getEncounterStats()[0];
+    });
+
+    describe("On adding attack event data to the round", () => {
+      let event;
+      beforeAll(() => {
+        event = statsData.rounds[0].events[0];
+      });
+      test("Expect the combatants to have 1 entry", () => {
+        expect(statsData.rounds[0].events.length).toBe(1);
+      });
+      test("Expect the event to display advantage", () => {
+        expect(event.advantage).toBe(false);
+      });
+      test("Expect the event to have required result", () => {
+        expect(event).toEqual({
+          actor: {
+            id: "fu5tuPUTYIqlFJLt",
+            type: "character",
+            hp: 35,
+            max: 67,
+          },
+          advantage: false,
+          attackRoll: {
+            class: "Roll",
+            dice: [],
+            formula: "27",
+            results: [27],
+            terms: [27],
+            total: 27,
+          },
+          attackTotal: 27,
+          damageDetail: [
+            {
+              damage: 22,
+              type: "slashing",
+            },
+            {
+              damage: 22,
+              type: "fire",
+            },
+          ],
+          damageTotal: 44,
+          disadvantage: false,
+          isCritical: true,
+          isFumble: false,
+          item: {
+            id: "LcCBgAO3XtvkZEgt",
+            name: "Flame Tongue Greatsword",
+            type: "weapon",
+          },
+          itemId: "LcCBgAO3XtvkZEgt",
+          tokenId: "xmovvGboWTyajjpb",
+          uuid: "Actor.fu5tuPUTYIqlFJLt.OwnedItem.LcCBgAO3XtvkZEgt",
+        });
+      });
+    });
+  });
+  describe("On a second attack made", () => {
+    beforeAll(() => {
+      stats._trackAttack(hookMidiQolAttackRollComplete);
+      statsData = stats.getEncounterStats()[0];
+    });
+
+    describe("On adding 2 attack event data to the round", () => {
+      let event;
+      beforeAll(() => {
+        event = statsData.rounds[0].events[0];
+      });
+      test("Expect the combatants to have 2 entries", () => {
+        expect(statsData.rounds[0].events.length).toBe(2);
+      });
     });
   });
 });

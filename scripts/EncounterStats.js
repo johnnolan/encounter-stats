@@ -13,7 +13,7 @@ export default class EncounterStats {
   //6. Create Compendium of fight history
 
   // Contructor
-  constructor(hooksEnabled) {
+  constructor(hooksEnabled = true) {
     this.encounterStats = [];
     if (hooksEnabled) this._setupHooks();
   }
@@ -34,6 +34,17 @@ export default class EncounterStats {
 
   _truncateLocalStorage() {
     window.localStorage.removeItem("encounterstats");
+  }
+
+  _updateCombat(data) {
+    this._truncateLocalStorage();
+    const newRound = {
+        round: data.round,
+        events: []
+    };
+    this.encounterStats[0].rounds.unshift(newRound)
+
+    this._saveToLocalStorage();
   }
 
   _createCombat(data) {
@@ -105,18 +116,18 @@ export default class EncounterStats {
   // Function
   _setupHooks() {
     const _this = this;
-    window.Hooks.once("createCombat", async function (arg1, arg2, arg3) {
+    window.Hooks.on("createCombat", async function (arg1, arg2, arg3) {
       _this._createCombat(arg1);
       console.debug("fvtt-encounter-stats createCombat1", arg1);
       console.debug("fvtt-encounter-stats createCombat2", arg2);
       console.debug("fvtt-encounter-stats createCombat3", arg3);
     });
-    window.Hooks.once("deleteCombat", async function (arg1, arg2, arg3) {
+    window.Hooks.on("deleteCombat", async function (arg1, arg2, arg3) {
       console.debug("fvtt-encounter-stats deleteCombat1", arg1);
       console.debug("fvtt-encounter-stats deleteCombat2", arg2);
       console.debug("fvtt-encounter-stats deleteCombat3", arg3);
     });
-    window.Hooks.once(
+    window.Hooks.on(
       "midi-qol.AttackRollComplete",
       async function (arg1, arg2, arg3) {
           this._trackAttack(arg1);
@@ -150,9 +161,10 @@ export default class EncounterStats {
         console.debug("fvtt-encounter-stats midi-qol.DamageRollComplete", arg3);
       }
     );*/
-    window.Hooks.once("updateCombat", async function (arg1, arg2, arg3) {
+    window.Hooks.on("updateCombat", async function (arg1, arg2, arg3) {
       console.debug("fvtt-encounter-stats updateCombat1", arg1);
       console.debug("fvtt-encounter-stats updateCombat2", arg2);
+      this._updateCombat(arg2);
       console.debug("fvtt-encounter-stats updateCombat3", arg3);
     });
   }
