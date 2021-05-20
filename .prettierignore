@@ -1,0 +1,7 @@
+node_modules/
+.gitignore
+.prettierrc
+.eslintrc.json
+babel.config.json
+.github/
+mockData/

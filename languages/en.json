@@ -1,3 +1,4 @@
 {
-    "MODULE.hello": "hello"
+    "FVTTEncounterStats.opt_enable_name": "Enable FVTT Encounter Stats",
+    "FVTTEncounterStats.opt_enable_hint": "Enables FVTT Encounter Stats module"
 }

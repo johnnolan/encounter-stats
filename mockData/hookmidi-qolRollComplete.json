@@ -1,0 +1,1326 @@
+{
+  "rollOptions": {
+    "versaKey": false,
+    "critKey": false,
+    "fastForward": false,
+    "fasForwardKey": false
+  },
+  "actor": {
+    "_id": "zWcbs3tqLp5ncOOg",
+    "name": "Tall Skeleton(4)",
+    "permission": {
+      "default": 0,
+      "4XzLH56iD4mk8Rt7": 3
+    },
+    "type": "npc",
+    "data": {
+      "abilities": {
+        "str": {
+          "value": 10,
+          "proficient": 0,
+          "min": 0,
+          "mod": 0,
+          "save": 0,
+          "prof": 0,
+          "saveBonus": 0,
+          "checkBonus": 0,
+          "dc": 10
+        },
+        "dex": {
+          "value": 14,
+          "proficient": 0,
+          "min": 0,
+          "mod": 2,
+          "save": 2,
+          "prof": 0,
+          "saveBonus": 0,
+          "checkBonus": 0,
+          "dc": 12
+        },
+        "con": {
+          "value": 15,
+          "proficient": 0,
+          "min": 0,
+          "mod": 2,
+          "save": 2,
+          "prof": 0,
+          "saveBonus": 0,
+          "checkBonus": 0,
+          "dc": 12
+        },
+        "int": {
+          "value": 6,
+          "proficient": 0,
+          "min": 0,
+          "mod": -2,
+          "save": -2,
+          "prof": 0,
+          "saveBonus": 0,
+          "checkBonus": 0,
+          "dc": 8
+        },
+        "wis": {
+          "value": 8,
+          "proficient": 0,
+          "min": 0,
+          "mod": -1,
+          "save": -1,
+          "prof": 0,
+          "saveBonus": 0,
+          "checkBonus": 0,
+          "dc": 9
+        },
+        "cha": {
+          "value": 5,
+          "proficient": 0,
+          "min": 0,
+          "mod": -3,
+          "save": -3,
+          "prof": 0,
+          "saveBonus": 0,
+          "checkBonus": 0,
+          "dc": 7
+        }
+      },
+      "attributes": {
+        "ac": {
+          "value": 13,
+          "min": 0
+        },
+        "hp": {
+          "value": 0,
+          "min": 0,
+          "max": 15,
+          "temp": 0,
+          "tempmax": null,
+          "formula": "2d8 + 4"
+        },
+        "init": {
+          "value": 0,
+          "bonus": 0,
+          "mod": 2,
+          "total": 2,
+          "prof": 0
+        },
+        "movement": {
+          "burrow": 0,
+          "climb": 0,
+          "fly": 0,
+          "swim": 0,
+          "walk": 30,
+          "units": "ft",
+          "hover": false
+        },
+        "senses": {
+          "darkvision": 60,
+          "blindsight": 0,
+          "tremorsense": 0,
+          "truesight": 0,
+          "units": "ft",
+          "special": ""
+        },
+        "spellcasting": "",
+        "speed": {
+          "value": "30ft.",
+          "special": ""
+        },
+        "prof": 2,
+        "spelldc": 10,
+        "spellLevel": 0,
+        "encumbrance": {
+          "value": 4,
+          "max": 150,
+          "pct": 2.6666666666666665,
+          "encumbered": true
+        }
+      },
+      "details": {
+        "biography": {
+          "value": "",
+          "public": ""
+        },
+        "alignment": "Lawful Evil",
+        "race": null,
+        "type": "Undead",
+        "environment": "Urban",
+        "cr": 0.25,
+        "spellLevel": 0,
+        "xp": {
+          "value": 50
+        },
+        "source": "Basic Rules pg 152",
+        "class": {},
+        "notes1name": "",
+        "notes2name": "",
+        "notes3name": "",
+        "notes4name": ""
+      },
+      "traits": {
+        "size": "med",
+        "di": {
+          "value": ["poison"],
+          "custom": ""
+        },
+        "dr": {
+          "value": [],
+          "custom": ""
+        },
+        "dv": {
+          "value": ["bludgeoning"],
+          "custom": ""
+        },
+        "ci": {
+          "value": ["exhaustion", "poisoned"],
+          "custom": ""
+        },
+        "languages": {
+          "value": [],
+          "custom": " Understands all languages it knew in life but can't speak  "
+        },
+        "senses": "Darkvision 60 ft."
+      },
+      "currency": {
+        "pp": 0,
+        "gp": 0,
+        "ep": 0,
+        "sp": 0,
+        "cp": 0
+      },
+      "skills": {
+        "acr": {
+          "value": 0,
+          "ability": "dex",
+          "bonus": 0,
+          "mod": 2,
+          "passive": 12,
+          "total": 2,
+          "prof": 0
+        },
+        "ani": {
+          "value": 0,
+          "ability": "wis",
+          "bonus": 0,
+          "mod": -1,
+          "passive": 9,
+          "total": -1,
+          "prof": 0
+        },
+        "arc": {
+          "value": 0,
+          "ability": "int",
+          "bonus": 0,
+          "mod": -2,
+          "passive": 8,
+          "total": -2,
+          "prof": 0
+        },
+        "ath": {
+          "value": 0,
+          "ability": "str",
+          "bonus": 0,
+          "mod": 0,
+          "passive": 10,
+          "total": 0,
+          "prof": 0
+        },
+        "dec": {
+          "value": 0,
+          "ability": "cha",
+          "bonus": 0,
+          "mod": -3,
+          "passive": 7,
+          "total": -3,
+          "prof": 0
+        },
+        "his": {
+          "value": 0,
+          "ability": "int",
+          "bonus": 0,
+          "mod": -2,
+          "passive": 8,
+          "total": -2,
+          "prof": 0
+        },
+        "ins": {
+          "value": 0,
+          "ability": "wis",
+          "bonus": 0,
+          "mod": -1,
+          "passive": 9,
+          "total": -1,
+          "prof": 0
+        },
+        "itm": {
+          "value": 0,
+          "ability": "cha",
+          "bonus": 0,
+          "mod": -3,
+          "passive": 7,
+          "total": -3,
+          "prof": 0
+        },
+        "inv": {
+          "value": 0,
+          "ability": "int",
+          "bonus": 0,
+          "mod": -2,
+          "passive": 8,
+          "total": -2,
+          "prof": 0
+        },
+        "med": {
+          "value": 0,
+          "ability": "wis",
+          "bonus": 0,
+          "mod": -1,
+          "passive": 9,
+          "total": -1,
+          "prof": 0
+        },
+        "nat": {
+          "value": 0,
+          "ability": "int",
+          "bonus": 0,
+          "mod": -2,
+          "passive": 8,
+          "total": -2,
+          "prof": 0
+        },
+        "prc": {
+          "value": 0,
+          "ability": "wis",
+          "bonus": 0,
+          "mod": -1,
+          "passive": 9,
+          "total": -1,
+          "prof": 0
+        },
+        "prf": {
+          "value": 0,
+          "ability": "cha",
+          "bonus": 0,
+          "mod": -3,
+          "passive": 7,
+          "total": -3,
+          "prof": 0
+        },
+        "per": {
+          "value": 0,
+          "ability": "cha",
+          "bonus": 0,
+          "mod": -3,
+          "passive": 7,
+          "total": -3,
+          "prof": 0
+        },
+        "rel": {
+          "value": 0,
+          "ability": "int",
+          "bonus": 0,
+          "mod": -2,
+          "passive": 8,
+          "total": -2,
+          "prof": 0
+        },
+        "slt": {
+          "value": 0,
+          "ability": "dex",
+          "bonus": 0,
+          "mod": 2,
+          "passive": 12,
+          "total": 2,
+          "prof": 0
+        },
+        "ste": {
+          "value": 0,
+          "ability": "dex",
+          "bonus": 0,
+          "mod": 2,
+          "passive": 12,
+          "total": 2,
+          "prof": 0
+        },
+        "sur": {
+          "value": 0,
+          "ability": "wis",
+          "bonus": 0,
+          "mod": -1,
+          "passive": 9,
+          "total": -1,
+          "prof": 0
+        }
+      },
+      "spells": {
+        "spell1": {
+          "value": 0,
+          "override": null,
+          "max": 0
+        },
+        "spell2": {
+          "value": 0,
+          "override": null,
+          "max": 0
+        },
+        "spell3": {
+          "value": 0,
+          "override": null,
+          "max": 0
+        },
+        "spell4": {
+          "value": 0,
+          "override": null,
+          "max": 0
+        },
+        "spell5": {
+          "value": 0,
+          "override": null,
+          "max": 0
+        },
+        "spell6": {
+          "value": 0,
+          "override": null,
+          "max": 0
+        },
+        "spell7": {
+          "value": 0,
+          "override": null,
+          "max": 0
+        },
+        "spell8": {
+          "value": 0,
+          "override": null,
+          "max": 0
+        },
+        "spell9": {
+          "value": 0,
+          "override": null,
+          "max": 0
+        },
+        "pact": {
+          "value": 0,
+          "override": null,
+          "max": 0,
+          "level": 0
+        }
+      },
+      "bonuses": {
+        "mwak": {
+          "attack": "",
+          "damage": ""
+        },
+        "rwak": {
+          "attack": "",
+          "damage": ""
+        },
+        "msak": {
+          "attack": "",
+          "damage": ""
+        },
+        "rsak": {
+          "attack": "",
+          "damage": ""
+        },
+        "abilities": {
+          "check": "",
+          "save": "",
+          "skill": ""
+        },
+        "spell": {
+          "dc": ""
+        },
+        "damage": "",
+        "abilityCheck": "",
+        "abilitySave": "",
+        "skillCheck": ""
+      },
+      "resources": {
+        "legact": {
+          "value": 0,
+          "max": 0
+        },
+        "legres": {
+          "value": 0,
+          "max": 0
+        },
+        "lair": {
+          "value": false,
+          "initiative": 20
+        }
+      }
+    },
+    "folder": null,
+    "sort": 100001,
+    "flags": {
+      "dnd5e": {},
+      "monsterMunch": {
+        "url": "https://www.dndbeyond.com/monsters/skeleton",
+        "img": "https://media-waterdeep.cursecdn.com/avatars/67/889/636460852358997961.png",
+        "tokenImg": "https://media-waterdeep.cursecdn.com/avatars/16/471/636376294572614519.jpeg",
+        "spellList": {
+          "class": [],
+          "pact": [],
+          "atwill": [],
+          "innate": [],
+          "edgeCases": []
+        }
+      },
+      "ddbimporter": {
+        "id": 17015,
+        "entityTypeId": 779871897,
+        "creatureGroup": null,
+        "creatureFlags": []
+      }
+    },
+    "img": "https://media-waterdeep.cursecdn.com/avatars/67/889/636460852358997961.png",
+    "token": {
+      "flags": {},
+      "name": "Skeleton",
+      "displayName": 0,
+      "img": "dndbeyond/npc-token-Skeleton.jpeg",
+      "tint": null,
+      "width": 1,
+      "height": 1,
+      "scale": 1,
+      "lockRotation": false,
+      "rotation": 0,
+      "vision": true,
+      "dimSight": 60,
+      "brightSight": 0,
+      "dimLight": 0,
+      "brightLight": 0,
+      "sightAngle": 360,
+      "lightAngle": 360,
+      "lightAlpha": 1,
+      "lightAnimation": {
+        "speed": 5,
+        "intensity": 5
+      },
+      "actorId": "zWcbs3tqLp5ncOOg",
+      "actorLink": false,
+      "disposition": -1,
+      "displayBars": 40,
+      "bar1": {
+        "attribute": "attributes.hp"
+      },
+      "bar2": {},
+      "randomImg": false
+    },
+    "items": [
+      {
+        "_id": "3xlEAKFyaoipnTAh",
+        "name": "Shortbow",
+        "type": "weapon",
+        "data": {
+          "description": {
+            "value": "<p>Proficiency with a shortbow allows you to add your proficiency bonus to the attack roll for any attack you make with it.</p>",
+            "chat": "<p>Proficiency with a shortbow allows you to add your proficiency bonus to the attack roll for any attack you make with it.</p>",
+            "unidentified": "Shortbow"
+          },
+          "source": null,
+          "quantity": 1,
+          "weight": 2,
+          "price": 25,
+          "attuned": false,
+          "attunement": 0,
+          "equipped": true,
+          "rarity": "Common",
+          "identified": true,
+          "activation": {
+            "type": "action",
+            "cost": 1,
+            "condition": ""
+          },
+          "duration": {
+            "value": null,
+            "units": ""
+          },
+          "target": {
+            "value": null,
+            "width": null,
+            "units": "",
+            "type": ""
+          },
+          "range": {
+            "value": 80,
+            "long": 320,
+            "units": "ft."
+          },
+          "uses": {
+            "value": 0,
+            "max": 0,
+            "per": null
+          },
+          "consume": {
+            "type": "",
+            "target": null,
+            "amount": null
+          },
+          "ability": "dex",
+          "actionType": "rwak",
+          "attackBonus": 0,
+          "chatFlavor": "",
+          "critical": null,
+          "damage": {
+            "parts": [["1d6[piercing] + @mod", "piercing"]],
+            "versatile": ""
+          },
+          "formula": "",
+          "save": {
+            "ability": "",
+            "dc": null,
+            "scaling": "spell"
+          },
+          "armor": {
+            "value": 10
+          },
+          "hp": {
+            "value": 0,
+            "max": 0,
+            "dt": null,
+            "conditions": ""
+          },
+          "weaponType": "simpleR",
+          "properties": {
+            "amm": true,
+            "fir": true,
+            "fin": false,
+            "hvy": false,
+            "lgt": false,
+            "lod": false,
+            "rch": false,
+            "rel": false,
+            "spc": false,
+            "thr": false,
+            "two": true,
+            "ver": false,
+            "ret": false,
+            "foc": false,
+            "ada": false,
+            "mgc": false,
+            "sil": false
+          },
+          "proficient": true
+        },
+        "flags": {
+          "ddbimporter": {
+            "dndbeyond": {
+              "type": "Shortbow",
+              "damage": {
+                "parts": []
+              },
+              "classFeatures": [],
+              "filterType": "Weapon",
+              "tags": ["Damage", "Combat"],
+              "sources": []
+            },
+            "id": 0,
+            "entityTypeId": 0,
+            "definitionEntityTypeId": 1782728300,
+            "definitionId": 17,
+            "originalName": "Shortbow",
+            "pack": "world.ddb-vlendir-campaign-1-items",
+            "originalItemName": "Shortbow"
+          },
+          "betterRolls5e": {
+            "quickDamage": {
+              "context": {
+                "0": ""
+              },
+              "value": [true],
+              "altValue": [true],
+              "type": "Array"
+            },
+            "quickVersatile": {
+              "altValue": true,
+              "type": "Boolean",
+              "value": false
+            },
+            "quickCharges": {
+              "value": {
+                "use": true,
+                "resource": true,
+                "quantity": false
+              },
+              "altValue": {
+                "use": true,
+                "resource": true,
+                "quantity": false
+              },
+              "type": "Boolean"
+            },
+            "critRange": {
+              "type": "String",
+              "value": ""
+            },
+            "critDamage": {
+              "type": "String",
+              "value": ""
+            },
+            "quickDesc": {
+              "type": "Boolean",
+              "value": false,
+              "altValue": false
+            },
+            "quickAttack": {
+              "type": "Boolean",
+              "value": true,
+              "altValue": true
+            },
+            "quickSave": {
+              "type": "Boolean",
+              "value": true,
+              "altValue": true
+            },
+            "quickProperties": {
+              "type": "Boolean",
+              "value": true,
+              "altValue": true
+            },
+            "quickTemplate": {
+              "type": "Boolean",
+              "value": true,
+              "altValue": true
+            },
+            "quickOther": {
+              "type": "Boolean",
+              "value": true,
+              "altValue": true,
+              "context": ""
+            },
+            "quickFlavor": {
+              "type": "Boolean",
+              "value": true,
+              "altValue": true
+            },
+            "quickPrompt": {
+              "type": "Boolean",
+              "value": false,
+              "altValue": false
+            }
+          },
+          "magicitems": {
+            "enabled": false
+          }
+        },
+        "img": "icons/weapons/bows/shortbow-arrows-black.webp",
+        "effects": []
+      },
+      {
+        "_id": "502u3LDYmnlUUkKG",
+        "name": "Shortsword",
+        "type": "weapon",
+        "data": {
+          "description": {
+            "value": "<p>Proficiency with a shortsword allows you to add your proficiency bonus to the attack roll for any attack you make with it.</p>",
+            "chat": "<p>Proficiency with a shortsword allows you to add your proficiency bonus to the attack roll for any attack you make with it.</p>",
+            "unidentified": "Shortsword"
+          },
+          "source": null,
+          "quantity": 1,
+          "weight": 2,
+          "price": 10,
+          "attuned": false,
+          "attunement": 0,
+          "equipped": true,
+          "rarity": "Common",
+          "identified": true,
+          "activation": {
+            "type": "action",
+            "cost": 1,
+            "condition": ""
+          },
+          "duration": {
+            "value": null,
+            "units": ""
+          },
+          "target": {
+            "value": null,
+            "width": null,
+            "units": "",
+            "type": ""
+          },
+          "range": {
+            "value": 5,
+            "long": null,
+            "units": "ft."
+          },
+          "uses": {
+            "value": 0,
+            "max": 0,
+            "per": null
+          },
+          "consume": {
+            "type": "",
+            "target": null,
+            "amount": null
+          },
+          "ability": "dex",
+          "actionType": "mwak",
+          "attackBonus": 0,
+          "chatFlavor": "",
+          "critical": null,
+          "damage": {
+            "parts": [["1d6[piercing] + @mod", "piercing"]],
+            "versatile": ""
+          },
+          "formula": "",
+          "save": {
+            "ability": "",
+            "dc": null,
+            "scaling": "spell"
+          },
+          "armor": {
+            "value": 10
+          },
+          "hp": {
+            "value": 0,
+            "max": 0,
+            "dt": null,
+            "conditions": ""
+          },
+          "weaponType": "martialM",
+          "properties": {
+            "amm": false,
+            "fir": false,
+            "fin": true,
+            "hvy": false,
+            "lgt": true,
+            "lod": false,
+            "rch": false,
+            "rel": false,
+            "spc": false,
+            "thr": false,
+            "two": false,
+            "ver": false,
+            "ret": false,
+            "foc": false,
+            "ada": false,
+            "mgc": false,
+            "sil": false
+          },
+          "proficient": true
+        },
+        "flags": {
+          "ddbimporter": {
+            "dndbeyond": {
+              "type": "Shortsword",
+              "damage": {
+                "parts": []
+              },
+              "classFeatures": [],
+              "filterType": "Weapon",
+              "tags": ["Damage", "Combat"],
+              "sources": []
+            },
+            "id": 0,
+            "entityTypeId": 0,
+            "definitionEntityTypeId": 1782728300,
+            "definitionId": 30,
+            "originalName": "Shortsword",
+            "pack": "world.ddb-vlendir-campaign-1-items",
+            "originalItemName": "Shortsword"
+          },
+          "betterRolls5e": {
+            "quickDamage": {
+              "context": {
+                "0": ""
+              },
+              "value": [true],
+              "altValue": [true],
+              "type": "Array"
+            },
+            "quickVersatile": {
+              "altValue": true,
+              "type": "Boolean",
+              "value": false
+            },
+            "quickCharges": {
+              "value": {
+                "use": true,
+                "resource": true,
+                "quantity": false
+              },
+              "altValue": {
+                "use": true,
+                "resource": true,
+                "quantity": false
+              },
+              "type": "Boolean"
+            },
+            "critRange": {
+              "type": "String",
+              "value": ""
+            },
+            "critDamage": {
+              "type": "String",
+              "value": ""
+            },
+            "quickDesc": {
+              "type": "Boolean",
+              "value": false,
+              "altValue": false
+            },
+            "quickAttack": {
+              "type": "Boolean",
+              "value": true,
+              "altValue": true
+            },
+            "quickSave": {
+              "type": "Boolean",
+              "value": true,
+              "altValue": true
+            },
+            "quickProperties": {
+              "type": "Boolean",
+              "value": true,
+              "altValue": true
+            },
+            "quickTemplate": {
+              "type": "Boolean",
+              "value": true,
+              "altValue": true
+            },
+            "quickOther": {
+              "type": "Boolean",
+              "value": true,
+              "altValue": true,
+              "context": ""
+            },
+            "quickFlavor": {
+              "type": "Boolean",
+              "value": true,
+              "altValue": true
+            },
+            "quickPrompt": {
+              "type": "Boolean",
+              "value": false,
+              "altValue": false
+            }
+          },
+          "magicitems": {
+            "enabled": false
+          }
+        },
+        "img": "icons/weapons/swords/shortsword-guard-gold.webp",
+        "effects": []
+      }
+    ],
+    "effects": []
+  },
+  "item": {
+    "_id": "502u3LDYmnlUUkKG",
+    "name": "Shortsword",
+    "type": "weapon",
+    "data": {
+      "description": {
+        "value": "<p>Proficiency with a shortsword allows you to add your proficiency bonus to the attack roll for any attack you make with it.</p>",
+        "chat": "<p>Proficiency with a shortsword allows you to add your proficiency bonus to the attack roll for any attack you make with it.</p>",
+        "unidentified": "Shortsword"
+      },
+      "source": null,
+      "quantity": 1,
+      "weight": 2,
+      "price": 10,
+      "attuned": false,
+      "attunement": 0,
+      "equipped": true,
+      "rarity": "Common",
+      "identified": true,
+      "activation": {
+        "type": "action",
+        "cost": 1,
+        "condition": ""
+      },
+      "duration": {
+        "value": null,
+        "units": ""
+      },
+      "target": {
+        "value": null,
+        "width": null,
+        "units": "",
+        "type": ""
+      },
+      "range": {
+        "value": 5,
+        "long": null,
+        "units": "ft."
+      },
+      "uses": {
+        "value": 0,
+        "max": 0,
+        "per": null
+      },
+      "consume": {
+        "type": "",
+        "target": null,
+        "amount": null
+      },
+      "ability": "dex",
+      "actionType": "mwak",
+      "attackBonus": 0,
+      "chatFlavor": "",
+      "critical": null,
+      "damage": {
+        "parts": [["1d6[piercing] + @mod", "piercing"]],
+        "versatile": ""
+      },
+      "formula": "",
+      "save": {
+        "ability": "",
+        "dc": null,
+        "scaling": "spell"
+      },
+      "armor": {
+        "value": 10
+      },
+      "hp": {
+        "value": 0,
+        "max": 0,
+        "dt": null,
+        "conditions": ""
+      },
+      "weaponType": "martialM",
+      "properties": {
+        "amm": false,
+        "fir": false,
+        "fin": true,
+        "hvy": false,
+        "lgt": true,
+        "lod": false,
+        "rch": false,
+        "rel": false,
+        "spc": false,
+        "thr": false,
+        "two": false,
+        "ver": false,
+        "ret": false,
+        "foc": false,
+        "ada": false,
+        "mgc": false,
+        "sil": false
+      },
+      "proficient": true
+    },
+    "flags": {
+      "ddbimporter": {
+        "dndbeyond": {
+          "type": "Shortsword",
+          "damage": {
+            "parts": []
+          },
+          "classFeatures": [],
+          "filterType": "Weapon",
+          "tags": ["Damage", "Combat"],
+          "sources": []
+        },
+        "id": 0,
+        "entityTypeId": 0,
+        "definitionEntityTypeId": 1782728300,
+        "definitionId": 30,
+        "originalName": "Shortsword",
+        "pack": "world.ddb-vlendir-campaign-1-items",
+        "originalItemName": "Shortsword"
+      },
+      "betterRolls5e": {
+        "quickDamage": {
+          "context": {
+            "0": ""
+          },
+          "value": [true],
+          "altValue": [true],
+          "type": "Array"
+        },
+        "quickVersatile": {
+          "altValue": true,
+          "type": "Boolean",
+          "value": false
+        },
+        "quickCharges": {
+          "value": {
+            "use": true,
+            "resource": true,
+            "quantity": false
+          },
+          "altValue": {
+            "use": true,
+            "resource": true,
+            "quantity": false
+          },
+          "type": "Boolean"
+        },
+        "critRange": {
+          "type": "String",
+          "value": ""
+        },
+        "critDamage": {
+          "type": "String",
+          "value": ""
+        },
+        "quickDesc": {
+          "type": "Boolean",
+          "value": false,
+          "altValue": false
+        },
+        "quickAttack": {
+          "type": "Boolean",
+          "value": true,
+          "altValue": true
+        },
+        "quickSave": {
+          "type": "Boolean",
+          "value": true,
+          "altValue": true
+        },
+        "quickProperties": {
+          "type": "Boolean",
+          "value": true,
+          "altValue": true
+        },
+        "quickTemplate": {
+          "type": "Boolean",
+          "value": true,
+          "altValue": true
+        },
+        "quickOther": {
+          "type": "Boolean",
+          "value": true,
+          "altValue": true,
+          "context": ""
+        },
+        "quickFlavor": {
+          "type": "Boolean",
+          "value": true,
+          "altValue": true
+        },
+        "quickPrompt": {
+          "type": "Boolean",
+          "value": false,
+          "altValue": false
+        }
+      },
+      "magicitems": {
+        "enabled": false
+      }
+    },
+    "img": "icons/weapons/swords/shortsword-guard-gold.webp",
+    "effects": []
+  },
+  "itemId": "502u3LDYmnlUUkKG",
+  "uuid": "Actor.zWcbs3tqLp5ncOOg.OwnedItem.502u3LDYmnlUUkKG",
+  "tokenId": "7f3BCJ5j86pLyoSF",
+  "speaker": {
+    "actor": "zWcbs3tqLp5ncOOg",
+    "token": "7f3BCJ5j86pLyoSF",
+    "alias": "Tall Skeleton(4)",
+    "scene": "FaIR5gz8OfmKltet"
+  },
+  "targets": {},
+  "saves": {},
+  "superSavers": {},
+  "failedSaves": {},
+  "hitTargets": {},
+  "isCritical": false,
+  "isFumble": false,
+  "currentState": 14,
+  "itemLevel": 0,
+  "_id": "c9g9edqkv9",
+  "displayId": "c9g9edqkv9",
+  "itemCardData": {
+    "user": "4XzLH56iD4mk8Rt7",
+    "content": "<div class=\"dnd5e red-full chat-card\" data-actor-id=\"zWcbs3tqLp5ncOOg\" data-item-id=\"502u3LDYmnlUUkKG\" data-token-id=\"FaIR5gz8OfmKltet.7f3BCJ5j86pLyoSF\" data-critical=\"false\">\n\t\t<div class=\"dnd5e chat-card item-card\">\n\t<header class=\"card-header flexrow red-header\">\n\t\t<img src=\"icons/weapons/swords/shortsword-guard-gold.webp\" title=\"Shortsword\" width=\"36\" height=\"36\">\n\t\t<h3 class=\"item-name\">Shortsword</h3>\n\t</header>\n<div>\n\t\t<div class=\"dice-roll red-dual\" data-id=\"2\" data-rollstate=\"\" data-type=\"attack\">\n    <div class=\"br5e-roll-label\">Attack</div>\n    <div class=\"dice-result\">\n\t\t<div class=\"dice-formula dice-tooltip\">1d20 + 2 + 2</div>\n\t\t<div class=\"dice-row red-rolls\">\n\t\t\t<div class=\"tooltip dual-left dice-row-item\"><div class=\"dice-tooltip\">\n    <section class=\"tooltip-part\">\n        <div class=\"dice\">\n            <header class=\"part-header flexrow\">\n                <span class=\"part-formula\">1d20</span>\n                \n                <span class=\"part-total\">14</span>\n            </header>\n            <ol class=\"dice-rolls\">\n                <li class=\"roll die d20\">14</li>\n            </ol>\n        </div>\n    </section>\n</div>\n</div>\n\t\t</div>\n\t\t<div class=\"dice-row red-rolls\">\n\t\t\t<div class=\"tooltip dice-row-item\"><div class=\"dice-tooltip\">\n</div>\n</div>\n\t\t</div>\n\t\t<div class=\"dice-row red-totals\">\n\t\t\t<h4 class=\"dice-total dice-row-item red-base-die \">\n\t\t\t\t18<span class=\"die-icon \">14</span>\n\t\t\t</h4>\n\t\t</div>\n    </div>\n</div>\n\t\t<div class=\"card-buttons red-card-buttons\" data-id=\"3\">\n    <button data-action=\"damage\" data-group=\"3\" disabled=\"\">\n        Damage\n    </button>\n</div>\n\n\t<footer class=\"card-footer\">\n        <span>Martial Melee</span>\n        <span>5 undefined</span>\n        <span>2 lbs.</span>\n        <span>Finesse</span>\n        <span>Light</span>\n    </footer>\n</div></div></div>",
+    "speaker": {
+      "actor": "zWcbs3tqLp5ncOOg",
+      "token": "7f3BCJ5j86pLyoSF",
+      "alias": "Tall Skeleton(4)",
+      "scene": "FaIR5gz8OfmKltet"
+    },
+    "flags": {
+      "betterrolls5e": {
+        "version": "1.4.11",
+        "actorId": "zWcbs3tqLp5ncOOg",
+        "itemId": "502u3LDYmnlUUkKG",
+        "tokenId": "FaIR5gz8OfmKltet.7f3BCJ5j86pLyoSF",
+        "isCrit": false,
+        "entries": [
+          {
+            "type": "header",
+            "img": "icons/weapons/swords/shortsword-guard-gold.webp",
+            "title": "Shortsword",
+            "id": "1"
+          },
+          {
+            "type": "multiroll",
+            "title": "Attack",
+            "critThreshold": 20,
+            "rollState": null,
+            "rollType": "attack",
+            "formula": "1d20 + 2 + 2",
+            "entries": [
+              {
+                "roll": {
+                  "class": "Roll",
+                  "dice": [],
+                  "formula": "1d20",
+                  "terms": [
+                    {
+                      "class": "Die",
+                      "number": 1,
+                      "faces": 20,
+                      "modifiers": [],
+                      "options": {},
+                      "results": [
+                        {
+                          "result": 14,
+                          "active": true,
+                          "indexThrow": 0
+                        }
+                      ]
+                    }
+                  ],
+                  "results": [14],
+                  "total": 14
+                },
+                "total": 18,
+                "critType": null,
+                "isCrit": false
+              }
+            ],
+            "isCrit": false,
+            "bonus": {
+              "class": "Roll",
+              "dice": [],
+              "formula": "2 + 2",
+              "terms": [2, "+", 2],
+              "results": [2, "+", 2],
+              "total": 4
+            },
+            "id": "2"
+          },
+          {
+            "id": "3",
+            "type": "damage-group",
+            "attackId": "2",
+            "isCrit": false,
+            "prompt": true,
+            "entries": [
+              {
+                "type": "damage",
+                "damageIndex": 0,
+                "damageType": "piercing",
+                "context": "",
+                "extraCritDice": 0,
+                "baseRoll": {
+                  "class": "Roll",
+                  "dice": [],
+                  "formula": "1d6[piercing] + 2",
+                  "terms": [
+                    {
+                      "class": "Die",
+                      "number": 1,
+                      "faces": 6,
+                      "modifiers": [],
+                      "options": {
+                        "flavor": "piercing"
+                      },
+                      "results": [
+                        {
+                          "result": 5,
+                          "active": true
+                        }
+                      ]
+                    },
+                    "+",
+                    2
+                  ],
+                  "results": [5, "+", 2],
+                  "total": 7
+                },
+                "critRoll": null,
+                "id": "4",
+                "group": "3"
+              }
+            ]
+          }
+        ],
+        "properties": [
+          "Martial Melee",
+          "5 undefined",
+          "2 lbs.",
+          "Finesse",
+          "Light"
+        ],
+        "params": {
+          "title": "",
+          "forceCrit": false,
+          "preset": 0,
+          "properties": true,
+          "slotLevel": null,
+          "useCharge": {
+            "use": true,
+            "resource": true,
+            "quantity": false
+          },
+          "useTemplate": true,
+          "adv": 0,
+          "disadv": 0,
+          "consume": true,
+          "rollState": null
+        },
+        "fields": [
+          ["header"],
+          ["attack"],
+          [
+            "damage",
+            {
+              "index": 0,
+              "versatile": false
+            }
+          ],
+          ["ammo"]
+        ]
+      },
+      "dnd5e.roll.type": "attack",
+      "dnd5e.roll.itemId": "502u3LDYmnlUUkKG",
+      "core.canPopout": true,
+      "midi-qol": {
+        "itemId": "502u3LDYmnlUUkKG"
+      }
+    },
+    "type": 5,
+    "rollMode": "roll",
+    "blind": null,
+    "roll": "{\"class\":\"Roll\",\"dice\":[],\"formula\":\"0\",\"terms\":[0],\"results\":[0],\"total\":0}"
+  },
+  "advantage": false,
+  "disadvantage": false,
+  "templateId": null,
+  "saveRequests": {},
+  "saveTimeouts": {},
+  "placeTemlateHookId": null,
+  "damageDetail": [
+    {
+      "type": "piercing",
+      "damage": 7
+    }
+  ],
+  "otherDamageDetail": [],
+  "hideTags": [],
+  "displayHookId": null,
+  "onUseCalled": false,
+  "attackTotal": 18,
+  "attackRoll": {
+    "class": "Roll",
+    "dice": [],
+    "formula": "18",
+    "terms": [18],
+    "results": [18],
+    "total": 18
+  },
+  "damageTotal": 7,
+  "_hasDAE": false,
+  "itemCardId": "53FTE8DQqBuV9QMQ",
+  "effectsAlreadyExpired": ["1Attack", "1Action", "1Action"],
+  "damageList": [],
+  "applicationTargets": {}
+}
