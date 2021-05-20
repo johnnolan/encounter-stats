@@ -88,6 +88,8 @@ describe("On an attack made", () => {
         actor: {
           id: "fu5tuPUTYIqlFJLt",
           type: "character",
+          hp: 35,
+          max: 67,
         },
         advantage: false,
         attackRoll: {
@@ -111,6 +113,8 @@ describe("On an attack made", () => {
         ],
         damageTotal: 44,
         disadvantage: false,
+        isCritical: true,
+        isFumble: false,
         item: {
           id: "LcCBgAO3XtvkZEgt",
           name: "Flame Tongue Greatsword",

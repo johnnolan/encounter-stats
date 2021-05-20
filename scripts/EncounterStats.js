@@ -54,8 +54,6 @@ export default class EncounterStats {
     this._saveToLocalStorage();
   }
 
-
-  // Foreach through and pull only data required
   _cleanseCombatants(combatants) {
     const newCombatants = combatants.map((combatant) => ({
       name: combatant.name,
@@ -82,6 +80,8 @@ export default class EncounterStats {
       uuid: data.uuid,
       tokenId: data.tokenId,
       advantage: data.advantage,
+      isCritical: data.isCritical,
+      isFumble: data.isFumble,
       disadvantage: data.disadvantage,
       damageDetail: data.damageDetail,
       attackTotal: data.attackTotal,
@@ -90,6 +90,8 @@ export default class EncounterStats {
       actor: {
         id: data.actor._id,
         type: data.actor.type,
+        hp: data.actor.data.attributes.hp.value,
+        max: data.actor.data.attributes.hp.max,
       },
       item: {
           id: data.item._id,
