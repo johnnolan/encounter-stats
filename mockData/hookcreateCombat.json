@@ -118,7 +118,12 @@
                 "chatFlavor": "",
                 "critical": null,
                 "damage": {
-                  "parts": [["1d6[piercing] + @mod", "piercing"]],
+                  "parts": [
+                    [
+                      "1d6[piercing] + @mod",
+                      "piercing"
+                    ]
+                  ],
                   "versatile": ""
                 },
                 "formula": "",
@@ -167,7 +172,10 @@
                     },
                     "classFeatures": [],
                     "filterType": "Weapon",
-                    "tags": ["Damage", "Combat"],
+                    "tags": [
+                      "Damage",
+                      "Combat"
+                    ],
                     "sources": []
                   },
                   "id": 0,
@@ -266,7 +274,12 @@
                 "chatFlavor": "",
                 "critical": null,
                 "damage": {
-                  "parts": [["1d6[piercing] + @mod", "piercing"]],
+                  "parts": [
+                    [
+                      "1d6[piercing] + @mod",
+                      "piercing"
+                    ]
+                  ],
                   "versatile": ""
                 },
                 "formula": "",
@@ -315,7 +328,10 @@
                     },
                     "classFeatures": [],
                     "filterType": "Weapon",
-                    "tags": ["Damage", "Combat"],
+                    "tags": [
+                      "Damage",
+                      "Combat"
+                    ],
                     "sources": []
                   },
                   "id": 0,
@@ -331,8 +347,12 @@
                     "context": {
                       "0": ""
                     },
-                    "value": [true],
-                    "altValue": [true],
+                    "value": [
+                      true
+                    ],
+                    "altValue": [
+                      true
+                    ],
                     "type": "Array"
                   },
                   "quickVersatile": {
@@ -502,7 +522,7 @@
               "min": 0
             },
             "hp": {
-              "value": 0,
+              "value": 8,
               "min": 0,
               "max": 9,
               "temp": 0,
@@ -572,7 +592,9 @@
           "traits": {
             "size": "med",
             "di": {
-              "value": ["poison"],
+              "value": [
+                "poison"
+              ],
               "custom": ""
             },
             "dr": {
@@ -580,11 +602,16 @@
               "custom": ""
             },
             "dv": {
-              "value": ["bludgeoning"],
+              "value": [
+                "bludgeoning"
+              ],
               "custom": ""
             },
             "ci": {
-              "value": ["exhaustion", "poisoned"],
+              "value": [
+                "exhaustion",
+                "poisoned"
+              ],
               "custom": ""
             },
             "languages": {
@@ -975,7 +1002,12 @@
               "chatFlavor": "",
               "critical": null,
               "damage": {
-                "parts": [["1d6[piercing] + @mod", "piercing"]],
+                "parts": [
+                  [
+                    "1d6[piercing] + @mod",
+                    "piercing"
+                  ]
+                ],
                 "versatile": ""
               },
               "formula": "",
@@ -1024,7 +1056,10 @@
                   },
                   "classFeatures": [],
                   "filterType": "Weapon",
-                  "tags": ["Damage", "Combat"],
+                  "tags": [
+                    "Damage",
+                    "Combat"
+                  ],
                   "sources": []
                 },
                 "id": 0,
@@ -1123,7 +1158,12 @@
               "chatFlavor": "",
               "critical": null,
               "damage": {
-                "parts": [["1d6[piercing] + @mod", "piercing"]],
+                "parts": [
+                  [
+                    "1d6[piercing] + @mod",
+                    "piercing"
+                  ]
+                ],
                 "versatile": ""
               },
               "formula": "",
@@ -1172,7 +1212,10 @@
                   },
                   "classFeatures": [],
                   "filterType": "Weapon",
-                  "tags": ["Damage", "Combat"],
+                  "tags": [
+                    "Damage",
+                    "Combat"
+                  ],
                   "sources": []
                 },
                 "id": 0,
@@ -1188,8 +1231,12 @@
                   "context": {
                     "0": ""
                   },
-                  "value": [true],
-                  "altValue": [true],
+                  "value": [
+                    true
+                  ],
+                  "altValue": [
+                    true
+                  ],
                   "type": "Array"
                 },
                 "quickVersatile": {
@@ -1390,8 +1437,14 @@
                 "critical": null,
                 "damage": {
                   "parts": [
-                    ["1d4[bludgeoning] + @mod", "bludgeoning"],
-                    ["2d8[necrotic]", "necrotic"]
+                    [
+                      "1d4[bludgeoning] + @mod",
+                      "bludgeoning"
+                    ],
+                    [
+                      "2d8[necrotic]",
+                      "necrotic"
+                    ]
                   ],
                   "versatile": ""
                 },
@@ -1489,7 +1542,12 @@
                 "chatFlavor": "",
                 "critical": null,
                 "damage": {
-                  "parts": [["4d10[necrotic]", "necrotic"]],
+                  "parts": [
+                    [
+                      "4d10[necrotic]",
+                      "necrotic"
+                    ]
+                  ],
                   "versatile": ""
                 },
                 "formula": "",
@@ -1551,8 +1609,12 @@
                   },
                   "quickDamage": {
                     "type": "Array",
-                    "value": [true],
-                    "altValue": [true],
+                    "value": [
+                      true
+                    ],
+                    "altValue": [
+                      true
+                    ],
                     "context": {
                       "0": ""
                     }
@@ -1829,7 +1891,12 @@
                 "chatFlavor": "",
                 "critical": null,
                 "damage": {
-                  "parts": [["3d10[psychic]", "psychic"]],
+                  "parts": [
+                    [
+                      "3d10[psychic]",
+                      "psychic"
+                    ]
+                  ],
                   "versatile": ""
                 },
                 "formula": "",
@@ -1875,8 +1942,12 @@
                   },
                   "quickDamage": {
                     "type": "Array",
-                    "value": [true],
-                    "altValue": [true],
+                    "value": [
+                      true
+                    ],
+                    "altValue": [
+                      true
+                    ],
                     "context": {
                       "0": ""
                     }
@@ -2194,11 +2265,18 @@
           "traits": {
             "size": "med",
             "di": {
-              "value": ["lightning", "poison"],
+              "value": [
+                "lightning",
+                "poison"
+              ],
               "custom": ""
             },
             "dr": {
-              "value": ["cold", "fire", "necrotic"],
+              "value": [
+                "cold",
+                "fire",
+                "necrotic"
+              ],
               "custom": "Bludgeoning, Piercing, and Slashing from Nonmagical Attacks"
             },
             "dv": {
@@ -2206,11 +2284,17 @@
               "custom": ""
             },
             "ci": {
-              "value": ["charmed", "frightened", "poisoned"],
+              "value": [
+                "charmed",
+                "frightened",
+                "poisoned"
+              ],
               "custom": ""
             },
             "languages": {
-              "value": ["abyssal"],
+              "value": [
+                "abyssal"
+              ],
               "custom": ", the languages it knew in life"
             },
             "senses": "Darkvision 120 ft."
@@ -2598,8 +2682,14 @@
               "critical": null,
               "damage": {
                 "parts": [
-                  ["1d4[bludgeoning] + @mod", "bludgeoning"],
-                  ["2d8[necrotic]", "necrotic"]
+                  [
+                    "1d4[bludgeoning] + @mod",
+                    "bludgeoning"
+                  ],
+                  [
+                    "2d8[necrotic]",
+                    "necrotic"
+                  ]
                 ],
                 "versatile": ""
               },
@@ -2697,7 +2787,12 @@
               "chatFlavor": "",
               "critical": null,
               "damage": {
-                "parts": [["4d10[necrotic]", "necrotic"]],
+                "parts": [
+                  [
+                    "4d10[necrotic]",
+                    "necrotic"
+                  ]
+                ],
                 "versatile": ""
               },
               "formula": "",
@@ -2759,8 +2854,12 @@
                 },
                 "quickDamage": {
                   "type": "Array",
-                  "value": [true],
-                  "altValue": [true],
+                  "value": [
+                    true
+                  ],
+                  "altValue": [
+                    true
+                  ],
                   "context": {
                     "0": ""
                   }
@@ -3037,7 +3136,12 @@
               "chatFlavor": "",
               "critical": null,
               "damage": {
-                "parts": [["3d10[psychic]", "psychic"]],
+                "parts": [
+                  [
+                    "3d10[psychic]",
+                    "psychic"
+                  ]
+                ],
                 "versatile": ""
               },
               "formula": "",
@@ -3083,8 +3187,12 @@
                 },
                 "quickDamage": {
                   "type": "Array",
-                  "value": [true],
-                  "altValue": [true],
+                  "value": [
+                    true
+                  ],
+                  "altValue": [
+                    true
+                  ],
                   "context": {
                     "0": ""
                   }
@@ -3481,15 +3589,27 @@
               "custom": ""
             },
             "languages": {
-              "value": ["common", "dwarvish", "deep"],
+              "value": [
+                "common",
+                "dwarvish",
+                "deep"
+              ],
               "custom": "Orc"
             },
             "weaponProf": {
-              "value": ["sim", "mar"],
+              "value": [
+                "sim",
+                "mar"
+              ],
               "custom": "Greatsword; Trident"
             },
             "armorProf": {
-              "value": ["lgt", "med", "hvy", "shl"],
+              "value": [
+                "lgt",
+                "med",
+                "hvy",
+                "shl"
+              ],
               "custom": ""
             },
             "toolProf": {
@@ -4656,7 +4776,10 @@
                   "prc",
                   "sur"
                 ],
-                "value": ["ath", "prc"]
+                "value": [
+                  "ath",
+                  "prc"
+                ]
               },
               "spellcasting": ""
             },
@@ -6832,7 +6955,12 @@
               "chatFlavor": "",
               "critical": null,
               "damage": {
-                "parts": [["1d8", ""]],
+                "parts": [
+                  [
+                    "1d8",
+                    ""
+                  ]
+                ],
                 "versatile": ""
               },
               "formula": "",
@@ -6969,8 +7097,12 @@
                 },
                 "quickDamage": {
                   "type": "Array",
-                  "value": [true],
-                  "altValue": [true],
+                  "value": [
+                    true
+                  ],
+                  "altValue": [
+                    true
+                  ],
                   "context": []
                 },
                 "quickProperties": {
@@ -7406,7 +7538,10 @@
               "critical": null,
               "damage": {
                 "parts": [
-                  ["1d10[healing] + @classes.fighter.levels", "healing"]
+                  [
+                    "1d10[healing] + @classes.fighter.levels",
+                    "healing"
+                  ]
                 ],
                 "versatile": "",
                 "value": ""
@@ -7467,8 +7602,12 @@
                 },
                 "quickDamage": {
                   "type": "Array",
-                  "value": [true],
-                  "altValue": [true],
+                  "value": [
+                    true
+                  ],
+                  "altValue": [
+                    true
+                  ],
                   "context": []
                 },
                 "quickProperties": {
@@ -7570,7 +7709,12 @@
               "chatFlavor": "",
               "critical": null,
               "damage": {
-                "parts": [["1 + @mod", "bludgeoning"]],
+                "parts": [
+                  [
+                    "1 + @mod",
+                    "bludgeoning"
+                  ]
+                ],
                 "versatile": ""
               },
               "formula": "",
@@ -7627,8 +7771,12 @@
                 },
                 "quickDamage": {
                   "type": "Array",
-                  "value": [true],
-                  "altValue": [true],
+                  "value": [
+                    true
+                  ],
+                  "altValue": [
+                    true
+                  ],
                   "context": []
                 },
                 "quickVersatile": {
@@ -7774,7 +7922,10 @@
                   "avatarUrl": "https://www.dndbeyond.com/avatars/18/895/636381754110020421.jpeg",
                   "largeAvatarUrl": "https://www.dndbeyond.com/avatars/7/120/636284708068284913.jpeg",
                   "filterType": "Wondrous item",
-                  "tags": ["Utility", "Container"],
+                  "tags": [
+                    "Utility",
+                    "Container"
+                  ],
                   "sources": [
                     {
                       "sourceId": 1,
@@ -7938,8 +8089,14 @@
               "critical": null,
               "damage": {
                 "parts": [
-                  ["2d6r<=2[slashing] + @mod", "slashing"],
-                  ["2d6[fire]", "fire"]
+                  [
+                    "2d6r<=2[slashing] + @mod",
+                    "slashing"
+                  ],
+                  [
+                    "2d6[fire]",
+                    "fire"
+                  ]
                 ],
                 "versatile": ""
               },
@@ -7991,11 +8148,16 @@
                   "damage": {
                     "parts": []
                   },
-                  "classFeatures": ["greatWeaponFighting"],
+                  "classFeatures": [
+                    "greatWeaponFighting"
+                  ],
                   "avatarUrl": "https://www.dndbeyond.com/avatars/9249/545/637203446029961018.jpeg",
                   "largeAvatarUrl": "https://www.dndbeyond.com/avatars/9249/546/637203446030927798.jpeg",
                   "filterType": "Weapon",
-                  "tags": ["Damage", "Combat"],
+                  "tags": [
+                    "Damage",
+                    "Combat"
+                  ],
                   "sources": [
                     {
                       "sourceId": 1,
@@ -8042,8 +8204,14 @@
                 },
                 "quickDamage": {
                   "type": "Array",
-                  "value": [true, true],
-                  "altValue": [true, true],
+                  "value": [
+                    true,
+                    true
+                  ],
+                  "altValue": [
+                    true,
+                    true
+                  ],
                   "context": {
                     "0": "",
                     "1": "While Flaming"
@@ -8194,7 +8362,12 @@
               "chatFlavor": "",
               "critical": null,
               "damage": {
-                "parts": [["4d4 + 4", "healing"]],
+                "parts": [
+                  [
+                    "4d4 + 4",
+                    "healing"
+                  ]
+                ],
                 "versatile": "",
                 "value": ""
               },
@@ -8215,7 +8388,10 @@
                 "dndbeyond": {
                   "type": "Potion",
                   "filterType": "Potion",
-                  "tags": ["Healing", "Consumable"],
+                  "tags": [
+                    "Healing",
+                    "Consumable"
+                  ],
                   "sources": [
                     {
                       "sourceId": 1,
@@ -8228,7 +8404,9 @@
                       "sourceType": 1
                     }
                   ],
-                  "alternativeNames": ["Potion of Greater Healing"]
+                  "alternativeNames": [
+                    "Potion of Greater Healing"
+                  ]
                 },
                 "id": 507685659,
                 "entityTypeId": 1439493548,
@@ -8262,8 +8440,12 @@
                 },
                 "quickDamage": {
                   "type": "Array",
-                  "value": [true],
-                  "altValue": [true],
+                  "value": [
+                    true
+                  ],
+                  "altValue": [
+                    true
+                  ],
                   "context": []
                 },
                 "quickProperties": {
@@ -8420,7 +8602,9 @@
                 "dndbeyond": {
                   "type": "Wondrous item",
                   "filterType": "Wondrous item",
-                  "tags": ["Combat"],
+                  "tags": [
+                    "Combat"
+                  ],
                   "sources": [
                     {
                       "sourceId": 27,
@@ -8804,7 +8988,10 @@
                   "avatarUrl": "https://www.dndbeyond.com/avatars/16870/645/637532285821756311.jpeg",
                   "largeAvatarUrl": "https://www.dndbeyond.com/avatars/16870/646/637532285824002355.jpeg",
                   "filterType": "Armor",
-                  "tags": ["Buff", "Sentient"],
+                  "tags": [
+                    "Buff",
+                    "Sentient"
+                  ],
                   "sources": [],
                   "pictureUrl": "dndbeyond/item-large-Dragonkin-Scale-Armour.jpeg"
                 },
@@ -9018,7 +9205,11 @@
                 "dndbeyond": {
                   "type": "Ring",
                   "filterType": "Ring",
-                  "tags": ["Buff", "Movement", "Jewelry"],
+                  "tags": [
+                    "Buff",
+                    "Movement",
+                    "Jewelry"
+                  ],
                   "sources": []
                 },
                 "id": 515138424,
@@ -9600,7 +9791,9 @@
                 "dndbeyond": {
                   "type": "Shield",
                   "filterType": "Armor",
-                  "tags": ["Warding"],
+                  "tags": [
+                    "Warding"
+                  ],
                   "sources": []
                 },
                 "id": 467860170,
@@ -9760,7 +9953,12 @@
               "chatFlavor": "",
               "critical": null,
               "damage": {
-                "parts": [["1d6[slashing] + @mod", "slashing"]],
+                "parts": [
+                  [
+                    "1d6[slashing] + @mod",
+                    "slashing"
+                  ]
+                ],
                 "versatile": ""
               },
               "formula": "",
@@ -9808,9 +10006,14 @@
                   "damage": {
                     "parts": []
                   },
-                  "classFeatures": ["greatWeaponFighting"],
+                  "classFeatures": [
+                    "greatWeaponFighting"
+                  ],
                   "filterType": "Weapon",
-                  "tags": ["Damage", "Combat"],
+                  "tags": [
+                    "Damage",
+                    "Combat"
+                  ],
                   "sources": []
                 },
                 "id": 451428901,
@@ -9962,7 +10165,12 @@
               "chatFlavor": "",
               "critical": null,
               "damage": {
-                "parts": [["1d6[slashing] + @mod", "slashing"]],
+                "parts": [
+                  [
+                    "1d6[slashing] + @mod",
+                    "slashing"
+                  ]
+                ],
                 "versatile": ""
               },
               "formula": "",
@@ -10010,9 +10218,14 @@
                   "damage": {
                     "parts": []
                   },
-                  "classFeatures": ["greatWeaponFighting"],
+                  "classFeatures": [
+                    "greatWeaponFighting"
+                  ],
                   "filterType": "Weapon",
-                  "tags": ["Damage", "Combat"],
+                  "tags": [
+                    "Damage",
+                    "Combat"
+                  ],
                   "sources": []
                 },
                 "id": 451428903,
@@ -10164,7 +10377,12 @@
               "chatFlavor": "",
               "critical": null,
               "damage": {
-                "parts": [["1d6[piercing] + @mod", "piercing"]],
+                "parts": [
+                  [
+                    "1d6[piercing] + @mod",
+                    "piercing"
+                  ]
+                ],
                 "versatile": ""
               },
               "formula": "",
@@ -10212,9 +10430,14 @@
                   "damage": {
                     "parts": []
                   },
-                  "classFeatures": ["greatWeaponFighting"],
+                  "classFeatures": [
+                    "greatWeaponFighting"
+                  ],
                   "filterType": "Weapon",
-                  "tags": ["Damage", "Combat"],
+                  "tags": [
+                    "Damage",
+                    "Combat"
+                  ],
                   "sources": []
                 },
                 "id": 492861269,
@@ -10366,7 +10589,12 @@
               "chatFlavor": "",
               "critical": null,
               "damage": {
-                "parts": [["2d6r<=2[slashing] + @mod", "slashing"]],
+                "parts": [
+                  [
+                    "2d6r<=2[slashing] + @mod",
+                    "slashing"
+                  ]
+                ],
                 "versatile": ""
               },
               "formula": "",
@@ -10414,9 +10642,14 @@
                   "damage": {
                     "parts": []
                   },
-                  "classFeatures": ["greatWeaponFighting"],
+                  "classFeatures": [
+                    "greatWeaponFighting"
+                  ],
                   "filterType": "Weapon",
-                  "tags": ["Damage", "Combat"],
+                  "tags": [
+                    "Damage",
+                    "Combat"
+                  ],
                   "sources": []
                 },
                 "id": 482972688,
@@ -10568,7 +10801,12 @@
               "chatFlavor": "",
               "critical": null,
               "damage": {
-                "parts": [["1d6[piercing] + @mod", "piercing"]],
+                "parts": [
+                  [
+                    "1d6[piercing] + @mod",
+                    "piercing"
+                  ]
+                ],
                 "versatile": "1d8r<=2[piercing] + @mod"
               },
               "formula": "",
@@ -10616,9 +10854,14 @@
                   "damage": {
                     "parts": []
                   },
-                  "classFeatures": ["greatWeaponFighting"],
+                  "classFeatures": [
+                    "greatWeaponFighting"
+                  ],
                   "filterType": "Weapon",
-                  "tags": ["Damage", "Combat"],
+                  "tags": [
+                    "Damage",
+                    "Combat"
+                  ],
                   "sources": []
                 },
                 "id": 451428899,
@@ -10653,8 +10896,12 @@
                 },
                 "quickDamage": {
                   "type": "Array",
-                  "value": [true],
-                  "altValue": [true],
+                  "value": [
+                    true
+                  ],
+                  "altValue": [
+                    true
+                  ],
                   "context": {
                     "0": ""
                   }
@@ -10748,7 +10995,9 @@
               "ddbimporter": {
                 "dndbeyond": {
                   "type": "Adventuring Gear",
-                  "tags": ["Container"],
+                  "tags": [
+                    "Container"
+                  ],
                   "sources": []
                 },
                 "id": 451428904,
@@ -10789,7 +11038,9 @@
               "ddbimporter": {
                 "dndbeyond": {
                   "type": "Adventuring Gear",
-                  "tags": ["Utility"],
+                  "tags": [
+                    "Utility"
+                  ],
                   "sources": []
                 },
                 "id": 451428905,
@@ -10830,7 +11081,10 @@
               "ddbimporter": {
                 "dndbeyond": {
                   "type": "Adventuring Gear",
-                  "tags": ["Social", "Outerwear"],
+                  "tags": [
+                    "Social",
+                    "Outerwear"
+                  ],
                   "sources": []
                 },
                 "id": 451428912,
@@ -10871,7 +11125,10 @@
               "ddbimporter": {
                 "dndbeyond": {
                   "type": "Adventuring Gear",
-                  "tags": ["Social", "Utility"],
+                  "tags": [
+                    "Social",
+                    "Utility"
+                  ],
                   "sources": []
                 },
                 "id": 451428906,
@@ -10959,7 +11216,11 @@
               "ddbimporter": {
                 "dndbeyond": {
                   "type": "Adventuring Gear",
-                  "tags": ["Social", "Utility", "Consumable"],
+                  "tags": [
+                    "Social",
+                    "Utility",
+                    "Consumable"
+                  ],
                   "sources": []
                 },
                 "id": 451428909,
@@ -11070,7 +11331,10 @@
               "ddbimporter": {
                 "dndbeyond": {
                   "type": "Adventuring Gear",
-                  "tags": ["Utility", "Exploration"],
+                  "tags": [
+                    "Utility",
+                    "Exploration"
+                  ],
                   "sources": []
                 },
                 "id": 451428911,
@@ -11111,7 +11375,11 @@
               "ddbimporter": {
                 "dndbeyond": {
                   "type": "Adventuring Gear",
-                  "tags": ["Communication", "Social", "Utility"],
+                  "tags": [
+                    "Communication",
+                    "Social",
+                    "Utility"
+                  ],
                   "sources": []
                 },
                 "id": 451428914,
@@ -11152,7 +11420,11 @@
               "ddbimporter": {
                 "dndbeyond": {
                   "type": "Adventuring Gear",
-                  "tags": ["Social", "Utility", "Exploration"],
+                  "tags": [
+                    "Social",
+                    "Utility",
+                    "Exploration"
+                  ],
                   "sources": []
                 },
                 "id": 477973107,
@@ -11193,7 +11465,10 @@
               "ddbimporter": {
                 "dndbeyond": {
                   "type": "Adventuring Gear",
-                  "tags": ["Utility", "Exploration"],
+                  "tags": [
+                    "Utility",
+                    "Exploration"
+                  ],
                   "sources": []
                 },
                 "id": 451428907,
@@ -11281,7 +11556,12 @@
               "ddbimporter": {
                 "dndbeyond": {
                   "type": "Adventuring Gear",
-                  "tags": ["Damage", "Utility", "Exploration", "Combat"],
+                  "tags": [
+                    "Damage",
+                    "Utility",
+                    "Exploration",
+                    "Combat"
+                  ],
                   "sources": []
                 },
                 "id": 451428908,
@@ -11404,7 +11684,9 @@
               "ddbimporter": {
                 "dndbeyond": {
                   "type": "Adventuring Gear",
-                  "tags": ["Container"],
+                  "tags": [
+                    "Container"
+                  ],
                   "sources": []
                 },
                 "id": 451428910,
@@ -11439,7 +11721,9 @@
               "equipped": false,
               "rarity": "Common",
               "identified": true,
-              "ability": ["dex"],
+              "ability": [
+                "dex"
+              ],
               "chatFlavor": "",
               "proficient": 0,
               "uses": {
@@ -11453,7 +11737,9 @@
               "ddbimporter": {
                 "dndbeyond": {
                   "type": "Tool",
-                  "tags": ["Utility"],
+                  "tags": [
+                    "Utility"
+                  ],
                   "sources": []
                 },
                 "id": 491506286,
@@ -12388,7 +12674,9 @@
               "ddbimporter": {
                 "dndbeyond": {
                   "type": "Adventuring Gear",
-                  "tags": ["Utility"],
+                  "tags": [
+                    "Utility"
+                  ],
                   "sources": []
                 },
                 "id": 531131974,
@@ -12453,7 +12741,10 @@
               "critical": null,
               "damage": {
                 "parts": [
-                  ["1d10[healing] + @classes.fighter.levels", "healing"]
+                  [
+                    "1d10[healing] + @classes.fighter.levels",
+                    "healing"
+                  ]
                 ],
                 "versatile": "",
                 "value": ""
@@ -12514,8 +12805,12 @@
                 },
                 "quickDamage": {
                   "type": "Array",
-                  "value": [true],
-                  "altValue": [true],
+                  "value": [
+                    true
+                  ],
+                  "altValue": [
+                    true
+                  ],
                   "context": []
                 },
                 "quickProperties": {

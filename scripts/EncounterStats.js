@@ -28,10 +28,6 @@ export default class EncounterStats {
 
   _saveToLocalStorage() {
     var dataString = JSON.stringify(this.encounterStats);
-    console.debug(
-      "fvtt-encounter-stats this.encounterStats",
-      this.encounterStats
-    );
 
     window.localStorage.setItem("encounterstats", dataString);
   }
@@ -40,7 +36,7 @@ export default class EncounterStats {
     window.localStorage.removeItem("encounterstats");
   }
 
-  createCombat(data) {
+  _createCombat(data) {
     this._truncateLocalStorage();
 
     let encounter = {
@@ -48,24 +44,40 @@ export default class EncounterStats {
       sceneId: data.scene,
       timestamp: "",
       combatants: [...this._cleanseCombatants(data.combatants)],
-      rounds: [],
+      rounds: [{
+          round: data.round,
+          events: []
+      }],
     };
     this.encounterStats.push(encounter);
 
     this._saveToLocalStorage();
   }
 
-  _addEventToEncounter(event) {
-    this._saveToLocalStorage();
-  }
 
   // Foreach through and pull only data required
   _cleanseCombatants(combatants) {
-    return combatants;
+    const newCombatants = combatants.map((combatant) => ({
+      name: combatant.name,
+      id: combatant._id,
+      img: combatant.img,
+      actor: {
+          id: combatant.actor._id,
+          hp: combatant.actor.data.attributes.hp.value,
+          max: combatant.actor.data.attributes.hp.max,
+          ac: combatant.actor.data.attributes.ac.value,
+      }
+    }));
+    return newCombatants;
+  }
+
+  _addEventToEncounter(event) {
+      this.encounterStats[0].rounds[0].events.push(event);
+    this._saveToLocalStorage();
   }
 
   _trackAttack(data) {
-    let event = {
+    const event = {
       encounterId: "TODO",
       sceneId: data.scene,
       timestamp: "",
@@ -90,7 +102,7 @@ export default class EncounterStats {
   _setupHooks() {
     const _this = this;
     window.Hooks.once("createCombat", async function (arg1, arg2, arg3) {
-      _this.createCombat(arg1);
+      _this._createCombat(arg1);
       console.debug("fvtt-encounter-stats createCombat1", arg1);
       console.debug("fvtt-encounter-stats createCombat2", arg2);
       console.debug("fvtt-encounter-stats createCombat3", arg3);
