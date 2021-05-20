@@ -78,9 +78,6 @@ export default class EncounterStats {
 
   _trackAttack(data) {
     const event = {
-      encounterId: "TODO",
-      sceneId: data.scene,
-      timestamp: "",
       itemId: data.itemId,
       uuid: data.uuid,
       tokenId: data.tokenId,
@@ -94,6 +91,11 @@ export default class EncounterStats {
         id: data.actor._id,
         type: data.actor.type,
       },
+      item: {
+          id: data.item._id,
+          name: data.item.name,
+          type: data.item.type,
+      }
     };
     this._addEventToEncounter(event);
   }
@@ -115,6 +117,7 @@ export default class EncounterStats {
     window.Hooks.once(
       "midi-qol.AttackRollComplete",
       async function (arg1, arg2, arg3) {
+          this._trackAttack(arg1);
         console.debug(
           "fvtt-encounter-stats midi-qol.AttackRollComplete1",
           arg1
@@ -129,7 +132,7 @@ export default class EncounterStats {
         );
       }
     );
-    window.Hooks.once(
+    /*window.Hooks.once(
       "midi-qol.RollComplete",
       async function (arg1, arg2, arg3) {
         console.debug("fvtt-encounter-stats midi-qol.RollComplete1", arg1);
@@ -144,7 +147,7 @@ export default class EncounterStats {
         console.debug("fvtt-encounter-stats midi-qol.DamageRollComplete", arg2);
         console.debug("fvtt-encounter-stats midi-qol.DamageRollComplete", arg3);
       }
-    );
+    );*/
     window.Hooks.once("updateCombat", async function (arg1, arg2, arg3) {
       console.debug("fvtt-encounter-stats updateCombat1", arg1);
       console.debug("fvtt-encounter-stats updateCombat2", arg2);

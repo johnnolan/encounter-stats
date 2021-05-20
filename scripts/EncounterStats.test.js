@@ -111,13 +111,31 @@ describe("On an attack made", () => {
         ],
         damageTotal: 44,
         disadvantage: false,
-        encounterId: "TODO",
+        item: {
+          id: "LcCBgAO3XtvkZEgt",
+          name: "Flame Tongue Greatsword",
+          type: "weapon",
+        },
         itemId: "LcCBgAO3XtvkZEgt",
-        sceneId: undefined,
-        timestamp: "",
         tokenId: "xmovvGboWTyajjpb",
         uuid: "Actor.fu5tuPUTYIqlFJLt.OwnedItem.LcCBgAO3XtvkZEgt",
       });
+    });
+  });
+});
+describe("On a second attack made", () => {
+  beforeAll(() => {
+    stats._trackAttack(hookMidiQolAttackRollComplete);
+    statsData = stats.getEncounterStats()[0];
+  });
+
+  describe("On adding 2 attack event data to the round", () => {
+    let event;
+    beforeAll(() => {
+      event = statsData.rounds[0].events[0];
+    });
+    test("Expect the combatants to have 2 entries", () => {
+      expect(statsData.rounds[0].events.length).toBe(2);
     });
   });
 });
