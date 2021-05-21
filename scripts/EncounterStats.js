@@ -36,13 +36,108 @@ export default class EncounterStats {
     window.localStorage.removeItem("encounterstats");
   }
 
-  _updateCombat(data) {
-    this._truncateLocalStorage();
-    const newRound = {
-        round: data.round,
-        events: []
+  add(accumulator, a) {
+    return accumulator + a;
+  }
+
+  _getStatsFromArray(arr) {
+    return {
+      min: Math.min(...arr),
+      max: Math.max(...arr),
+      avg: arr.reduce(this.add, 0) / arr.length,
+      total: arr.reduce(this.add, 0),
     };
-    this.encounterStats[0].rounds.unshift(newRound)
+  }
+
+  _getGroupStats(combatants, type) {
+    const comChars = combatants.filter((f) => f.type === type);
+    const comCharsAttacks = comChars.filter((f) => f.type === type);
+    var merged = [].concat.apply(
+      [],
+      comCharsAttacks.map((m) => {
+        return m.attacks;
+      })
+    );
+    console.log(merged);
+
+    const stats = this._getStatsFromArray(merged);
+
+    return stats;
+  }
+
+  _getCharacterStats(combatants, type) {
+    const comChars = combatants.filter((f) => f.type === type);
+    const comCharsAttacks = comChars.filter((f) => f.type === type);
+    var merged = [].concat.apply(
+      [],
+      comCharsAttacks.map((m) => {
+        return m.attacks;
+      })
+    );
+    console.log(merged);
+
+    const stats = this._getStatsFromArray(merged);
+
+    return stats;
+  }
+
+  _endCombat() {
+    let combatants = this.encounterStats[0].combatants;
+
+    for (let indexCombat = 0; indexCombat < combatants.length; indexCombat++) {
+      const combatant = combatants[indexCombat];
+      combatant.attacks = [];
+    }
+
+    for (let index = 0; index < this.encounterStats[0].rounds.length; index++) {
+      const round = this.encounterStats[0].rounds[index];
+
+      for (let index2 = 0; index2 < round.events.length; index2++) {
+        const event = round.events[index2];
+        combatants
+          .find((f) => f.actor.id === event.actor.id)
+          .attacks.push(event.damageTotal);
+      }
+    }
+    for (
+      let index = 0;
+      index < this.encounterStats[0].combatants.length;
+      index++
+    ) {
+      const combatant = this.encounterStats[0].combatants[index];
+      const stats = this._getStatsFromArray(combatant.attacks);
+      combatant.stats = stats;
+    }
+
+    console.log(combatants);
+
+    const groupCharacters = this._getGroupStats(combatants, "character");
+    const groupNpcs = this._getGroupStats(combatants, "npc");
+
+    const summary = {
+      total: {
+        groups: { characters: groupCharacters, npcs: groupNpcs },
+      },
+    };
+    this.encounterStats[0].summary = summary;
+    console.log(
+      "this.encounterStats[0].summary",
+      JSON.stringify(this.encounterStats[0].summary)
+    );
+    console.log(
+      "this.encounterStats[0].combatants",
+      JSON.stringify(this.encounterStats[0].combatants)
+    );
+
+    this._saveToLocalStorage();
+  }
+
+  _updateCombat(data) {
+    const newRound = {
+      round: data.round,
+      events: [],
+    };
+    this.encounterStats[0].rounds.unshift(newRound);
 
     this._saveToLocalStorage();
   }
@@ -55,10 +150,12 @@ export default class EncounterStats {
       sceneId: data.scene,
       timestamp: "",
       combatants: [...this._cleanseCombatants(data.combatants)],
-      rounds: [{
+      rounds: [
+        {
           round: data.round,
-          events: []
-      }],
+          events: [],
+        },
+      ],
     };
     this.encounterStats.push(encounter);
 
@@ -70,18 +167,19 @@ export default class EncounterStats {
       name: combatant.name,
       id: combatant._id,
       img: combatant.img,
+      type: combatant.actor.type,
       actor: {
-          id: combatant.actor._id,
-          hp: combatant.actor.data.attributes.hp.value,
-          max: combatant.actor.data.attributes.hp.max,
-          ac: combatant.actor.data.attributes.ac.value,
-      }
+        id: combatant.actor._id,
+        hp: combatant.actor.data.attributes.hp.value,
+        max: combatant.actor.data.attributes.hp.max,
+        ac: combatant.actor.data.attributes.ac.value,
+      },
     }));
     return newCombatants;
   }
 
   _addEventToEncounter(event) {
-      this.encounterStats[0].rounds[0].events.push(event);
+    this.encounterStats[0].rounds[0].events.push(event);
     this._saveToLocalStorage();
   }
 
@@ -89,6 +187,7 @@ export default class EncounterStats {
     const event = {
       itemId: data.itemId,
       uuid: data.uuid,
+      type: data.actor.type,
       tokenId: data.tokenId,
       advantage: data.advantage,
       isCritical: data.isCritical,
@@ -100,15 +199,14 @@ export default class EncounterStats {
       damageTotal: data.damageTotal,
       actor: {
         id: data.actor._id,
-        type: data.actor.type,
         hp: data.actor.data.attributes.hp.value,
         max: data.actor.data.attributes.hp.max,
       },
       item: {
-          id: data.item._id,
-          name: data.item.name,
-          type: data.item.type,
-      }
+        id: data.item._id,
+        name: data.item.name,
+        type: data.item.type,
+      },
     };
     this._addEventToEncounter(event);
   }
@@ -130,7 +228,7 @@ export default class EncounterStats {
     window.Hooks.on(
       "midi-qol.AttackRollComplete",
       async function (arg1, arg2, arg3) {
-          this._trackAttack(arg1);
+        this._trackAttack(arg1);
         console.debug(
           "fvtt-encounter-stats midi-qol.AttackRollComplete1",
           arg1

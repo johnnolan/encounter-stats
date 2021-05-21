@@ -1,8 +1,13 @@
 import { beforeAll } from "@jest/globals";
 import EncounterStats from "./EncounterStats.js";
 const mockDataCreateCombat = require("../mockData/hookcreateCombat.json");
-const hookMidiQolAttackRollComplete = require("../mockData/hookmidi-qolAttackRollComplete.json");
 const hookupdateCombatarg2 = require("../mockData/hookupdateCombatarg2.json");
+
+const hookMidiQolAttackRollComplete = require("../mockData/hookmidi-qolAttackRollComplete.json");
+const hookMidiQolAttackRollComplete2 = require("../mockData/hookmidi-qolAttackRollComplete2.json");
+const hookMidiQolAttackRollComplete3 = require("../mockData/hookmidi-qolAttackRollComplete3.json");
+const hookMidiQolAttackRollComplete4 = require("../mockData/hookmidi-qolAttackRollComplete4.json");
+const hookMidiQolAttackRollComplete5 = require("../mockData/hookmidi-qolAttackRollComplete5.json");
 
 const stats = new EncounterStats(false);
 
@@ -88,7 +93,6 @@ describe("On an attack made", () => {
       expect(event).toEqual({
         actor: {
           id: "fu5tuPUTYIqlFJLt",
-          type: "character",
           hp: 35,
           max: 67,
         },
@@ -123,6 +127,7 @@ describe("On an attack made", () => {
         },
         itemId: "LcCBgAO3XtvkZEgt",
         tokenId: "xmovvGboWTyajjpb",
+        type: "character",
         uuid: "Actor.fu5tuPUTYIqlFJLt.OwnedItem.LcCBgAO3XtvkZEgt",
       });
     });
@@ -130,7 +135,7 @@ describe("On an attack made", () => {
 });
 describe("On a second attack made", () => {
   beforeAll(() => {
-    stats._trackAttack(hookMidiQolAttackRollComplete);
+    stats._trackAttack(hookMidiQolAttackRollComplete2);
     statsData = stats.getEncounterStats()[0];
   });
 
@@ -164,7 +169,7 @@ describe("On a new round", () => {
 
   describe("On an attack made", () => {
     beforeAll(() => {
-      stats._trackAttack(hookMidiQolAttackRollComplete);
+      stats._trackAttack(hookMidiQolAttackRollComplete3);
       statsData = stats.getEncounterStats()[0];
     });
 
@@ -183,7 +188,6 @@ describe("On a new round", () => {
         expect(event).toEqual({
           actor: {
             id: "fu5tuPUTYIqlFJLt",
-            type: "character",
             hp: 35,
             max: 67,
           },
@@ -207,7 +211,7 @@ describe("On a new round", () => {
               type: "fire",
             },
           ],
-          damageTotal: 44,
+          damageTotal: 25,
           disadvantage: false,
           isCritical: true,
           isFumble: false,
@@ -218,6 +222,7 @@ describe("On a new round", () => {
           },
           itemId: "LcCBgAO3XtvkZEgt",
           tokenId: "xmovvGboWTyajjpb",
+          type: "character",
           uuid: "Actor.fu5tuPUTYIqlFJLt.OwnedItem.LcCBgAO3XtvkZEgt",
         });
       });
@@ -225,7 +230,7 @@ describe("On a new round", () => {
   });
   describe("On a second attack made", () => {
     beforeAll(() => {
-      stats._trackAttack(hookMidiQolAttackRollComplete);
+      stats._trackAttack(hookMidiQolAttackRollComplete4);
       statsData = stats.getEncounterStats()[0];
     });
 
@@ -238,5 +243,36 @@ describe("On a new round", () => {
         expect(statsData.rounds[0].events.length).toBe(2);
       });
     });
+  });
+});
+
+describe("On ending an Encounter", () => {
+  beforeAll(() => {
+    stats._endCombat();
+    statsData = stats.getEncounterStats()[0];
+
+    /*console.log(statsData);
+    console.log(statsData.rounds);
+    console.log(statsData.rounds[0]);
+    console.log(JSON.stringify(statsData));*/
+  });
+
+  test("Summary and total grouping should exist", () => {
+    expect(statsData.summary).not.toBeUndefined();
+    expect(statsData.summary.total).not.toBeUndefined();
+    expect(statsData.summary.total.groups).not.toBeUndefined();
+  });
+
+  test("Group information available", () => {
+    expect(statsData.summary.total.groups).not.toBeUndefined();
+    expect(statsData.summary.total.groups.characters).not.toBeUndefined();
+    expect(statsData.summary.total.groups.npcs).not.toBeUndefined();
+  });
+
+  test("Group Characters information available", () => {
+    expect(statsData.summary.total.groups.characters.min).not.toBeUndefined();
+    expect(statsData.summary.total.groups.characters.max).not.toBeUndefined();
+    expect(statsData.summary.total.groups.characters.avg).not.toBeUndefined();
+    expect(statsData.summary.total.groups.characters.total).not.toBeUndefined();
   });
 });
