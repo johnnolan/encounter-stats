@@ -1,0 +1,317 @@
+{
+    "encounterId": "FdY12Y16kEG3O5fO",
+    "timestamp": "",
+    "combatants": [
+      {
+        "name": "Ugly Skeleton(15)",
+        "id": "QfPWsNA87RiWmjWU",
+        "img": "dndbeyond/npc-token-Skeleton.jpeg",
+        "type": "npc",
+        "actor": {
+          "id": "zWcbs3tqLp5ncOOg",
+          "hp": 0,
+          "max": 9,
+          "ac": 13
+        },
+        "attacks": [
+          6,
+          6
+        ],
+        "stats": {
+          "min": 6,
+          "max": 6,
+          "avg": 6,
+          "total": 12
+        }
+      },
+      {
+        "name": "Modern Bodak(1)",
+        "id": "jBqDZ26tl2k1p0Zr",
+        "img": "dndbeyond/npc-token-Bodak.jpeg",
+        "type": "npc",
+        "actor": {
+          "id": "3csVAin7jvJJyAg9",
+          "hp": 0,
+          "max": 50,
+          "ac": 15
+        },
+        "attacks": [
+          19
+        ],
+        "stats": {
+          "min": 19,
+          "max": 19,
+          "avg": 19,
+          "total": 19
+        }
+      },
+      {
+        "name": "Lorena Aldabra",
+        "id": "FBwEIsUSCW6ZWBQv",
+        "img": "lorena.png",
+        "type": "character",
+        "actor": {
+          "id": "fu5tuPUTYIqlFJLt",
+          "hp": 35,
+          "max": 67,
+          "ac": 10
+        },
+        "attacks": [
+          21,
+          18
+        ],
+        "stats": {
+          "min": 18,
+          "max": 21,
+          "avg": 19.5,
+          "total": 39
+        }
+      }
+    ],
+    "rounds": [
+      {
+        "round": 2,
+        "events": [
+          {
+            "itemId": "LcCBgAO3XtvkZEgt",
+            "uuid": "Actor.fu5tuPUTYIqlFJLt.OwnedItem.LcCBgAO3XtvkZEgt",
+            "tokenId": "xmovvGboWTyajjpb",
+            "advantage": false,
+            "isCritical": false,
+            "isFumble": false,
+            "disadvantage": false,
+            "damageDetail": [
+              {
+                "type": "slashing",
+                "damage": 11
+              },
+              {
+                "type": "fire",
+                "damage": 10
+              }
+            ],
+            "attackTotal": 21,
+            "attackRoll": {
+              "data": {},
+              "_dice": [],
+              "results": [
+                21
+              ],
+              "terms": [
+                21
+              ],
+              "_formula": "21",
+              "_rolled": true,
+              "_total": 21
+            },
+            "damageTotal": 21,
+            "actor": {
+              "id": "fu5tuPUTYIqlFJLt",
+              "hp": 35,
+              "max": 67
+            },
+            "item": {
+              "id": "LcCBgAO3XtvkZEgt",
+              "name": "Flame Tongue Greatsword",
+              "type": "weapon"
+            }
+          }
+        ]
+      },
+      {
+        "round": 1,
+        "events": [
+          {
+            "itemId": "LcCBgAO3XtvkZEgt",
+            "uuid": "Actor.fu5tuPUTYIqlFJLt.OwnedItem.LcCBgAO3XtvkZEgt",
+            "tokenId": "xmovvGboWTyajjpb",
+            "advantage": false,
+            "isCritical": false,
+            "isFumble": false,
+            "disadvantage": false,
+            "damageDetail": [
+              {
+                "type": "slashing",
+                "damage": 12
+              },
+              {
+                "type": "fire",
+                "damage": 6
+              }
+            ],
+            "attackTotal": 25,
+            "attackRoll": {
+              "data": {},
+              "_dice": [],
+              "results": [
+                25
+              ],
+              "terms": [
+                25
+              ],
+              "_formula": "25",
+              "_rolled": true,
+              "_total": 25
+            },
+            "damageTotal": 18,
+            "actor": {
+              "id": "fu5tuPUTYIqlFJLt",
+              "hp": 35,
+              "max": 67
+            },
+            "item": {
+              "id": "LcCBgAO3XtvkZEgt",
+              "name": "Flame Tongue Greatsword",
+              "type": "weapon"
+            }
+          },
+          {
+            "itemId": "Q8rw2KuDjGce0VPX",
+            "uuid": "Actor.3csVAin7jvJJyAg9.OwnedItem.Q8rw2KuDjGce0VPX",
+            "tokenId": "SZzJIT7X5fldPAEQ",
+            "advantage": false,
+            "isCritical": false,
+            "isFumble": false,
+            "disadvantage": false,
+            "damageDetail": [
+              {
+                "type": "bludgeoning",
+                "damage": 5
+              },
+              {
+                "type": "necrotic",
+                "damage": 14
+              }
+            ],
+            "attackTotal": 13,
+            "attackRoll": {
+              "data": {},
+              "_dice": [],
+              "results": [
+                13
+              ],
+              "terms": [
+                13
+              ],
+              "_formula": "13",
+              "_rolled": true,
+              "_total": 13
+            },
+            "damageTotal": 19,
+            "actor": {
+              "id": "3csVAin7jvJJyAg9",
+              "hp": 0,
+              "max": 50
+            },
+            "item": {
+              "id": "Q8rw2KuDjGce0VPX",
+              "name": "Fist",
+              "type": "weapon"
+            }
+          },
+          {
+            "itemId": "502u3LDYmnlUUkKG",
+            "uuid": "Actor.zWcbs3tqLp5ncOOg.OwnedItem.502u3LDYmnlUUkKG",
+            "tokenId": "Lbs9YLOHzsCMbtaF",
+            "advantage": false,
+            "isCritical": false,
+            "isFumble": false,
+            "disadvantage": false,
+            "damageDetail": [
+              {
+                "type": "piercing",
+                "damage": 6
+              }
+            ],
+            "attackTotal": 14,
+            "attackRoll": {
+              "data": {},
+              "_dice": [],
+              "results": [
+                14
+              ],
+              "terms": [
+                14
+              ],
+              "_formula": "14",
+              "_rolled": true,
+              "_total": 14
+            },
+            "damageTotal": 6,
+            "actor": {
+              "id": "zWcbs3tqLp5ncOOg",
+              "hp": 0,
+              "max": 9
+            },
+            "item": {
+              "id": "502u3LDYmnlUUkKG",
+              "name": "Shortsword",
+              "type": "weapon"
+            }
+          },
+          {
+            "itemId": "502u3LDYmnlUUkKG",
+            "uuid": "Actor.zWcbs3tqLp5ncOOg.OwnedItem.502u3LDYmnlUUkKG",
+            "tokenId": "Lbs9YLOHzsCMbtaF",
+            "advantage": false,
+            "isCritical": false,
+            "isFumble": false,
+            "disadvantage": false,
+            "damageDetail": [
+              {
+                "type": "piercing",
+                "damage": 6
+              }
+            ],
+            "attackTotal": 11,
+            "attackRoll": {
+              "data": {},
+              "_dice": [],
+              "results": [
+                11
+              ],
+              "terms": [
+                11
+              ],
+              "_formula": "11",
+              "_rolled": true,
+              "_total": 11
+            },
+            "damageTotal": 6,
+            "actor": {
+              "id": "zWcbs3tqLp5ncOOg",
+              "hp": 0,
+              "max": 9
+            },
+            "item": {
+              "id": "502u3LDYmnlUUkKG",
+              "name": "Shortsword",
+              "type": "weapon"
+            }
+          }
+        ]
+      },
+      {
+        "round": 0,
+        "events": []
+      }
+    ],
+    "summary": {
+      "total": {
+        "groups": {
+          "characters": {
+            "min": 18,
+            "max": 21,
+            "avg": 19.5,
+            "total": 39
+          },
+          "npcs": {
+            "min": 6,
+            "max": 19,
+            "avg": 10.333333333333334,
+            "total": 31
+          }
+        }
+      }
+    }
+  }

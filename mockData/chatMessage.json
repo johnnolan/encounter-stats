@@ -1,0 +1,253 @@
+{
+  "flags": {
+    "betterrolls5e": {
+      "version": "1.4.11",
+      "actorId": "fu5tuPUTYIqlFJLt",
+      "itemId": "LcCBgAO3XtvkZEgt",
+      "tokenId": null,
+      "isCrit": false,
+      "entries": [
+        {
+          "type": "header",
+          "img": "systems/dnd5e/icons/skills/fire_13.jpg",
+          "title": "Flame Tongue Greatsword",
+          "id": "1"
+        },
+        {
+          "type": "multiroll",
+          "title": "Attack",
+          "critThreshold": 20,
+          "elvenAccuracy": false,
+          "rollState": null,
+          "rollType": "attack",
+          "formula": "1d20 + 0 + 4 + 3",
+          "entries": [
+            {
+              "roll": {
+                "class": "Roll",
+                "dice": [],
+                "formula": "1d20",
+                "terms": [
+                  {
+                    "class": "Die",
+                    "number": 1,
+                    "faces": 20,
+                    "modifiers": [],
+                    "options": {},
+                    "results": [
+                      {
+                        "result": 4,
+                        "active": true,
+                        "indexThrow": 0
+                      }
+                    ]
+                  }
+                ],
+                "results": [
+                  4
+                ],
+                "total": 4
+              },
+              "total": 11,
+              "critType": null,
+              "isCrit": false
+            }
+          ],
+          "isCrit": false,
+          "bonus": {
+            "class": "Roll",
+            "dice": [],
+            "formula": "0 + 4 + 3",
+            "terms": [
+              0,
+              "+",
+              4,
+              "+",
+              3
+            ],
+            "results": [
+              0,
+              "+",
+              4,
+              "+",
+              3
+            ],
+            "total": 7
+          },
+          "id": "2"
+        },
+        {
+          "id": "3",
+          "type": "damage-group",
+          "attackId": "2",
+          "isCrit": false,
+          "prompt": true,
+          "entries": [
+            {
+              "type": "damage",
+              "damageIndex": 0,
+              "damageType": "slashing",
+              "context": "",
+              "extraCritDice": 0,
+              "baseRoll": {
+                "class": "Roll",
+                "dice": [],
+                "formula": "2d6r<=2[slashing] + 4",
+                "terms": [
+                  {
+                    "class": "Die",
+                    "number": 2,
+                    "faces": 6,
+                    "modifiers": [
+                      "r<=2"
+                    ],
+                    "options": {
+                      "flavor": "slashing"
+                    },
+                    "results": [
+                      {
+                        "result": 6,
+                        "active": true
+                      },
+                      {
+                        "result": 3,
+                        "active": true
+                      }
+                    ]
+                  },
+                  "+",
+                  4
+                ],
+                "results": [
+                  9,
+                  "+",
+                  4
+                ],
+                "total": 13
+              },
+              "critRoll": null,
+              "id": "4",
+              "group": "3"
+            },
+            {
+              "type": "damage",
+              "damageIndex": 1,
+              "damageType": "fire",
+              "context": "While Flaming",
+              "extraCritDice": 0,
+              "baseRoll": {
+                "class": "Roll",
+                "dice": [],
+                "formula": "2d6[fire]",
+                "terms": [
+                  {
+                    "class": "Die",
+                    "number": 2,
+                    "faces": 6,
+                    "modifiers": [],
+                    "options": {
+                      "flavor": "fire"
+                    },
+                    "results": [
+                      {
+                        "result": 4,
+                        "active": true
+                      },
+                      {
+                        "result": 3,
+                        "active": true
+                      }
+                    ]
+                  }
+                ],
+                "results": [
+                  7
+                ],
+                "total": 7
+              },
+              "critRoll": null,
+              "id": "5",
+              "group": "3"
+            }
+          ]
+        }
+      ],
+      "properties": [
+        "Martial Melee",
+        "5 Feet",
+        "6 lbs.",
+        "Heavy",
+        "Two-Handed",
+        "Magical"
+      ],
+      "params": {
+        "title": "",
+        "forceCrit": false,
+        "preset": 0,
+        "properties": true,
+        "slotLevel": null,
+        "useCharge": {
+          "quantity": false,
+          "use": false,
+          "resource": true
+        },
+        "useTemplate": true,
+        "adv": 0,
+        "disadv": 0,
+        "consume": true,
+        "rollState": null
+      },
+      "fields": [
+        [
+          "header"
+        ],
+        [
+          "attack"
+        ],
+        [
+          "damage",
+          {
+            "index": 0,
+            "versatile": false
+          }
+        ],
+        [
+          "damage",
+          {
+            "index": 1,
+            "versatile": false
+          }
+        ],
+        [
+          "ammo"
+        ]
+      ]
+    },
+    "dnd5e": {
+      "roll": {
+        "type": "attack",
+        "itemId": "LcCBgAO3XtvkZEgt"
+      }
+    },
+    "core": {
+      "canPopout": true
+    },
+    "midi-qol": {
+      "itemId": "LcCBgAO3XtvkZEgt"
+    }
+  },
+  "type": 5,
+  "user": "4XzLH56iD4mk8Rt7",
+  "timestamp": 1621596490945,
+  "content": "<div class=\"dnd5e red-full chat-card\" data-actor-id=\"fu5tuPUTYIqlFJLt\" data-item-id=\"LcCBgAO3XtvkZEgt\" data-critical=\"false\">\n\t\t<div class=\"dnd5e chat-card item-card\">\n\t<header class=\"card-header flexrow red-header\">\n\t\t<img src=\"systems/dnd5e/icons/skills/fire_13.jpg\" title=\"Flame Tongue Greatsword\" width=\"36\" height=\"36\" />\n\t\t<h3 class=\"item-name\">Flame Tongue Greatsword</h3>\n\t</header>\n<div>\n\t\t<div class=\"dice-roll red-dual\" data-id=\"2\" data-rollstate data-type=\"attack\">\n    <div class=\"br5e-roll-label\">Attack</div>\n    <div class=\"dice-result\">\n\t\t<div class=\"dice-formula dice-tooltip\">1d20 + 0 + 4 + 3</div>\n\t\t<div class=\"dice-row red-rolls\">\n\t\t\t<div class=\"tooltip dual-left dice-row-item\"><div class=\"dice-tooltip\">\n    \n        <div class=\"dice\">\n            <header class=\"part-header flexrow\">\n                <span class=\"part-formula\">1d20</span>\n                \n                <span class=\"part-total\">4</span>\n            </header>\n            <ol class=\"dice-rolls\">\n                <li class=\"roll die d20\">4</li>\n            </ol>\n        </div>\n    \n</div>\n</div>\n\t\t</div>\n\t\t<div class=\"dice-row red-rolls\">\n\t\t\t<div class=\"tooltip dice-row-item\"><div class=\"dice-tooltip\">\n</div>\n</div>\n\t\t</div>\n\t\t<div class=\"dice-row red-totals\">\n\t\t\t<h4 class=\"dice-total dice-row-item red-base-die \">\n\t\t\t\t11<span class=\"die-icon \">4</span>\n\t\t\t</h4>\n\t\t</div>\n    </div>\n</div>\n\t\t<div class=\"card-buttons red-card-buttons\" data-id=\"3\">\n    <button data-action=\"damage\" data-group=\"3\">\n        Damage\n    </button>\n</div>\n\n\t<footer class=\"card-footer\">\n        <span>Martial Melee</span>\n        <span>5 Feet</span>\n        <span>6 lbs.</span>\n        <span>Heavy</span>\n        <span>Two-Handed</span>\n        <span>Magical</span>\n    </footer>\n</div></div></div>",
+  "speaker": {
+    "scene": "FaIR5gz8OfmKltet",
+    "actor": "fu5tuPUTYIqlFJLt",
+    "token": "xmovvGboWTyajjpb",
+    "alias": "Lorena Aldabra"
+  },
+  "whisper": [],
+  "roll": "{\"class\":\"Roll\",\"dice\":[],\"formula\":\"0\",\"terms\":[0],\"results\":[0],\"total\":0}",
+  "blind": null,
+  "_id": "RjOwcAPkjKDW0LS3"
+}

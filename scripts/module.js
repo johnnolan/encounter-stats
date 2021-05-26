@@ -1,6 +1,6 @@
 import { MODULE_NAME, MODULE_ID, OPT_ENABLE } from "./Settings.js";
 
-import EncounterStats from "./EncounterStats.js";
+import { FvttEncounterStats } from "./FvttEncounterStats.js";
 
 Hooks.once("init", async function () {
   game.settings.register(`${MODULE_ID}`, `${OPT_ENABLE}`, {
@@ -18,5 +18,5 @@ Hooks.once("ready", async function () {
     return;
   }
 
-  const stats = new EncounterStats();
+  FvttEncounterStats();
 });
