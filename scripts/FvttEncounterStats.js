@@ -86,7 +86,8 @@ function _buildContentCombatant(combatant) {
 }
 
 function _buildContent() {
-  const encounterId = GetItemFromLocalStorage().encounterId;
+  const encounterId = GetItemFromLocalStorage()?.encounterId;
+  if (!encounterId) return "";
   const markup = `
  <div class="combatants">
     <h1>
@@ -158,7 +159,8 @@ async function _updateJournalCombatant(html) {
 
 async function _updateJournalAttack(data) {
   let article = await GetArticle();
-  const round = GetItemFromLocalStorage().round;
+  const round = GetItemFromLocalStorage()?.round;
+  if (!round) return;
 
   const event = {
     id: data._id,
@@ -214,9 +216,10 @@ async function _updateJournalCombatants(data) {
 
 async function _updateRound(currentRound) {
   if (!currentRound) return;
-  const pastRound = GetItemFromLocalStorage().round;
+  const pastRound = GetItemFromLocalStorage()?.round;
   if (pastRound !== currentRound) {
-    const encounterId = GetItemFromLocalStorage().encounterId;
+    const encounterId = GetItemFromLocalStorage()?.encounterId;
+    if (!encounterId) return;
     SaveToLocalStorage(encounterId, currentRound);
   }
 }
