@@ -1,53 +1,41 @@
-![](https://img.shields.io/badge/Foundry-v0.7.9-informational)
-<!--- Downloads @ Latest Badge -->
-<!--- replace <user>/<repo> with your username/repository -->
-<!--- ![Latest Release Download Count](https://img.shields.io/github/downloads/<user>/<repo>/latest/module.zip) -->
+![](https://img.shields.io/badge/Foundry-v0.8.5-informational)
+![Latest Release Download Count](https://img.shields.io/github/downloads/johnnolan/fvtt-encounter-stats/latest/module.zip)
+![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Ffvtt-encounter-stats&colorB=4aa94a)
+[![Foundry Hub Endorsements](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Ffvtt-encounter-stats%2Fshield%2Fendorsements)](https://www.foundryvtt-hub.com/package/fvtt-encounter-stats/)
+[![Foundry Hub Comments](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Ffvtt-encounter-stats%2Fshield%2Fcomments)](https://www.foundryvtt-hub.com/package/fvtt-encounter-stats/)
 
-<!--- Forge Bazaar Install % Badge -->
-<!--- replace <your-module-name> with the `name` in your manifest -->
-<!--- ![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2F<your-module-name>&colorB=4aa94a) -->
+[![Buy me a coffee][buymeacoffee-shield]][buymeacoffee]
 
+# FVTT Encounter Stats
 
-# How to use this Template to create a versioned Release
+This module is designed to capture your Players attacks and damage in an Encounter and store the results into a Journal Entry with a summary of their stats for each after you end the Encounter. 
 
-1. Open your repository's releases page.
+This can then be viewed post battle to look upon for the Players to analyse and celebrate their attacks and as a DM, give you a better idea of how to build your Encounters in the future.
 
-![Where to click to open repository releases.](https://user-images.githubusercontent.com/7644614/93409301-9fd25080-f864-11ea-9e0c-bdd09e4418e4.png)
+## Installation
 
-2. Click "Draft a new release"
+To install, follow these instructions:
 
-![Draft a new release button.](https://user-images.githubusercontent.com/7644614/93409364-c1333c80-f864-11ea-89f1-abfcb18a8d9f.png)
+- Inside Foundry, select the Game Modules tab in the Configuration and Setup menu.
+- Click the Install Module button and enter the following URL: `https://github.com/johnnolan/fvtt-encounter-stats/releases/latest/download/module.json`
+- Click Install and wait for installation to complete.
 
-3. Fill out the release version as the tag name.
+Alternatively, use the integrated module manager in Foundry.
 
-## <span color="red">Do not prefix your tag name with a `v`.</span>
+Foundry modules page: [https://foundryvtt.com/packages/fvtt-encounter-stats](https://foundryvtt.com/packages/fvtt-encounter-stats)
 
-If you want to add details at this stage you can, or you can always come back later and edit them.
+## Dependencies
 
-![Release Creation Form](https://user-images.githubusercontent.com/7644614/93409543-225b1000-f865-11ea-9a19-f1906a724421.png)
+This module heavily depends on the [midi-QoL](https://foundryvtt.com/packages/midi-qol/) module to attain the stats easily from their hook.
 
-4. Hit submit.
+* [midi-QoL](https://foundryvtt.com/packages/midi-qol/)
+* `dnd5e` game system (_Could work on others but haven't tested it_)
 
-5. Wait a few minutes.
+## Contact
 
-A Github Action will run to populate the `module.json` and `module.zip` with the correct urls that you can then use to distribute this release. You can check on its status in the "Actions" tab.
+For issues, please raise a bug in Github giving as much detail as you can. I will try and fix things depending on fatherhood responsibilities [https://github.com/johnnolan/fvtt-encounter-stats/issues](https://github.com/johnnolan/fvtt-encounter-stats/issues)
 
-![Actions Tab](https://user-images.githubusercontent.com/7644614/93409820-c1800780-f865-11ea-8c6b-c3792e35e0c8.png)
+You can also find me lurking around on the Foundry VTT Discord [https://discord.gg/foundryvtt](https://discord.gg/foundryvtt). My Discord Tag is `JB#2780`.
 
-6. Grab the module.json url from the release's details page.
-
-![image](https://user-images.githubusercontent.com/7644614/93409960-10c63800-f866-11ea-83f6-270cc5d10b71.png)
-
-This `module.json` will only ever point at this release's `module.zip`, making it useful for sharing a specific version for compatibility purposes.
-
-7. You can use the url `https://github.com/<user>/<repo>/releases/latest/download/module.json` to refer to the manifest.
-
-This is the url you want to use to install the module typically, as it will get updated automatically.
-
-
-# FoundryVTT Module
-
-Does something, probably
-
-## Changelog
-
+[buymeacoffee-shield]: https://raw.githubusercontent.com/johnnolan/fvtt-encounter-stats/main/images/badges/buymeacoffee.png
+[buymeacoffee]: https://www.buymeacoffee.com/johnnolandev
