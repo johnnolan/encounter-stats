@@ -6,8 +6,6 @@
   "author": "John Nolan <me@johnnolan.dev>",
   "license": "MIT",
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
     "lint:check": "eslint --ignore-path .gitignore .",
     "lint:fix": "eslint --fix --ignore-path .gitignore ."
   },
