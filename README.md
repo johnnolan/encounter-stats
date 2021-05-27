@@ -12,6 +12,8 @@ This module is designed to capture your Players attacks and damage in an Encount
 
 This can then be viewed post battle to look upon for the Players to analyse and celebrate their attacks and as a DM, give you a better idea of how to build your Encounters in the future.
 
+[![Example](https://raw.githubusercontent.com/johnnolan/fvtt-encounter-stats/main/images/example.png)](https://raw.githubusercontent.com/johnnolan/fvtt-encounter-stats/main/images/example.png)
+
 ## Installation
 
 To install, follow these instructions:
