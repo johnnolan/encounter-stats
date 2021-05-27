@@ -43,7 +43,7 @@ function _buildContentCombatant(combatant) {
               <th scope="col">AC</th>
             </tr>
             <tr>
-              <td><img src="${combatant.img}" width="50" height="50" alt="${combatant.name}" /></td>
+              <td><img src="${combatant.img}" width="100" height="100" alt="${combatant.name}" /></td>
               <td>${combatant.name}</td>
               <td>${combatant.hp}</td>
               <td>${combatant.max}</td>
@@ -122,6 +122,7 @@ async function _buildSummaries() {
   for (let i = 0; i < combatantsList.length; i++) {
     let damageTotalList = $(combatantsList[i]).find(`[data-damage-total]`);
     let damageArray = [];
+    let actorId = $(combatantsList[i]).attr("data-fvtt-id");
 
     for (let j = 0; j < damageTotalList.length; j++) {
       damageArray.push(
@@ -137,12 +138,11 @@ async function _buildSummaries() {
       <td>${summaryList.avg}</td>
       <td>${summaryList.total}</td>
     </tr>`;
-    $(combatantsList[i])
-      .find(".fvtt-enc-stats_combatants_summary-table")
-      .append(html);
+
+    currentHtml.find(`[data-fvtt-attack-summary-id="${actorId}"]`).append(html);
   }
 
-  UpdateJournal(combatantsList.html(), article);
+  await UpdateJournal(currentHtml.html(), article);
 }
 
 async function _updateJournalCombatant(html) {
@@ -152,7 +152,7 @@ async function _updateJournalCombatant(html) {
     .find(".fvtt-enc-stats_combatants")
     .append($(`<div>${html}</div>`).html());
 
-  UpdateJournal(currentHtml.html(), article);
+  await UpdateJournal(currentHtml.html(), article);
 }
 
 async function _updateJournalAttack(data) {
@@ -190,31 +190,49 @@ async function _updateJournalAttack(data) {
   }
   currentHtml.find(`[data-fvtt-attack-id="${event.actorId}"]`).append(html);
 
-  UpdateJournal(currentHtml.html(), article);
+  await UpdateJournal(currentHtml.html(), article);
+}
+
+async function _updateJournalCombatants(data) {
+  let article = await GetArticle();
+  if (!article || !data.combat) return;
+  let currentHtml = $(article.data.content);
+  if (currentHtml.find(".fvtt-enc-stats_combatant").length > 0) return;
+
+  let newCombatantHtml = "";
+  const combatantsList = data.combat.data._source.combatants;
+  for (let i = 0; i < combatantsList.length; i++) {
+    const actorId = combatantsList[i].actorId;
+    const combatants = _cleanseCombatants(game.actors.get(actorId));
+    if (combatants) {
+      newCombatantHtml += _buildContentCombatant(combatants);
+    }
+  }
+  await _updateJournalCombatant(newCombatantHtml);
 }
 
 // Function
 async function _setupHooks() {
-  window.Hooks.on("createCombatant", async function (arg1, arg2, arg3) {
-    const combatants = _cleanseCombatants(game.actors.get(arg1.data.actorId));
-    const newCombatantHtml = _buildContentCombatant(combatants);
-    _updateJournalCombatant(newCombatantHtml);
+  window.Hooks.on("renderCombatTracker", async function (arg1, arg2, arg3) {
+    await _updateJournalCombatants(arg3);
   });
   window.Hooks.on("createCombat", async function (arg1, arg2, arg3) {
     SaveToLocalStorage(arg1.data._id);
-    CreateJournal(arg1, _buildContent());
+    await CreateJournal(arg1, _buildContent());
   });
   window.Hooks.on("deleteCombat", async function (arg1, arg2, arg3) {
     await _buildSummaries();
     TruncateLocalStorage(arg1.data._id);
   });
   window.Hooks.on("midi-qol.RollComplete", async function (attackData) {
+    if (attackData.actor.type !== "character") return;
     _updateJournalAttack(attackData);
   });
 
   window.Hooks.on("updateCombat", async function (arg1, arg2, arg3) {
     const pastRound = GetItemFromLocalStorage().round;
     const currentRound = arg2.round;
+    if (!currentRound) return;
     if (pastRound !== currentRound) {
       const encounterId = GetItemFromLocalStorage().encounterId;
       SaveToLocalStorage(encounterId, currentRound);
