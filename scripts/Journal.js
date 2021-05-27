@@ -35,7 +35,7 @@ export async function UpdateJournal(html, article) {
 }
 
 export async function GetArticle() {
-  const encounterId = GetItemFromLocalStorage().encounterId;
+  const encounterId = GetItemFromLocalStorage()?.encounterId;
   return game.journal.find(
     (e) => e.getFlag("fvtt-encounter-stats", "encounterId") === encounterId
   );
