@@ -27,7 +27,7 @@
   "conflicts": [],
   "esmodules": ["/scripts/module.js"],
   "scripts": [],
-  "styles": [],
+  "styles": ["/styles/module.css"],
   "languages": [
     {
       "lang": "en",
