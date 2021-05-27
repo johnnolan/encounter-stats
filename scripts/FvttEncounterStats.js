@@ -30,21 +30,21 @@ function _cleanseCombatants(combatants) {
 
 function _buildContentCombatant(combatant) {
   const markup = `
+  <hr />
   <div class="fvtt-enc-stats_combatant" data-fvtt-id="${combatant.id}">
+    <h2>${combatant.name}</h2>
     <div class="fvtt-enc-stats_combatants_overview">
       <div class="fvtt-enc-stats_combatants_actor">
         <table>
           <tbody>
             <tr>
-              <th scope="col"></th>
-              <th scope="col">Name</th>
+              <th width="120px" scope="col"></th>
               <th scope="col">HP</th>
               <th scope="col">Max HP</th>
               <th scope="col">AC</th>
             </tr>
             <tr>
               <td><img src="${combatant.img}" width="100" height="100" alt="${combatant.name}" /></td>
-              <td>${combatant.name}</td>
               <td>${combatant.hp}</td>
               <td>${combatant.max}</td>
               <td>${combatant.ac}</td>
@@ -89,9 +89,10 @@ function _buildContent() {
   const encounterId = GetItemFromLocalStorage().encounterId;
   const markup = `
  <div class="combatants">
-    <h2>
-        ${encounterId}
-    </h2>
+    <h1>
+        Encounter ID: ${encounterId}
+    </h1>
+    <hr />
     <div class="fvtt-enc-stats_combatants">
 
     </div>
