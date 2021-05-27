@@ -211,6 +211,15 @@ async function _updateJournalCombatants(data) {
   await _updateJournalCombatant(newCombatantHtml);
 }
 
+async function _updateRound(currentRound) {
+  if (!currentRound) return;
+  const pastRound = GetItemFromLocalStorage().round;
+  if (pastRound !== currentRound) {
+    const encounterId = GetItemFromLocalStorage().encounterId;
+    SaveToLocalStorage(encounterId, currentRound);
+  }
+}
+
 // Function
 async function _setupHooks() {
   window.Hooks.on("renderCombatTracker", async function (arg1, arg2, arg3) {
@@ -230,12 +239,6 @@ async function _setupHooks() {
   });
 
   window.Hooks.on("updateCombat", async function (arg1, arg2, arg3) {
-    const pastRound = GetItemFromLocalStorage().round;
-    const currentRound = arg2.round;
-    if (!currentRound) return;
-    if (pastRound !== currentRound) {
-      const encounterId = GetItemFromLocalStorage().encounterId;
-      SaveToLocalStorage(encounterId, currentRound);
-    }
+    _updateRound(arg2.round);
   });
 }
