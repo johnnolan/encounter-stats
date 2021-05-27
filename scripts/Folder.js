@@ -11,7 +11,6 @@ export async function CreateFolder() {
 }
 
 export function GetFolder() {
-  //const folder = game.folders.find(f => f.name("fvtt-encounter-stats"));
   const folder = game.folders.find(
     (f) => f.getFlag("fvtt-encounter-stats", "parent") === true
   );
