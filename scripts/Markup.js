@@ -87,7 +87,7 @@ export function CreateAttackRow(event, round) {
   let markup = `
   <tr data-event-id="${event.id}">
     <th scope="row">Round ${round}</th>
-    <td>${event.item.name}</td>
+    <td>${event.item.itemLink ? event.item.itemLink : event.item.name}</td>
     <td>${event.advantage}</td>
     <td>${event.disadvantage}</td>
     <td>${event.attackTotal}</td>

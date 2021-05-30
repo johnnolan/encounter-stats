@@ -31,6 +31,27 @@ export function GetSummaryStatsFromArray(arr) {
 }
 
 export function ParseAttackData(data) {
+  let type = "";
+  switch (data.item.type) {
+    case "spell":
+      type = "spells";
+      break;
+    case "weapon":
+      type = "items";
+      break;
+    default:
+      break;
+  }
+
+  let itemLink;
+
+  const pack = game.packs.get(`dnd5e.${type}`);
+  let entry = pack.index.find((e) => e.name === data.item.name);
+
+  if (entry) {
+    itemLink = `@Compendium[dnd5e.${type}.${entry._id}]{${entry.name}}`;
+  }
+
   const attackData = {
     id: data._id,
     tokenId: data.tokenId,
@@ -43,6 +64,7 @@ export function ParseAttackData(data) {
     damageTotal: data.damageTotal ? data.damageTotal : 0,
     item: {
       name: data.item.name,
+      itemLink: itemLink,
     },
   };
 
