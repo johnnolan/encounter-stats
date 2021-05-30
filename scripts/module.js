@@ -1,6 +1,6 @@
 import { MODULE_NAME, MODULE_ID, OPT_ENABLE } from "./Settings.js";
-
-import { FvttEncounterStats } from "./FvttEncounterStats.js";
+import { CreateFolder } from "./Folder.js";
+import { SetupHooks } from "./Hooks.js";
 
 Hooks.once("init", async function () {
   game.settings.register(`${MODULE_ID}`, `${OPT_ENABLE}`, {
@@ -18,5 +18,6 @@ Hooks.once("ready", async function () {
     return;
   }
 
-  FvttEncounterStats();
+  CreateFolder();
+  SetupHooks();
 });
