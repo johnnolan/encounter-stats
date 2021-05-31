@@ -6,6 +6,8 @@ import {
 } from "./Settings.js";
 
 export async function AddAttack(data) {
+  if (!_isValidCombatant(data.actor.type)) return;
+
   let itemLink;
 
   if (game.settings.get(`${MODULE_ID}`, `${OPT_COMPENDIUM_LINK_ENABLE}`)) {
@@ -43,7 +45,7 @@ export async function AddAttack(data) {
 
 export async function AddCombatants(combatants) {
   const combatant = combatants.data;
-  if (combatant.type !== "character") return null;
+  if (!_isValidCombatant(combatant.type)) return;
 
   let stat = GetStat();
 
@@ -68,6 +70,10 @@ export async function AddCombatants(combatants) {
     stat.combatants.push(newCombatants);
     await SaveStat(stat);
   }
+}
+
+function _isValidCombatant(type) {
+  return type === "character" || type === "npc";
 }
 
 function _add(accumulator, a) {

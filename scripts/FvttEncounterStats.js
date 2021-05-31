@@ -45,7 +45,6 @@ export async function OnDeleteCombat() {
 }
 
 export async function OnMidiQolRollComplete(attackData) {
-  if (attackData.actor.type !== "character") return;
   AddAttack(attackData);
 }
 

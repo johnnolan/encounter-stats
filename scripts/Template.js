@@ -6,11 +6,23 @@ export function Generate(data) {
     </h1>
     <hr />
     <div class="fvtt-enc-stats_combatants">
+    <div>
+    <h2>Players</h2>
+    <hr />${data.combatants
+      .filter((f) => f.type === "character")
+      .map(function (combatant) {
+        return GenerateCombatant(combatant);
+      })
+      .join("")}</div>
+      <div>
+      <hr />
+      <h2>NPCs</h2>
       <hr />${data.combatants
+        .filter((f) => f.type === "npc")
         .map(function (combatant) {
           return GenerateCombatant(combatant);
         })
-        .join("")}</div></div>
+        .join("")}</div></div></div>
   `;
 
   return markup;
