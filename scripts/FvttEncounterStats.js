@@ -14,6 +14,7 @@ import {
   SaveToLocalStorage,
   TruncateLocalStorage,
 } from "./LocalStorage.js";
+import { SaveStat } from "./Stats.js";
 
 async function _buildSummaries() {
   let article = await GetArticle();
@@ -87,6 +88,11 @@ export async function OnRenderCombatTracker(arg3) {
 export async function OnCreateCombat(arg1) {
   const encounterId = arg1.data._id;
   if (!encounterId) return "";
+  let stat = {
+    encounterId: encounterId,
+    combatants: [],
+  };
+  SaveStat(stat);
   SaveToLocalStorage(encounterId);
   await CreateJournal(arg1, CreateNewEntry(encounterId));
 }

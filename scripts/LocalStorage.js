@@ -1,5 +1,9 @@
-export function GetItemFromLocalStorage() {
-  return JSON.parse(window.localStorage.getItem("fvtt-encounter-stats"));
+export function GetItemFromLocalStorage(name = "fvtt-encounter-stats") {
+  return JSON.parse(window.localStorage.getItem(name));
+}
+
+export function SaveToLocalStorageStat(data, name = "fvtt-encounter-stats") {
+  window.localStorage.setItem(name, JSON.stringify(data));
 }
 
 export function SaveToLocalStorage(encounterId, round) {
@@ -12,4 +16,5 @@ export function SaveToLocalStorage(encounterId, round) {
 
 export function TruncateLocalStorage() {
   window.localStorage.removeItem("fvtt-encounter-stats");
+  window.localStorage.removeItem("fvtt-encounter-stats-data");
 }

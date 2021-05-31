@@ -1,4 +1,5 @@
 import { CreateSummaryRow } from "./Markup.js";
+import { GetStat, SaveStat } from "./Stats.js";
 import {
   MODULE_ID,
   OPT_COMPENDIUM_LINK_ENABLE,
@@ -9,6 +10,8 @@ export function CleanseCombatants(combatants) {
   const combatant = combatants.data;
   if (combatant.type !== "character") return null;
 
+  let stat = GetStat();
+
   const newCombatants = {
     name: combatant.name,
     id: combatant._id,
@@ -17,7 +20,17 @@ export function CleanseCombatants(combatants) {
     hp: combatant.data.attributes.hp.value,
     max: combatant.data.attributes.hp.max,
     ac: combatant.data.attributes.ac.value,
+    events: [],
+    summaryList: {
+      min: "0",
+      max: "0",
+      avg: "0",
+      total: "0",
+    },
   };
+
+  stat.combatants.push(newCombatants);
+  SaveStat(stat);
 
   return newCombatants;
 }
@@ -30,7 +43,7 @@ export function GetSummaryStatsFromArray(arr) {
   return {
     min: Math.min(...arr),
     max: Math.max(...arr),
-    avg: arr.reduce(add, 0) / arr.length,
+    avg: Math.round(arr.reduce(add, 0) / arr.length),
     total: arr.reduce(add, 0),
   };
 }
@@ -101,6 +114,16 @@ export function ParseAttackData(data) {
       itemLink: itemLink,
     },
   };
+
+  let stat = GetStat();
+  let combatantStat = stat.combatants.find((f) => f.id === attackData.actorId);
+  combatantStat.events.push(attackData);
+  let damageTotalArray = combatantStat.events.map((m) => {
+    return m.damageTotal;
+  });
+  combatantStat.summaryList = GetSummaryStatsFromArray(damageTotalArray);
+
+  SaveStat(stat);
 
   return attackData;
 }

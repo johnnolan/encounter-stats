@@ -42,6 +42,10 @@ beforeAll(() => {
             disadvantage: false,
             attackTotal: "15",
             damageTotal: "18",
+            tokenId: "WTi2ws6xbFXJBhAv",
+            actorId: "WTi2ws6xbFXJBhAd",
+            isCritical: false,
+            isFumble: false,
             item: {
               itemLink:
                 "@Compendium[dnd5e.spells.5SuJewoa1CRWaj1F]{Burning Hands}",
