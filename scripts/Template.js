@@ -1,6 +1,23 @@
-export function CreateCombatantProfile(combatant) {
+export function Generate(data) {
   const markup = `
-  <hr />
+  <div class="fvtt-enc-stats">
+    <h1>
+        Encounter ID: ${data.encounterId}
+    </h1>
+    <hr />
+    <div class="fvtt-enc-stats_combatants">
+      <hr />${data.combatants
+        .map(function (combatant) {
+          return GenerateCombatant(combatant);
+        })
+        .join("")}</div></div>
+  `;
+
+  return markup;
+}
+
+function GenerateCombatant(combatant) {
+  const markup = `
   <div class="fvtt-enc-stats_combatant" data-fvtt-id="${combatant.id}">
     <h2>${combatant.name}</h2>
     <div class="fvtt-enc-stats_combatants_overview">
@@ -14,7 +31,9 @@ export function CreateCombatantProfile(combatant) {
               <th scope="col">AC</th>
             </tr>
             <tr>
-              <td class="fvtt-enc-stats_combatants_actor_image"><img src="${combatant.img}" width="100" height="100" alt="${combatant.name}" /></td>
+              <td class="fvtt-enc-stats_combatants_actor_image"><img src="${
+                combatant.img
+              }" width="100" height="100" alt="${combatant.name}" /></td>
               <td>${combatant.hp}</td>
               <td>${combatant.max}</td>
               <td>${combatant.ac}</td>
@@ -32,19 +51,31 @@ export function CreateCombatantProfile(combatant) {
               <th scope="col">Disadvantage</th>
               <th scope="col">Attack Total</th>
               <th scope="col">Damage Total</th>
-            </tr>
+            </tr>${combatant.events
+              .map(function (event) {
+                return GenerateAttackRow(event);
+              })
+              .join("")}
           </tbody>
         </table>
       </div>
     </div>
     <div class="fvtt-enc-stats_combatants_summary">
       <table>
-        <tbody class="fvtt-enc-stats_combatants_summary-table" data-fvtt-attack-summary-id="${combatant.id}">
+        <tbody class="fvtt-enc-stats_combatants_summary-table" data-fvtt-attack-summary-id="${
+          combatant.id
+        }">
           <tr>
             <th scope="col">Min</th>
             <th scope="col">Max</th>
             <th scope="col">Average</th>
             <th scope="col">Damage Total</th>
+          </tr>
+          <tr>
+            <td>${combatant.summaryList.min}</td>
+            <td>${combatant.summaryList.max}</td>
+            <td>${combatant.summaryList.avg}</td>
+            <td>${combatant.summaryList.total}</td>
           </tr>
         </tbody>
       </table>
@@ -55,23 +86,7 @@ export function CreateCombatantProfile(combatant) {
   return markup;
 }
 
-export function CreateNewEntry(encounterId) {
-  const markup = `
- <div class="fvtt-enc-stats">
-    <h1>
-        Encounter ID: ${encounterId}
-    </h1>
-    <hr />
-    <div class="fvtt-enc-stats_combatants">
-
-    </div>
- </div>
-`;
-
-  return markup;
-}
-
-export function CreateSummaryRow(summaryList) {
+function GenerateSummaryRow(summaryList) {
   let markup = `
     <tr>
       <td>${summaryList.min}</td>
@@ -83,10 +98,10 @@ export function CreateSummaryRow(summaryList) {
   return markup;
 }
 
-export function CreateAttackRow(event, round) {
+function GenerateAttackRow(event) {
   let markup = `
   <tr data-event-id="${event.id}">
-    <th scope="row">Round ${round}</th>
+    <th scope="row">Round ${event.round}</th>
     <td>${event.item.itemLink ? event.item.itemLink : event.item.name}</td>
     <td>${event.advantage}</td>
     <td>${event.disadvantage}</td>

@@ -1,18 +1,16 @@
 import { GetFolder } from "./Folder.js";
-import { GetItemFromLocalStorage } from "./LocalStorage.js";
+import { GetStat } from "./StatManager.js";
 
-export async function CreateJournal(createCombatEvent, html) {
-  const encounterId = createCombatEvent.data._id;
+export async function CreateJournal(encounterId) {
   const d = new Date();
   const renderSheet = false;
   const folder = GetFolder();
 
   const article = {
     title: d.toISOString(),
-    encounterId: encounterId,
   };
   const content = {
-    html: html,
+    html: "",
   };
 
   await JournalEntry.create(
@@ -35,8 +33,8 @@ export async function UpdateJournal(html, article) {
 }
 
 export async function GetArticle() {
-  const encounterId = GetItemFromLocalStorage()?.encounterId;
+  let stat = GetStat();
   return game.journal.find(
-    (e) => e.getFlag("fvtt-encounter-stats", "encounterId") === encounterId
+    (e) => e.getFlag("fvtt-encounter-stats", "encounterId") === stat.encounterId
   );
 }

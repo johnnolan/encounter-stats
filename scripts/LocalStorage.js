@@ -1,15 +1,13 @@
+const STORAGE_NAME = "fvtt-encounter-stats-data";
+
 export function GetItemFromLocalStorage() {
-  return JSON.parse(window.localStorage.getItem("fvtt-encounter-stats"));
+  return JSON.parse(window.localStorage.getItem(STORAGE_NAME));
 }
 
-export function SaveToLocalStorage(encounterId, round) {
-  const data = {
-    encounterId: encounterId,
-    round: round,
-  };
-  window.localStorage.setItem("fvtt-encounter-stats", JSON.stringify(data));
+export function SaveToLocalStorageStat(data) {
+  window.localStorage.setItem(STORAGE_NAME, JSON.stringify(data));
 }
 
 export function TruncateLocalStorage() {
-  window.localStorage.removeItem("fvtt-encounter-stats");
+  window.localStorage.removeItem(STORAGE_NAME);
 }
