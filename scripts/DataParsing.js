@@ -13,8 +13,11 @@ export async function AddAttack(data) {
     itemLink = _parseCompendiumItemLink(data);
   }
 
+  let stat = GetStat();
+
   const attackData = {
     id: data._id,
+    round: stat.round,
     tokenId: data.tokenId,
     actorId: data.actor.data._id,
     advantage: data.advantage ? data.advantage : false,
@@ -29,7 +32,6 @@ export async function AddAttack(data) {
     },
   };
 
-  let stat = GetStat();
   let combatantStat = stat.combatants.find((f) => f.id === attackData.actorId);
   combatantStat.events.push(attackData);
   let damageTotalArray = combatantStat.events.map((m) => {
