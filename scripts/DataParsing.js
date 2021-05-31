@@ -36,40 +36,43 @@ export function GetSummaryStatsFromArray(arr) {
 }
 
 function parseCompendiumItemLink(data) {
-  const gameSystem = game.settings.get(
-    `${MODULE_ID}`,
-    `${OPT_COMPENDIUM_LINK_SYSTEM}`
-  );
   let itemLink;
-  let type = "";
 
-  switch (data.item.type) {
-    case "spell":
-      type = "spells";
-      break;
-    case "weapon":
-      type = "items";
-      break;
-    default:
-      break;
+  if (
+    data.item.flags &&
+    data.item.flags.core &&
+    data.item.flags.core.sourceId
+  ) {
+    let sourceId = data.item.flags.core.sourceId;
+    if (sourceId.startsWith("Compendium")) {
+      itemLink = `@Compendium[${sourceId.replace("Compendium.", "")}]{${
+        entry.name
+      }}`;
+    }
   }
 
-  const pack = game.packs.get(`${gameSystem}.${type}`);
-  let entry = pack.index.find((e) => e.name === data.item.name);
+  if (!itemLink) {
+    const gameSystem = game.settings.get(
+      `${MODULE_ID}`,
+      `${OPT_COMPENDIUM_LINK_SYSTEM}`
+    );
+    let type = "";
 
-  if (entry) {
-    itemLink = `@Compendium[${gameSystem}.${type}.${entry._id}]{${entry.name}}`;
-  } else {
-    if (
-      data.item.flags &&
-      data.item.flags.core &&
-      data.item.flags.core.sourceId
-    ) {
-      let sourceId = data.item.flags.core.sourceId;
-      let sourceArray = sourceId.split(".");
-      if (sourceArray[0] === "Compendium") {
-        itemLink = `@Compendium[${sourceArray[1]}.${sourceArray[2]}.${sourceArray[3]}]{${entry.name}}`;
-      }
+    switch (data.item.type) {
+      case "spell":
+        type = "spells";
+        break;
+      case "weapon":
+        type = "items";
+        break;
+      default:
+        break;
+    }
+
+    const pack = game.packs.get(`${gameSystem}.${type}`);
+    let entry = pack.index.find((e) => e.name === data.item.name);
+    if (entry) {
+      itemLink = `@Compendium[${gameSystem}.${type}.${entry._id}]{${entry.name}}`;
     }
   }
 
