@@ -1,5 +1,5 @@
 import { GetFolder } from "./Folder.js";
-import { GetStat } from "./Stats.js";
+import { GetStat } from "./StatManager.js";
 
 export async function CreateJournal(encounterId) {
   const d = new Date();

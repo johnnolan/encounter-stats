@@ -1,16 +1,28 @@
 import { CreateJournal } from "./Journal.js";
 import {
-  CleanseCombatants,
-  ParseAttackData,
+  AddCombatants,
+  AddAttack,
 } from "./DataParsing.js";
-import { GetStat, SaveStat, RemoveStat } from "./Stats.js";
+import { GetStat, SaveStat, RemoveStat } from "./StatManager.js";
+
+async function _createCombat(data) {
+  const encounterId = data.data._id;
+  if (!encounterId) return "";
+  let stat = {
+    encounterId: encounterId,
+    round: 1,
+    combatants: [],
+  };
+  await CreateJournal(encounterId);
+  await SaveStat(stat);
+}
 
 async function _addCombatants(data) {
   if (!data.combat) return;
   const combatantsList = data.combat.data._source.combatants;
   for (let i = 0; i < combatantsList.length; i++) {
     const actorId = combatantsList[i].actorId;
-    CleanseCombatants(game.actors.get(actorId));
+    AddCombatants(game.actors.get(actorId));
   }
 }
 
@@ -28,24 +40,16 @@ export async function OnRenderCombatTracker(arg3) {
 }
 
 export async function OnCreateCombat(arg1) {
-  const encounterId = arg1.data._id;
-  if (!encounterId) return "";
-  let stat = {
-    encounterId: encounterId,
-    round: 1,
-    combatants: [],
-  };
-  await CreateJournal(encounterId);
-  await SaveStat(stat);
+  _createCombat(arg1)
 }
 
-export async function OnDeleteCombat(arg1) {
+export async function OnDeleteCombat() {
   RemoveStat();
 }
 
 export async function OnMidiQolRollComplete(attackData) {
   if (attackData.actor.type !== "character") return;
-  ParseAttackData(attackData);
+  AddAttack(attackData);
 }
 
 export async function OnUpdateCombat(round) {

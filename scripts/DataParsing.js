@@ -1,11 +1,46 @@
-import { GetStat, SaveStat } from "./Stats.js";
+import { GetStat, SaveStat } from "./StatManager.js";
 import {
   MODULE_ID,
   OPT_COMPENDIUM_LINK_ENABLE,
   OPT_COMPENDIUM_LINK_SYSTEM,
 } from "./Settings.js";
 
-export async function CleanseCombatants(combatants) {
+
+export async function AddAttack(data) {
+  let itemLink;
+
+  if (game.settings.get(`${MODULE_ID}`, `${OPT_COMPENDIUM_LINK_ENABLE}`)) {
+    itemLink = _parseCompendiumItemLink(data);
+  }
+
+  const attackData = {
+    id: data._id,
+    tokenId: data.tokenId,
+    actorId: data.actor.data._id,
+    advantage: data.advantage ? data.advantage : false,
+    isCritical: data.isCritical,
+    isFumble: data.isFumble,
+    disadvantage: data.disadvantage ? data.advantage : false,
+    attackTotal: data.attackTotal ? data.attackTotal : 0,
+    damageTotal: data.damageTotal ? data.damageTotal : 0,
+    item: {
+      name: data.item.name,
+      itemLink: itemLink,
+    },
+  };
+
+  let stat = GetStat();
+  let combatantStat = stat.combatants.find((f) => f.id === attackData.actorId);
+  combatantStat.events.push(attackData);
+  let damageTotalArray = combatantStat.events.map((m) => {
+    return m.damageTotal;
+  });
+  combatantStat.summaryList = _getSummaryStatsFromArray(damageTotalArray);
+
+  await SaveStat(stat);
+}
+
+export async function AddCombatants(combatants) {
   const combatant = combatants.data;
   if (combatant.type !== "character") return null;
 
@@ -36,20 +71,20 @@ export async function CleanseCombatants(combatants) {
 
 }
 
-function add(accumulator, a) {
+function _add(accumulator, a) {
   return accumulator + a;
 }
 
-export function GetSummaryStatsFromArray(arr) {
+function _getSummaryStatsFromArray(arr) {
   return {
     min: Math.min(...arr),
     max: Math.max(...arr),
-    avg: Math.round(arr.reduce(add, 0) / arr.length),
-    total: arr.reduce(add, 0),
+    avg: Math.round(arr.reduce(_add, 0) / arr.length),
+    total: arr.reduce(_add, 0),
   };
 }
 
-function parseCompendiumItemLink(data) {
+function _parseCompendiumItemLink(data) {
   let itemLink;
 
   if (
@@ -91,38 +126,4 @@ function parseCompendiumItemLink(data) {
   }
 
   return itemLink;
-}
-
-export async function ParseAttackData(data) {
-  let itemLink;
-
-  if (game.settings.get(`${MODULE_ID}`, `${OPT_COMPENDIUM_LINK_ENABLE}`)) {
-    itemLink = parseCompendiumItemLink(data);
-  }
-
-  const attackData = {
-    id: data._id,
-    tokenId: data.tokenId,
-    actorId: data.actor.data._id,
-    advantage: data.advantage ? data.advantage : false,
-    isCritical: data.isCritical,
-    isFumble: data.isFumble,
-    disadvantage: data.disadvantage ? data.advantage : false,
-    attackTotal: data.attackTotal ? data.attackTotal : 0,
-    damageTotal: data.damageTotal ? data.damageTotal : 0,
-    item: {
-      name: data.item.name,
-      itemLink: itemLink,
-    },
-  };
-
-  let stat = GetStat();
-  let combatantStat = stat.combatants.find((f) => f.id === attackData.actorId);
-  combatantStat.events.push(attackData);
-  let damageTotalArray = combatantStat.events.map((m) => {
-    return m.damageTotal;
-  });
-  combatantStat.summaryList = GetSummaryStatsFromArray(damageTotalArray);
-
-  await SaveStat(stat);
 }
