@@ -1,3 +1,11 @@
 .fvtt-enc-stats_combatants_summary {
   text-align: center;
 }
+
+.fvtt-enc-stats_combatants_actor_image {
+  width: 120px;
+}
+
+.fvtt-enc-stats_combatants td {
+  text-align: center;
+}

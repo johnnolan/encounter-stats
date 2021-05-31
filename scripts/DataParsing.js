@@ -1,4 +1,9 @@
 import { CreateSummaryRow } from "./Markup.js";
+import {
+  MODULE_ID,
+  OPT_COMPENDIUM_LINK_ENABLE,
+  OPT_COMPENDIUM_LINK_SYSTEM,
+} from "./Settings.js";
 
 export function CleanseCombatants(combatants) {
   const combatant = combatants.data;
@@ -30,7 +35,57 @@ export function GetSummaryStatsFromArray(arr) {
   };
 }
 
+function parseCompendiumItemLink(data) {
+  let itemLink;
+
+  if (
+    data.item.flags &&
+    data.item.flags.core &&
+    data.item.flags.core.sourceId
+  ) {
+    let sourceId = data.item.flags.core.sourceId;
+    if (sourceId.startsWith("Compendium")) {
+      itemLink = `@Compendium[${sourceId.replace("Compendium.", "")}]{${
+        entry.name
+      }}`;
+    }
+  }
+
+  if (!itemLink) {
+    const gameSystem = game.settings.get(
+      `${MODULE_ID}`,
+      `${OPT_COMPENDIUM_LINK_SYSTEM}`
+    );
+    let type = "";
+
+    switch (data.item.type) {
+      case "spell":
+        type = "spells";
+        break;
+      case "weapon":
+        type = "items";
+        break;
+      default:
+        break;
+    }
+
+    const pack = game.packs.get(`${gameSystem}.${type}`);
+    let entry = pack.index.find((e) => e.name === data.item.name);
+    if (entry) {
+      itemLink = `@Compendium[${gameSystem}.${type}.${entry._id}]{${entry.name}}`;
+    }
+  }
+
+  return itemLink;
+}
+
 export function ParseAttackData(data) {
+  let itemLink;
+
+  if (game.settings.get(`${MODULE_ID}`, `${OPT_COMPENDIUM_LINK_ENABLE}`)) {
+    itemLink = parseCompendiumItemLink(data);
+  }
+
   const attackData = {
     id: data._id,
     tokenId: data.tokenId,
@@ -43,6 +98,7 @@ export function ParseAttackData(data) {
     damageTotal: data.damageTotal ? data.damageTotal : 0,
     item: {
       name: data.item.name,
+      itemLink: itemLink,
     },
   };
 
