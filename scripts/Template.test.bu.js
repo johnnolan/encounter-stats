@@ -28,7 +28,7 @@ beforeAll(() => {
       maxDamage: "Lorena Aldabra<br />57",
       highestAvgDamage: "Graa S'oua<br />49",
       highestMaxDamage: "Graa S'oua<br />49",
-    }
+    },
   };
   statsData = {
     encounterId: "sze0mlf69xCj913F",
@@ -79,7 +79,7 @@ beforeAll(() => {
 describe("On generating the markup from an object with no events", () => {
   test("Expect the HTML to be valid", () => {
     const markup = Generate(statsDataWithNoEvents);
-    console.log(markup)
+    console.log(markup);
     expect(markup).toEqual(`
     <div class="fvtt-enc-stats">
     <hr />
