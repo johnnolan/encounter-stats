@@ -1,4 +1,3 @@
-import { CreateSummaryRow } from "./Markup.js";
 import { GetStat, SaveStat } from "./Stats.js";
 import {
   MODULE_ID,
@@ -6,7 +5,7 @@ import {
   OPT_COMPENDIUM_LINK_SYSTEM,
 } from "./Settings.js";
 
-export function CleanseCombatants(combatants) {
+export async function CleanseCombatants(combatants) {
   const combatant = combatants.data;
   if (combatant.type !== "character") return null;
 
@@ -29,10 +28,12 @@ export function CleanseCombatants(combatants) {
     },
   };
 
-  stat.combatants.push(newCombatants);
-  SaveStat(stat);
+  if (!stat.combatants.find((f) => f.id === newCombatants.id)) {
 
-  return newCombatants;
+    stat.combatants.push(newCombatants);
+    await SaveStat(stat);
+  }
+
 }
 
 function add(accumulator, a) {
@@ -92,7 +93,7 @@ function parseCompendiumItemLink(data) {
   return itemLink;
 }
 
-export function ParseAttackData(data) {
+export async function ParseAttackData(data) {
   let itemLink;
 
   if (game.settings.get(`${MODULE_ID}`, `${OPT_COMPENDIUM_LINK_ENABLE}`)) {
@@ -123,30 +124,5 @@ export function ParseAttackData(data) {
   });
   combatantStat.summaryList = GetSummaryStatsFromArray(damageTotalArray);
 
-  SaveStat(stat);
-
-  return attackData;
-}
-
-export function AttackArrayFromHtml($currentHtml) {
-  let combatantsList = $currentHtml.find(".fvtt-enc-stats_combatant");
-
-  for (let i = 0; i < combatantsList.length; i++) {
-    let damageTotalList = $(combatantsList[i]).find(`[data-damage-total]`);
-    let damageArray = [];
-    let actorId = $(combatantsList[i]).attr("data-fvtt-id");
-
-    for (let j = 0; j < damageTotalList.length; j++) {
-      damageArray.push(
-        parseInt($(damageTotalList[j]).attr("data-damage-total"))
-      );
-    }
-    const summaryList = GetSummaryStatsFromArray(damageArray);
-
-    $currentHtml
-      .find(`[data-fvtt-attack-summary-id="${actorId}"]`)
-      .append(CreateSummaryRow(summaryList));
-  }
-
-  return $currentHtml;
+  await SaveStat(stat);
 }

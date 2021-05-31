@@ -1,88 +1,30 @@
-import { CreateJournal, UpdateJournal, GetArticle } from "./Journal.js";
-import {
-  CreateCombatantProfile,
-  CreateNewEntry,
-  CreateAttackRow,
-} from "./Markup.js";
+import { CreateJournal } from "./Journal.js";
 import {
   CleanseCombatants,
   ParseAttackData,
-  AttackArrayFromHtml,
 } from "./DataParsing.js";
-import {
-  GetItemFromLocalStorage,
-  SaveToLocalStorage,
-  TruncateLocalStorage,
-} from "./LocalStorage.js";
-import { SaveStat } from "./Stats.js";
+import { GetStat, SaveStat, RemoveStat } from "./Stats.js";
 
-async function _buildSummaries() {
-  let article = await GetArticle();
-  let $currentHtml = $(`<div>${article.data.content}</div>`);
-  AttackArrayFromHtml($currentHtml);
-
-  await UpdateJournal($currentHtml.html(), article);
-}
-
-async function _updateJournalCombatant(html) {
-  let article = await GetArticle();
-  let currentHtml = $(article.data.content);
-  currentHtml
-    .find(".fvtt-enc-stats_combatants")
-    .append($(`<div>${html}</div>`).html());
-
-  await UpdateJournal(currentHtml.html(), article);
-}
-
-async function _updateJournalAttack(data) {
-  let article = await GetArticle();
-  const round = GetItemFromLocalStorage()?.round;
-  if (!round) return;
-
-  const event = ParseAttackData(data);
-
-  let currentHtml = $(`<div>${article.data.content}</div>`);
-  let eventHtml = currentHtml.find(`[data-event-id="${event.id}"]`);
-  if (eventHtml) {
-    eventHtml.remove();
-  }
-  currentHtml
-    .find(`[data-fvtt-attack-id="${event.actorId}"]`)
-    .append(CreateAttackRow(event, round));
-
-  await UpdateJournal(currentHtml.html(), article);
-}
-
-async function _updateJournalCombatants(data) {
-  let article = await GetArticle();
-  if (!article || !data.combat) return;
-  let currentHtml = $(article.data.content);
-  if (currentHtml.find(".fvtt-enc-stats_combatant").length > 0) return;
-
-  let newCombatantHtml = "";
+async function _addCombatants(data) {
+  if (!data.combat) return;
   const combatantsList = data.combat.data._source.combatants;
   for (let i = 0; i < combatantsList.length; i++) {
     const actorId = combatantsList[i].actorId;
-    const combatants = CleanseCombatants(game.actors.get(actorId));
-    if (combatants) {
-      newCombatantHtml += CreateCombatantProfile(combatants);
-    }
+    CleanseCombatants(game.actors.get(actorId));
   }
-  await _updateJournalCombatant(newCombatantHtml);
 }
 
 async function _updateRound(currentRound) {
   if (!currentRound) return;
-  const pastRound = GetItemFromLocalStorage()?.round;
-  if (pastRound !== currentRound) {
-    const encounterId = GetItemFromLocalStorage()?.encounterId;
-    if (!encounterId) return;
-    SaveToLocalStorage(encounterId, currentRound);
+  let stat = GetStat();
+  if (stat.round !== currentRound) {
+    stat.round = currentRound;
+    await SaveStat(stat);
   }
 }
 
 export async function OnRenderCombatTracker(arg3) {
-  await _updateJournalCombatants(arg3);
+  await _addCombatants(arg3);
 }
 
 export async function OnCreateCombat(arg1) {
@@ -90,21 +32,20 @@ export async function OnCreateCombat(arg1) {
   if (!encounterId) return "";
   let stat = {
     encounterId: encounterId,
+    round: 1,
     combatants: [],
   };
-  SaveStat(stat);
-  SaveToLocalStorage(encounterId);
-  await CreateJournal(arg1, CreateNewEntry(encounterId));
+  await CreateJournal(encounterId);
+  await SaveStat(stat);
 }
 
 export async function OnDeleteCombat(arg1) {
-  await _buildSummaries();
-  TruncateLocalStorage(arg1.data._id);
+  RemoveStat();
 }
 
 export async function OnMidiQolRollComplete(attackData) {
   if (attackData.actor.type !== "character") return;
-  _updateJournalAttack(attackData);
+  ParseAttackData(attackData);
 }
 
 export async function OnUpdateCombat(round) {
