@@ -6,7 +6,6 @@ import {
 import { Generate } from "./Template.js";
 import { UpdateJournal, GetArticle } from "./Journal.js";
 
-
 export function GetStat() {
   const stat = GetItemFromLocalStorage();
 
@@ -24,5 +23,5 @@ export async function SaveStat(data) {
 }
 
 export function RemoveStat() {
-  TruncateLocalStorage()
+  TruncateLocalStorage();
 }

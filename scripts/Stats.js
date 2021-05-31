@@ -25,5 +25,5 @@ export async function SaveStat(data) {
 }
 
 export function RemoveStat() {
-  TruncateLocalStorage(STAT_NAME)
+  TruncateLocalStorage(STAT_NAME);
 }

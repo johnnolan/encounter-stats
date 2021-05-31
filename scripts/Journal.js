@@ -7,7 +7,7 @@ export async function CreateJournal(encounterId) {
   const folder = GetFolder();
 
   const article = {
-    title: d.toISOString()
+    title: d.toISOString(),
   };
   const content = {
     html: "",

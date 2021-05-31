@@ -1,8 +1,5 @@
 import { CreateJournal } from "./Journal.js";
-import {
-  AddCombatants,
-  AddAttack,
-} from "./DataParsing.js";
+import { AddCombatants, AddAttack } from "./DataParsing.js";
 import { GetStat, SaveStat, RemoveStat } from "./StatManager.js";
 
 async function _createCombat(data) {
@@ -40,7 +37,7 @@ export async function OnRenderCombatTracker(arg3) {
 }
 
 export async function OnCreateCombat(arg1) {
-  _createCombat(arg1)
+  _createCombat(arg1);
 }
 
 export async function OnDeleteCombat() {

@@ -5,7 +5,6 @@ import {
   OPT_COMPENDIUM_LINK_SYSTEM,
 } from "./Settings.js";
 
-
 export async function AddAttack(data) {
   let itemLink;
 
@@ -66,11 +65,9 @@ export async function AddCombatants(combatants) {
   };
 
   if (!stat.combatants.find((f) => f.id === newCombatants.id)) {
-
     stat.combatants.push(newCombatants);
     await SaveStat(stat);
   }
-
 }
 
 function _add(accumulator, a) {

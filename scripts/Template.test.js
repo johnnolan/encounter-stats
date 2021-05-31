@@ -64,7 +64,6 @@ beforeAll(() => {
   };
 });
 
-
 describe("On generating the markup from an object with no events", () => {
   test("Expect the HTML to be valid", () => {
     const markup = Generate(statsDataWithNoEvents);
