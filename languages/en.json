@@ -13,7 +13,7 @@
     "FVTTEncounterStats.template.highest_damage_in_1_hit": "Highest Damage in 1 hit",
     "FVTTEncounterStats.template.enemies": "Enemies",
     "FVTTEncounterStats.template.hp": "HP",
-    "FVTTEncounterStats.template.ac": "entry",
+    "FVTTEncounterStats.template.ac": "AC",
     "FVTTEncounterStats.template.damage_total": "Damage Total",
     "FVTTEncounterStats.template.min_damage": "Min Damage",
     "FVTTEncounterStats.template.max_damage": "Max Damage",
