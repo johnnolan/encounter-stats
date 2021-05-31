@@ -14,7 +14,7 @@ export function CreateCombatantProfile(combatant) {
               <th scope="col">AC</th>
             </tr>
             <tr>
-              <td><img src="${combatant.img}" width="100" height="100" alt="${combatant.name}" /></td>
+              <td class="fvtt-enc-stats_combatants_actor_image"><img src="${combatant.img}" width="100" height="100" alt="${combatant.name}" /></td>
               <td>${combatant.hp}</td>
               <td>${combatant.max}</td>
               <td>${combatant.ac}</td>
@@ -57,7 +57,7 @@ export function CreateCombatantProfile(combatant) {
 
 export function CreateNewEntry(encounterId) {
   const markup = `
- <div class="combatants">
+ <div class="fvtt-enc-stats">
     <h1>
         Encounter ID: ${encounterId}
     </h1>
