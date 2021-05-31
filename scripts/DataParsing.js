@@ -39,6 +39,7 @@ export async function AddAttack(data) {
     return m.damageTotal;
   });
   combatantStat.summaryList = _getSummaryStatsFromArray(damageTotalArray);
+  stat.top = _getTopStats(stat);
 
   await SaveStat(stat);
 }
@@ -74,6 +75,34 @@ export async function AddCombatants(combatants) {
 
 function _isValidCombatant(type) {
   return type === "character" || type === "npc";
+}
+
+function _getTopStats(data) {
+  let result = data.combatants.map((m) => {
+    return {
+      name: m.name,
+      min: m.summaryList.min,
+      max: m.summaryList.max,
+      avg: m.summaryList.avg,
+      total: m.summaryList.total,
+    };
+  });
+
+  let maxDamage = result.reduce(function (max, obj) {
+    return obj.total > max.total ? obj : max;
+  });
+  let highestAvgDamage = result.reduce(function (max, obj) {
+    return obj.avg > max.avg ? obj : max;
+  });
+  let highestMaxDamage = result.reduce(function (max, obj) {
+    return obj.max > max.max ? obj : max;
+  });
+
+  return {
+    maxDamage: `${maxDamage.name}<br />${maxDamage.total}`,
+    highestAvgDamage: `${highestAvgDamage.name}<br />${highestAvgDamage.avg}`,
+    highestMaxDamage: `${highestMaxDamage.name}<br />${highestMaxDamage.max}`,
+  };
 }
 
 function _add(accumulator, a) {

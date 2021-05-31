@@ -9,6 +9,11 @@ async function _createCombat(data) {
     encounterId: encounterId,
     round: 1,
     combatants: [],
+    top: {
+      maxDamage: "",
+      highestAvgDamage: "",
+      highestMaxDamage: "",
+    },
   };
   await CreateJournal(encounterId);
   await SaveStat(stat);
