@@ -1,16 +1,45 @@
 export function Generate(data) {
   const markup = `
   <div class="fvtt-enc-stats">
-    <h1>
-        Encounter ID: ${data.encounterId}
-    </h1>
     <hr />
+    <div class="fvtt-enc-stats_top">
+      <div class="fvtt-enc-stats_actor_statlist flexrow">
+        <div class="fvtt-enc-stats_actor_stat">
+          <div class="fvtt-enc-stats_actor_stat-key">Most Damage Overall</div>
+          <div class="fvtt-enc-stats_actor_stat-value">${
+            data.top.maxDamage
+          }</div>
+        </div>
+        <div class="fvtt-enc-stats_actor_stat">
+          <div class="fvtt-enc-stats_actor_stat-key">Highest Average Damage</div>
+          <div class="fvtt-enc-stats_actor_stat-value">${
+            data.top.highestAvgDamage
+          }</div>
+        </div>
+        <div class="fvtt-enc-stats_actor_stat">
+          <div class="fvtt-enc-stats_actor_stat-key">Highest Damage in 1 hit</div>
+          <div class="fvtt-enc-stats_actor_stat-value">${
+            data.top.highestMaxDamage
+          }</div>
+        </div>
+      </div>
+    </div>
     <div class="fvtt-enc-stats_combatants">
-      <hr />${data.combatants
+    <div>${data.combatants
+      .filter((f) => f.type === "character")
+      .map(function (combatant) {
+        return GenerateCombatant(combatant);
+      })
+      .join("")}</div>
+      <h2 class="fvtt-enc-stats_enemies">
+          Enemies
+      </h2>
+      <div>${data.combatants
+        .filter((f) => f.type === "npc")
         .map(function (combatant) {
           return GenerateCombatant(combatant);
         })
-        .join("")}</div></div>
+        .join("")}</div></div></div>
   `;
 
   return markup;
@@ -19,66 +48,76 @@ export function Generate(data) {
 function GenerateCombatant(combatant) {
   const markup = `
   <div class="fvtt-enc-stats_combatant" data-fvtt-id="${combatant.id}">
-    <h2>${combatant.name}</h2>
     <div class="fvtt-enc-stats_combatants_overview">
-      <div class="fvtt-enc-stats_combatants_actor">
-        <table>
-          <tbody>
-            <tr>
-              <th width="120px" scope="col"></th>
-              <th scope="col">HP</th>
-              <th scope="col">Max HP</th>
-              <th scope="col">AC</th>
-            </tr>
-            <tr>
-              <td class="fvtt-enc-stats_combatants_actor_image"><img src="${
-                combatant.img
-              }" width="100" height="100" alt="${combatant.name}" /></td>
-              <td>${combatant.hp}</td>
-              <td>${combatant.max}</td>
-              <td>${combatant.ac}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="fvtt-enc-stats_combatants_attacks">
-        <table>
-          <tbody data-fvtt-attack-id="${combatant.id}">
-            <tr>
-              <td></td>
-              <th scope="col">Weapon Name</th>
-              <th scope="col">Advantage</th>
-              <th scope="col">Disadvantage</th>
-              <th scope="col">Attack Total</th>
-              <th scope="col">Damage Total</th>
-            </tr>${combatant.events
-              .map(function (event) {
-                return GenerateAttackRow(event);
-              })
-              .join("")}
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="fvtt-enc-stats_combatants_summary">
-      <table>
-        <tbody class="fvtt-enc-stats_combatants_summary-table" data-fvtt-attack-summary-id="${
-          combatant.id
-        }">
-          <tr>
-            <th scope="col">Min</th>
-            <th scope="col">Max</th>
-            <th scope="col">Average</th>
-            <th scope="col">Damage Total</th>
-          </tr>
-          <tr>
-            <td>${combatant.summaryList.min}</td>
-            <td>${combatant.summaryList.max}</td>
-            <td>${combatant.summaryList.avg}</td>
-            <td>${combatant.summaryList.total}</td>
-          </tr>
-        </tbody>
-      </table>
+      <header class="fvtt-enc-stats_combatants_actor flexrow">
+        <div class="fvtt-enc-stats_combatants_actor_image flexcol">
+          <img src="${combatant.img}" alt="${combatant.name}" />
+        </div>
+        <div class="fvtt-enc-stats_actor_stats">
+          <h1 class="fvtt-enc-stats_actor_stats_name">${combatant.name}</h1>
+          <div class="fvtt-enc-stats_actor_statlist flexrow">
+            <div class="fvtt-enc-stats_actor_stat">
+              <div class="fvtt-enc-stats_actor_stat-key">HP</div>
+              <div class="fvtt-enc-stats_actor_stat-value">
+                <span>${combatant.hp}</span><span class="sep">/</span><span>${
+    combatant.max
+  }</span></div>
+            </div>
+            <div class="fvtt-enc-stats_actor_stat">
+              <div class="fvtt-enc-stats_actor_stat-key">AC</div>
+              <div class="fvtt-enc-stats_actor_stat-value"><span>${
+                combatant.ac
+              }</span></div>
+            </div>
+            <div class="fvtt-enc-stats_actor_stat">
+              <div class="fvtt-enc-stats_actor_stat-key">Damage Total</div>
+              <div class="fvtt-enc-stats_actor_stat-value"><span>${
+                combatant.summaryList.total
+              }</span></div>
+            </div>
+            <div class="fvtt-enc-stats_actor_stat">
+              <div class="fvtt-enc-stats_actor_stat-key">Min Damage</div>
+              <div class="fvtt-enc-stats_actor_stat-value"><span>${
+                combatant.summaryList.min
+              }</span></div>
+            </div>
+            <div class="fvtt-enc-stats_actor_stat">
+              <div class="fvtt-enc-stats_actor_stat-key">Max Damage</div>
+              <div class="fvtt-enc-stats_actor_stat-value"><span>${
+                combatant.summaryList.max
+              }</span></div>
+            </div>
+            <div class="fvtt-enc-stats_actor_stat">
+              <div class="fvtt-enc-stats_actor_stat-key">Avg Damage</div>
+              <div class="fvtt-enc-stats_actor_stat-value"><span>${
+                combatant.summaryList.avg
+              }</span></div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <section class="fvtt-enc-stats_combatants_attacks">
+        <div class="flexcol">
+          <ol class="items-list flexcol">
+            <li class="items-header flexrow">
+              <div class="item-name item-round">Round</div>
+              <div class="item-name item-weapon">Weapon/Spell Name</div>
+              <div class="item-name">Advantage</div>
+              <div class="item-name">Disadvantage</div>
+              <div class="item-name">Attack Total</div>
+              <div class="item-name">Damage Total</div>
+            </li>
+            <ol class="item-list">
+              ${combatant.events
+                .map(function (event) {
+                  return GenerateAttackRow(event);
+                })
+                .join("")}
+                     
+            </ol>
+          </ol>
+        </div>
+      </section>
     </div>
   </div>
   `;
@@ -86,28 +125,18 @@ function GenerateCombatant(combatant) {
   return markup;
 }
 
-function GenerateSummaryRow(summaryList) {
-  let markup = `
-    <tr>
-      <td>${summaryList.min}</td>
-      <td>${summaryList.max}</td>
-      <td>${summaryList.avg}</td>
-      <td>${summaryList.total}</td>
-    </tr>`;
-
-  return markup;
-}
-
 function GenerateAttackRow(event) {
   let markup = `
-  <tr data-event-id="${event.id}">
-    <th scope="row">Round ${event.round}</th>
-    <td>${event.item.itemLink ? event.item.itemLink : event.item.name}</td>
-    <td>${event.advantage}</td>
-    <td>${event.disadvantage}</td>
-    <td>${event.attackTotal}</td>
-    <td data-damage-total="${event.damageTotal}">${event.damageTotal}</td>
-  </tr>`;
+  <li class="item flexrow">
+    <div class="item-name item-round">${event.round}</div>
+    <div class="item-name item-weapon">${
+      event.item.itemLink ? event.item.itemLink : event.item.name
+    }</div>
+    <div class="item-name">${event.advantage}</div>
+    <div class="item-name">${event.disadvantage}</div>
+    <div class="item-name">${event.attackTotal}</div>
+    <div class="item-name">${event.damageTotal}</div>
+  </li>`;
 
   return markup;
 }

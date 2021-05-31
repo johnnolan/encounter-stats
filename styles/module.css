@@ -1,11 +1,144 @@
+.fvtt-enc-stats_enemies {
+  font-family: "Modesto Condensed", "Palatino Linotype", serif;
+  border: none;
+}
+
 .fvtt-enc-stats_combatants_summary {
   text-align: center;
 }
 
+.fvtt-enc-stats_actor_statlist {
+  font-family: "Modesto Condensed", "Palatino Linotype", serif;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 10px 0;
+}
+
 .fvtt-enc-stats_combatants_actor_image {
-  width: 120px;
+  flex: 0 0 110px;
+  max-width: 110px;
+  height: 110px;
+  object-fit: contain;
+  border-right-color: currentcolor;
+  border-right-style: none;
+  border-right-width: medium;
+  border-right: 2px groove #eeede0;
+}
+
+.fvtt-enc-stats_actor_stats {
+  padding-left: 10px;
+  border-left: 2px groove #eeede0;
+  margin-left: 10px;
+}
+
+.fvtt-enc-stats_actor_stats_name {
+  border: none;
+  margin: 0;
 }
 
 .fvtt-enc-stats_combatants td {
   text-align: center;
+}
+
+.fvtt-enc-stats_combatant {
+  margin-bottom: 30px;
+  border-bottom: 2px groove #eeede0;
+  border-top: 2px groove #eeede0;
+  padding-bottom: 10px;
+}
+
+.fvtt-enc-stats_combatants_overview {
+  justify-content: space-between;
+}
+
+.fvtt-enc-stats_combatants_actor {
+  font-family: "Modesto Condensed", "Palatino Linotype", serif;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 10px 0;
+  border-bottom: 2px groove #eeede0;
+}
+
+.fvtt-enc-stats_actor_stat {
+  line-height: 30px;
+}
+
+.fvtt-enc-stats_actor_stat-key {
+  font-weight: 700;
+  text-align: center;
+  font-size: 18px;
+  color: #4b4a44;
+  border-bottom: 1px solid #c9c7b8;
+}
+
+.fvtt-enc-stats_actor_stat-value {
+  font-weight: 400;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.fvtt-enc-stats_actor_stat-value .sep {
+  color: #7a7971;
+  padding: 0 5px;
+}
+
+.fvtt-enc-stats_combatants_attacks {
+  width: 100%;
+  width: -moz-available;
+  width: -webkit-fill-available;
+  width: fill-available;
+  font-family: "Signika", sans-serif;
+}
+
+.fvtt-enc-stats_combatants_attacks .item-list {
+  margin: 0;
+  padding: 0;
+}
+
+.fvtt-enc-stats_combatants_attacks .item-name {
+  margin: 2px 0;
+  padding: 0;
+  text-align: center;
+  color: #191813;
+}
+
+.fvtt-enc-stats_combatants_attacks .items-header {
+  height: 28px;
+  margin: 2px 0;
+  padding: 0;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.05);
+  border: 2px groove #eeede0;
+  font-weight: bold;
+}
+
+.fvtt-enc-stats_combatants_attacks .items-header .item-name {
+  font-size: 12px;
+  flex: 0 0 100px;
+  color: #7a7971;
+  text-align: center;
+  border-right: 1px solid #c9c7b8;
+}
+
+.fvtt-enc-stats_combatants_attacks .items-header .item-round,
+.fvtt-enc-stats_combatants_attacks .items-list .item .item-round {
+  flex: 0 0 40px;
+}
+
+.fvtt-enc-stats_combatants_attacks .items-header .item-weapon,
+.fvtt-enc-stats_combatants_attacks .items-list .item .item-weapon {
+  flex: 0 0 200px;
+}
+
+.fvtt-enc-stats_combatants_attacks .items-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  color: #7a7971;
+  padding: 0 5px;
 }

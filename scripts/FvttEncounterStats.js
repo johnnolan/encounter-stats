@@ -9,6 +9,11 @@ async function _createCombat(data) {
     encounterId: encounterId,
     round: 1,
     combatants: [],
+    top: {
+      maxDamage: "",
+      highestAvgDamage: "",
+      highestMaxDamage: "",
+    },
   };
   await CreateJournal(encounterId);
   await SaveStat(stat);
@@ -45,7 +50,6 @@ export async function OnDeleteCombat() {
 }
 
 export async function OnMidiQolRollComplete(attackData) {
-  if (attackData.actor.type !== "character") return;
   AddAttack(attackData);
 }
 
