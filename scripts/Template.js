@@ -120,7 +120,7 @@ function GenerateCombatant(combatant) {
             <li class="items-header flexrow">
               <div class="item-name item-round">${game.i18n.format(
                 "FVTTEncounterStats.template.round"
-              )}Round</div>
+              )}</div>
               <div class="item-name item-weapon">${game.i18n.format(
                 "FVTTEncounterStats.template.weapon_spell_name"
               )}</div>
