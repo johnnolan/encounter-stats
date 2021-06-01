@@ -5,19 +5,25 @@ export function Generate(data) {
     <div class="fvtt-enc-stats_top">
       <div class="fvtt-enc-stats_actor_statlist flexrow">
         <div class="fvtt-enc-stats_actor_stat">
-          <div class="fvtt-enc-stats_actor_stat-key">Most Damage Overall</div>
+          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
+            "FVTTEncounterStats.template.most_damage_overall"
+          )}</div>
           <div class="fvtt-enc-stats_actor_stat-value">${
             data.top.maxDamage
           }</div>
         </div>
         <div class="fvtt-enc-stats_actor_stat">
-          <div class="fvtt-enc-stats_actor_stat-key">Highest Average Damage</div>
+          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
+            "FVTTEncounterStats.template.highest_average_damage"
+          )}</div>
           <div class="fvtt-enc-stats_actor_stat-value">${
             data.top.highestAvgDamage
           }</div>
         </div>
         <div class="fvtt-enc-stats_actor_stat">
-          <div class="fvtt-enc-stats_actor_stat-key">Highest Damage in 1 hit</div>
+          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
+            "FVTTEncounterStats.template.highest_damage_in_1_hit"
+          )}</div>
           <div class="fvtt-enc-stats_actor_stat-value">${
             data.top.highestMaxDamage
           }</div>
@@ -32,7 +38,7 @@ export function Generate(data) {
       })
       .join("")}</div>
       <h2 class="fvtt-enc-stats_enemies">
-          Enemies
+      ${game.i18n.format("FVTTEncounterStats.template.enemies")}
       </h2>
       <div>${data.combatants
         .filter((f) => f.type === "npc")
@@ -57,38 +63,50 @@ function GenerateCombatant(combatant) {
           <h1 class="fvtt-enc-stats_actor_stats_name">${combatant.name}</h1>
           <div class="fvtt-enc-stats_actor_statlist flexrow">
             <div class="fvtt-enc-stats_actor_stat">
-              <div class="fvtt-enc-stats_actor_stat-key">HP</div>
+              <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
+                "FVTTEncounterStats.template.hp"
+              )}</div>
               <div class="fvtt-enc-stats_actor_stat-value">
                 <span>${combatant.hp}</span><span class="sep">/</span><span>${
     combatant.max
   }</span></div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
-              <div class="fvtt-enc-stats_actor_stat-key">AC</div>
+              <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
+                "FVTTEncounterStats.template.ac"
+              )}</div>
               <div class="fvtt-enc-stats_actor_stat-value"><span>${
                 combatant.ac
               }</span></div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
-              <div class="fvtt-enc-stats_actor_stat-key">Damage Total</div>
+              <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
+                "FVTTEncounterStats.template.damage_total"
+              )}</div>
               <div class="fvtt-enc-stats_actor_stat-value"><span>${
                 combatant.summaryList.total
               }</span></div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
-              <div class="fvtt-enc-stats_actor_stat-key">Min Damage</div>
+              <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
+                "FVTTEncounterStats.template.min_damage"
+              )}</div>
               <div class="fvtt-enc-stats_actor_stat-value"><span>${
                 combatant.summaryList.min
               }</span></div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
-              <div class="fvtt-enc-stats_actor_stat-key">Max Damage</div>
+              <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
+                "FVTTEncounterStats.template.max_damage"
+              )}</div>
               <div class="fvtt-enc-stats_actor_stat-value"><span>${
                 combatant.summaryList.max
               }</span></div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
-              <div class="fvtt-enc-stats_actor_stat-key">Avg Damage</div>
+              <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
+                "FVTTEncounterStats.template.avg_damage"
+              )}</div>
               <div class="fvtt-enc-stats_actor_stat-value"><span>${
                 combatant.summaryList.avg
               }</span></div>
@@ -100,12 +118,24 @@ function GenerateCombatant(combatant) {
         <div class="flexcol">
           <ol class="items-list flexcol">
             <li class="items-header flexrow">
-              <div class="item-name item-round">Round</div>
-              <div class="item-name item-weapon">Weapon/Spell Name</div>
-              <div class="item-name">Advantage</div>
-              <div class="item-name">Disadvantage</div>
-              <div class="item-name">Attack Total</div>
-              <div class="item-name">Damage Total</div>
+              <div class="item-name item-round">${game.i18n.format(
+                "FVTTEncounterStats.template.round"
+              )}</div>
+              <div class="item-name item-weapon">${game.i18n.format(
+                "FVTTEncounterStats.template.weapon_spell_name"
+              )}</div>
+              <div class="item-name">${game.i18n.format(
+                "FVTTEncounterStats.template.advantage"
+              )}</div>
+              <div class="item-name">${game.i18n.format(
+                "FVTTEncounterStats.template.disadvantage"
+              )}</div>
+              <div class="item-name">${game.i18n.format(
+                "FVTTEncounterStats.template.attack_total"
+              )}</div>
+              <div class="item-name">${game.i18n.format(
+                "FVTTEncounterStats.template.damage_total"
+              )}</div>
             </li>
             <ol class="item-list">
               ${combatant.events
