@@ -5,6 +5,83 @@ import {
   OPT_COMPENDIUM_LINK_SYSTEM,
 } from "./Settings.js";
 
+export async function AddAttackStandard(data) {
+  let stat = GetStat();
+
+  let combatantStat = stat.combatants.find(
+    (f) => f.id === data.data.speaker.actor
+  );
+
+  let attackData = {
+    id: null,
+    round: stat.round,
+    tokenId: null,
+    actorId: null,
+    advantage: false,
+    isCritical: false,
+    isFumble: false,
+    disadvantage: false,
+    attackTotal: 0,
+    damageTotal: 0,
+    item: {
+      name: null,
+      itemLink: null,
+    },
+  };
+
+  if (data._roll) {
+    attackData = combatantStat.events[combatantStat.events.length - 1];
+  }
+
+  attackData.tokenId = data.data.speaker.token;
+  attackData.actorId = data.data.speaker.actor;
+
+  if (data._roll) {
+    let actor = game.actors.get(attackData.actorId);
+    let getItem = actor.items.find(
+      (i) => i.id === data.data.flags.dnd5e.roll.itemId
+    );
+
+    console.debug("FVTTEncounterStats createChatMessage - getItem", getItem);
+    if (!getItem) {
+      attackData.item.name = getItem.data.name;
+      /*attackData.item.itemLink = _parseCompendiumItemLink(
+    attackData.item.name,
+    getItem.data.type
+  );*/
+    }
+
+    switch (data.data.flags.dnd5e.roll.type) {
+      case "attack":
+        attackData.attackTotal = data._roll.total;
+        attackData.advantage =
+          data._roll.options.advantageMode === 1 ? true : false;
+        attackData.disadvantage =
+          data._roll.options.advantageMode === -1 ? true : false;
+        break;
+      case "damage":
+        attackData.damageTotal = data._roll.total;
+        if (data._roll.options.critical != null) {
+          attackData.isCritical = data._roll.options.critical;
+        }
+        break;
+    }
+    //combatantStat.events[combatantStat.events.length - 1] = attackData;
+  } else {
+    combatantStat.events.push(attackData);
+  }
+
+  let damageTotalArray = combatantStat.events.map((m) => {
+    return m.damageTotal;
+  });
+  combatantStat.summaryList = _getSummaryStatsFromArray(damageTotalArray);
+  stat.top = _getTopStats(stat);
+
+  await SaveStat(stat);
+
+  return attackData;
+}
+
 export async function AddAttack(data) {
   if (!_isValidCombatant(data.actor.type)) return;
 
@@ -122,6 +199,7 @@ function _parseCompendiumItemLink(data) {
   let itemLink;
 
   if (
+    data.item &&
     data.item.flags &&
     data.item.flags.core &&
     data.item.flags.core.sourceId
