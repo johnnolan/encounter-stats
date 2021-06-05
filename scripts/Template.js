@@ -131,6 +131,9 @@ function GenerateCombatant(combatant) {
                 "FVTTEncounterStats.template.disadvantage"
               )}</div>
               <div class="item-name">${game.i18n.format(
+                "FVTTEncounterStats.template.isCritical"
+              )}</div>
+              <div class="item-name">${game.i18n.format(
                 "FVTTEncounterStats.template.attack_total"
               )}</div>
               <div class="item-name">${game.i18n.format(
@@ -164,6 +167,7 @@ function GenerateAttackRow(event) {
     }</div>
     <div class="item-name">${event.advantage}</div>
     <div class="item-name">${event.disadvantage}</div>
+    <div class="item-name">${event.isCritical}</div>
     <div class="item-name">${event.attackTotal}</div>
     <div class="item-name">${event.damageTotal}</div>
   </li>`;

@@ -18,10 +18,6 @@
     {
       "name": "dnd5e",
       "type": "system"
-    },
-    {
-      "name": "midi-qol",
-      "manifest": "https://gitlab.com/tposney/midi-qol/raw/master/package/module.json"
     }
   ],
   "conflicts": [],
