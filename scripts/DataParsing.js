@@ -30,6 +30,9 @@ async function getIndex({ name = "" }) {
 }
 
 async function ChatType(data) {
+  if (data.data?.flags?.betterrolls5e) {
+    return ATTACKTYPES.NONE;
+  }
   if (data.data.content) {
     let re = /(data-item-id="([a-zA-Z0-9]+)")/;
     let match = re.exec(data.data.content);
@@ -47,6 +50,105 @@ async function ChatType(data) {
     }
   }
   return ATTACKTYPES.NONE;
+}
+
+async function AttackDataInfo(attackData, actorId, content, itemId = null) {
+  attackData.actorId = actorId;
+  if (!itemId) {
+    let re = /(data-item-id="([a-zA-Z0-9]+)")/;
+    let match = re.exec(content);
+    if (match) {
+      itemId = match[2];
+    }
+  }
+  let actor = game.actors.get(attackData.actorId);
+  let getItem = await actor.items.find((i) => i._id === itemId);
+
+  let itemData = await getIndex({ name: getItem.data.name });
+  if (itemData) {
+    attackData.item.name = itemData.name;
+    attackData.item.itemLink = itemData.link;
+  }
+
+  return attackData;
+}
+
+export async function UpdateAttackBR5e($html, isNew) {
+  let stat = GetStat();
+
+  let attackData = {
+    id: null,
+    round: stat.round,
+    tokenId: null,
+    actorId: null,
+    advantage: false,
+    isCritical: false,
+    isFumble: false,
+    disadvantage: false,
+    attackTotal: 0,
+    damageTotal: 0,
+    itemId: "",
+    item: {
+      name: null,
+      itemLink: null,
+    },
+  };
+  attackData.actorId = $html.attr("data-actor-id");
+
+  let combatantStat = stat.combatants.find((f) => f.id === attackData.actorId);
+
+  if (!isNew) {
+    attackData = combatantStat.events[combatantStat.events.length - 1];
+  }
+
+  $html.find(".die-icon").remove();
+  let $attackRollData = $html.find('[data-type="attack"]');
+  let $damageRollData = $html.find('[data-type="damage"]');
+  let damageTotal = $damageRollData
+    .find(".red-base-die")
+    .not(".ignored")
+    .map(function () {
+      return parseInt($(this).attr("data-value"));
+    })
+    .get()
+    .reduce(_add, 0);
+
+  let attackTotal = parseInt(
+    $attackRollData.find(".dice-total").not(".ignored").text().trim()
+  );
+  if (attackTotal === NaN) attackTotal = 0;
+  if (damageTotal === NaN) damageTotal = 0;
+
+  attackData.advantage =
+    $attackRollData.attr("data-rollState") === "highest" ? true : false;
+  attackData.isCritical = $html.attr("data-critical") === "true" ? true : false;
+  attackData.isFumble = false;
+  attackData.disadvantage =
+    $attackRollData.attr("data-rollState") === "lowest" ? true : false;
+  attackData.attackTotal = attackTotal;
+  attackData.damageTotal = damageTotal;
+  attackData.itemId = $html.attr("data-item-id");
+
+  if (isNew) {
+    attackData = await AttackDataInfo(
+      attackData,
+      attackData.actorId,
+      $html,
+      attackData.itemId
+    );
+
+    combatantStat.events.push(attackData);
+  }
+
+  let damageTotalArray = combatantStat.events.map((m) => {
+    return m.damageTotal;
+  });
+  combatantStat.summaryList = _getSummaryStatsFromArray(damageTotalArray);
+  stat.top = _getTopStats(stat);
+
+  await SaveStat(stat);
+
+  return attackData;
 }
 
 export async function AddAttack5e(data) {
@@ -77,22 +179,11 @@ export async function AddAttack5e(data) {
   );
 
   if (chatType === ATTACKTYPES.INFO) {
-    attackData.tokenId = data.data.speaker.token;
-    attackData.actorId = data.data.speaker.actor;
-    let re = /(data-item-id="([a-zA-Z0-9]+)")/;
-    let match = re.exec(data.data.content);
-    if (match) {
-      let itemId = match[2];
-      let actor = game.actors.get(attackData.actorId);
-      let getItem = await actor.items.find((i) => i._id === itemId);
-
-      let itemData = await getIndex({ name: getItem.data.name });
-
-      if (itemData) {
-        attackData.item.name = itemData.name;
-        attackData.item.itemLink = itemData.link;
-      }
-    }
+    attackData = await AttackDataInfo(
+      attackData,
+      data.data.speaker.actor,
+      data.data.content
+    );
 
     combatantStat.events.push(attackData);
   }

@@ -4,6 +4,7 @@ import {
   OnDeleteCombat,
   OnCreateChatMessage,
   OnUpdateCombat,
+  OnUpdateBetterRolls,
 } from "./FvttEncounterStats.js";
 
 export async function SetupHooks() {
@@ -21,5 +22,11 @@ export async function SetupHooks() {
   });
   window.Hooks.on("createChatMessage", async function (data, options, user) {
     OnCreateChatMessage(data);
+  });
+  window.Hooks.on("messageBetterRolls", async function (data, options, user) {
+    OnUpdateBetterRolls($(options.content), true);
+  });
+  window.Hooks.on("updateBetterRolls", async function (data, html, user) {
+    OnUpdateBetterRolls($(html), false);
   });
 }

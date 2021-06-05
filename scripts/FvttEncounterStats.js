@@ -1,5 +1,5 @@
 import { CreateJournal } from "./Journal.js";
-import { AddCombatants, AddAttack5e } from "./DataParsing.js";
+import { AddCombatants, AddAttack5e, UpdateAttackBR5e } from "./DataParsing.js";
 import { GetStat, SaveStat, RemoveStat } from "./StatManager.js";
 
 async function _createCombat(data) {
@@ -51,6 +51,10 @@ export async function OnDeleteCombat() {
 
 export async function OnCreateChatMessage(attackData) {
   AddAttack5e(attackData);
+}
+
+export async function OnUpdateBetterRolls(attackData, isNew) {
+  UpdateAttackBR5e(attackData, isNew);
 }
 
 export async function OnUpdateCombat(round) {
