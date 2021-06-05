@@ -3,6 +3,7 @@ import { GetStat, SaveStat } from "./StatManager.js";
 const ATTACKTYPES = {
   INFO: "info",
   ATTACK: "attack",
+  DAMAGE_FORMULA: "damage-formula",
   DAMAGE: "damage",
   NONE: "none",
 };
@@ -48,6 +49,11 @@ async function ChatType(data) {
       case "damage":
         return ATTACKTYPES.DAMAGE;
     }
+  }
+
+  // If other forumla TODO: This will cause issues with translations
+  if (data.data?.flavor?.toLowerCase().indexOf("other formula") > 0) {
+    return ATTACKTYPES.DAMAGE_FORMULA;
   }
   return ATTACKTYPES.NONE;
 }
@@ -188,7 +194,11 @@ export async function AddAttack5e(data) {
     combatantStat.events.push(attackData);
   }
 
-  if (chatType === ATTACKTYPES.ATTACK || chatType === ATTACKTYPES.DAMAGE) {
+  if (
+    chatType === ATTACKTYPES.ATTACK ||
+    chatType === ATTACKTYPES.DAMAGE ||
+    chatType === ATTACKTYPES.DAMAGE_FORMULA
+  ) {
     attackData = combatantStat.events[combatantStat.events.length - 1];
 
     if (chatType === ATTACKTYPES.ATTACK) {
@@ -198,7 +208,10 @@ export async function AddAttack5e(data) {
       attackData.disadvantage =
         data._roll.options.advantageMode === -1 ? true : false;
     }
-    if (chatType === ATTACKTYPES.DAMAGE) {
+    if (
+      chatType === ATTACKTYPES.DAMAGE ||
+      chatType === ATTACKTYPES.DAMAGE_FORMULA
+    ) {
       attackData.damageTotal = data._roll.total;
       if (data._roll.options.critical != null) {
         attackData.isCritical = data._roll.options.critical;
