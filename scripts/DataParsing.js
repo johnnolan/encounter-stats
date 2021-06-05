@@ -135,6 +135,8 @@ export async function UpdateAttackBR5e($html, isNew) {
   attackData.damageTotal = damageTotal;
   attackData.itemId = $html.attr("data-item-id");
 
+  attackData = nullChecks(attackData);
+
   if (isNew) {
     attackData = await AttackDataInfo(
       attackData,
@@ -219,6 +221,8 @@ export async function AddAttack5e(data) {
     }
   }
 
+  attackData = nullChecks(attackData);
+
   let damageTotalArray = combatantStat.events.map((m) => {
     return m.damageTotal;
   });
@@ -226,6 +230,25 @@ export async function AddAttack5e(data) {
   stat.top = _getTopStats(stat);
 
   await SaveStat(stat);
+
+  return attackData;
+}
+
+function nullChecks(attackData) {
+  if (
+    isNaN(attackData.attackTotal) ||
+    attackData.attackTotal === null ||
+    attackData.attackTotal === undefined
+  ) {
+    attackData.attackTotal = 0;
+  }
+  if (
+    isNaN(attackData.damageTotal) ||
+    attackData.damageTotal === null ||
+    attackData.damageTotal === undefined
+  ) {
+    attackData.damageTotal = 0;
+  }
 
   return attackData;
 }
