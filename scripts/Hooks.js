@@ -5,6 +5,7 @@ import {
   OnCreateChatMessage,
   OnUpdateCombat,
   OnUpdateBetterRolls,
+  OnMidiRollComplete,
 } from "./FvttEncounterStats.js";
 
 export async function SetupHooks() {
@@ -20,13 +21,20 @@ export async function SetupHooks() {
   window.Hooks.on("updateCombat", async function (arg1, arg2, arg3) {
     OnUpdateCombat(arg2.round);
   });
-  window.Hooks.on("createChatMessage", async function (data, options, user) {
-    OnCreateChatMessage(data);
-  });
-  window.Hooks.on("messageBetterRolls", async function (data, options, user) {
-    OnUpdateBetterRolls($(options.content), true);
-  });
-  window.Hooks.on("updateBetterRolls", async function (data, html, user) {
-    OnUpdateBetterRolls($(html), false);
-  });
+  if (game.modules.get("midi-qol")?.active) {
+    window.Hooks.on("midi-qol.RollComplete", async function (workflow) {
+      OnMidiRollComplete(workflow);
+    });
+  } else if (game.modules.get("betterrolls5e")?.active) {
+    window.Hooks.on("messageBetterRolls", async function (data, options, user) {
+      OnUpdateBetterRolls($(options.content), true);
+    });
+    window.Hooks.on("updateBetterRolls", async function (data, html, user) {
+      OnUpdateBetterRolls($(html), false);
+    });
+  } else {
+    window.Hooks.on("createChatMessage", async function (data, options, user) {
+      OnCreateChatMessage(data);
+    });
+  }
 }

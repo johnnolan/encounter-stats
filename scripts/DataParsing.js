@@ -1,4 +1,5 @@
 import { GetStat, SaveStat } from "./StatManager.js";
+import { IsValidAttack } from "./Utils.js";
 
 const ATTACKTYPES = {
   INFO: "info",
@@ -31,9 +32,6 @@ async function getIndex({ name = "" }) {
 }
 
 async function ChatType(data) {
-  if (data.data?.flags?.betterrolls5e) {
-    return ATTACKTYPES.NONE;
-  }
   if (data.data.content) {
     let re = /(data-item-id="([a-zA-Z0-9]+)")/;
     let match = re.exec(data.data.content);
@@ -222,6 +220,67 @@ export async function AddAttack5e(data) {
   }
 
   attackData = nullChecks(attackData);
+
+  let damageTotalArray = combatantStat.events.map((m) => {
+    return m.damageTotal;
+  });
+  combatantStat.summaryList = _getSummaryStatsFromArray(damageTotalArray);
+  stat.top = _getTopStats(stat);
+
+  await SaveStat(stat);
+
+  return attackData;
+}
+
+export async function AddAttackMidiQol(workflow) {
+  let stat = GetStat();
+
+  let attackData = {
+    id: workflow._id,
+    round: stat.round,
+    tokenId: null,
+    actorId: null,
+    advantage: false,
+    isCritical: false,
+    isFumble: false,
+    disadvantage: false,
+    attackTotal: 0,
+    damageTotal: 0,
+    item: {
+      name: null,
+      itemLink: null,
+    },
+  };
+
+  let combatantStat = stat.combatants.find((f) => f.id === workflow.actor._id);
+
+  attackData = await AttackDataInfo(
+    attackData,
+    workflow.actor._id,
+    null,
+    workflow.item._id
+  );
+
+  if (IsValidAttack(workflow.item.data.data.actionType)) {
+    if (workflow.attackRoll) {
+      attackData.attackTotal = workflow.attackRoll.total;
+      attackData.advantage =
+        workflow.attackRoll.options.advantageMode === 1 ? true : false;
+      attackData.disadvantage =
+        workflow.attackRoll.options.advantageMode === -1 ? true : false;
+    }
+    if (workflow.damageRoll) {
+      attackData.damageTotal = workflow.damageRoll.total;
+      attackData.isCritical = workflow.damageRoll.options.critical;
+    }
+  }
+  attackData = nullChecks(attackData);
+
+  if (combatantStat.events.find((f) => f.id === attackData.id)) {
+    combatantStat.events[combatantStat.events.length - 1] = attackData;
+  } else {
+    combatantStat.events.push(attackData);
+  }
 
   let damageTotalArray = combatantStat.events.map((m) => {
     return m.damageTotal;

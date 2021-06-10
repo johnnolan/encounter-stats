@@ -28,9 +28,6 @@ Foundry modules page: [https://foundryvtt.com/packages/fvtt-encounter-stats](htt
 
 ## Dependencies
 
-This module heavily depends on the [midi-QoL](https://foundryvtt.com/packages/midi-qol/) module to attain the stats easily from their hook.
-
-* [midi-QoL](https://foundryvtt.com/packages/midi-qol/)
 * `dnd5e` game system (_Could work on others but haven't tested it_)
 
 ## Contact
