@@ -12,6 +12,16 @@ This module is designed to capture your Players attacks and damage in an Encount
 
 This can then be viewed post battle to look upon for the Players to analyse and celebrate their attacks and as a DM, give you a better idea of how to build your Encounters in the future.
 
+The current module works on rolls from the following list. Future updates may include additional module support such as [DDB Gamelog](https://github.com/IamWarHead/ddb-game-log) and [Beyond20](https://foundryvtt.com/packages/beyond20/)
+
+**This module may not work if you have more than one enabled at a time. For example Better Rolls and midi-qol enabled at the same time**
+
+* [Better Rolls for 5e](https://github.com/RedReign/FoundryVTT-BetterRolls5e)
+* [midi-qol](https://gitlab.com/tposney/midi-qol)
+* Vanilla Foundry
+
+If you would like to see another module supported that isn't above then feel free to add it as a feature to the issues list in Github.
+
 [![Example](https://raw.githubusercontent.com/johnnolan/fvtt-encounter-stats/main/images/example.png)](https://raw.githubusercontent.com/johnnolan/fvtt-encounter-stats/main/images/example.png)
 
 ## Installation
