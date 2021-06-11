@@ -1,3 +1,5 @@
+import { ATTACKTYPES } from "./Settings.js";
+
 export function IsValidAttack(attackType) {
   const validTypes = ["mwak", "rwak", "msak", "rsak", "save"];
 
@@ -111,7 +113,7 @@ export async function CombatantStats(combatantStat) {
   combatantStat.summaryList = _getSummaryStatsFromArray(damageTotalArray);
 }
 
-function _add(accumulator, a) {
+export function _add(accumulator, a) {
   return accumulator + a;
 }
 

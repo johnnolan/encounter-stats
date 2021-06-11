@@ -5,6 +5,7 @@ import {
   ChatType,
   GetCombatantStats,
   CombatantStats,
+  _add,
 } from "./Utils.js";
 import { ATTACKTYPES } from "./Settings.js";
 
@@ -96,7 +97,7 @@ export async function MidiQol(stat, attackData, workflow) {
 }
 
 export async function BetterRollsFor5e(stat, attackData, $html, isNew) {
-  let combatantStat = GetCombatantStats($html.attr("data-actor-id"));
+  let combatantStat = GetCombatantStats(stat, $html.attr("data-actor-id"));
   attackData.actorId = $html.attr("data-actor-id");
 
   if (!isNew) {
@@ -106,7 +107,7 @@ export async function BetterRollsFor5e(stat, attackData, $html, isNew) {
       attackData,
       attackData.actorId,
       $html,
-      attackData.itemId
+      $html.attr("data-item-id")
     );
   }
 
