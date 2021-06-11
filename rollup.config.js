@@ -8,6 +8,7 @@ export default {
     file: "scripts/module.js",
     format: "iife",
     compact: true,
+    sourcemap: true,
   },
   plugins: [
     resolve(),
