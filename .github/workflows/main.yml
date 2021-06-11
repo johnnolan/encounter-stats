@@ -11,17 +11,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Set Node.js version 14.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14.x
-
-    - name: Install packages
-      run: yarn install
-
-    - name: Run Build
-      run: yarn run build
-
     # Substitute the Manifest and Download URLs in the module.json
     - name: Substitute Manifest and Download Links For Versioned Ones
       id: sub_manifest_link_version
