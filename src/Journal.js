@@ -31,8 +31,8 @@ export async function UpdateJournal(html, article) {
   });
 }
 
-export async function GetArticle() {
+export async function GetArticle(encounterId) {
   return game.journal.find(
-    (e) => e.getFlag("fvtt-encounter-stats", "encounterId") === stat.encounterId
+    (e) => e.getFlag("fvtt-encounter-stats", "encounterId") === encounterId
   );
 }

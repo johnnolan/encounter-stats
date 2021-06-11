@@ -1,10 +1,6 @@
 import { CreateJournal } from "./Journal.js";
-import {
-  AddCombatants,
-  AddAttack5e,
-  UpdateAttackBR5e,
-  AddAttackMidiQol,
-} from "./DataParsing.js";
+import { AddCombatants, AddAttack } from "./DataParsing.js";
+import { ROLL_HOOK } from "./Settings.js";
 import { GetStat, SaveStat, RemoveStat } from "./StatManager.js";
 
 async function _createCombat(data) {
@@ -55,15 +51,15 @@ export async function OnDeleteCombat() {
 }
 
 export async function OnCreateChatMessage(attackData) {
-  AddAttack5e(attackData);
+  AddAttack(attackData, ROLL_HOOK.DEFAULT);
 }
 
 export async function OnMidiRollComplete(workflow) {
-  AddAttackMidiQol(workflow);
+  AddAttack(workflow, ROLL_HOOK.MIDI_QOL);
 }
 
 export async function OnUpdateBetterRolls(attackData, isNew) {
-  UpdateAttackBR5e(attackData, isNew);
+  AddAttack(attackData, ROLL_HOOK.BETTERROLLS5E, isNew);
 }
 
 export async function OnUpdateCombat(round) {
