@@ -10,9 +10,5 @@ export default {
     compact: true,
     sourcemap: true,
   },
-  plugins: [
-    resolve(),
-    babel({ babelHelpers: "bundled" }),
-    terser(),
-  ],
+  plugins: [resolve(), babel({ babelHelpers: "bundled" }), terser()],
 };
