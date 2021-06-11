@@ -19,7 +19,7 @@ jobs:
     - name: Install packages
       run: yarn install
 
-    - name: Run Tests
+    - name: Run Build
       run: yarn run build
 
     # Substitute the Manifest and Download URLs in the module.json
