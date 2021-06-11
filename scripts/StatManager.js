@@ -13,13 +13,12 @@ export function GetStat() {
 }
 
 export async function SaveStat(data) {
-  const stat = SaveToLocalStorageStat(data);
+  SaveToLocalStorageStat(data);
   const markup = Generate(data);
-  let article = await GetArticle();
+
+  let article = await GetArticle(data.encounterId);
 
   await UpdateJournal(markup, article);
-
-  return stat;
 }
 
 export function RemoveStat() {
