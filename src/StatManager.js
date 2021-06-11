@@ -15,7 +15,8 @@ export function GetStat() {
 export async function SaveStat(data) {
   const stat = SaveToLocalStorageStat(data);
   const markup = Generate(data);
-  let article = await GetArticle();
+
+  let article = await GetArticle(stat);
 
   await UpdateJournal(markup, article);
 

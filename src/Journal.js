@@ -1,5 +1,4 @@
 import { GetFolder } from "./Folder.js";
-import { GetStat } from "./StatManager.js";
 
 export async function CreateJournal(encounterId) {
   const d = new Date();
@@ -33,7 +32,6 @@ export async function UpdateJournal(html, article) {
 }
 
 export async function GetArticle() {
-  let stat = GetStat();
   return game.journal.find(
     (e) => e.getFlag("fvtt-encounter-stats", "encounterId") === stat.encounterId
   );
