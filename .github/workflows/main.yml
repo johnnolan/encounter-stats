@@ -8,7 +8,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set Node.js version 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+    - name: Install packages
+      run: yarn install
+
+    - name: Run Tests
+      run: yarn run build
 
     # Substitute the Manifest and Download URLs in the module.json
     - name: Substitute Manifest and Download Links For Versioned Ones
