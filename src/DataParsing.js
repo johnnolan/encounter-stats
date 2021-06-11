@@ -120,8 +120,8 @@ export async function UpdateAttackBR5e($html, isNew) {
   let attackTotal = parseInt(
     $attackRollData.find(".dice-total").not(".ignored").text().trim()
   );
-  if (attackTotal === NaN) attackTotal = 0;
-  if (damageTotal === NaN) damageTotal = 0;
+  if (isNaN(attackTotal)) attackTotal = 0;
+  if (isNaN(damageTotal)) damageTotal = 0;
 
   attackData.advantage =
     $attackRollData.attr("data-rollState") === "highest" ? true : false;
