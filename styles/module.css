@@ -71,6 +71,10 @@
   border-bottom: 1px solid #c9c7b8;
 }
 
+.fvtt-enc-stats_title3 {
+  font-family: "Modesto Condensed", "Palatino Linotype", serif;
+}
+
 .fvtt-enc-stats_title3,
 .fvtt-enc-stats_actor_stat-value {
   font-weight: 400;

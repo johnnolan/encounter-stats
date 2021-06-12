@@ -64,10 +64,21 @@ function GenerateCombatant(combatant) {
           <div class="fvtt-enc-stats_actor_statlist flexrow">
             <div class="fvtt-enc-stats_actor_stat">
               <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-                "FVTTEncounterStats.template.hp"
+                "FVTTEncounterStats.template.startinghp"
               )}</div>
               <div class="fvtt-enc-stats_actor_stat-value">
                 <span>${combatant.hp}</span><span class="sep">/</span><span>${
+    combatant.max
+  }</span></div>
+            </div>
+            <div class="fvtt-enc-stats_actor_stat">
+              <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
+                "FVTTEncounterStats.template.finalhp"
+              )}</div>
+              <div class="fvtt-enc-stats_actor_stat-value">
+                <span>${
+                  combatant.health[combatant.health.length - 1].current
+                }</span><span class="sep">/</span><span>${
     combatant.max
   }</span></div>
             </div>
