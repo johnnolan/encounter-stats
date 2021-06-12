@@ -77,7 +77,9 @@ function GenerateCombatant(combatant) {
               )}</div>
               <div class="fvtt-enc-stats_actor_stat-value">
                 <span>${
-                  combatant.health[combatant.health.length - 1].current
+                  combatant.health.length > 0
+                    ? combatant.health[combatant.health.length - 1].current
+                    : combatant.hp
                 }</span><span class="sep">/</span><span>${
     combatant.max
   }</span></div>
