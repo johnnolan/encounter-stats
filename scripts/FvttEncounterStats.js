@@ -26,7 +26,8 @@ async function _addCombatants(data) {
   const combatantsList = data.combat.data._source.combatants;
   for (let i = 0; i < combatantsList.length; i++) {
     const actorId = combatantsList[i].actorId;
-    AddCombatants(game.actors.get(actorId));
+    const tokenImage = canvas.tokens.get(combatantsList[i].tokenId)?.data?.img;
+    AddCombatants(game.actors.get(actorId), tokenImage);
   }
 }
 
