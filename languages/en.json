@@ -13,6 +13,8 @@
     "FVTTEncounterStats.template.highest_damage_in_1_hit": "Highest Damage in 1 hit",
     "FVTTEncounterStats.template.enemies": "Enemies",
     "FVTTEncounterStats.template.hp": "HP",
+    "FVTTEncounterStats.template.startinghp": "Starting HP",
+    "FVTTEncounterStats.template.finalhp": "Final HP",
     "FVTTEncounterStats.template.ac": "AC",
     "FVTTEncounterStats.template.damage_total": "Damage Total",
     "FVTTEncounterStats.template.isCritical": "Critical",
@@ -23,5 +25,9 @@
     "FVTTEncounterStats.template.weapon_spell_name": "Weapon/Spell Name",
     "FVTTEncounterStats.template.advantage": "Advantage",
     "FVTTEncounterStats.template.disadvantage": "Disadvantage",
-    "FVTTEncounterStats.template.attack_total": "Attack Total"
+    "FVTTEncounterStats.template.attack_total": "Attack Total",
+
+    "FVTTEncounterStats.template.attacks": "Attacks",
+    "FVTTEncounterStats.template.health": "Health",
+    "FVTTEncounterStats.template.rolltype": "Roll Type"
 }

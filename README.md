@@ -8,7 +8,7 @@
 
 # FVTT Encounter Stats
 
-This module is designed to capture your Players attacks and damage in an Encounter and store the results into a Journal Entry with a summary of their stats for each after you end the Encounter. 
+This module is designed to capture your Players attacks, damage and HP in an Encounter and store the results into a Journal Entry with a summary of their stats for each after you end the Encounter. 
 
 This can then be viewed post battle to look upon for the Players to analyse and celebrate their attacks and as a DM, give you a better idea of how to build your Encounters in the future.
 

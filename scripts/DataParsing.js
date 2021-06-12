@@ -26,7 +26,7 @@ export async function AddAttack(data, type, isNew = false) {
   await SaveStat(stat);
 }
 
-export async function AddCombatants(combatants) {
+export async function AddCombatants(combatants, tokenImage) {
   const combatant = combatants.data;
   if (!_isValidCombatant(combatant.type)) return;
 
@@ -35,12 +35,13 @@ export async function AddCombatants(combatants) {
   const newCombatants = {
     name: combatant.name,
     id: combatant._id,
-    img: combatant.img,
+    img: tokenImage ? tokenImage : combatant.img,
     type: combatant.type,
     hp: combatant.data.attributes.hp.value,
     max: combatant.data.attributes.hp.max,
     ac: combatant.data.attributes.ac.value,
     events: [],
+    health: [],
     summaryList: {
       min: "0",
       max: "0",
