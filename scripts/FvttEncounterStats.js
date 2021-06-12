@@ -1,5 +1,6 @@
 import { CreateJournal } from "./Journal.js";
 import { AddCombatants, AddAttack } from "./DataParsing.js";
+import { UpdateHealth } from "./ChatParsers.js";
 import { ROLL_HOOK } from "./Settings.js";
 import { GetStat, SaveStat, RemoveStat } from "./StatManager.js";
 
@@ -51,17 +52,30 @@ export async function OnDeleteCombat() {
 }
 
 export async function OnCreateChatMessage(attackData) {
+  if (!_isInCombat) return;
   AddAttack(attackData, ROLL_HOOK.DEFAULT);
 }
 
 export async function OnMidiRollComplete(workflow) {
+  if (!_isInCombat) return;
   AddAttack(workflow, ROLL_HOOK.MIDI_QOL);
 }
 
 export async function OnUpdateBetterRolls(attackData, isNew) {
+  if (!_isInCombat) return;
   AddAttack(attackData, ROLL_HOOK.BETTERROLLS5E, isNew);
+}
+
+export async function OnUpdateHealth(data) {
+  if (!_isInCombat) return;
+  UpdateHealth(data);
 }
 
 export async function OnUpdateCombat(round) {
   _updateRound(round);
+}
+
+async function _isInCombat() {
+  let stat = GetStat();
+  return stat;
 }

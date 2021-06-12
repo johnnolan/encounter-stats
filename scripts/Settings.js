@@ -33,3 +33,16 @@ export const ATTACK_DATA_TEMPLATE = {
     itemLink: null,
   },
 };
+
+export const HEALTH_DATA_TEMPLATE = {
+  id: null,
+  round: null,
+  tokenId: null,
+  actorId: null,
+  max: 0,
+  diff: 0,
+  previous: 0,
+  current: 0,
+  isdamage: false,
+  isheal: false,
+};

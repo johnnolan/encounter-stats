@@ -6,6 +6,7 @@ import {
   OnUpdateCombat,
   OnUpdateBetterRolls,
   OnMidiRollComplete,
+  OnUpdateHealth,
 } from "./FvttEncounterStats.js";
 
 export async function SetupHooks() {
@@ -20,6 +21,11 @@ export async function SetupHooks() {
   });
   window.Hooks.on("updateCombat", async function (arg1, arg2, arg3) {
     OnUpdateCombat(arg2.round);
+  });
+  window.Hooks.on("updateActor", async function (data, diff) {
+    if (diff.data?.attributes?.hp) {
+      OnUpdateHealth(data);
+    }
   });
   if (game.modules.get("midi-qol")?.active) {
     window.Hooks.on("midi-qol.RollComplete", async function (workflow) {

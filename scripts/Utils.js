@@ -65,6 +65,7 @@ export async function getIndex({ name = "" }) {
 }
 
 export function GetCombatantStats(stat, actorId) {
+  if (!stat?.combatants) return;
   return stat.combatants.find((f) => f.id === actorId);
 }
 

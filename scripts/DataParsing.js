@@ -41,6 +41,7 @@ export async function AddCombatants(combatants) {
     max: combatant.data.attributes.hp.max,
     ac: combatant.data.attributes.ac.value,
     events: [],
+    health: [],
     summaryList: {
       min: "0",
       max: "0",
