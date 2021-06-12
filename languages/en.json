@@ -23,5 +23,9 @@
     "FVTTEncounterStats.template.weapon_spell_name": "Weapon/Spell Name",
     "FVTTEncounterStats.template.advantage": "Advantage",
     "FVTTEncounterStats.template.disadvantage": "Disadvantage",
-    "FVTTEncounterStats.template.attack_total": "Attack Total"
+    "FVTTEncounterStats.template.attack_total": "Attack Total",
+
+    "FVTTEncounterStats.template.attacks": "Attacks",
+    "FVTTEncounterStats.template.health": "Health",
+    "FVTTEncounterStats.template.rolltype": "Roll Type"
 }

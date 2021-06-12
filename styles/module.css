@@ -71,6 +71,7 @@
   border-bottom: 1px solid #c9c7b8;
 }
 
+.fvtt-enc-stats_title3,
 .fvtt-enc-stats_actor_stat-value {
   font-weight: 400;
   font-size: 24px;
@@ -85,6 +86,20 @@
   padding: 0 5px;
 }
 
+.fvtt-enc-stats_combatants_data {
+  display: flex;
+}
+
+.fvtt-enc-stats_combatants_attacks {
+  flex: 3 0px;
+}
+.fvtt-enc-stats_combatants_health {
+  flex: 1 0px;
+}
+.fvtt-enc-stats_combatants_health {
+  max-width: 130px;
+}
+.fvtt-enc-stats_combatants_health,
 .fvtt-enc-stats_combatants_attacks {
   width: 100%;
   width: -moz-available;
@@ -93,11 +108,13 @@
   font-family: "Signika", sans-serif;
 }
 
+.fvtt-enc-stats_combatants_health .item-list,
 .fvtt-enc-stats_combatants_attacks .item-list {
   margin: 0;
   padding: 0;
 }
 
+.fvtt-enc-stats_combatants_health .item-name,
 .fvtt-enc-stats_combatants_attacks .item-name {
   margin: 2px 0;
   padding: 0;
@@ -105,6 +122,7 @@
   color: #191813;
 }
 
+.fvtt-enc-stats_combatants_health .items-header,
 .fvtt-enc-stats_combatants_attacks .items-header {
   height: 28px;
   margin: 2px 0;
@@ -115,6 +133,7 @@
   font-weight: bold;
 }
 
+.fvtt-enc-stats_combatants_health .items-header .item-name,
 .fvtt-enc-stats_combatants_attacks .items-header .item-name {
   font-size: 12px;
   color: #7a7971;
@@ -122,16 +141,24 @@
   border-right: 1px solid #c9c7b8;
 }
 
+.fvtt-enc-stats_combatants_health .items-header .item-round,
 .fvtt-enc-stats_combatants_attacks .items-header .item-round,
+.fvtt-enc-stats_combatants_health .items-list .item .item-round,
 .fvtt-enc-stats_combatants_attacks .items-list .item .item-round {
   flex: 0 0 40px;
 }
 
+.fvtt-enc-stats_combatants_health .items-header .item-weapon,
 .fvtt-enc-stats_combatants_attacks .items-header .item-weapon,
+.fvtt-enc-stats_combatants_health .items-list .item .item-weapon,
 .fvtt-enc-stats_combatants_attacks .items-list .item .item-weapon {
   flex: 0 0 200px;
 }
+.fvtt-enc-stats_combatants_attacks .items-list .item .item-weapon {
+  text-align: left;
+}
 
+.fvtt-enc-stats_combatants_health .items-list,
 .fvtt-enc-stats_combatants_attacks .items-list {
   list-style: none;
   margin: 0;
