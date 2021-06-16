@@ -14,10 +14,12 @@ Hooks.once("init", async function () {
 });
 
 Hooks.once("ready", async function () {
-  if (!game.user.isGM || !game.settings.get(`${MODULE_ID}`, `${OPT_ENABLE}`)) {
+  if (!game.settings.get(`${MODULE_ID}`, `${OPT_ENABLE}`)) {
     return;
   }
 
-  CreateFolder();
+  if (game.user.isGM) {
+    CreateFolder();
+  }
   SetupHooks();
 });
