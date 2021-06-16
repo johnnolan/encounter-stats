@@ -7,6 +7,7 @@ import {
   OnUpdateBetterRolls,
   OnMidiRollComplete,
   OnUpdateHealth,
+  OnBeyond20,
 } from "./FvttEncounterStats.js";
 
 const SOCKET_NAME = "module.fvtt-encounter-stats";
@@ -68,6 +69,14 @@ export async function SetupHooks() {
         "createChatMessage",
         async function (data, options, user) {
           OnCreateChatMessage(data);
+        }
+      );
+    }
+    if (game.modules.get("beyond20")?.active) {
+      window.Hooks.on(
+        "createChatMessage",
+        async function (data, options, user) {
+          OnBeyond20(data);
         }
       );
     }
