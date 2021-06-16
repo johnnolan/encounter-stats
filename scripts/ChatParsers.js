@@ -107,7 +107,14 @@ export async function MidiQol(stat, attackData, workflow) {
     workflow.item._id
   );
 
-  if (IsValidAttack(workflow.item.data.data.actionType)) {
+  let actionType = "";
+  if (workflow.item?.data?.actionType) {
+    actionType = workflow.item.data.actionType;
+  } else if (workflow.item?.data?.data?.actionType) {
+    actionType = workflow.item.data.data.actionType;
+  }
+
+  if (IsValidAttack(actionType)) {
     if (workflow.attackRoll) {
       attackData.attackTotal = workflow.attackRoll.total;
       attackData.advantage =
