@@ -57,6 +57,11 @@ export async function OnCreateChatMessage(attackData) {
   AddAttack(attackData, ROLL_HOOK.DEFAULT);
 }
 
+export async function OnBeyond20(workflow) {
+  if (!_isInCombat) return;
+  AddAttack(workflow, ROLL_HOOK.BEYOND_20);
+}
+
 export async function OnMidiRollComplete(workflow) {
   if (!_isInCombat) return;
   AddAttack(workflow, ROLL_HOOK.MIDI_QOL);

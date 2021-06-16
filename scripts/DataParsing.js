@@ -1,5 +1,5 @@
 import { GetStat, SaveStat } from "./StatManager.js";
-import { Default, BetterRollsFor5e, MidiQol } from "./ChatParsers.js";
+import { Default, BetterRollsFor5e, MidiQol, Beyond20 } from "./ChatParsers.js";
 import { ROLL_HOOK, ATTACK_DATA_TEMPLATE } from "./Settings.js";
 
 export async function AddAttack(data, type, isNew = false) {
@@ -14,6 +14,9 @@ export async function AddAttack(data, type, isNew = false) {
     case ROLL_HOOK.MIDI_QOL:
       stat = await MidiQol(stat, attackData, data);
       break;
+    case ROLL_HOOK.BEYOND_20:
+      stat = await Beyond20(stat, attackData, data);
+      break;
     case ROLL_HOOK.DEFAULT:
       stat = await Default(stat, attackData, data);
       break;
@@ -21,6 +24,7 @@ export async function AddAttack(data, type, isNew = false) {
       return;
   }
 
+  if (!stat) return;
   stat.top = _getTopStats(stat);
 
   await SaveStat(stat);
