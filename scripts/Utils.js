@@ -12,7 +12,7 @@ export function IsHealingSpell(attackType) {
   return validTypes.indexOf(attackType) > -1;
 }
 
-export function getItemId(content) {
+function getItemId(content) {
   let re = /(data-item-id="([a-zA-Z0-9]+)")/;
   let match = re.exec(content);
   return match;
@@ -111,7 +111,9 @@ export async function CombatantStats(combatantStat) {
   let damageTotalArray = combatantStat.events.map((m) => {
     return m.damageTotal;
   });
+
   combatantStat.summaryList = _getSummaryStatsFromArray(damageTotalArray);
+  return combatantStat;
 }
 
 export function _add(accumulator, a) {
