@@ -19,7 +19,7 @@ function getItemId(content) {
 }
 
 export async function ChatType(data) {
-  if (data.data.content) {
+  if (data?.data?.content) {
     let match = getItemId(data.data.content);
     if (match) {
       return ATTACKTYPES.INFO;
@@ -36,7 +36,7 @@ export async function ChatType(data) {
   }
 
   // If other forumla TODO: This will cause issues with translations
-  if (data.data?.flavor?.toLowerCase().indexOf("other formula") > 0) {
+  if (data.data?.flavor?.toLowerCase().indexOf("other formula") > -1) {
     return ATTACKTYPES.DAMAGE_FORMULA;
   }
   return ATTACKTYPES.NONE;

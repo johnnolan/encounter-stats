@@ -4,7 +4,67 @@ import {
   GetCombatantStats,
   nullChecks,
   CombatantStats,
+  ChatType,
 } from "./Utils.js";
+import { ATTACKTYPES } from "./Settings.js";
+
+describe("ChatType", () => {
+  test("it is an attack type INFO", async () => {
+    const data = {
+      data: {
+        content: `<div data-item-id="abc123"></div>`,
+      },
+    };
+    const result = await ChatType(data);
+    expect(result).toBe(ATTACKTYPES.INFO);
+  });
+  test("it is an attack type ATTACK", async () => {
+    const data = {
+      _roll: {},
+      data: {
+        flags: {
+          dnd5e: {
+            roll: {
+              type: "attack",
+            },
+          },
+        },
+      },
+    };
+    const result = await ChatType(data);
+    expect(result).toBe(ATTACKTYPES.ATTACK);
+  });
+  test("it is an attack type DAMAGE", async () => {
+    const data = {
+      _roll: {},
+      data: {
+        flags: {
+          dnd5e: {
+            roll: {
+              type: "damage",
+            },
+          },
+        },
+      },
+    };
+    const result = await ChatType(data);
+    expect(result).toBe(ATTACKTYPES.DAMAGE);
+  });
+  test("it is an attack type DAMAGE_FORMULA", async () => {
+    const data = {
+      data: {
+        flavor: "Other Formula",
+      },
+    };
+    const result = await ChatType(data);
+    expect(result).toBe(ATTACKTYPES.DAMAGE_FORMULA);
+  });
+  test("it is an attack type NONE", async () => {
+    const data = {};
+    const result = await ChatType(data);
+    expect(result).toBe(ATTACKTYPES.NONE);
+  });
+});
 
 describe("IsValidAttack", () => {
   describe("it is a valid attack", () => {
