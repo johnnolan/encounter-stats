@@ -42,6 +42,7 @@ export async function UpdateHealth(data) {
   }
 
   await SaveStat(stat);
+  return stat;
 }
 
 export async function Default(stat, attackData, data) {
