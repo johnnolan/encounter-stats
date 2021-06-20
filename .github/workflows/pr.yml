@@ -1,0 +1,28 @@
+name: pr
+on: [pull_request]
+
+jobs:
+  linux:
+    name: Linux build on node ${{ matrix.node_version }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version: [14.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set Node.js version ${{ matrix.node_version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node_version }}
+
+      - name: Install packages
+        run: yarn install
+
+      - name: Run Linting
+        run: yarn run lint:check
+
+      - name: Run Tests
+        run: yarn run test
