@@ -42,8 +42,8 @@ export async function ChatType(data) {
   return ATTACKTYPES.NONE;
 }
 
-export async function getIndex({ name = "" }) {
-  var itemPacks = await game.packs
+async function getIndex({ name = "" }) {
+  var itemPacks = game.packs
     .filter((f) => f.metadata.entity === "Item")
     .map((m) => {
       return `${m.metadata.package}.${m.metadata.name}`;

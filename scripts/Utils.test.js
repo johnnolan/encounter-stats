@@ -5,8 +5,58 @@ import {
   nullChecks,
   CombatantStats,
   ChatType,
+  GetItemData,
 } from "./Utils.js";
 import { ATTACKTYPES } from "./Settings.js";
+import Collection from "./mocks/Collection.js";
+import CompendiumCollection from "./mocks/CompendiumCollection.js";
+
+const packs = new Collection();
+let pack = new CompendiumCollection({
+  entity: "Item",
+  label: "Items (SRD)",
+  name: "items",
+  package: "dnd5e",
+  path: "./packs/items.db",
+  private: false,
+  system: "dnd5e",
+});
+packs.set("dnd5e.items", pack);
+
+global.game = {
+  actors: {
+    get: jest.fn().mockReturnValue({
+      items: [
+        { _id: "WWb4vAmh18sMAxfY", data: { name: "Flame Tongue Greatsword" } },
+      ],
+    }),
+  },
+  packs: packs,
+};
+
+describe("GetItemData", () => {
+  test("it has an itemId assigned", async () => {
+    const attackData = {
+      item: {
+        name: null,
+        itemLink: null,
+      },
+    };
+    const result = await GetItemData(
+      attackData,
+      "abc123",
+      null,
+      "WWb4vAmh18sMAxfY"
+    );
+    expect(result).toStrictEqual({
+      item: {
+        itemLink:
+          "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
+        name: "Flame Tongue Greatsword",
+      },
+    });
+  });
+});
 
 describe("ChatType", () => {
   test("it is an attack type INFO", async () => {
