@@ -1,14 +1,13 @@
 /**
  * @jest-environment jsdom
  */
-import { UpdateHealth } from "./ChatParsers.js";
-import { duplicate } from "./mocks/helpers.js";
-import { ATTACK_DATA_TEMPLATE, HEALTH_DATA_TEMPLATE } from "./Settings.js";
+import UpdateHealth from "./UpdateHealth.js";
+import { duplicate } from "../mocks/helpers.js";
 global.duplicate = duplicate;
-import { combatantStats } from "./mockdata/combatantStats.js";
-import { updateHealth } from "./mockdata/updateHealth.js";
-jest.mock("./StatManager.js");
-import { GetStat, SaveStat } from "./StatManager.js";
+import { combatantStats } from "../mockdata/combatantStats.js";
+import { updateHealth } from "../mockdata/updateHealth.js";
+jest.mock("../StatManager.js");
+import { GetStat, SaveStat } from "../StatManager.js";
 
 GetStat.mockImplementation(() => combatantStats);
 SaveStat.mockImplementation(() => true);
