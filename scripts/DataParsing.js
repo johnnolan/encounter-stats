@@ -3,6 +3,7 @@ import Default from "./parsers/Default.js";
 import BetterRollsFor5e from "./parsers/BetterRollsFor5e.js";
 import MidiQol from "./parsers/MidiQol.js";
 import Beyond20 from "./parsers/Beyond20.js";
+import MREDnd5e from "./parsers/MREDnd5e.js";
 import { ROLL_HOOK, ATTACK_DATA_TEMPLATE } from "./Settings.js";
 
 export async function AddAttack(data, type, isNew = false) {
@@ -19,6 +20,9 @@ export async function AddAttack(data, type, isNew = false) {
       break;
     case ROLL_HOOK.BEYOND_20:
       stat = await Beyond20(stat, attackData, data);
+      break;
+    case ROLL_HOOK.MREDND5E:
+      stat = await MREDnd5e(stat, attackData, data);
       break;
     case ROLL_HOOK.DEFAULT:
       stat = await Default(stat, attackData, data);
