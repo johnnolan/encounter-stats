@@ -56,6 +56,27 @@ describe("GetItemData", () => {
       },
     });
   });
+
+  test("it has no itemId assigned", async () => {
+    const attackData = {
+      item: {
+        name: null,
+        itemLink: null,
+      },
+    };
+    const result = await GetItemData(
+      attackData,
+      "abc123",
+      `<div data-item-id="WWb4vAmh18sMAxfY"></div>`
+    );
+    expect(result).toStrictEqual({
+      item: {
+        itemLink:
+          "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
+        name: "Flame Tongue Greatsword",
+      },
+    });
+  });
 });
 
 describe("ChatType", () => {
