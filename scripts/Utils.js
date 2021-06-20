@@ -12,14 +12,14 @@ export function IsHealingSpell(attackType) {
   return validTypes.indexOf(attackType) > -1;
 }
 
-export function getItemId(content) {
+function getItemId(content) {
   let re = /(data-item-id="([a-zA-Z0-9]+)")/;
   let match = re.exec(content);
   return match;
 }
 
 export async function ChatType(data) {
-  if (data.data.content) {
+  if (data?.data?.content) {
     let match = getItemId(data.data.content);
     if (match) {
       return ATTACKTYPES.INFO;
@@ -36,14 +36,14 @@ export async function ChatType(data) {
   }
 
   // If other forumla TODO: This will cause issues with translations
-  if (data.data?.flavor?.toLowerCase().indexOf("other formula") > 0) {
+  if (data.data?.flavor?.toLowerCase().indexOf("other formula") > -1) {
     return ATTACKTYPES.DAMAGE_FORMULA;
   }
   return ATTACKTYPES.NONE;
 }
 
-export async function getIndex({ name = "" }) {
-  var itemPacks = await game.packs
+async function getIndex({ name = "" }) {
+  var itemPacks = game.packs
     .filter((f) => f.metadata.entity === "Item")
     .map((m) => {
       return `${m.metadata.package}.${m.metadata.name}`;
@@ -111,7 +111,9 @@ export async function CombatantStats(combatantStat) {
   let damageTotalArray = combatantStat.events.map((m) => {
     return m.damageTotal;
   });
+
   combatantStat.summaryList = _getSummaryStatsFromArray(damageTotalArray);
+  return combatantStat;
 }
 
 export function _add(accumulator, a) {

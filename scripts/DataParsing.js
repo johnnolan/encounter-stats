@@ -1,5 +1,8 @@
 import { GetStat, SaveStat } from "./StatManager.js";
-import { Default, BetterRollsFor5e, MidiQol, Beyond20 } from "./ChatParsers.js";
+import Default from "./parsers/Default.js";
+import BetterRollsFor5e from "./parsers/BetterRollsFor5e.js";
+import MidiQol from "./parsers/MidiQol.js";
+import Beyond20 from "./parsers/Beyond20.js";
 import { ROLL_HOOK, ATTACK_DATA_TEMPLATE } from "./Settings.js";
 
 export async function AddAttack(data, type, isNew = false) {

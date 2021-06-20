@@ -1,6 +1,6 @@
 import { CreateJournal } from "./Journal.js";
 import { AddCombatants, AddAttack } from "./DataParsing.js";
-import { UpdateHealth } from "./ChatParsers.js";
+import { UpdateHealth } from "./parsers/UpdateHealth.js";
 import { ROLL_HOOK } from "./Settings.js";
 import { GetStat, SaveStat, RemoveStat } from "./StatManager.js";
 
