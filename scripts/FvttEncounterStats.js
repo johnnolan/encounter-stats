@@ -81,7 +81,7 @@ export async function OnUpdateCombat(round) {
   _updateRound(round);
 }
 
-async function _isInCombat() {
+function _isInCombat() {
   let stat = GetStat();
   return stat;
 }
