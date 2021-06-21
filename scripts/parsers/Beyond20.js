@@ -84,9 +84,9 @@ export default async function Beyond20(stat, attackData, data) {
 
   combatantStat.events.push(attackData);
 
-  attackData = nullChecks(attackData);
+  nullChecks(attackData);
 
-  combatantStat = CombatantStats(combatantStat);
+  CombatantStats(combatantStat);
 
   return stat;
 }

@@ -51,13 +51,13 @@ export default async function BetterRollsFor5e(stat, attackData, $html, isNew) {
   attackData.damageTotal = damageTotal;
   attackData.itemId = $html.attr("data-item-id");
 
-  attackData = nullChecks(attackData);
+  nullChecks(attackData);
 
   if (isNew) {
     combatantStat.events.push(attackData);
   }
 
-  combatantStat = CombatantStats(combatantStat);
+  CombatantStats(combatantStat);
 
   return stat;
 }
