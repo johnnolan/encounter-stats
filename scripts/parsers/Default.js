@@ -52,9 +52,9 @@ export default async function Default(stat, attackData, data) {
     }
   }
 
-  attackData = nullChecks(attackData);
+  nullChecks(attackData);
 
-  combatantStat = CombatantStats(combatantStat);
+  CombatantStats(combatantStat);
 
   return stat;
 }

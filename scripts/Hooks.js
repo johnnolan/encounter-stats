@@ -32,17 +32,17 @@ function _setupSockerListeners() {
 export async function SetupHooks() {
   if (game.user.isGM) {
     _setupSockerListeners();
-    window.Hooks.on("renderCombatTracker", async function (arg1, arg2, arg3) {
-      OnRenderCombatTracker(arg3);
+    window.Hooks.on("renderCombatTracker", async function (arg1, arg2, data) {
+      OnRenderCombatTracker(data);
     });
-    window.Hooks.on("createCombat", async function (arg1, arg2, arg3) {
-      OnCreateCombat(arg1);
+    window.Hooks.on("createCombat", async function (data, arg2, arg3) {
+      OnCreateCombat(data);
     });
-    window.Hooks.on("deleteCombat", async function (arg1, arg2, arg3) {
-      OnDeleteCombat(arg1);
+    window.Hooks.on("deleteCombat", async function (data, arg2, arg3) {
+      OnDeleteCombat(data);
     });
-    window.Hooks.on("updateCombat", async function (arg1, arg2, arg3) {
-      OnUpdateCombat(arg2.round);
+    window.Hooks.on("updateCombat", async function (arg1, data, arg3) {
+      OnUpdateCombat(data.round);
     });
 
     window.Hooks.on("updateActor", async function (data, diff) {

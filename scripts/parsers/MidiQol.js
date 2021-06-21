@@ -40,7 +40,7 @@ export default async function MidiQol(stat, attackData, workflow) {
       attackData.isCritical = workflow.damageRoll.options.critical;
     }
   }
-  attackData = nullChecks(attackData);
+  nullChecks(attackData);
 
   if (combatantStat.events.find((f) => f.id === attackData.id)) {
     combatantStat.events[combatantStat.events.length - 1] = attackData;
@@ -48,7 +48,7 @@ export default async function MidiQol(stat, attackData, workflow) {
     combatantStat.events.push(attackData);
   }
 
-  combatantStat = CombatantStats(combatantStat);
+  CombatantStats(combatantStat);
 
   return stat;
 }
