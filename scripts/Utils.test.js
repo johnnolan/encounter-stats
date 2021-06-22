@@ -306,18 +306,27 @@ describe("CombatantStats", () => {
   const combatantStat = {
     events: [
       {
+        actionType: "mwak",
         damageTotal: 10,
       },
       {
+        actionType: "rsak",
         damageTotal: 5,
       },
       {
+        actionType: "rwak",
         damageTotal: 23,
       },
       {
+        actionType: "mwak",
         damageTotal: 32,
       },
       {
+        actionType: "msak",
+        damageTotal: 2,
+      },
+      {
+        actionType: "heal",
         damageTotal: 2,
       },
     ],

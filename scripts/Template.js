@@ -1,3 +1,5 @@
+import { IsValidAttack, IsHealingSpell } from "./Utils.js";
+
 export function Generate(data) {
   const markup = `
   <div class="fvtt-enc-stats">
@@ -205,7 +207,7 @@ function GenerateAttackRow(event) {
     <div class="item-name item-weapon">${
       event.item.itemLink ? event.item.itemLink : event.item.name
     }</div>
-    <div class="item-name">${event.actionType}</div>
+    <div class="item-name">${getAttackTypeFAIcon(event.actionType)}</div>
     <div class="item-name">${
       event.advantage
         ? "advantage"
@@ -216,10 +218,52 @@ function GenerateAttackRow(event) {
     <div class="item-name">${event.attackTotal} ${
     event.isCritical ? " (c)" : ""
   }</div>
-    <div class="item-name">${event.damageTotal}</div>
+    <div class="item-name ${getHealOrDamageClass(event.actionType)}">${
+    event.damageTotal
+  }</div>
   </li>`;
 
   return markup;
+}
+
+function getHealOrDamageClass(attackType) {
+  if (IsHealingSpell(attackType)) return "blue";
+  if (IsValidAttack(attackType)) return "red";
+}
+
+function getAttackTypeFAIcon(attackType) {
+  let iconName = "dice-d20";
+  let iconDescription = game.i18n.format(
+    "FVTTEncounterStats.actiontypes.other"
+  );
+  switch (attackType) {
+    case "heal":
+      iconName = "heart";
+      iconDescription = game.i18n.format("FVTTEncounterStats.actiontypes.heal");
+      break;
+    case "msak":
+      iconName = "scroll";
+      iconDescription = game.i18n.format("FVTTEncounterStats.actiontypes.msak");
+      break;
+    case "rsak":
+      iconName = "scroll";
+      iconDescription = game.i18n.format("FVTTEncounterStats.actiontypes.rsak");
+      break;
+    case "mwak":
+      iconName = "fist-raised";
+      iconDescription = game.i18n.format("FVTTEncounterStats.actiontypes.mwak");
+      break;
+    case "rwak":
+      iconName = "fist-raised";
+      iconDescription = game.i18n.format("FVTTEncounterStats.actiontypes.rwak");
+      break;
+    case "save":
+      iconName = "shield-alt";
+      iconDescription = game.i18n.format("FVTTEncounterStats.actiontypes.save");
+      break;
+  }
+
+  return `<i title="${iconDescription}" class="fas fa-${iconName}"></i>`;
 }
 
 function GenerateHealtRow(event) {

@@ -126,6 +126,16 @@
   color: #191813;
 }
 
+.fvtt-enc-stats_combatants_health .item-name.red,
+.fvtt-enc-stats_combatants_attacks .item-name.red {
+  color: #ff0000;
+}
+
+.fvtt-enc-stats_combatants_health .item-name.blue,
+.fvtt-enc-stats_combatants_attacks .item-name.blue {
+  color: #0000ff;
+}
+
 .fvtt-enc-stats_combatants_health .items-header,
 .fvtt-enc-stats_combatants_attacks .items-header {
   height: 28px;

@@ -114,9 +114,13 @@ export function nullChecks(attackData) {
 }
 
 export async function CombatantStats(combatantStat) {
-  let damageTotalArray = combatantStat.events.map((m) => {
-    return m.damageTotal;
-  });
+  let damageTotalArray = combatantStat.events
+    .filter((f) => {
+      return IsValidAttack(f.actionType);
+    })
+    .map((m) => {
+      return m.damageTotal;
+    });
 
   combatantStat.summaryList = _getSummaryStatsFromArray(damageTotalArray);
   return combatantStat;
