@@ -147,7 +147,6 @@ describe("ChatType", () => {
   });
 });
 
-
 describe("IsValidRollEvent", () => {
   describe("it is a valid attack", () => {
     test("if it is mwak", () => {
