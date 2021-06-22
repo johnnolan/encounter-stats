@@ -53,7 +53,7 @@ export async function OnDeleteCombat() {
 }
 
 export async function OnCreateChatMessage(attackData) {
-  if (!_isInCombat) return;
+  if (!_isInCombat()) return;
   AddAttack(attackData, ROLL_HOOK.DEFAULT);
 }
 

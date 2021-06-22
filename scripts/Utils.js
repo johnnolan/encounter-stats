@@ -1,5 +1,11 @@
 import { ATTACKTYPES } from "./Settings.js";
 
+export function IsValidRollEvent(attackType) {
+  const validTypes = ["mwak", "rwak", "msak", "rsak", "save", "heal"];
+
+  return validTypes.indexOf(attackType) > -1;
+}
+
 export function IsValidAttack(attackType) {
   const validTypes = ["mwak", "rwak", "msak", "rsak", "save"];
 
@@ -78,7 +84,7 @@ export async function GetItemData(attackData, actorId, content, itemId = null) {
   }
   let actor = game.actors.get(actorId);
   let getItem = await actor.items.find((i) => i._id === itemId);
-
+  attackData.actionType = getItem.data.data.actionType;
   let itemData = await getIndex({ name: getItem.data.name });
   if (itemData) {
     attackData.item.name = itemData.name;

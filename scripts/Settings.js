@@ -20,6 +20,7 @@ export const ATTACKTYPES = {
 
 export const ATTACK_DATA_TEMPLATE = {
   id: null,
+  actionType: null,
   round: null,
   tokenId: null,
   actorId: null,

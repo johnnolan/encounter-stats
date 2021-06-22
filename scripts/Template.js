@@ -167,6 +167,9 @@ function GenerateCombatant(combatant) {
                   "FVTTEncounterStats.template.weapon_spell_name"
                 )}</div>
                 <div class="item-name">${game.i18n.format(
+                  "FVTTEncounterStats.template.type"
+                )}</div>
+                <div class="item-name">${game.i18n.format(
                   "FVTTEncounterStats.template.rolltype"
                 )}</div>
                 <div class="item-name">${game.i18n.format(
@@ -202,6 +205,7 @@ function GenerateAttackRow(event) {
     <div class="item-name item-weapon">${
       event.item.itemLink ? event.item.itemLink : event.item.name
     }</div>
+    <div class="item-name">${event.actionType}</div>
     <div class="item-name">${
       event.advantage
         ? "advantage"
