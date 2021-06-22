@@ -32,6 +32,7 @@ describe("Default", () => {
           events: [
             {
               id: null,
+              actionType: "mwak",
               round: 1,
               tokenId: null,
               actorId: "5H4YnyD6zf9vcJ3P",
@@ -49,6 +50,7 @@ describe("Default", () => {
             },
             {
               id: null,
+              actionType: "mwak",
               round: 1,
               tokenId: null,
               actorId: "5H4YnyD6zf9vcJ3P",

@@ -31,7 +31,13 @@ global.game = {
   actors: {
     get: jest.fn().mockReturnValue({
       items: [
-        { _id: "WWb4vAmh18sMAxfY", data: { name: "Flame Tongue Greatsword" } },
+        {
+          _id: "WWb4vAmh18sMAxfY",
+          data: {
+            name: "Flame Tongue Greatsword",
+            data: { actionType: "mwak" },
+          },
+        },
       ],
     }),
   },
@@ -57,6 +63,7 @@ describe("MidiQol", () => {
           events: [
             {
               id: null,
+              actionType: "mwak",
               round: 1,
               tokenId: null,
               actorId: "5H4YnyD6zf9vcJ3P",
@@ -74,6 +81,7 @@ describe("MidiQol", () => {
             },
             {
               id: null,
+              actionType: "mwak",
               round: 1,
               tokenId: null,
               actorId: "5H4YnyD6zf9vcJ3P",
@@ -91,6 +99,7 @@ describe("MidiQol", () => {
             },
             {
               id: "d75gppsau45ypm2m",
+              actionType: "mwak",
               round: null,
               tokenId: null,
               actorId: "5H4YnyD6zf9vcJ3P",

@@ -16,7 +16,7 @@
     "FVTTEncounterStats.template.startinghp": "Starting HP",
     "FVTTEncounterStats.template.finalhp": "Final HP",
     "FVTTEncounterStats.template.ac": "AC",
-    "FVTTEncounterStats.template.damage_total": "Damage Total",
+    "FVTTEncounterStats.template.damage_total": "Total",
     "FVTTEncounterStats.template.isCritical": "Critical",
     "FVTTEncounterStats.template.min_damage": "Min Damage",
     "FVTTEncounterStats.template.max_damage": "Max Damage",
@@ -29,5 +29,14 @@
 
     "FVTTEncounterStats.template.attacks": "Attacks",
     "FVTTEncounterStats.template.health": "Health",
-    "FVTTEncounterStats.template.rolltype": "Roll Type"
+    "FVTTEncounterStats.template.rolltype": "Roll Type",
+    "FVTTEncounterStats.template.type": "Type",
+
+    "FVTTEncounterStats.actiontypes.heal": "Heal",
+    "FVTTEncounterStats.actiontypes.msak": "Melee Spell Attack",
+    "FVTTEncounterStats.actiontypes.rsak": "Ranged Spell Attack",
+    "FVTTEncounterStats.actiontypes.mwak": "Melee Weapon Attack",
+    "FVTTEncounterStats.actiontypes.rwak": "Ranged Weapon Attack",
+    "FVTTEncounterStats.actiontypes.save": "Save",
+    "FVTTEncounterStats.actiontypes.other": "Other"
 }

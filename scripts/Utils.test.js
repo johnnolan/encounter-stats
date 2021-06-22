@@ -1,6 +1,7 @@
 import {
   IsValidAttack,
   IsHealingSpell,
+  IsValidRollEvent,
   GetCombatantStats,
   nullChecks,
   CombatantStats,
@@ -27,7 +28,13 @@ global.game = {
   actors: {
     get: jest.fn().mockReturnValue({
       items: [
-        { _id: "WWb4vAmh18sMAxfY", data: { name: "Flame Tongue Greatsword" } },
+        {
+          _id: "WWb4vAmh18sMAxfY",
+          data: {
+            name: "Flame Tongue Greatsword",
+            data: { actionType: "mwak" },
+          },
+        },
       ],
     }),
   },
@@ -49,6 +56,7 @@ describe("GetItemData", () => {
       "WWb4vAmh18sMAxfY"
     );
     expect(result).toStrictEqual({
+      actionType: "mwak",
       item: {
         itemLink:
           "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
@@ -59,6 +67,7 @@ describe("GetItemData", () => {
 
   test("it has no itemId assigned", async () => {
     const attackData = {
+      actionType: "mwak",
       item: {
         name: null,
         itemLink: null,
@@ -70,6 +79,7 @@ describe("GetItemData", () => {
       `<div data-item-id="WWb4vAmh18sMAxfY"></div>`
     );
     expect(result).toStrictEqual({
+      actionType: "mwak",
       item: {
         itemLink:
           "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
@@ -134,6 +144,43 @@ describe("ChatType", () => {
     const data = {};
     const result = await ChatType(data);
     expect(result).toBe(ATTACKTYPES.NONE);
+  });
+});
+
+describe("IsValidRollEvent", () => {
+  describe("it is a valid attack", () => {
+    test("if it is mwak", () => {
+      const result = IsValidRollEvent("mwak");
+      expect(result).toBeTruthy();
+    });
+    test("if it is rwak", () => {
+      const result = IsValidRollEvent("rwak");
+      expect(result).toBeTruthy();
+    });
+    test("if it is msak", () => {
+      const result = IsValidRollEvent("msak");
+      expect(result).toBeTruthy();
+    });
+    test("if it is rsak", () => {
+      const result = IsValidRollEvent("rsak");
+      expect(result).toBeTruthy();
+    });
+    test("if it is save", () => {
+      const result = IsValidRollEvent("save");
+      expect(result).toBeTruthy();
+    });
+    test("if it is heal", () => {
+      const result = IsValidRollEvent("heal");
+      expect(result).toBeTruthy();
+    });
+  });
+  test("it is not a valid attack", () => {
+    const result = IsValidRollEvent("mwaks");
+    expect(result).toBeFalsy();
+  });
+  test("it is a null string", () => {
+    const result = IsValidRollEvent(null);
+    expect(result).toBeFalsy();
   });
 });
 
@@ -259,18 +306,27 @@ describe("CombatantStats", () => {
   const combatantStat = {
     events: [
       {
+        actionType: "mwak",
         damageTotal: 10,
       },
       {
+        actionType: "rsak",
         damageTotal: 5,
       },
       {
+        actionType: "rwak",
         damageTotal: 23,
       },
       {
+        actionType: "mwak",
         damageTotal: 32,
       },
       {
+        actionType: "msak",
+        damageTotal: 2,
+      },
+      {
+        actionType: "heal",
         damageTotal: 2,
       },
     ],

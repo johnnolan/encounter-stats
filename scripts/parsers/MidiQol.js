@@ -1,5 +1,6 @@
 import {
   IsValidAttack,
+  IsValidRollEvent,
   nullChecks,
   GetItemData,
   GetCombatantStats,
@@ -20,14 +21,7 @@ export default async function MidiQol(stat, attackData, workflow) {
     workflow.item._id
   );
 
-  let actionType = "";
-  if (workflow.item?.data?.actionType) {
-    actionType = workflow.item.data.actionType;
-  } else if (workflow.item?.data?.data?.actionType) {
-    actionType = workflow.item.data.data.actionType;
-  }
-
-  if (IsValidAttack(actionType)) {
+  if (IsValidAttack(attackData.actionType)) {
     if (workflow.attackRoll) {
       attackData.attackTotal = workflow.attackRoll.total;
       attackData.advantage =
@@ -35,6 +29,8 @@ export default async function MidiQol(stat, attackData, workflow) {
       attackData.disadvantage =
         workflow.attackRoll.options.advantageMode === -1 ? true : false;
     }
+  }
+  if (IsValidRollEvent(attackData.actionType)) {
     if (workflow.damageRoll) {
       attackData.damageTotal = workflow.damageRoll.total;
       attackData.isCritical = workflow.damageRoll.options.critical;
