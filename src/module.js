@@ -1,3 +1,5 @@
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 import { MODULE_ID, OPT_ENABLE } from "./Settings.js";
 import { CreateFolder } from "./Folder.js";
 import { SetupHooks } from "./Hooks.js";
