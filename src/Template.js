@@ -130,7 +130,7 @@ function GenerateCombatant(combatant) {
         </div>
       </header>
       <section class="fvtt-enc-stats_combatants_data">
-        <section class="fvtt-enc-stats_combatants_health">
+        <section class="fvtt-enc-stats_combatants_data_section fvtt-enc-stats_combatants_data_section-health">
           <div class="fvtt-enc-stats_title3">${game.i18n.format(
             "FVTTEncounterStats.template.health"
           )}</div>
@@ -155,7 +155,7 @@ function GenerateCombatant(combatant) {
             </ol>
           </div>
         </section>
-        <section class="fvtt-enc-stats_combatants_attacks">
+        <section class="fvtt-enc-stats_combatants_data_section fvtt-enc-stats_combatants_data_section-attacks">
           <div class="fvtt-enc-stats_title3">${game.i18n.format(
             "FVTTEncounterStats.template.attacks"
           )}</div>

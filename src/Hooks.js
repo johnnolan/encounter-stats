@@ -55,7 +55,7 @@ export async function SetupHooks() {
       OnCreateCombat(data);
     });
     window.Hooks.on("deleteCombat", async function (data, arg2, arg3) {
-      OnDeleteCombat(data);
+      OnDeleteCombat();
     });
     window.Hooks.on("updateCombat", async function (arg1, data, arg3) {
       OnUpdateCombat(data.round);
