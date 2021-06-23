@@ -1,7 +1,6 @@
 import resolve from "@rollup/plugin-node-resolve";
 import babel from "@rollup/plugin-babel";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
 
 export default {
   input: "src/module.js",
@@ -14,6 +13,5 @@ export default {
     resolve(),
     nodeResolve(),
     babel({ babelHelpers: "bundled", exclude: "node_modules/**" }),
-    commonjs(),
   ],
 };
