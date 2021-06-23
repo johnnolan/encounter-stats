@@ -1,0 +1,15 @@
+@mixin title-content-center() {
+  font-weight: 400;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+@mixin table-content-font-align() {
+  width: 100%;
+  width: -moz-available;
+  width: -webkit-fill-available;
+  width: fill-available;
+  font-family: "Signika", sans-serif;
+}

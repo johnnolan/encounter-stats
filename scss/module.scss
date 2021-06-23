@@ -1,0 +1,160 @@
+@import "./variables.scss";
+@import "./mixins.scss";
+
+$font-modesto-condensed: "Modesto Condensed", "Palatino Linotype", serif;
+$border-style-groove: 2px groove #eeede0;
+$border-style-solid:  1px solid #c9c7b8;
+$color-1: #7a7971;
+$color-2: #191813;
+$color-3: #4b4a44;
+$color-red: #ff0000;
+$color-blue: #0000ff;
+
+.fvtt-enc-stats {
+  &_enemies {
+    font-family: $font-modesto-condensed;
+    border: none;
+  }
+
+  &_combatant {
+    margin-bottom: 30px;
+    border-bottom: $border-style-groove;
+    border-top: $border-style-groove;
+    padding-bottom: 10px;
+  }
+
+  &_combatants {
+    &_overview {
+      justify-content: space-between;
+    }
+    &_summary {
+      text-align: center;
+    }
+    &_actor {
+      font-family: $font-modesto-condensed;
+      font-size: 20px;
+      font-weight: 700;
+      padding: 10px 0;
+      border-bottom: $border-style-groove;
+      &_image {
+        flex: 0 0 110px;
+        max-width: 110px;
+        height: 110px;
+        object-fit: contain;
+        border-right-color: currentcolor;
+        border-right-style: none;
+        border-right-width: medium;
+        border-right: $border-style-groove;
+      }
+    }
+    &_data {
+      display: flex;
+
+      &_section {
+        @include table-content-font-align();
+        .item-list {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          overflow-y: auto;
+          scrollbar-width: thin;
+          color: $color-1;
+          padding: 0 5px;
+          .item {
+            .item-round {
+              flex: 0 0 40px;
+            }
+            .item-weapon {
+              flex: 0 0 200px;
+              text-align: left;
+            }
+          }
+        }
+        .item-name {
+          margin: 2px 0;
+          padding: 0;
+          text-align: center;
+          color: $color-2;
+          &.red {
+            color: $color-red;
+          }
+          &.blue {
+            color: $color-blue;
+          }
+        }
+        .items-header {
+          height: 28px;
+          margin: 2px 0;
+          padding: 0;
+          align-items: center;
+          background: rgba(0, 0, 0, 0.05);
+          border: $border-style-groove;
+          font-weight: bold;
+          .item-name {
+            font-size: 12px;
+            color: $color-1;
+            text-align: center;
+            border-right:$border-style-solid;
+          }
+          .item-round {
+            flex: 0 0 40px;
+          }
+          .item-weapon {
+            flex: 0 0 200px;
+          }
+        }
+        &-attacks {
+          flex: 3 0px;
+        }
+        &-health {
+          flex: 1 0px;
+          max-width: 130px;
+        }
+      }
+    }
+    td {
+      text-align: center;
+    }
+  }
+
+  &_actor {
+    &_statlist {
+      font-family: $font-modesto-condensed;
+      font-size: 20px;
+      font-weight: 700;
+      padding: 10px 0;
+    }
+    &_stat {
+      line-height: 30px;
+    }
+    &_stats {
+      padding-left: 10px;
+      border-left: $border-style-groove;
+      margin-left: 10px;
+      &_name {
+        border: none;
+        margin: 0;
+      }
+    }
+    &_stat-key {
+      font-weight: 700;
+      text-align: center;
+      font-size: 18px;
+      color: $color-3;
+      border-bottom:$border-style-solid;
+    }
+    &_stat-value {
+      @include title-content-center();
+      .sep {
+        color: $color-1;
+        padding: 0 5px;
+      }
+    }
+  }
+  &_title3 {
+    font-family: $font-modesto-condensed;
+    @include title-content-center();
+  }
+}
