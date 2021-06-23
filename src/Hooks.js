@@ -29,6 +29,22 @@ function _setupSockerListeners() {
   });
 }
 
+function FormatMidiQol(workflow) {
+  const wf = {
+    _id: workflow._id,
+    actor: {
+      _id: workflow.actor._id,
+    },
+    item: {
+      _id: workflow.item._id,
+    },
+    attackRoll: workflow.attackRoll,
+    damageRoll: workflow.damageRoll,
+  };
+
+  return wf;
+}
+
 export async function SetupHooks() {
   if (game.user.isGM) {
     _setupSockerListeners();
@@ -52,7 +68,7 @@ export async function SetupHooks() {
     });
     if (game.modules.get("midi-qol")?.active) {
       window.Hooks.on("midi-qol.RollComplete", async function (workflow) {
-        OnMidiRollComplete(workflow);
+        OnMidiRollComplete(FormatMidiQol(workflow));
       });
     } else if (game.modules.get("betterrolls5e")?.active) {
       window.Hooks.on(
@@ -93,7 +109,7 @@ export async function SetupHooks() {
       window.Hooks.on("midi-qol.RollComplete", async function (workflow) {
         game.socket.emit(SOCKET_NAME, {
           event: "midi-qol.RollComplete",
-          data: workflow,
+          data: FormatMidiQol(workflow),
         });
       });
     } else if (game.modules.get("betterrolls5e")?.active) {
