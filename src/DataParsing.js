@@ -33,8 +33,9 @@ export async function AddAttack(data, type, isNew = false) {
   await SaveStat(stat);
 }
 
-export async function AddCombatants(combatants, tokenImage) {
-  const combatant = combatants.data;
+export async function AddCombatants(actor, tokenId) {
+  const tokenImage = canvas.tokens.get(tokenId)?.data?.img;
+  const combatant = actor.data;
   if (!_isValidCombatant(combatant.type)) return;
 
   let stat = GetStat();
@@ -42,6 +43,7 @@ export async function AddCombatants(combatants, tokenImage) {
   const newCombatants = {
     name: combatant.name,
     id: combatant._id,
+    tokenId: tokenId,
     img: tokenImage ? tokenImage : combatant.img,
     type: combatant.type,
     hp: combatant.data.attributes.hp.value,

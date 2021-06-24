@@ -26,8 +26,8 @@ async function _addCombatants(data) {
   const combatantsList = data.combat.data._source.combatants;
   for (let i = 0; i < combatantsList.length; i++) {
     const actorId = combatantsList[i].actorId;
-    const tokenImage = canvas.tokens.get(combatantsList[i].tokenId)?.data?.img;
-    AddCombatants(game.actors.get(actorId), tokenImage);
+    const tokenId = combatantsList[i].tokenId;
+    AddCombatants(game.actors.get(actorId), tokenId);
   }
 }
 
@@ -38,6 +38,57 @@ async function _updateRound(currentRound) {
     stat.round = currentRound;
     await SaveStat(stat);
   }
+}
+
+function isTokenInside(template, token, wallsBlockTargeting) {
+  const grid = canvas.scene.data.grid,
+    templatePos = { x: template.data.x, y: template.data.y };
+  // Check for center of  each square the token uses.
+  // e.g. for large tokens all 4 squares
+  const startX = token.width >= 1 ? 0.5 : token.width / 2;
+  const startY = token.height >= 1 ? 0.5 : token.height / 2;
+  // console.error(grid, templatePos, startX, startY, token.width, token.height, token)
+  for (let x = startX; x < token.width; x++) {
+    for (let y = startY; y < token.height; y++) {
+      const currGrid = {
+        x: token.x + x * grid - templatePos.x,
+        y: token.y + y * grid - templatePos.y,
+      };
+      let contains = template.shape?.contains(currGrid.x, currGrid.y);
+      if (contains && wallsBlockTargeting) {
+        const r = new Ray(
+          { x: currGrid.x + templatePos.x, y: currGrid.y + templatePos.y },
+          templatePos
+        );
+        contains = !canvas.walls.checkCollision(r);
+      }
+      if (contains) return true;
+    }
+  }
+  return false;
+}
+
+function templateTokens(template) {
+  const tokens = canvas.tokens.placeables.map((t) => t.data);
+  let targets = [];
+  let tokenInside = isTokenInside;
+  for (const tokenData of tokens) {
+    if (tokenInside(template, tokenData, true)) {
+      console.debug("fvtt-enc tokenData", tokenData);
+      targets.push(tokenData._id);
+    }
+  }
+  console.debug("fvtt-enc targets", targets);
+  //game.user.updateTokenTargets(targets);
+}
+async function targetsHit(measuredTemplateData) {
+  console.debug("fvtt-enc measuredTemplateData", measuredTemplateData);
+
+  templateTokens(measuredTemplateData._object);
+}
+
+export async function OnCreateMeasuredTemplate(data) {
+  await targetsHit(data);
 }
 
 export async function OnRenderCombatTracker(arg3) {
