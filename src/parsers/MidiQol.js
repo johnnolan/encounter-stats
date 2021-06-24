@@ -2,7 +2,6 @@ import {
   IsValidAttack,
   IsValidRollEvent,
   nullChecks,
-  resetDamageIfAreaEffect,
   GetItemData,
   GetCombatantStats,
   CombatantStats,
