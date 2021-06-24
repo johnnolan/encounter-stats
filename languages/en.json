@@ -1,6 +1,8 @@
 {
     "FVTTEncounterStats.opt_enable_name": "Enable FVTT Encounter Stats",
     "FVTTEncounterStats.opt_enable_hint": "Enables FVTT Encounter Stats module",
+    "FVTTEncounterStats.enable_aoe_damage_name": "Enable AOE Damage Tracking",
+    "FVTTEncounterStats.enable_aoe_damage_hint": "When enabled, any spells that use a template (AOE effect) will use the damage taken by tokens in the hit area instead of the rolled damage.",
     
     "FVTTEncounterStats.opt_compendium_link_enable_name": "Enable Compendium linking",
     "FVTTEncounterStats.opt_compendium_link_enable_hint": "Replaces spell/weapon names with a link to the Compendium entry of that item. Disable this if you are getting undefined in your attack stats.",

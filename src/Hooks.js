@@ -1,3 +1,4 @@
+import { MODULE_ID, OPT_ENABLE_AOE_DAMAGE } from "./Settings.js";
 import {
   OnRenderCombatTracker,
   OnCreateCombat,
@@ -49,12 +50,14 @@ function FormatMidiQol(workflow) {
 export async function SetupHooks() {
   if (game.user.isGM) {
     _setupSockerListeners();
-    window.Hooks.on(
-      "createMeasuredTemplate",
-      async function (data, arg2, arg3) {
-        OnCreateMeasuredTemplate(data);
-      }
-    );
+    if (!game.settings.get(`${MODULE_ID}`, `${OPT_ENABLE_AOE_DAMAGE}`)) {
+      window.Hooks.on(
+        "createMeasuredTemplate",
+        async function (data, arg2, arg3) {
+          OnCreateMeasuredTemplate(data);
+        }
+      );
+    }
     window.Hooks.on("renderCombatTracker", async function (arg1, arg2, data) {
       OnRenderCombatTracker(data);
     });

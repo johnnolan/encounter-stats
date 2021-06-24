@@ -1,7 +1,7 @@
 import { CreateJournal } from "./Journal.js";
 import { AddCombatants, AddAttack } from "./DataParsing.js";
 import UpdateHealth from "./parsers/UpdateHealth.js";
-import { ROLL_HOOK } from "./Settings.js";
+import { ROLL_HOOK, MODULE_ID, OPT_ENABLE_AOE_DAMAGE } from "./Settings.js";
 import { GetStat, SaveStat, RemoveStat } from "./StatManager.js";
 import { TargetsHit, ResetTemplateHealthCheck } from "./Utils.js";
 
@@ -85,7 +85,9 @@ export async function OnUpdateHealth(data) {
 
 export async function OnUpdateCombat(round) {
   await _updateRound(round);
-  await ResetTemplateHealthCheck();
+  if (!game.settings.get(`${MODULE_ID}`, `${OPT_ENABLE_AOE_DAMAGE}`)) {
+    await ResetTemplateHealthCheck();
+  }
 }
 
 function _isInCombat() {
