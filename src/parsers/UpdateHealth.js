@@ -30,20 +30,22 @@ export default async function UpdateHealth(data) {
   }
 
   if (healthData.diff > 0) {
-    const templateHitArea = stat.templateHealthCheck.find(
-      (f) => f === combatantStat.tokenId
-    );
-    if (templateHitArea) {
-      let combatantAttackerStat = GetCombatantStatsByTokenId(
-        stat,
-        game.combat.current.tokenId
+    if (healthData.isdamage && stat.templateHealthCheck.length > 1) {
+      const templateHitArea = stat.templateHealthCheck.find(
+        (f) => f === combatantStat.tokenId
       );
-      if (!combatantAttackerStat) return;
+      if (templateHitArea) {
+        let combatantAttackerStat = GetCombatantStatsByTokenId(
+          stat,
+          game.combat.current.tokenId
+        );
+        if (!combatantAttackerStat) return;
 
-      let attackData =
-        combatantAttackerStat.events[combatantAttackerStat.events.length - 1];
-      if (attackData) {
-        attackData.damageTotal = attackData.damageTotal + healthData.diff;
+        let attackData =
+          combatantAttackerStat.events[combatantAttackerStat.events.length - 1];
+        if (attackData) {
+          attackData.damageTotal = attackData.damageTotal + healthData.diff;
+        }
       }
     }
     combatantStat.health.push(healthData);

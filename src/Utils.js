@@ -40,6 +40,20 @@ async function templateTokens(template) {
   if (targets.length > 0) {
     let stat = GetStat();
     stat.templateHealthCheck = targets;
+
+    if (game.modules.get("midi-qol")?.active) {
+      let combatantAttackerStat = GetCombatantStatsByTokenId(
+        stat,
+        game.combat.current.tokenId
+      );
+      if (!combatantAttackerStat) return;
+      let attackData =
+        combatantAttackerStat.events[combatantAttackerStat.events.length - 1];
+      if (attackData) {
+        attackData.damageTotal = 0;
+      }
+    }
+
     await SaveStat(stat);
   }
 }

@@ -4,7 +4,6 @@ import BetterRollsFor5e from "./parsers/BetterRollsFor5e.js";
 import MidiQol from "./parsers/MidiQol.js";
 import Beyond20 from "./parsers/Beyond20.js";
 import { ROLL_HOOK, ATTACK_DATA_TEMPLATE } from "./Settings.js";
-import { ResetTemplateHealthCheck } from "./Utils.js";
 
 export async function AddAttack(data, type, isNew = false) {
   let stat = GetStat();
@@ -34,7 +33,7 @@ export async function AddAttack(data, type, isNew = false) {
   stat.top = _getTopStats(stat);
 
   if (statResult.isNewAttack) {
-    await ResetTemplateHealthCheck();
+    stat.templateHealthCheck = [];
   }
 
   await SaveStat(stat);
