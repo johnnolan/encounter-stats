@@ -2,6 +2,7 @@ import {
   IsValidAttack,
   IsValidRollEvent,
   nullChecks,
+  resetDamageIfAreaEffect,
   GetItemData,
   GetCombatantStats,
   CombatantStats,
@@ -36,15 +37,18 @@ export default async function MidiQol(stat, attackData, workflow) {
       attackData.isCritical = workflow.damageRoll.options.critical;
     }
   }
+  resetDamageIfAreaEffect(attackData, stat.templateHealthCheck.length > 1);
   nullChecks(attackData);
 
+  let isNewAttack = false;
   if (combatantStat.events.find((f) => f.id === attackData.id)) {
     combatantStat.events[combatantStat.events.length - 1] = attackData;
   } else {
     combatantStat.events.push(attackData);
+    isNewAttack = true;
   }
 
   CombatantStats(combatantStat);
 
-  return stat;
+  return { stat: stat, isNewAttack: isNewAttack };
 }

@@ -1,5 +1,6 @@
 import {
   nullChecks,
+  resetDamageIfAreaEffect,
   GetItemData,
   ChatType,
   GetCombatantStats,
@@ -12,6 +13,7 @@ export default async function Default(stat, attackData, data) {
   if (data.data.content.indexOf("beyond20-message") > -1) return;
   let combatantStat = GetCombatantStats(stat, data.data.speaker.actor);
   if (!combatantStat) return;
+  const eventsLength = combatantStat.events.length;
   attackData.actorId = data.data.speaker.actor;
 
   let chatType = await ChatType(data);
@@ -52,9 +54,14 @@ export default async function Default(stat, attackData, data) {
     }
   }
 
+  resetDamageIfAreaEffect(attackData, stat.templateHealthCheck.length > 1);
+
   nullChecks(attackData);
 
   CombatantStats(combatantStat);
 
-  return stat;
+  return {
+    stat: stat,
+    isNewAttack: combatantStat.events.length > eventsLength,
+  };
 }

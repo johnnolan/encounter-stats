@@ -1,4 +1,4 @@
-import { GetCombatantStats, _add } from "../Utils.js";
+import { GetCombatantStatsByTokenId, _add } from "../Utils.js";
 import { GetStat, SaveStat } from "../StatManager.js";
 import { HEALTH_DATA_TEMPLATE } from "../Settings.js";
 
@@ -6,7 +6,7 @@ export default async function UpdateHealth(data) {
   let stat = GetStat();
   let healthData = duplicate(HEALTH_DATA_TEMPLATE);
 
-  let combatantStat = GetCombatantStats(stat, data.data._id);
+  let combatantStat = GetCombatantStatsByTokenId(stat, data.token._id);
   if (!combatantStat) return;
 
   healthData.round = stat.round;
@@ -30,6 +30,22 @@ export default async function UpdateHealth(data) {
   }
 
   if (healthData.diff > 0) {
+    const templateHitArea = stat.templateHealthCheck.find(
+      (f) => f === combatantStat.tokenId
+    );
+    if (templateHitArea) {
+      let combatantAttackerStat = GetCombatantStatsByTokenId(
+        stat,
+        game.combat.current.tokenId
+      );
+      if (!combatantAttackerStat) return;
+
+      let attackData =
+        combatantAttackerStat.events[combatantAttackerStat.events.length - 1];
+      if (attackData) {
+        attackData.damageTotal = attackData.damageTotal + healthData.diff;
+      }
+    }
     combatantStat.health.push(healthData);
   }
 

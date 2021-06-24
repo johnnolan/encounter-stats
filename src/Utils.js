@@ -1,4 +1,58 @@
 import { ATTACKTYPES } from "./Settings.js";
+import { GetStat, SaveStat } from "./StatManager.js";
+
+function isTokenInside(template, token, wallsBlockTargeting) {
+  const grid = canvas.scene.data.grid,
+    templatePos = { x: template.data.x, y: template.data.y };
+
+  const startX = token.width >= 1 ? 0.5 : token.width / 2;
+  const startY = token.height >= 1 ? 0.5 : token.height / 2;
+
+  for (let x = startX; x < token.width; x++) {
+    for (let y = startY; y < token.height; y++) {
+      const currGrid = {
+        x: token.x + x * grid - templatePos.x,
+        y: token.y + y * grid - templatePos.y,
+      };
+      let contains = template.shape?.contains(currGrid.x, currGrid.y);
+      if (contains && wallsBlockTargeting) {
+        const r = new Ray(
+          { x: currGrid.x + templatePos.x, y: currGrid.y + templatePos.y },
+          templatePos
+        );
+        contains = !canvas.walls.checkCollision(r);
+      }
+      if (contains) return true;
+    }
+  }
+  return false;
+}
+
+async function templateTokens(template) {
+  const tokens = canvas.tokens.placeables.map((t) => t.data);
+  let targets = [];
+  let tokenInside = isTokenInside;
+  for (const tokenData of tokens) {
+    if (tokenInside(template, tokenData, true)) {
+      targets.push(tokenData._id);
+    }
+  }
+  if (targets.length > 0) {
+    let stat = GetStat();
+    stat.templateHealthCheck = targets;
+    await SaveStat(stat);
+  }
+}
+
+export async function TargetsHit(measuredTemplateData) {
+  templateTokens(measuredTemplateData._object);
+}
+
+export async function ResetTemplateHealthCheck() {
+  let stat = GetStat();
+  stat.templateHealthCheck = [];
+  await SaveStat(stat);
+}
 
 export function IsValidRollEvent(attackType) {
   const validTypes = ["mwak", "rwak", "msak", "rsak", "save", "heal"];
@@ -75,6 +129,11 @@ export function GetCombatantStats(stat, actorId) {
   return stat.combatants.find((f) => f.id === actorId);
 }
 
+export function GetCombatantStatsByTokenId(stat, tokenId) {
+  if (!stat?.combatants) return;
+  return stat.combatants.find((f) => f.tokenId === tokenId);
+}
+
 export async function GetItemData(attackData, actorId, content, itemId = null) {
   if (!itemId) {
     let match = getItemId(content);
@@ -89,6 +148,14 @@ export async function GetItemData(attackData, actorId, content, itemId = null) {
   if (itemData) {
     attackData.item.name = itemData.name;
     attackData.item.itemLink = itemData.link;
+  }
+
+  return attackData;
+}
+
+export function resetDamageIfAreaEffect(attackData, isAreaEffect = false) {
+  if (isAreaEffect) {
+    attackData.damageTotal = 0;
   }
 
   return attackData;
