@@ -4,7 +4,7 @@
 import MidiQol from "./MidiQol.js";
 import { duplicate } from "../mocks/helpers.js";
 global.duplicate = duplicate;
-import { combatantStats } from "../mockdata/combatantStats.js";
+import { combatantStats } from "../mockdata/combatantStatsMidiQol.js";
 import { midiQolData } from "../mockdata/midiQolData.js";
 jest.mock("../StatManager.js");
 import { ATTACK_DATA_TEMPLATE } from "../Settings.js";
@@ -37,6 +37,9 @@ global.game = {
             name: "Flame Tongue Greatsword",
             data: { actionType: "mwak" },
           },
+          token: {
+            _id: "5H4YnyD6zf9vcJ3Q",
+          },
         },
       ],
     }),
@@ -48,9 +51,10 @@ describe("MidiQol", () => {
   test("it returns the correct parsing", async () => {
     let attackData = duplicate(ATTACK_DATA_TEMPLATE);
     const result = await MidiQol(combatantStats, attackData, midiQolData);
-    expect(result).toStrictEqual({
+    expect(result.stat).toStrictEqual({
       encounterId: "RwzeJBOvutLp3eeL",
       round: 1,
+      templateHealthCheck: [],
       combatants: [
         {
           name: "Lorena Aldabra",

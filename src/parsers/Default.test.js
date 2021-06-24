@@ -17,7 +17,7 @@ describe("Default", () => {
   test("it returns the correct parsing", async () => {
     let attackData = duplicate(ATTACK_DATA_TEMPLATE);
     const result = await Default(combatantStats, attackData, defaultData);
-    expect(result).toStrictEqual({
+    expect(result.stat).toStrictEqual({
       encounterId: "RwzeJBOvutLp3eeL",
       round: 1,
       combatants: [
@@ -26,6 +26,7 @@ describe("Default", () => {
           id: "5H4YnyD6zf9vcJ3P",
           img: "tokens/pcs/lorena/lorena_topdown_resting.png",
           type: "character",
+          tokenId: "hoTFHXIbChPmVzQq",
           hp: 71,
           max: 76,
           ac: 16,
@@ -34,7 +35,7 @@ describe("Default", () => {
               id: null,
               actionType: "mwak",
               round: 1,
-              tokenId: null,
+              tokenId: "hoTFHXIbChPmVzQq",
               actorId: "5H4YnyD6zf9vcJ3P",
               advantage: false,
               isCritical: false,
@@ -52,7 +53,7 @@ describe("Default", () => {
               id: null,
               actionType: "mwak",
               round: 1,
-              tokenId: null,
+              tokenId: "hoTFHXIbChPmVzQq",
               actorId: "5H4YnyD6zf9vcJ3P",
               advantage: false,
               isCritical: false,
@@ -75,6 +76,7 @@ describe("Default", () => {
           id: "39qXw7GSzTEwGW2G",
           img: "tokens/npcs/Phase_Panther_Large_Monstrosity_05.png",
           type: "npc",
+          tokenId: "39qXw7GSzTEwGW2D",
           hp: 85,
           max: 85,
           ac: 13,
@@ -83,6 +85,7 @@ describe("Default", () => {
           summaryList: { min: "0", max: "0", avg: "0", total: "0" },
         },
       ],
+      templateHealthCheck: [],
       top: {
         maxDamage: "Lorena Aldabra<br />0",
         highestAvgDamage: "Lorena Aldabra<br />0",
