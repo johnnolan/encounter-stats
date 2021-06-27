@@ -6,7 +6,7 @@
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/johnnolan/fvtt-encounter-stats.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/johnnolan/fvtt-encounter-stats/alerts/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/johnnolan/fvtt-encounter-stats.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/johnnolan/fvtt-encounter-stats/context:javascript)
 
-[![Buy me a coffee][buymeacoffee-shield]][buymeacoffee]
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X8X354DCG)
 
 # FVTT Encounter Stats
 
