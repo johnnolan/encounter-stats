@@ -6,7 +6,7 @@
   "author": "John Nolan <me@johnnolan.dev>",
   "license": "MIT",
   "scripts": {
-    "jshint": "jshint src/",
+    "jshint": "jshint scripts/",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
