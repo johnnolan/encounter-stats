@@ -2,7 +2,7 @@ import scss from "rollup-plugin-scss";
 
 export default [
   {
-    input: "src/scss.js",
+    input: "scripts/scss.js",
     output: {
       file: "styles/module.js",
       format: "esm",
