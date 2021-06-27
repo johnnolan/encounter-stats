@@ -85,7 +85,7 @@ export async function OnUpdateHealth(data) {
 
 export async function OnUpdateCombat(round) {
   await _updateRound(round);
-  if (!game.settings.get(`${MODULE_ID}`, `${OPT_ENABLE_AOE_DAMAGE}`)) {
+  if (game.settings.get(`${MODULE_ID}`, `${OPT_ENABLE_AOE_DAMAGE}`)) {
     await ResetTemplateHealthCheck();
   }
 }

@@ -18,6 +18,7 @@ Hooks.once("init", async function () {
     config: true,
     default: false,
     type: Boolean,
+    onChange: () => window.location.reload(),
   });
 });
 

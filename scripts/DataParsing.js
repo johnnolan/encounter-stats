@@ -45,6 +45,7 @@ export async function AddCombatants(actor, tokenId) {
   if (!_isValidCombatant(combatant.type)) return;
 
   let stat = GetStat();
+  if (!stat) return;
 
   const newCombatants = {
     name: combatant.name,
