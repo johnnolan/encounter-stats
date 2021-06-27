@@ -1,6 +1,12 @@
-import { MODULE_ID, OPT_ENABLE, OPT_ENABLE_AOE_DAMAGE } from "./Settings.js";
+import {
+  MODULE_ID,
+  OPT_ENABLE,
+  OPT_ENABLE_AOE_DAMAGE,
+  OPT_REPORT_BUG,
+} from "./Settings.js";
 import { CreateFolder } from "./Folder.js";
 import { SetupHooks } from "./Hooks.js";
+import { ConfigPanel } from "./panels/ConfigPanel.js";
 
 Hooks.once("init", async function () {
   game.settings.register(`${MODULE_ID}`, `${OPT_ENABLE}`, {
@@ -19,6 +25,14 @@ Hooks.once("init", async function () {
     default: false,
     type: Boolean,
     onChange: () => window.location.reload(),
+  });
+  game.settings.registerMenu(`${MODULE_ID}`, `${OPT_REPORT_BUG}`, {
+    name: game.i18n.format("FVTTEncounterStats.config.debug"),
+    label: game.i18n.format("FVTTEncounterStats.config.debug"),
+    icon: "fas fa-bug",
+    scope: "world",
+    type: ConfigPanel,
+    restricted: true,
   });
 });
 

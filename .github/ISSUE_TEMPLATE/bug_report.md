@@ -36,3 +36,6 @@ Please add a screenshot of your chat log and the report with the problem. This h
 
 **Additional context**
 Add any other context about the problem here.
+
+**Debug output from modules settings**
+Copy the text in the module settings "Report a Bug" option here

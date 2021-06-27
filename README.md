@@ -10,7 +10,9 @@
 
 # FVTT Encounter Stats
 
-This module is designed to capture your Players attacks, damage and HP in an Encounter and store the results into a Journal Entry with a summary of their stats for each after you end the Encounter. 
+This module is designed to capture your Players attacks, damage and HP in an Encounter and store the results into a Journal Entry with a summary of their stats for each after you end the Encounter.
+
+You have an option for AOE attacks to either use the dice roll damage or record the damage taken to creatures within the template area.
 
 This can then be viewed post battle to look upon for the Players to analyse and celebrate their attacks and as a DM, give you a better idea of how to build your Encounters in the future.
 
@@ -41,13 +43,10 @@ Foundry modules page: [https://foundryvtt.com/packages/fvtt-encounter-stats](htt
 
 ## Dependencies
 
-* `dnd5e` game system (_Could work on others but haven't tested it_)
+* `dnd5e` game system
 
 ## Contact
 
-For issues, please raise a bug in Github giving as much detail as you can. I will try and fix things depending on fatherhood responsibilities [https://github.com/johnnolan/fvtt-encounter-stats/issues](https://github.com/johnnolan/fvtt-encounter-stats/issues)
+For issues, please raise a bug in Github and use the Report a Bug option in the settings to get debug information to help me reproduce the issue easily on my computer. I will try and fix things depending on fatherhood responsibilities [https://github.com/johnnolan/fvtt-encounter-stats/issues](https://github.com/johnnolan/fvtt-encounter-stats/issues)
 
 You can also find me lurking around on the Foundry VTT Discord [https://discord.gg/foundryvtt](https://discord.gg/foundryvtt). My Discord Tag is `JB#2780`.
-
-[buymeacoffee-shield]: https://raw.githubusercontent.com/johnnolan/fvtt-encounter-stats/main/images/badges/buymeacoffee.png
-[buymeacoffee]: https://www.buymeacoffee.com/johnnolandev

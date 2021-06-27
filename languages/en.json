@@ -40,5 +40,7 @@
     "FVTTEncounterStats.actiontypes.mwak": "Melee Weapon Attack",
     "FVTTEncounterStats.actiontypes.rwak": "Ranged Weapon Attack",
     "FVTTEncounterStats.actiontypes.save": "Save",
-    "FVTTEncounterStats.actiontypes.other": "Other"
+    "FVTTEncounterStats.actiontypes.other": "Other",
+
+    "FVTTEncounterStats.config.debug": "Report a Bug"
 }
