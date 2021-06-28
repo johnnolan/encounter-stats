@@ -2,6 +2,9 @@ export const MODULE_NAME = "FVTT Encounter Stats";
 export const MODULE_ID = "fvtt-encounter-stats";
 
 export const OPT_ENABLE = "enable";
+export const OPT_ENABLE_AOE_DAMAGE = "enable_aoe_damage";
+
+export const OPT_REPORT_BUG = "report_bug";
 
 export const ROLL_HOOK = {
   MIDI_QOL: "midi-qol",

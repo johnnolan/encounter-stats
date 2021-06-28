@@ -1,54 +1,23 @@
 /**
  * @jest-environment jsdom
  */
-import MidiQol from "./MidiQol.js";
+import Default from "./Default.js";
 import { duplicate } from "../mocks/helpers.js";
 global.duplicate = duplicate;
 import { combatantStats } from "../mockdata/combatantStats.js";
-import { midiQolData } from "../mockdata/midiQolData.js";
+import { defaultData } from "../mockdata/defaultData.js";
 jest.mock("../StatManager.js");
 import { ATTACK_DATA_TEMPLATE } from "../Settings.js";
 import { GetStat, SaveStat } from "../StatManager.js";
-import Collection from "../mocks/Collection.js";
-import CompendiumCollection from "../mocks/CompendiumCollection.js";
 
 GetStat.mockImplementation(() => combatantStats);
 SaveStat.mockImplementation(() => true);
 
-const packs = new Collection();
-let pack = new CompendiumCollection({
-  entity: "Item",
-  label: "Items (SRD)",
-  name: "items",
-  package: "dnd5e",
-  path: "./packs/items.db",
-  private: false,
-  system: "dnd5e",
-});
-packs.set("dnd5e.items", pack);
-
-global.game = {
-  actors: {
-    get: jest.fn().mockReturnValue({
-      items: [
-        {
-          _id: "WWb4vAmh18sMAxfY",
-          data: {
-            name: "Flame Tongue Greatsword",
-            data: { actionType: "mwak" },
-          },
-        },
-      ],
-    }),
-  },
-  packs: packs,
-};
-
-describe("MidiQol", () => {
+describe("Default", () => {
   test("it returns the correct parsing", async () => {
     let attackData = duplicate(ATTACK_DATA_TEMPLATE);
-    const result = await MidiQol(combatantStats, attackData, midiQolData);
-    expect(result).toStrictEqual({
+    const result = await Default(combatantStats, attackData, defaultData);
+    expect(result.stat).toStrictEqual({
       encounterId: "RwzeJBOvutLp3eeL",
       round: 1,
       combatants: [
@@ -57,6 +26,7 @@ describe("MidiQol", () => {
           id: "5H4YnyD6zf9vcJ3P",
           img: "tokens/pcs/lorena/lorena_topdown_resting.png",
           type: "character",
+          tokenId: "hoTFHXIbChPmVzQq",
           hp: 71,
           max: 76,
           ac: 16,
@@ -65,7 +35,7 @@ describe("MidiQol", () => {
               id: null,
               actionType: "mwak",
               round: 1,
-              tokenId: null,
+              tokenId: "hoTFHXIbChPmVzQq",
               actorId: "5H4YnyD6zf9vcJ3P",
               advantage: false,
               isCritical: false,
@@ -83,31 +53,13 @@ describe("MidiQol", () => {
               id: null,
               actionType: "mwak",
               round: 1,
-              tokenId: null,
+              tokenId: "hoTFHXIbChPmVzQq",
               actorId: "5H4YnyD6zf9vcJ3P",
               advantage: false,
               isCritical: false,
               isFumble: false,
               disadvantage: false,
-              attackTotal: 0,
-              damageTotal: 0,
-              item: {
-                name: "Flame Tongue Greatsword",
-                itemLink:
-                  "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
-              },
-            },
-            {
-              id: "d75gppsau45ypm2m",
-              actionType: "mwak",
-              round: null,
-              tokenId: null,
-              actorId: "5H4YnyD6zf9vcJ3P",
-              advantage: false,
-              isCritical: false,
-              isFumble: false,
-              disadvantage: false,
-              attackTotal: 12,
+              attackTotal: 15,
               damageTotal: 0,
               item: {
                 name: "Flame Tongue Greatsword",
@@ -124,6 +76,7 @@ describe("MidiQol", () => {
           id: "39qXw7GSzTEwGW2G",
           img: "tokens/npcs/Phase_Panther_Large_Monstrosity_05.png",
           type: "npc",
+          tokenId: "39qXw7GSzTEwGW2D",
           hp: 85,
           max: 85,
           ac: 13,
@@ -132,6 +85,7 @@ describe("MidiQol", () => {
           summaryList: { min: "0", max: "0", avg: "0", total: "0" },
         },
       ],
+      templateHealthCheck: [],
       top: {
         maxDamage: "Lorena Aldabra<br />0",
         highestAvgDamage: "Lorena Aldabra<br />0",

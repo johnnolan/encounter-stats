@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 import {
   nullChecks,
+  resetDamageIfAreaEffect,
   GetCombatantStats,
   CombatantStats,
   _add,
@@ -84,9 +85,11 @@ export default async function Beyond20(stat, attackData, data) {
 
   combatantStat.events.push(attackData);
 
+  resetDamageIfAreaEffect(attackData, stat.templateHealthCheck.length > 1);
+
   nullChecks(attackData);
 
   CombatantStats(combatantStat);
 
-  return stat;
+  return { stat: stat, isNewAttack: true };
 }

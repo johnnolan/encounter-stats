@@ -11,6 +11,7 @@ import {
 export default async function MidiQol(stat, attackData, workflow) {
   let combatantStat = GetCombatantStats(stat, workflow.actor._id);
   if (!combatantStat) return;
+  stat.templateHealthCheck = [];
   attackData.id = workflow._id;
   attackData.actorId = workflow.actor._id;
 
@@ -36,15 +37,18 @@ export default async function MidiQol(stat, attackData, workflow) {
       attackData.isCritical = workflow.damageRoll.options.critical;
     }
   }
+
   nullChecks(attackData);
 
+  let isNewAttack = false;
   if (combatantStat.events.find((f) => f.id === attackData.id)) {
     combatantStat.events[combatantStat.events.length - 1] = attackData;
   } else {
     combatantStat.events.push(attackData);
+    isNewAttack = true;
   }
 
   CombatantStats(combatantStat);
 
-  return stat;
+  return { stat: stat, isNewAttack: isNewAttack };
 }

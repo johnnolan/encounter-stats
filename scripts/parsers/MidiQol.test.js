@@ -1,23 +1,60 @@
 /**
  * @jest-environment jsdom
  */
-import UpdateHealth from "./UpdateHealth.js";
+import MidiQol from "./MidiQol.js";
 import { duplicate } from "../mocks/helpers.js";
 global.duplicate = duplicate;
-import { combatantStats } from "../mockdata/combatantStats.js";
-import { updateHealth } from "../mockdata/updateHealth.js";
+import { combatantStats } from "../mockdata/combatantStatsMidiQol.js";
+import { midiQolData } from "../mockdata/midiQolData.js";
 jest.mock("../StatManager.js");
+import { ATTACK_DATA_TEMPLATE } from "../Settings.js";
 import { GetStat, SaveStat } from "../StatManager.js";
+import Collection from "../mocks/Collection.js";
+import CompendiumCollection from "../mocks/CompendiumCollection.js";
 
 GetStat.mockImplementation(() => combatantStats);
 SaveStat.mockImplementation(() => true);
 
-describe("UpdateHealth", () => {
-  test("it has an itemId assigned", async () => {
-    const result = await UpdateHealth(updateHealth);
-    expect(result).toStrictEqual({
+const packs = new Collection();
+let pack = new CompendiumCollection({
+  entity: "Item",
+  label: "Items (SRD)",
+  name: "items",
+  package: "dnd5e",
+  path: "./packs/items.db",
+  private: false,
+  system: "dnd5e",
+});
+packs.set("dnd5e.items", pack);
+
+global.game = {
+  actors: {
+    get: jest.fn().mockReturnValue({
+      items: [
+        {
+          _id: "WWb4vAmh18sMAxfY",
+          data: {
+            name: "Flame Tongue Greatsword",
+            data: { actionType: "mwak" },
+          },
+          token: {
+            _id: "5H4YnyD6zf9vcJ3Q",
+          },
+        },
+      ],
+    }),
+  },
+  packs: packs,
+};
+
+describe("MidiQol", () => {
+  test("it returns the correct parsing", async () => {
+    let attackData = duplicate(ATTACK_DATA_TEMPLATE);
+    const result = await MidiQol(combatantStats, attackData, midiQolData);
+    expect(result.stat).toStrictEqual({
       encounterId: "RwzeJBOvutLp3eeL",
       round: 1,
+      templateHealthCheck: [],
       combatants: [
         {
           name: "Lorena Aldabra",
@@ -57,6 +94,24 @@ describe("UpdateHealth", () => {
               isFumble: false,
               disadvantage: false,
               attackTotal: 0,
+              damageTotal: 0,
+              item: {
+                name: "Flame Tongue Greatsword",
+                itemLink:
+                  "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
+              },
+            },
+            {
+              id: "d75gppsau45ypm2m",
+              actionType: "mwak",
+              round: null,
+              tokenId: null,
+              actorId: "5H4YnyD6zf9vcJ3P",
+              advantage: false,
+              isCritical: false,
+              isFumble: false,
+              disadvantage: false,
+              attackTotal: 12,
               damageTotal: 0,
               item: {
                 name: "Flame Tongue Greatsword",

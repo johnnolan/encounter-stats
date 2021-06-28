@@ -9,39 +9,48 @@ export async function AddAttack(data, type, isNew = false) {
   let stat = GetStat();
   let attackData = duplicate(ATTACK_DATA_TEMPLATE);
   attackData.round = stat.round;
+  let statResult;
 
   switch (type) {
     case ROLL_HOOK.BETTERROLLS5E:
-      stat = await BetterRollsFor5e(stat, attackData, data, isNew);
+      statResult = await BetterRollsFor5e(stat, attackData, data, isNew);
       break;
     case ROLL_HOOK.MIDI_QOL:
-      stat = await MidiQol(stat, attackData, data);
+      statResult = await MidiQol(stat, attackData, data);
       break;
     case ROLL_HOOK.BEYOND_20:
-      stat = await Beyond20(stat, attackData, data);
+      statResult = await Beyond20(stat, attackData, data);
       break;
     case ROLL_HOOK.DEFAULT:
-      stat = await Default(stat, attackData, data);
+      statResult = await Default(stat, attackData, data);
       break;
     default:
       return;
   }
 
-  if (!stat) return;
+  if (!statResult) return;
+  stat = statResult.stat;
   stat.top = _getTopStats(stat);
+
+  if (statResult.isNewAttack) {
+    stat.templateHealthCheck = [];
+  }
 
   await SaveStat(stat);
 }
 
-export async function AddCombatants(combatants, tokenImage) {
-  const combatant = combatants.data;
+export async function AddCombatants(actor, tokenId) {
+  const tokenImage = canvas.tokens.get(tokenId)?.data?.img;
+  const combatant = actor.data;
   if (!_isValidCombatant(combatant.type)) return;
 
   let stat = GetStat();
+  if (!stat) return;
 
   const newCombatants = {
     name: combatant.name,
     id: combatant._id,
+    tokenId: tokenId,
     img: tokenImage ? tokenImage : combatant.img,
     type: combatant.type,
     hp: combatant.data.attributes.hp.value,

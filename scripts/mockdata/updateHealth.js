@@ -688,5 +688,53 @@ export const updateHealth = {
                 "initiativeHalfProf": false
             },
         }
-    }
+    },
+    "token": {
+        "_id": "hoTFHXIbChPmVzQq",
+        "name": "Lorena Aldabra",
+        "displayName": 0,
+        "actorId": "5H4YnyD6zf9vcJ3P",
+        "actorLink": true,
+        "actorData": {},
+        "img": "tokens/pcs/lorena/lorena_topdown_battle.png",
+        "tint": null,
+        "width": 1,
+        "height": 1,
+        "scale": 1,
+        "mirrorX": false,
+        "mirrorY": false,
+        "x": null,
+        "y": null,
+        "elevation": 0,
+        "lockRotation": false,
+        "rotation": 0,
+        "effects": [],
+        "alpha": 1,
+        "hidden": false,
+        "vision": true,
+        "dimSight": 60,
+        "brightSight": 60,
+        "dimLight": 60,
+        "brightLight": 60,
+        "sightAngle": 0,
+        "lightAngle": 0,
+        "lightColor": null,
+        "lightAlpha": 0.25,
+        "lightAnimation": {
+            "speed": 5,
+            "intensity": 5
+        },
+        "disposition": 1,
+        "displayBars": 0,
+        "bar1": {
+            "attribute": "attributes.hp"
+        },
+        "bar2": {
+            "attribute": ""
+        },
+        "flags": {
+        },
+        "tokenId": null,
+        "randomImg": false
+    },
 };

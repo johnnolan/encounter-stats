@@ -1,8 +1,9 @@
 import { CreateJournal } from "./Journal.js";
 import { AddCombatants, AddAttack } from "./DataParsing.js";
 import UpdateHealth from "./parsers/UpdateHealth.js";
-import { ROLL_HOOK } from "./Settings.js";
+import { ROLL_HOOK, MODULE_ID, OPT_ENABLE_AOE_DAMAGE } from "./Settings.js";
 import { GetStat, SaveStat, RemoveStat } from "./StatManager.js";
+import { TargetsHit, ResetTemplateHealthCheck } from "./Utils.js";
 
 async function _createCombat(data) {
   const encounterId = data.data._id;
@@ -16,6 +17,7 @@ async function _createCombat(data) {
       highestAvgDamage: "",
       highestMaxDamage: "",
     },
+    templateHealthCheck: [],
   };
   await CreateJournal(encounterId);
   await SaveStat(stat);
@@ -26,8 +28,8 @@ async function _addCombatants(data) {
   const combatantsList = data.combat.data._source.combatants;
   for (let i = 0; i < combatantsList.length; i++) {
     const actorId = combatantsList[i].actorId;
-    const tokenImage = canvas.tokens.get(combatantsList[i].tokenId)?.data?.img;
-    AddCombatants(game.actors.get(actorId), tokenImage);
+    const tokenId = combatantsList[i].tokenId;
+    AddCombatants(game.actors.get(actorId), tokenId);
   }
 }
 
@@ -38,6 +40,10 @@ async function _updateRound(currentRound) {
     stat.round = currentRound;
     await SaveStat(stat);
   }
+}
+
+export async function OnCreateMeasuredTemplate(data) {
+  await TargetsHit(data);
 }
 
 export async function OnRenderCombatTracker(arg3) {
@@ -78,7 +84,10 @@ export async function OnUpdateHealth(data) {
 }
 
 export async function OnUpdateCombat(round) {
-  _updateRound(round);
+  await _updateRound(round);
+  if (game.settings.get(`${MODULE_ID}`, `${OPT_ENABLE_AOE_DAMAGE}`)) {
+    await ResetTemplateHealthCheck();
+  }
 }
 
 function _isInCombat() {

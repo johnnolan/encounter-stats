@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 import {
   nullChecks,
+  resetDamageIfAreaEffect,
   GetItemData,
   GetCombatantStats,
   CombatantStats,
@@ -51,6 +52,7 @@ export default async function BetterRollsFor5e(stat, attackData, $html, isNew) {
   attackData.damageTotal = damageTotal;
   attackData.itemId = $html.attr("data-item-id");
 
+  resetDamageIfAreaEffect(attackData, stat.templateHealthCheck.length > 1);
   nullChecks(attackData);
 
   if (isNew) {
@@ -59,5 +61,5 @@ export default async function BetterRollsFor5e(stat, attackData, $html, isNew) {
 
   CombatantStats(combatantStat);
 
-  return stat;
+  return { stat: stat, isNewAttack: isNew };
 }

@@ -5,6 +5,7 @@ export const combatantStats = {
         {
             "name": "Lorena Aldabra",
             "id": "5H4YnyD6zf9vcJ3P",
+            "tokenId": "hoTFHXIbChPmVzQq",
             "img": "tokens/pcs/lorena/lorena_topdown_resting.png",
             "type": "character",
             "hp": 71,
@@ -15,7 +16,7 @@ export const combatantStats = {
                     "id": null,
                     "actionType": "mwak",
                     "round": 1,
-                    "tokenId": null,
+                    "tokenId":  "hoTFHXIbChPmVzQq",
                     "actorId": "5H4YnyD6zf9vcJ3P",
                     "advantage": false,
                     "isCritical": false,
@@ -32,7 +33,7 @@ export const combatantStats = {
                     "id": null,
                     "actionType": "mwak",
                     "round": 1,
-                    "tokenId": null,
+                    "tokenId":  "hoTFHXIbChPmVzQq",
                     "actorId": "5H4YnyD6zf9vcJ3P",
                     "advantage": false,
                     "isCritical": false,
@@ -57,6 +58,7 @@ export const combatantStats = {
         {
             "name": "Displacer Beast",
             "id": "39qXw7GSzTEwGW2G",
+            "tokenId": "39qXw7GSzTEwGW2D",
             "img": "tokens/npcs/Phase_Panther_Large_Monstrosity_05.png",
             "type": "npc",
             "hp": 85,
@@ -76,5 +78,6 @@ export const combatantStats = {
         "maxDamage": "Lorena Aldabra<br />0",
         "highestAvgDamage": "Lorena Aldabra<br />0",
         "highestMaxDamage": "Lorena Aldabra<br />0"
-    }
+    },
+    "templateHealthCheck": [],
 };
