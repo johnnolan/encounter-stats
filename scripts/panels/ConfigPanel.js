@@ -13,6 +13,7 @@ export class ConfigPanel extends FormApplication {
     var moduleData = [];
     for (const [key, value] of game.modules.entries()) {
       moduleData.push({
+        key: key,
         id: value.id,
         name: value.data.name,
         active: value.active,
@@ -22,7 +23,7 @@ export class ConfigPanel extends FormApplication {
       });
     }
     var gameSettingsData = [];
-    for (const [key, value] of game.settings.settings.entries()) {
+    for (const [key] of game.settings.settings.entries()) {
       if (
         key.indexOf("fvtt-encounter-stats.") === 0 ||
         key.indexOf("midi-qol.") === 0 ||
