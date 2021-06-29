@@ -182,12 +182,6 @@ export const pf1DataCrit = {
                     }
                 }
             }
-        },
-        "speaker": {
-            "scene": "pWowOdVWEsHYiMDh",
-            "actor": "Cou0L73lWFc7wJUb",
-            "token": "nfvD5GA7i1qjZpwA",
-            "alias": "test1"
         }
     }
 };

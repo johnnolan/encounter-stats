@@ -14,9 +14,8 @@ export default async function PF1(stat, attackDataTemp, data) {
   const eventsLength = combatantStat.events.length;
 
   let rollsData = data.data.flags.pf1.metadata.rolls;
-  attackDataTemp.round = attackDataTemp.round;
   attackDataTemp.actorId = data.data.speaker.actor;
-  let itemData = await GetItemData(
+  attackDataTemp = await GetItemData(
     attackDataTemp,
     attackDataTemp.actorId,
     data.data.content,
@@ -25,7 +24,7 @@ export default async function PF1(stat, attackDataTemp, data) {
 
   const attackRollData = rollsData.attacks[0];
   let attackData = duplicate(attackDataTemp);
-  attackData = itemData;
+  attackData.round = attackDataTemp.round;
 
   attackData.attackTotal = attackRollData.attack.total;
 
