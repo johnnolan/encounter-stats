@@ -29,6 +29,13 @@ class CompendiumCollection extends Collection {
       _id: "WWb4vAmh18sMAxfY",
     });
     this.index.set("keyid", pack);
+    let pack2 = new ItemCollection({
+      name: "Bastard Sword",
+      img: "systems/dnd5e/icons/skills/fire_13.jpg",
+      type: "weapon",
+      _id: "BFxFCgkXppOnKSUN",
+    });
+    this.index.set("keyid2", pack2);
     return this.index;
   }
   /** @inheritdoc */

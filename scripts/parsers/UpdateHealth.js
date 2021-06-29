@@ -1,12 +1,33 @@
-import { GetCombatantStatsByTokenId, _add } from "../Utils.js";
+import {
+  GetCombatantStatsByTokenId,
+  GetCombatantStats,
+  _add,
+} from "../Utils.js";
 import { GetStat, SaveStat } from "../StatManager.js";
 import { HEALTH_DATA_TEMPLATE } from "../Settings.js";
 
 export default async function UpdateHealth(data) {
   let stat = GetStat();
   let healthData = duplicate(HEALTH_DATA_TEMPLATE);
+  let actorId;
+  let tokenId;
+  if (data.token?._id) {
+    tokenId = data.token._id;
+  } else if (data.data?.token?._id) {
+    tokenId = data.data.token._id;
+  }
+  if (!tokenId && data.data?._id) {
+    actorId = data.data._id;
+  }
 
-  let combatantStat = GetCombatantStatsByTokenId(stat, data.token._id);
+  let combatantStat;
+
+  if (tokenId) {
+    combatantStat = GetCombatantStatsByTokenId(stat, tokenId);
+  } else if (actorId) {
+    combatantStat = GetCombatantStats(stat, actorId);
+  }
+
   if (!combatantStat) return;
 
   healthData.round = stat.round;

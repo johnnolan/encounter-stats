@@ -1,5 +1,6 @@
 import { GetStat, SaveStat } from "./StatManager.js";
 import Default from "./parsers/Default.js";
+import PF1 from "./parsers/PF1.js";
 import BetterRollsFor5e from "./parsers/BetterRollsFor5e.js";
 import MidiQol from "./parsers/MidiQol.js";
 import Beyond20 from "./parsers/Beyond20.js";
@@ -23,6 +24,9 @@ export async function AddAttack(data, type, isNew = false) {
       break;
     case ROLL_HOOK.DEFAULT:
       statResult = await Default(stat, attackData, data);
+      break;
+    case ROLL_HOOK.PF1:
+      statResult = await PF1(stat, attackData, data);
       break;
     default:
       return;

@@ -60,7 +60,16 @@ export async function OnDeleteCombat() {
 
 export async function OnCreateChatMessage(attackData) {
   if (!_isInCombat()) return;
-  AddAttack(attackData, ROLL_HOOK.DEFAULT);
+  switch (game.system.id) {
+    case "pf1":
+      AddAttack(attackData, ROLL_HOOK.PF1);
+      break;
+    case "dnd5e":
+      AddAttack(attackData, ROLL_HOOK.DEFAULT);
+      break;
+    default:
+      return;
+  }
 }
 
 export async function OnBeyond20(workflow) {
