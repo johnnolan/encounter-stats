@@ -42,6 +42,13 @@ function FormatMidiQol(workflow) {
     },
     attackRoll: workflow.attackRoll,
     damageRoll: workflow.damageRoll,
+    damageTotal: workflow.damageTotal,
+    attackTotal: workflow.attackTotal,
+    workflowType: workflow.workflowType,
+    advantage: workflow.advantage,
+    disadvantage: workflow.disadvantage,
+    isCritical: workflow.isCritical,
+    isFumble: workflow.isFumble,
   };
 
   return wf;
