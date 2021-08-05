@@ -28,6 +28,9 @@
     "rollup": "^2.56.0",
     "rollup-plugin-scss": "^3.0.0"
   },
+  "resolutions": {
+    "tar": "4.4.2"
+  },
   "jest": {
     "resetMocks": false,
     "setupFiles": [
