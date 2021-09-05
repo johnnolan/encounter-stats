@@ -47,7 +47,11 @@ export function Generate(data) {
         .map(function (combatant) {
           return GenerateCombatant(combatant);
         })
-        .join("")}</div></div></div>
+        .join(
+          ""
+        )}</div></div></div><div>JSON Source: <textarea rows="20">${JSON.stringify(
+    data
+  )}</textarea></div>
   `;
 
   return markup;
