@@ -14,6 +14,7 @@ async function _createCombat(data) {
     combatants: [],
     top: {
       maxDamage: "",
+      mostDamageInOneTurn: "",
       highestAvgDamage: "",
       highestMaxDamage: "",
     },
@@ -43,6 +44,7 @@ async function _updateRound(currentRound) {
 }
 
 export async function OnCreateMeasuredTemplate(data) {
+  if (!_isInCombat()) return;
   await TargetsHit(data);
 }
 

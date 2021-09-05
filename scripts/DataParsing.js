@@ -64,6 +64,14 @@ export async function AddCombatants(actor, tokenId) {
       avg: "0",
       total: "0",
     },
+    roundSummary: {
+      totals: [
+        {
+          round: "1",
+          damageTotal: 0,
+        },
+      ],
+    },
   };
 
   if (!stat.combatants.find((f) => f.id === newCombatants.id)) {
@@ -77,6 +85,18 @@ function _isValidCombatant(type) {
 }
 
 function _getTopStats(data) {
+  let mostDamageInOneTurn = data.combatants.map((m) => {
+    return {
+      name: m.name,
+      details: m.roundSummary.totals.reduce(function (max, obj) {
+        return obj.damageTotal > max.damageTotal ? obj : max;
+      }),
+    };
+  });
+  mostDamageInOneTurn = mostDamageInOneTurn.reduce((a, b) =>
+    a.details.damageTotal > b.details.damageTotal ? a : b
+  );
+
   let result = data.combatants.map((m) => {
     return {
       name: m.name,
@@ -99,6 +119,7 @@ function _getTopStats(data) {
 
   return {
     maxDamage: `${maxDamage.name}<br />${maxDamage.total}`,
+    mostDamageInOneTurn: `${mostDamageInOneTurn.name}<br />${mostDamageInOneTurn.details.damageTotal}`,
     highestAvgDamage: `${highestAvgDamage.name}<br />${highestAvgDamage.avg}`,
     highestMaxDamage: `${highestMaxDamage.name}<br />${highestMaxDamage.max}`,
   };

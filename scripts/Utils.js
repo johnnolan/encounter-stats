@@ -204,7 +204,46 @@ export async function CombatantStats(combatantStat) {
     });
 
   combatantStat.summaryList = _getSummaryStatsFromArray(damageTotalArray);
+
+  let damageTotalPerRoundArray = combatantStat.events
+    .filter((f) => {
+      return IsValidAttack(f.actionType);
+    })
+    .map((m) => {
+      return {
+        damageTotal: m.damageTotal,
+        round: m.round,
+      };
+    });
+
+  combatantStat.roundSummary = _getRoundSummaryStats(damageTotalPerRoundArray);
   return combatantStat;
+}
+
+var groupBy = function (xs, key) {
+  return xs.reduce(function (rv, x) {
+    (rv[x[key]] = rv[x[key]] || []).push(x);
+    return rv;
+  }, {});
+};
+
+function _getRoundSummaryStats(obj) {
+  let rounds = {};
+  rounds.individual = groupBy(obj, "round");
+  rounds.totals = [];
+
+  for (const round in rounds.individual) {
+    rounds.totals.push({
+      round: round,
+      damageTotal: rounds.individual[round]
+        .map((m) => {
+          return m.damageTotal;
+        })
+        .reduce(_add, 0),
+    });
+  }
+
+  return rounds;
 }
 
 export function _add(accumulator, a) {

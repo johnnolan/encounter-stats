@@ -16,6 +16,14 @@ export function Generate(data) {
         </div>
         <div class="fvtt-enc-stats_actor_stat">
           <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
+            "FVTTEncounterStats.template.most_damage_per_turn"
+          )}</div>
+          <div class="fvtt-enc-stats_actor_stat-value">${
+            data.top.mostDamageInOneTurn
+          }</div>
+        </div>
+        <div class="fvtt-enc-stats_actor_stat">
+          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
             "FVTTEncounterStats.template.highest_average_damage"
           )}</div>
           <div class="fvtt-enc-stats_actor_stat-value">${
@@ -47,7 +55,11 @@ export function Generate(data) {
         .map(function (combatant) {
           return GenerateCombatant(combatant);
         })
-        .join("")}</div></div></div>
+        .join(
+          ""
+        )}</div></div></div><div>JSON Source: <textarea rows="20">${JSON.stringify(
+    data
+  )}</textarea></div>
   `;
 
   return markup;
@@ -148,6 +160,31 @@ function GenerateCombatant(combatant) {
                 ${combatant.health
                   .map(function (event) {
                     return GenerateHealtRow(event);
+                  })
+                  .join("")}
+                      
+              </ol>
+            </ol>
+          </div>
+        </section>
+        <section class="fvtt-enc-stats_combatants_data_section fvtt-enc-stats_combatants_data_section-health">
+          <div class="fvtt-enc-stats_title3">${game.i18n.format(
+            "FVTTEncounterStats.template.rounddmg"
+          )}</div>
+          <div class="flexcol">
+            <ol class="items-list flexcol">
+              <li class="items-header flexrow">
+                <div class="item-name item-round">${game.i18n.format(
+                  "FVTTEncounterStats.template.round"
+                )}</div>
+                <div class="item-name">${game.i18n.format(
+                  "FVTTEncounterStats.template.damage_total"
+                )}</div>
+              </li>
+              <ol class="item-list">
+                ${combatant.roundSummary.totals
+                  .map(function (event) {
+                    return GenerateRoundRow(event);
                   })
                   .join("")}
                       
@@ -273,6 +310,16 @@ function GenerateHealtRow(event) {
     <div class="item-name">${event.current} (${event.isheal ? "+" : "-"}${
     event.diff
   })</div>
+  </li>`;
+
+  return markup;
+}
+
+function GenerateRoundRow(event) {
+  let markup = `
+  <li class="item flexrow">
+    <div class="item-name item-round">${event.round}</div>
+    <div class="item-name">${event.damageTotal}</div>
   </li>`;
 
   return markup;
