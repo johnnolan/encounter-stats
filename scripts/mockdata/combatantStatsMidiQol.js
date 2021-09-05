@@ -52,6 +52,36 @@ export const combatantStats = {
                 "max": 0,
                 "avg": 0,
                 "total": 0
+            },
+            "roundSummary": {
+                "individual": {
+                    "1": [
+                        {
+                            "damageTotal": 2,
+                            "round": 1
+                        }
+                    ],
+                    "2": [
+                        {
+                            "damageTotal": 4,
+                            "round": 2
+                        },
+                        {
+                            "damageTotal": 4,
+                            "round": 2
+                        }
+                    ]
+                },
+                "totals": [
+                    {
+                        "round": "1",
+                        "damageTotal": 2
+                    },
+                    {
+                        "round": "2",
+                        "damageTotal": 8
+                    }
+                ]
             }
         },
         {
@@ -69,11 +99,42 @@ export const combatantStats = {
                 "max": "0",
                 "avg": "0",
                 "total": "0"
+            },
+            "roundSummary": {
+                "individual": {
+                    "1": [
+                        {
+                            "damageTotal": 2,
+                            "round": 1
+                        }
+                    ],
+                    "2": [
+                        {
+                            "damageTotal": 4,
+                            "round": 2
+                        },
+                        {
+                            "damageTotal": 4,
+                            "round": 2
+                        }
+                    ]
+                },
+                "totals": [
+                    {
+                        "round": "1",
+                        "damageTotal": 2
+                    },
+                    {
+                        "round": "2",
+                        "damageTotal": 8
+                    }
+                ]
             }
         }
     ],
     "top": {
         "maxDamage": "Lorena Aldabra<br />0",
+        "mostDamageInOneTurn": "Lorena Aldabra<br />16",
         "highestAvgDamage": "Lorena Aldabra<br />0",
         "highestMaxDamage": "Lorena Aldabra<br />0"
     },

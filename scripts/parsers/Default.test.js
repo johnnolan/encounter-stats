@@ -69,6 +69,26 @@ describe("Default", () => {
             },
           ],
           health: [],
+          roundSummary: {
+            individual: {
+              1: [
+                {
+                  damageTotal: 0,
+                  round: 1,
+                },
+                {
+                  damageTotal: 0,
+                  round: 1,
+                },
+              ],
+            },
+            totals: [
+              {
+                damageTotal: 0,
+                round: "1",
+              },
+            ],
+          },
           summaryList: { min: 0, max: 0, avg: 0, total: 0 },
         },
         {
@@ -83,11 +103,42 @@ describe("Default", () => {
           events: [],
           health: [],
           summaryList: { min: "0", max: "0", avg: "0", total: "0" },
+          roundSummary: {
+            individual: {
+              1: [
+                {
+                  damageTotal: 2,
+                  round: 1,
+                },
+              ],
+              2: [
+                {
+                  damageTotal: 4,
+                  round: 2,
+                },
+                {
+                  damageTotal: 4,
+                  round: 2,
+                },
+              ],
+            },
+            totals: [
+              {
+                damageTotal: 2,
+                round: "1",
+              },
+              {
+                damageTotal: 8,
+                round: "2",
+              },
+            ],
+          },
         },
       ],
       templateHealthCheck: [],
       top: {
         maxDamage: "Lorena Aldabra<br />0",
+        mostDamageInOneTurn: "Lorena Aldabra<br />16",
         highestAvgDamage: "Lorena Aldabra<br />0",
         highestMaxDamage: "Lorena Aldabra<br />0",
       },

@@ -14,6 +14,7 @@ async function _createCombat(data) {
     combatants: [],
     top: {
       maxDamage: "",
+      mostDamageInOneTurn: "",
       highestAvgDamage: "",
       highestMaxDamage: "",
     },

@@ -10,7 +10,17 @@
 
 # FVTT Encounter Stats
 
-This module is designed to capture your Players attacks, damage and HP in an Encounter and store the results into a Journal Entry with a summary of their stats for each after you end the Encounter.
+This module is designed to capture your 
+
+- Players attacks
+- Damage
+- HP
+- Round Damage
+- Top stats
+- Enemy data
+- Healing
+
+All this is stored in a Journal Entry with a summary of their stats for each after you end the Encounter. There is also a copy of the raw JSON data from each battle should you wish to do more analysis of the recorded data.
 
 You have an option for AOE attacks to either use the dice roll damage or record the damage taken to creatures within the template area.
 
@@ -25,7 +35,7 @@ The current module works on rolls from the following list.
 
 If you would like to see another module supported that isn't above then feel free to add it as a feature to the issues list in Github.
 
-[![Example](https://raw.githubusercontent.com/johnnolan/fvtt-encounter-stats/main/images/example.png)](https://raw.githubusercontent.com/johnnolan/fvtt-encounter-stats/main/images/example.png)
+[![Example](https://raw.githubusercontent.com/johnnolan/fvtt-encounter-stats/main/images/example.jpg)](https://raw.githubusercontent.com/johnnolan/fvtt-encounter-stats/main/images/example.jpg)
 
 ## Installation
 
