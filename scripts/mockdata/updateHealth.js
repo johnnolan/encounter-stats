@@ -478,7 +478,7 @@ export const updateHealth = {
         },
         "items": [
             {
-                "_id": "q978kVgW7qB96FYH",
+                "id": "q978kVgW7qB96FYH",
                 "name": "Flame Tongue Greatsword",
                 "type": "weapon",
                 "img": "systems/dnd5e/icons/items/weapons/sword-fire.jpg",

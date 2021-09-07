@@ -26,7 +26,7 @@ class CompendiumCollection extends Collection {
       name: "Flame Tongue Greatsword",
       img: "systems/dnd5e/icons/skills/fire_13.jpg",
       type: "weapon",
-      _id: "WWb4vAmh18sMAxfY",
+      id: "WWb4vAmh18sMAxfY",
     });
     this.index.set("keyid", pack);
     return this.index;

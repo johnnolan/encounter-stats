@@ -130,8 +130,12 @@ async function getIndex({ name = "" }) {
       (i) => i.name.toLowerCase() === name.toLowerCase()
     );
     if (item_index) {
+      let itemId = item_index._id;
+      if (!itemId) {
+        itemId = item_index.id;
+      }
       return {
-        link: `@Compendium[${key}.${item_index._id}]{${item_index.name}}`,
+        link: `@Compendium[${key}.${itemId}]{${item_index.name}}`,
         name: item_index.name,
       };
     } else {

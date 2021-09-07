@@ -59,7 +59,7 @@ export const defaultData = {
         "evaluated": true
     },
     "data":  {
-        "_id": "dohUoKDuhUysScfn",
+        "id": "dohUoKDuhUysScfn",
         "type": 5,
         "user": "4XzLH56iD4mk8Rt7",
         "timestamp": 1624213402311,

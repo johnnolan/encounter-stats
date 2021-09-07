@@ -29,7 +29,7 @@ global.game = {
     get: jest.fn().mockReturnValue({
       items: [
         {
-          _id: "WWb4vAmh18sMAxfY",
+          id: "WWb4vAmh18sMAxfY",
           data: {
             name: "Flame Tongue Greatsword",
             data: { actionType: "mwak" },
