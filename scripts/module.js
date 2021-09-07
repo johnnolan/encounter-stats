@@ -3,6 +3,7 @@ import {
   OPT_ENABLE,
   OPT_ENABLE_AOE_DAMAGE,
   OPT_REPORT_BUG,
+  OPT_ENABLE_MONSTER_STATS,
 } from "./Settings.js";
 import { CreateFolder } from "./Folder.js";
 import { SetupHooks } from "./Hooks.js";
@@ -33,6 +34,14 @@ Hooks.once("init", async function () {
     scope: "world",
     type: ConfigPanel,
     restricted: true,
+  });
+  game.settings.register(`${MODULE_ID}`, `${OPT_ENABLE_MONSTER_STATS}`, {
+    name: game.i18n.format("FVTTEncounterStats.enable_monster_stats_name"),
+    hint: game.i18n.format("FVTTEncounterStats.enable_monster_stats_hint"),
+    scope: "world",
+    config: true,
+    default: true,
+    type: Boolean,
   });
 });
 
