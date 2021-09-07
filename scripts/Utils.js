@@ -138,7 +138,6 @@ async function getIndex({ name = "" }) {
         link: `@Compendium[${key}.${itemId}]{${item_index.name}}`,
         name: item_index.name,
       };
-    } else {
     }
   }
   return undefined;
