@@ -500,6 +500,7 @@ export const midiQolData = {
         "items": [
             {
                 "_id": "WWb4vAmh18sMAxfY",
+                "id": "WWb4vAmh18sMAxfY",
                 "name": "Flame Tongue Greatsword",
                 "type": "weapon",
                 "img": "systems/dnd5e/icons/items/weapons/sword-fire.jpg",
@@ -718,6 +719,7 @@ export const midiQolData = {
     },
     "item": {
         "_id": "WWb4vAmh18sMAxfY",
+        "id": "WWb4vAmh18sMAxfY",
         "name": "Flame Tongue Greatsword",
         "type": "weapon",
         "img": "systems/dnd5e/icons/items/weapons/sword-fire.jpg",

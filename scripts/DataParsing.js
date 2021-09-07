@@ -3,7 +3,12 @@ import Default from "./parsers/Default.js";
 import BetterRollsFor5e from "./parsers/BetterRollsFor5e.js";
 import MidiQol from "./parsers/MidiQol.js";
 import Beyond20 from "./parsers/Beyond20.js";
-import { ROLL_HOOK, ATTACK_DATA_TEMPLATE } from "./Settings.js";
+import {
+  ROLL_HOOK,
+  ATTACK_DATA_TEMPLATE,
+  MODULE_ID,
+  OPT_ENABLE_MONSTER_STATS,
+} from "./Settings.js";
 
 export async function AddAttack(data, type, isNew = false) {
   let stat = GetStat();
@@ -44,6 +49,10 @@ export async function AddCombatants(actor, tokenId) {
   const combatant = actor?.data;
   if (!_isValidCombatant(combatant?.type)) return;
 
+  if (!game.settings.get(`${MODULE_ID}`, `${OPT_ENABLE_MONSTER_STATS}`)) {
+    if (_isNPC(combatant?.type)) return;
+  }
+
   let stat = GetStat();
   if (!stat) return;
 
@@ -82,6 +91,10 @@ export async function AddCombatants(actor, tokenId) {
 
 function _isValidCombatant(type) {
   return type === "character" || type === "npc";
+}
+
+function _isNPC(type) {
+  return type === "npc";
 }
 
 function _getTopStats(data) {
