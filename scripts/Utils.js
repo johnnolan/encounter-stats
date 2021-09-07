@@ -129,11 +129,13 @@ async function getIndex({ name = "" }) {
     let item_index = pack_index.find(
       (i) => i.name.toLowerCase() === name.toLowerCase()
     );
-    if (item_index)
+    if (item_index) {
       return {
         link: `@Compendium[${key}.${item_index._id}]{${item_index.name}}`,
         name: item_index.name,
       };
+    } else {
+    }
   }
   return undefined;
 }
@@ -156,12 +158,20 @@ export async function GetItemData(attackData, actorId, content, itemId = null) {
     }
   }
   let actor = game.actors.get(actorId);
-  let getItem = await actor.items.find((i) => i._id === itemId);
+  let getItem = await actor.items.find((i) => i.id === itemId);
   attackData.actionType = getItem.data.data.actionType;
+
   let itemData = await getIndex({ name: getItem.data.name });
   if (itemData) {
     attackData.item.name = itemData.name;
     attackData.item.itemLink = itemData.link;
+  }
+
+  if (!itemData) {
+    if (getItem.link && getItem.data.name) {
+      attackData.item.name = getItem.data.name;
+      attackData.item.itemLink = getItem.link;
+    }
   }
 
   return attackData;
