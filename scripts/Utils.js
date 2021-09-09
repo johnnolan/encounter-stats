@@ -116,7 +116,7 @@ export async function ChatType(data) {
   return ATTACKTYPES.NONE;
 }
 
-async function getIndex({ name = "" }) {
+async function getIndex({ name = "", itemId = "" }) {
   var itemPacks = game.packs
     .filter((f) => f.metadata.entity === "Item")
     .map((m) => {
@@ -126,19 +126,43 @@ async function getIndex({ name = "" }) {
   for (let key of itemPacks) {
     let pack = game.packs.get(key);
     let pack_index = pack.index.length > 1 ? pack.index : await pack.getIndex();
-    let item_index = pack_index.find(
-      (i) => i.name.toLowerCase() === name.toLowerCase()
-    );
-    if (item_index) {
-      let itemId = item_index._id;
-      if (!itemId) {
-        itemId = item_index.id;
+
+    if (name) {
+      let item_index = pack_index.find(
+        (i) => i.name.toLowerCase() === name.toLowerCase()
+      );
+      if (item_index) {
+        let itemId = item_index._id;
+        if (!itemId) {
+          itemId = item_index.id;
+        }
+        return {
+          link: `@Compendium[${key}.${itemId}]{${item_index.name}}`,
+          name: item_index.name,
+        };
       }
-      return {
-        link: `@Compendium[${key}.${itemId}]{${item_index.name}}`,
-        name: item_index.name,
-      };
     }
+
+    if (itemId) {
+      let item_index = pack_index.find((i) => i._id === itemId);
+      if (item_index) {
+        let itemId = item_index._id;
+        if (!itemId) {
+          itemId = item_index.id;
+        }
+        return {
+          link: `@Compendium[${key}.${itemId}]{${item_index.name}}`,
+          name: item_index.name,
+        };
+      }
+    }
+  }
+
+  if (name !== "") {
+    return {
+      link: undefined,
+      name: name,
+    };
   }
   return undefined;
 }
@@ -160,20 +184,37 @@ export async function GetItemData(attackData, actorId, content, itemId = null) {
       itemId = match[2];
     }
   }
+  let itemData;
   let actor = game.actors.get(actorId);
   let getItem = await actor.items.find((i) => i.id === itemId);
-  attackData.actionType = getItem.data.data.actionType;
 
-  let itemData = await getIndex({ name: getItem.data.name });
-  if (itemData) {
-    attackData.item.name = itemData.name;
-    attackData.item.itemLink = itemData.link;
+  if (!getItem) {
+    itemData = await getIndex({ itemId: itemId });
+  } else {
+    itemData = await getIndex({ name: getItem.data.name });
   }
 
   if (!itemData) {
-    if (getItem.link && getItem.data.name) {
-      attackData.item.name = getItem.data.name;
-      attackData.item.itemLink = getItem.link;
+    attackData.actionType = "unknown";
+    attackData.item.name = "unknown";
+    attackData.item.itemLink = "unknown";
+  } else {
+    if (!getItem) {
+      attackData.actionType = "unknown";
+    } else {
+      attackData.actionType = getItem.data.data.actionType;
+    }
+
+    if (itemData) {
+      attackData.item.name = itemData.name;
+      attackData.item.itemLink = itemData.link;
+    }
+
+    if (!itemData) {
+      if (getItem.link && getItem.data.name) {
+        attackData.item.name = getItem.data.name;
+        attackData.item.itemLink = getItem.link;
+      }
     }
   }
 

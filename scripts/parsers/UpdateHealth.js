@@ -1,4 +1,8 @@
-import { GetCombatantStatsByTokenId, _add } from "../Utils.js";
+import {
+  GetCombatantStatsByTokenId,
+  GetCombatantStats,
+  _add,
+} from "../Utils.js";
 import { GetStat, SaveStat } from "../StatManager.js";
 import { HEALTH_DATA_TEMPLATE } from "../Settings.js";
 
@@ -6,7 +10,7 @@ export default async function UpdateHealth(data) {
   let stat = GetStat();
   let healthData = duplicate(HEALTH_DATA_TEMPLATE);
 
-  let combatantStat = GetCombatantStatsByTokenId(stat, data.token._id);
+  let combatantStat = GetCombatantStats(stat, data.id);
   if (!combatantStat) return;
 
   healthData.round = stat.round;
