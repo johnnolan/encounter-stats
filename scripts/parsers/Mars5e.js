@@ -58,6 +58,6 @@ export default async function Mars5e(stat, attackData, data) {
 
   return {
     stat: stat,
-    isNewAttack: combatantStat.events.length > eventsLength,
+    isNewAttack: isNewAttack,
   };
 }
