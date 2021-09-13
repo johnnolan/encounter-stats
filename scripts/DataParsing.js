@@ -3,6 +3,7 @@ import Default from "./parsers/Default.js";
 import BetterRollsFor5e from "./parsers/BetterRollsFor5e.js";
 import MidiQol from "./parsers/MidiQol.js";
 import Beyond20 from "./parsers/Beyond20.js";
+import Mars5e from "./parsers/Mars5e.js";
 import {
   ROLL_HOOK,
   ATTACK_DATA_TEMPLATE,
@@ -25,6 +26,9 @@ export async function AddAttack(data, type, isNew = false) {
       break;
     case ROLL_HOOK.BEYOND_20:
       statResult = await Beyond20(stat, attackData, data);
+      break;
+    case ROLL_HOOK.MARS5E:
+      statResult = await Mars5e(stat, attackData, data);
       break;
     case ROLL_HOOK.DEFAULT:
       statResult = await Default(stat, attackData, data);
