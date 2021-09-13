@@ -16,7 +16,6 @@ export default async function Mars5e(stat, attackData, data) {
   let combatantStat = GetCombatantStats(stat, actorId);
 
   if (!combatantStat) return;
-  const eventsLength = combatantStat.events.length;
   attackData.actorId = actorId;
   attackData.id = data.id;
 
