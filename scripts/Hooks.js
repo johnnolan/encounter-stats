@@ -9,6 +9,7 @@ import {
   OnMidiRollComplete,
   OnUpdateHealth,
   OnBeyond20,
+  OnMars5e,
   OnCreateMeasuredTemplate,
 } from "./FvttEncounterStats.js";
 
@@ -96,6 +97,16 @@ export async function SetupHooks() {
       );
       window.Hooks.on("updateBetterRolls", async function (data, html, user) {
         OnUpdateBetterRolls($(html), false);
+      });
+    } else if (game.modules.get("mars-5e")?.active) {
+      window.Hooks.on(
+        "createChatMessage",
+        async function (data, options, user) {
+          OnMars5e(data, true);
+        }
+      );
+      window.Hooks.on("updateChatMessage", async function (data) {
+        OnMars5e(data, false);
       });
     } else {
       window.Hooks.on(

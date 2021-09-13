@@ -11,6 +11,7 @@ export const ROLL_HOOK = {
   MIDI_QOL: "midi-qol",
   BETTERROLLS5E: "betterrolls5e",
   BEYOND_20: "beyond20",
+  MARS5E: "mars-5e",
   DEFAULT: "default",
 };
 

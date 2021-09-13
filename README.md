@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/Foundry-v0.8.8-informational)
+![](https://img.shields.io/badge/Foundry-v0.8.9-informational)
 ![Latest Release Download Count](https://img.shields.io/github/downloads/johnnolan/fvtt-encounter-stats/latest/module.zip)
 ![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Ffvtt-encounter-stats&colorB=4aa94a)
 [![Foundry Hub Endorsements](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Ffvtt-encounter-stats%2Fshield%2Fendorsements)](https://www.foundryvtt-hub.com/package/fvtt-encounter-stats/)
@@ -31,6 +31,7 @@ The current module works on rolls from the following list.
 * [Better Rolls for 5e](https://github.com/RedReign/FoundryVTT-BetterRolls5e)
 * [Beyond20](https://foundryvtt.com/packages/beyond20/)
 * [midi-qol](https://gitlab.com/tposney/midi-qol)
+* [MARS 5e - Moerills alternative rolling style for 5e](https://github.com/Moerill/fvtt-mars-5e)
 * Vanilla Foundry
 
 If you would like to see another module supported that isn't above then feel free to add it as a feature to the issues list in Github.
