@@ -198,6 +198,11 @@ export async function GetItemData(attackData, actorId, content, itemId = null) {
     attackData.actionType = "unknown";
     attackData.item.name = "unknown";
     attackData.item.itemLink = "unknown";
+
+    if (getItem.link && getItem.data.name) {
+      attackData.item.name = getItem.data.name;
+      attackData.item.itemLink = getItem.link;
+    }
   } else {
     if (!getItem) {
       attackData.actionType = "unknown";
@@ -205,17 +210,8 @@ export async function GetItemData(attackData, actorId, content, itemId = null) {
       attackData.actionType = getItem.data.data.actionType;
     }
 
-    if (itemData) {
-      attackData.item.name = itemData.name;
-      attackData.item.itemLink = itemData.link;
-    }
-
-    if (!itemData) {
-      if (getItem.link && getItem.data.name) {
-        attackData.item.name = getItem.data.name;
-        attackData.item.itemLink = getItem.link;
-      }
-    }
+    attackData.item.name = itemData.name;
+    attackData.item.itemLink = itemData.link;
   }
 
   return attackData;
