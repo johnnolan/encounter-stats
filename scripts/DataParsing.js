@@ -71,6 +71,7 @@ export async function AddCombatants(actor, tokenId) {
     ac: combatant.data.attributes.ac.value,
     events: [],
     health: [],
+    kills: [],
     summaryList: {
       min: "0",
       max: "0",
