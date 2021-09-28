@@ -11,7 +11,7 @@ import {
   OnBeyond20,
   OnMars5e,
   OnCreateMeasuredTemplate,
-} from "./FvttEncounterStats.js";
+} from "./Handlers.js";
 
 const SOCKET_NAME = "module.fvtt-encounter-stats";
 
