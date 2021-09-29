@@ -71,6 +71,7 @@ export async function AddCombatants(actor, tokenId) {
     ac: combatant.data.attributes.ac.value,
     events: [],
     health: [],
+    kills: [],
     summaryList: {
       min: "0",
       max: "0",
@@ -102,6 +103,61 @@ function _isNPC(type) {
 }
 
 function _getTopStats(data) {
+  let mostKills = 0;
+  let mostHealing = 0;
+  let mostSupportActions = 0;
+  let mostBattlefieldActions = 0;
+
+  mostKills = data.combatants
+    .map((m) => {
+      return {
+        name: m.name,
+        total: m.kills.length,
+      };
+    })
+    .reduce(function (max, obj) {
+      return obj.total > max.total ? obj : max;
+    });
+
+  mostHealing = data.combatants
+    .map((m) => {
+      return {
+        name: m.name,
+        total: m.events.filter((f) => {
+          return f.actionType === "heal";
+        }).length,
+      };
+    })
+    .reduce(function (max, obj) {
+      return obj.total > max.total ? obj : max;
+    });
+
+  mostSupportActions = data.combatants
+    .map((m) => {
+      return {
+        name: m.name,
+        total: m.events.filter((f) => {
+          return f.actionType === "save" || f.actionType === "heal";
+        }).length,
+      };
+    })
+    .reduce(function (max, obj) {
+      return obj.total > max.total ? obj : max;
+    });
+
+  mostBattlefieldActions = data.combatants
+    .map((m) => {
+      return {
+        name: m.name,
+        total: m.events.filter((f) => {
+          return f.actionType === "other";
+        }).length,
+      };
+    })
+    .reduce(function (max, obj) {
+      return obj.total > max.total ? obj : max;
+    });
+
   let mostDamageInOneTurn = data.combatants.map((m) => {
     return {
       name: m.name,
@@ -139,5 +195,9 @@ function _getTopStats(data) {
     mostDamageInOneTurn: `${mostDamageInOneTurn.name}<br />${mostDamageInOneTurn.details.damageTotal}`,
     highestAvgDamage: `${highestAvgDamage.name}<br />${highestAvgDamage.avg}`,
     highestMaxDamage: `${highestMaxDamage.name}<br />${highestMaxDamage.max}`,
+    mostKills: `${mostKills.name}<br />${mostKills.total}`,
+    mostHealing: `${mostHealing.name}<br />${mostHealing.total}`,
+    mostSupportActions: `${mostSupportActions.name}<br />${mostSupportActions.total}`,
+    mostBattlefieldActions: `${mostBattlefieldActions.name}<br />${mostBattlefieldActions.total}`,
   };
 }
