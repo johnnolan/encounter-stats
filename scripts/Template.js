@@ -81,7 +81,7 @@ export function Generate(data) {
     <div>${data.combatants
       .filter((f) => f.type === "character")
       .map(function (combatant) {
-        return GenerateCombatant(combatant);
+        return GenerateCombatant(combatant, data.round);
       })
       .join("")}</div>
       <h2 class="fvtt-enc-stats_enemies">
@@ -90,7 +90,7 @@ export function Generate(data) {
       <div>${data.combatants
         .filter((f) => f.type === "npc")
         .map(function (combatant) {
-          return GenerateCombatant(combatant);
+          return GenerateCombatant(combatant, data.round);
         })
         .join(
           ""
@@ -102,7 +102,7 @@ export function Generate(data) {
   return markup;
 }
 
-function GenerateCombatant(combatant) {
+function GenerateCombatant(combatant, numberOfRounds) {
   const markup = `
   <div class="fvtt-enc-stats_combatant" data-fvtt-id="${combatant.id}">
     <div class="fvtt-enc-stats_combatants_overview">
@@ -178,98 +178,99 @@ function GenerateCombatant(combatant) {
           </div>
         </div>
       </header>
-      <section class="fvtt-enc-stats_combatants_data">
-        <section class="fvtt-enc-stats_combatants_data_section fvtt-enc-stats_combatants_data_section-health">
-          <div class="fvtt-enc-stats_title3">${game.i18n.format(
-            "FVTTEncounterStats.template.health"
-          )}</div>
-          <div class="flexcol">
-            <ol class="items-list flexcol">
-              <li class="items-header flexrow">
-                <div class="item-name item-round">${game.i18n.format(
-                  "FVTTEncounterStats.template.round"
-                )}</div>
-                <div class="item-name">${game.i18n.format(
-                  "FVTTEncounterStats.template.hp"
-                )}</div>
-              </li>
-              <ol class="item-list">
-                ${combatant.health
-                  .map(function (event) {
-                    return GenerateHealtRow(event);
-                  })
-                  .join("")}
-                      
-              </ol>
-            </ol>
-          </div>
-        </section>
-        <section class="fvtt-enc-stats_combatants_data_section fvtt-enc-stats_combatants_data_section-health">
-          <div class="fvtt-enc-stats_title3">${game.i18n.format(
-            "FVTTEncounterStats.template.rounddmg"
-          )}</div>
-          <div class="flexcol">
-            <ol class="items-list flexcol">
-              <li class="items-header flexrow">
-                <div class="item-name item-round">${game.i18n.format(
-                  "FVTTEncounterStats.template.round"
-                )}</div>
-                <div class="item-name">${game.i18n.format(
-                  "FVTTEncounterStats.template.damage_total"
-                )}</div>
-              </li>
-              <ol class="item-list">
-                ${combatant.roundSummary.totals
-                  .map(function (event) {
-                    return GenerateRoundRow(event);
-                  })
-                  .join("")}
-                      
-              </ol>
-            </ol>
-          </div>
-        </section>
-        <section class="fvtt-enc-stats_combatants_data_section fvtt-enc-stats_combatants_data_section-attacks">
-          <div class="fvtt-enc-stats_title3">${game.i18n.format(
-            "FVTTEncounterStats.template.attacks"
-          )}</div>
-          <div class="flexcol">
-            <ol class="items-list flexcol">
-              <li class="items-header flexrow">
-                <div class="item-name item-round">${game.i18n.format(
-                  "FVTTEncounterStats.template.round"
-                )}</div>
-                <div class="item-name item-weapon">${game.i18n.format(
-                  "FVTTEncounterStats.template.weapon_spell_name"
-                )}</div>
-                <div class="item-name">${game.i18n.format(
-                  "FVTTEncounterStats.template.type"
-                )}</div>
-                <div class="item-name">${game.i18n.format(
-                  "FVTTEncounterStats.template.rolltype"
-                )}</div>
-                <div class="item-name">${game.i18n.format(
-                  "FVTTEncounterStats.template.attack_total"
-                )}</div>
-                <div class="item-name">${game.i18n.format(
-                  "FVTTEncounterStats.template.damage_total"
-                )}</div>
-              </li>
-              <ol class="item-list">
-                ${combatant.events
-                  .map(function (event) {
-                    return GenerateAttackRow(event);
-                  })
-                  .join("")}
-                      
-              </ol>
-            </ol>
-          </div>
-        </section>
-      </section>
+      ${GenerateRoundHtml(combatant, numberOfRounds)}      
     </div>
   </div>
   `;
+
+  return markup;
+}
+function GenerateRoundHtml(combatant, numberOfRounds) {
+  let markup = ``;
+  for (let index = 0; index < numberOfRounds; index++) {
+    const round = index + 1;
+    markup =
+      markup +
+      `
+    <div class="fvtt-enc-stats_title3">${game.i18n.format(
+      "FVTTEncounterStats.template.round"
+    )} ${round}</div>
+    <section class="fvtt-enc-stats_combatants_data">
+      <section class="fvtt-enc-stats_combatants_data_section fvtt-enc-stats_combatants_data_section-health">
+        <div class="flexcol">
+          <ol class="items-list flexcol">
+            <li class="items-header flexrow">
+              <div class="item-name">${game.i18n.format(
+                "FVTTEncounterStats.template.rounddmg"
+              )}</div>
+            </li>
+            <ol class="item-list">
+              ${combatant.roundSummary.totals
+                .filter((f) => {
+                  return f.round === round.toString();
+                })
+                .map(function (event) {
+                  return GenerateRoundRow(event);
+                })
+                .join("")}
+            </ol>
+        </ol>
+          <ol class="items-list flexcol">
+            <li class="items-header flexrow">
+              <div class="item-name">${game.i18n.format(
+                "FVTTEncounterStats.template.health"
+              )}</div>
+            </li>
+            <ol class="item-list">
+              ${combatant.health
+                .filter((f) => {
+                  return f.round === round;
+                })
+                .map(function (event) {
+                  return GenerateHealtRow(event);
+                })
+                .join("")}
+                    
+            </ol>
+          </ol>
+        </div>
+      </section>
+      <section class="fvtt-enc-stats_combatants_data_section fvtt-enc-stats_combatants_data_section-attacks">
+        <div class="flexcol">
+          <ol class="items-list flexcol">
+            <li class="items-header flexrow">1
+              <div class="item-name item-weapon">${game.i18n.format(
+                "FVTTEncounterStats.template.weapon_spell_name"
+              )}</div>
+              <div class="item-name">${game.i18n.format(
+                "FVTTEncounterStats.template.type"
+              )}</div>
+              <div class="item-name">${game.i18n.format(
+                "FVTTEncounterStats.template.rolltype"
+              )}</div>
+              <div class="item-name">${game.i18n.format(
+                "FVTTEncounterStats.template.attack_total"
+              )}</div>
+              <div class="item-name">${game.i18n.format(
+                "FVTTEncounterStats.template.damage_total"
+              )}</div>
+            </li>
+            <ol class="item-list">
+              ${combatant.events
+                .filter((f) => {
+                  return f.round === round;
+                })
+                .map(function (event) {
+                  return GenerateAttackRow(event);
+                })
+                .join("")}
+                    
+            </ol>
+          </ol>
+        </div>
+      </section>
+    </section>`;
+  }
 
   return markup;
 }
@@ -277,7 +278,6 @@ function GenerateCombatant(combatant) {
 function GenerateAttackRow(event) {
   let markup = `
   <li class="item flexrow">
-    <div class="item-name item-round">${event.round}</div>
     <div class="item-name item-weapon">${
       event.item.itemLink ? event.item.itemLink : event.item.name
     }</div>
@@ -343,7 +343,6 @@ function getAttackTypeFAIcon(attackType) {
 function GenerateHealtRow(event) {
   let markup = `
   <li class="item flexrow">
-    <div class="item-name item-round">${event.round}</div>
     <div class="item-name">${event.current} (${event.isheal ? "+" : "-"}${
     event.diff
   })</div>
@@ -355,7 +354,6 @@ function GenerateHealtRow(event) {
 function GenerateRoundRow(event) {
   let markup = `
   <li class="item flexrow">
-    <div class="item-name item-round">${event.round}</div>
     <div class="item-name">${event.damageTotal}</div>
   </li>`;
 
