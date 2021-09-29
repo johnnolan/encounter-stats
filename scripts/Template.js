@@ -256,7 +256,7 @@ function GenerateRoundHtml(combatant, numberOfRounds) {
       <section class="fvtt-enc-stats_combatants_data_section fvtt-enc-stats_combatants_data_section-attacks">
         <div class="flexcol">
           <ol class="items-list flexcol">
-            <li class="items-header flexrow">1
+            <li class="items-header flexrow">
               <div class="item-name item-weapon">${game.i18n.format(
                 "FVTTEncounterStats.template.weapon_spell_name"
               )}</div>

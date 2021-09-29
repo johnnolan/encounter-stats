@@ -19,6 +19,9 @@ This module is designed to capture your
 - Top stats
 - Enemy data
 - Healing
+- Kills
+- Support Actions
+- Battlefield Actions
 
 All this is stored in a Journal Entry with a summary of their stats for each after you end the Encounter. There is also a copy of the raw JSON data from each battle should you wish to do more analysis of the recorded data.
 
