@@ -201,6 +201,24 @@ function GenerateRoundHtml(combatant, numberOfRounds) {
           <ol class="items-list flexcol">
             <li class="items-header flexrow">
               <div class="item-name">${game.i18n.format(
+                "FVTTEncounterStats.template.kills"
+              )}</div>
+            </li>
+            <ol class="item-list">
+              ${combatant.kills
+                .filter((f) => {
+                  return f.round === round;
+                })
+                .map(function (kill) {
+                  return GenerateKillRow(kill);
+                })
+                .join("")}
+                    
+            </ol>
+          </ol>
+          <ol class="items-list flexcol">
+            <li class="items-header flexrow">
+              <div class="item-name">${game.i18n.format(
                 "FVTTEncounterStats.template.rounddmg"
               )}</div>
             </li>
@@ -214,7 +232,7 @@ function GenerateRoundHtml(combatant, numberOfRounds) {
                 })
                 .join("")}
             </ol>
-        </ol>
+          </ol>
           <ol class="items-list flexcol">
             <li class="items-header flexrow">
               <div class="item-name">${game.i18n.format(
@@ -338,6 +356,15 @@ function getAttackTypeFAIcon(attackType) {
   }
 
   return `<i title="${iconDescription}" class="fas fa-${iconName}"></i>`;
+}
+
+function GenerateKillRow(kill) {
+  let markup = `
+  <li class="item flexrow">
+    <div class="item-name">${kill.tokenName}</div>
+  </li>`;
+
+  return markup;
 }
 
 function GenerateHealtRow(event) {
