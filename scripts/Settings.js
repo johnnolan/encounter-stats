@@ -53,3 +53,8 @@ export const HEALTH_DATA_TEMPLATE = {
   isdamage: false,
   isheal: false,
 };
+
+export const KILLED_DATA_TEMPLATE = {
+  round: null,
+  tokenName: null,
+};
