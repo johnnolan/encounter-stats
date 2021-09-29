@@ -4,6 +4,7 @@ export const MODULE_ID = "fvtt-encounter-stats";
 export const OPT_ENABLE = "enable";
 export const OPT_ENABLE_AOE_DAMAGE = "enable_aoe_damage";
 export const OPT_ENABLE_MONSTER_STATS = "enable_monster_stats";
+export const OPT_ENABLE_JOURNAL_NOTIFICATION = "enable_journal_notification";
 
 export const OPT_REPORT_BUG = "report_bug";
 

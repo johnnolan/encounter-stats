@@ -4,6 +4,7 @@ import {
   OPT_ENABLE_AOE_DAMAGE,
   OPT_REPORT_BUG,
   OPT_ENABLE_MONSTER_STATS,
+  OPT_ENABLE_JOURNAL_NOTIFICATION,
 } from "./Settings.js";
 import { CreateFolder } from "./Folder.js";
 import { SetupHooks } from "./Hooks.js";
@@ -41,6 +42,13 @@ Hooks.once("init", async function () {
     scope: "world",
     config: true,
     default: true,
+    type: Boolean,
+  });
+  game.settings.register(`${MODULE_ID}`, `${OPT_ENABLE_JOURNAL_NOTIFICATION}`, {
+    name: game.i18n.format("FVTTEncounterStats.opt_notification_created_name"),
+    scope: "world",
+    config: true,
+    default: false,
     type: Boolean,
   });
 });
