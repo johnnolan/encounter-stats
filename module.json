@@ -21,14 +21,23 @@
     }
   ],
   "conflicts": [],
-  "esmodules": ["/scripts/module.js"],
+  "esmodules": [
+    "/scripts/module.js"
+  ],
   "scripts": [],
-  "styles": ["/styles/module.css"],
+  "styles": [
+    "/styles/module.css"
+  ],
   "languages": [
     {
       "lang": "en",
       "name": "English",
       "path": "languages/en.json"
+    },
+    {
+      "lang": "fr",
+      "name": "Francais",
+      "path": "languages/fr.json"
     }
   ],
   "socket": true,
