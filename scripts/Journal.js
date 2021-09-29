@@ -1,4 +1,5 @@
 import { GetFolder } from "./Folder.js";
+import { MODULE_ID, OPT_ENABLE_JOURNAL_NOTIFICATION } from "./Settings.js";
 
 export async function CreateJournal(encounterId) {
   const d = new Date();
@@ -21,7 +22,9 @@ export async function CreateJournal(encounterId) {
     },
     { renderSheet }
   );
-  ui.notifications.info(`fvtt-encounter-stats article ${article.title}`);
+  if (game.settings.get(`${MODULE_ID}`, `${OPT_ENABLE_JOURNAL_NOTIFICATION}`)) {
+    ui.notifications.info(`fvtt-encounter-stats article ${article.title}`);
+  }
 }
 
 export async function UpdateJournal(html, article) {

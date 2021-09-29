@@ -9,6 +9,7 @@
     "FVTTEncounterStats.opt_compendium_link_enable_hint": "Replaces spell/weapon names with a link to the Compendium entry of that item. Disable this if you are getting undefined in your attack stats.",
     "FVTTEncounterStats.opt_compendium_link_system_name": "Compendium prefix",
     "FVTTEncounterStats.opt_compendium_link_system_hint": "Pattern is 'dnd5e.items.fCRftM4QxEDkeu0a' where dnd5e is the subtext in brackets in the Compendium group.",
+    "FVTTEncounterStats.opt_notification_created_name": "Show notification when journal entry is created",
     "FVTTEncounterStats.template.most_damage_overall": "Most Damage Overall",
     "FVTTEncounterStats.template.most_damage_per_turn": "Most Damage in 1 turn",
     "FVTTEncounterStats.template.highest_average_damage": "Highest Average Damage",
