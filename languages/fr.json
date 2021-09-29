@@ -6,7 +6,7 @@
     "FVTTEncounterStats.enable_monster_stats_name": "Activer le suivi des statistiques des Monstres/PNJ",
     "FVTTEncounterStats.enable_monster_stats_hint": "Choisis de ne suivre uniquement les stats des joueurs ou de tous les combattants.",
     "FVTTEncounterStats.opt_compendium_link_enable_name": "Activer la liaison avec les Compendiums",
-    "FVTTEncounterStats.opt_compendium_link_enable_hint": "Remplace les noms des sorts/armes avec un lien vers l'article de cet item dans le Compendium. Désactivez si vous avez "undefined" dans vos stats d'attaques.",
+    "FVTTEncounterStats.opt_compendium_link_enable_hint": "Remplace les noms des sorts/armes avec un lien vers l'article de cet item dans le Compendium. Désactivez si vous avez undefined dans vos stats d'attaques.",
     "FVTTEncounterStats.opt_compendium_link_system_name": "Préfixe du Compendium",
     "FVTTEncounterStats.opt_compendium_link_system_hint": "Le motif est : 'dnd5e.items.fCRftM4QxEDkeu0a' où dnd5e est le subtext entre crochet dans le groupe de Compendiums.",
     "FVTTEncounterStats.template.most_damage_overall": "Le plus de dégâts au total",
