@@ -40,6 +40,43 @@ export function Generate(data) {
         </div>
       </div>
     </div>
+    <hr />
+    <div class="fvtt-enc-stats_top">
+      <div class="fvtt-enc-stats_actor_statlist flexrow">
+        <div class="fvtt-enc-stats_actor_stat">
+          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
+            "FVTTEncounterStats.template.most_kills"
+          )}</div>
+          <div class="fvtt-enc-stats_actor_stat-value">${
+            data.top.mostKills
+          }</div>
+        </div>
+        <div class="fvtt-enc-stats_actor_stat">
+          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
+            "FVTTEncounterStats.template.most_healing"
+          )}</div>
+          <div class="fvtt-enc-stats_actor_stat-value">${
+            data.top.mostHealing
+          }</div>
+        </div>
+        <div class="fvtt-enc-stats_actor_stat">
+          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
+            "FVTTEncounterStats.template.most_support_actions"
+          )}</div>
+          <div class="fvtt-enc-stats_actor_stat-value">${
+            data.top.mostSupportActions
+          }</div>
+        </div>
+        <div class="fvtt-enc-stats_actor_stat">
+          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
+            "FVTTEncounterStats.template.battlefield_actions"
+          )}</div>
+          <div class="fvtt-enc-stats_actor_stat-value">${
+            data.top.mostBattlefieldActions
+          }</div>
+        </div>
+      </div>
+    </div>
     <div class="fvtt-enc-stats_combatants">
     <div>${data.combatants
       .filter((f) => f.type === "character")

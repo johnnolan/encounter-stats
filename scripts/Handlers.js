@@ -1,6 +1,7 @@
 import { CreateJournal } from "./Journal.js";
 import { AddCombatants, AddAttack } from "./DataParsing.js";
 import UpdateHealth from "./parsers/UpdateHealth.js";
+import TrackKill from "./parsers/TrackKill.js";
 import { ROLL_HOOK, MODULE_ID, OPT_ENABLE_AOE_DAMAGE } from "./Settings.js";
 import { GetStat, SaveStat, RemoveStat } from "./StatManager.js";
 import { TargetsHit, ResetTemplateHealthCheck } from "./Utils.js";
@@ -88,6 +89,11 @@ export async function OnUpdateBetterRolls(attackData, isNew) {
 export async function OnUpdateHealth(data) {
   if (!_isInCombat()) return;
   UpdateHealth(data);
+}
+
+export async function OnTrackKill(targetName, tokenId) {
+  if (!_isInCombat()) return;
+  TrackKill(targetName, tokenId);
 }
 
 export async function OnUpdateCombat(round) {
