@@ -9,6 +9,7 @@
     "FVTTEncounterStats.opt_compendium_link_enable_hint": "Remplace les noms des sorts/armes avec un lien vers l'article de cet item dans le Compendium. Désactivez si vous avez undefined dans vos stats d'attaques.",
     "FVTTEncounterStats.opt_compendium_link_system_name": "Préfixe du Compendium",
     "FVTTEncounterStats.opt_compendium_link_system_hint": "Le motif est : 'dnd5e.items.fCRftM4QxEDkeu0a' où dnd5e est le subtext entre crochet dans le groupe de Compendiums.",
+    "FVTTEncounterStats.opt_notification_created_name": "Afficher une notification quand une entrée dans le journal est créée",
     "FVTTEncounterStats.template.most_damage_overall": "Le plus de dégâts au total",
     "FVTTEncounterStats.template.most_damage_per_turn": "Le plus de dégâts en 1 tour",
     "FVTTEncounterStats.template.highest_average_damage": "Le plus de dégâts en moyenne",
