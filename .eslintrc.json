@@ -1,5 +1,5 @@
 {
-    "extends": ["prettier"],
+    "extends": ["prettier", "@typhonjs-fvtt/eslint-config-foundry.js"],
     "plugins": ["prettier"],
     "parser": "@babel/eslint-parser",
     "rules": {
