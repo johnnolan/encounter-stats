@@ -81,7 +81,7 @@ export async function SetupHooks() {
     });
 
     window.Hooks.on("updateActor", async function (data, diff) {
-      if (!data.hasPlayerOwner && diff.data?.attributes?.hp.value === 0) {
+      if (!data.hasPlayerOwner && diff.data?.attributes?.hp?.value === 0) {
         OnTrackKill(data.name, game.combat.current.tokenId);
       }
       if (diff.data?.attributes?.hp) {
