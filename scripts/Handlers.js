@@ -4,7 +4,7 @@ import UpdateHealth from "./parsers/UpdateHealth.js";
 import TrackKill from "./parsers/TrackKill.js";
 import { ROLL_HOOK, MODULE_ID, OPT_ENABLE_AOE_DAMAGE } from "./Settings.js";
 import { GetStat, SaveStat, RemoveStat } from "./StatManager.js";
-import { TargetsHit, ResetTemplateHealthCheck } from "./Utils.js";
+import { TargetsHit, ResetTemplateHealthCheck, IsInCombat } from "./Utils.js";
 
 async function _createCombat(data) {
   const encounterId = data.data._id;
@@ -45,7 +45,7 @@ async function _updateRound(currentRound) {
 }
 
 export async function OnCreateMeasuredTemplate(data) {
-  if (!_isInCombat()) return;
+  if (!IsInCombat()) return;
   await TargetsHit(data);
 }
 
@@ -62,37 +62,37 @@ export async function OnDeleteCombat() {
 }
 
 export async function OnCreateChatMessage(attackData) {
-  if (!_isInCombat()) return;
+  if (!IsInCombat()) return;
   AddAttack(attackData, ROLL_HOOK.DEFAULT);
 }
 
 export async function OnBeyond20(workflow) {
-  if (!_isInCombat()) return;
+  if (!IsInCombat()) return;
   AddAttack(workflow, ROLL_HOOK.BEYOND_20);
 }
 
 export async function OnMars5e(data, isNew) {
-  if (!_isInCombat()) return;
+  if (!IsInCombat()) return;
   AddAttack(data, ROLL_HOOK.MARS5E, isNew);
 }
 
 export async function OnMidiRollComplete(workflow) {
-  if (!_isInCombat()) return;
+  if (!IsInCombat()) return;
   AddAttack(workflow, ROLL_HOOK.MIDI_QOL);
 }
 
 export async function OnUpdateBetterRolls(attackData, isNew) {
-  if (!_isInCombat()) return;
+  if (!IsInCombat()) return;
   AddAttack(attackData, ROLL_HOOK.BETTERROLLS5E, isNew);
 }
 
 export async function OnUpdateHealth(data) {
-  if (!_isInCombat()) return;
+  if (!IsInCombat()) return;
   UpdateHealth(data);
 }
 
 export async function OnTrackKill(targetName, tokenId) {
-  if (!_isInCombat()) return;
+  if (!IsInCombat()) return;
   TrackKill(targetName, tokenId);
 }
 
@@ -101,9 +101,4 @@ export async function OnUpdateCombat(round) {
   if (game.settings.get(`${MODULE_ID}`, `${OPT_ENABLE_AOE_DAMAGE}`)) {
     await ResetTemplateHealthCheck();
   }
-}
-
-function _isInCombat() {
-  let stat = GetStat();
-  return stat;
 }

@@ -270,7 +270,7 @@ export async function CombatantStats(combatantStat) {
   return combatantStat;
 }
 
-var groupBy = function (xs, key) {
+let groupBy = function (xs, key) {
   return xs.reduce(function (rv, x) {
     (rv[x[key]] = rv[x[key]] || []).push(x);
     return rv;
@@ -307,4 +307,9 @@ function _getSummaryStatsFromArray(arr) {
     avg: Math.round(arr.reduce(_add, 0) / arr.length),
     total: arr.reduce(_add, 0),
   };
+}
+
+export function IsInCombat() {
+  let stat = GetStat();
+  return stat;
 }
