@@ -13,6 +13,7 @@ import {
   OnCreateMeasuredTemplate,
   OnTrackKill,
 } from "./Handlers.js";
+import { IsInCombat } from "./Utils.js";
 
 const SOCKET_NAME = "module.fvtt-encounter-stats";
 
@@ -81,8 +82,10 @@ export async function SetupHooks() {
     });
 
     window.Hooks.on("updateActor", async function (data, diff) {
-      if (!data.hasPlayerOwner && diff.data?.attributes?.hp.value === 0) {
-        OnTrackKill(data.name, game.combat.current.tokenId);
+      if (IsInCombat()) {
+        if (!data.hasPlayerOwner && diff.data?.attributes?.hp?.value === 0) {
+          OnTrackKill(data.name, game.combat.current.tokenId);
+        }
       }
       if (diff.data?.attributes?.hp) {
         OnUpdateHealth(data);
