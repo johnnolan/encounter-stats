@@ -19,10 +19,8 @@ export async function CreateJournal(encounterId) {
       folder: folder ? folder.id : null,
       "flags.fvtt-encounter-stats.encounterId": encounterId,
     },
-    { renderSheet: false, render: false }
+    { renderSheet: false, activate: false }
   );
-
-  await ui.sidebar.tabs.journal.render(true);
 
   if (game.settings.get(`${MODULE_ID}`, `${OPT_ENABLE_JOURNAL_NOTIFICATION}`)) {
     ui.notifications.info(`fvtt-encounter-stats article ${article.title}`);
