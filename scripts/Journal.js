@@ -3,7 +3,6 @@ import { MODULE_ID, OPT_ENABLE_JOURNAL_NOTIFICATION } from "./Settings.js";
 
 export async function CreateJournal(encounterId) {
   const d = new Date();
-  const renderSheet = false;
   const folder = GetFolder();
 
   const article = {
@@ -20,8 +19,11 @@ export async function CreateJournal(encounterId) {
       folder: folder ? folder.id : null,
       "flags.fvtt-encounter-stats.encounterId": encounterId,
     },
-    { renderSheet }
+    { renderSheet: false, render: false }
   );
+
+  await ui.sidebar.tabs.journal.render(true);
+
   if (game.settings.get(`${MODULE_ID}`, `${OPT_ENABLE_JOURNAL_NOTIFICATION}`)) {
     ui.notifications.info(`fvtt-encounter-stats article ${article.title}`);
   }
