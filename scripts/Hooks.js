@@ -12,6 +12,7 @@ import {
   OnMars5e,
   OnCreateMeasuredTemplate,
   OnTrackKill,
+  OnTrackDiceRoll,
 } from "./Handlers.js";
 import { IsInCombat } from "./Utils.js";
 
@@ -167,4 +168,8 @@ export async function SetupHooks() {
       });
     }
   }
+
+  window.Hooks.on("createChatMessage", async function (data, options, user) {
+    OnTrackDiceRoll(data);
+  });
 }
