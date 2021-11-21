@@ -1,5 +1,3 @@
-import { IsValidAttack, IsHealingSpell } from "./Utils.js";
-
 export function Generate(data) {
   const markup = `
   <div class="fvtt-enc-stats">
