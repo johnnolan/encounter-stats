@@ -40,6 +40,7 @@ export async function GetArticle(encounterId) {
   );
 }
 
+// Campaign Data Article
 async function _getCampaignDataArticle() {
   return game.journal.find(
     (e) =>
@@ -74,6 +75,45 @@ export async function CreateCampaignDataJournal() {
       content: content.html,
       folder: folder ? folder.id : null,
       "flags.fvtt-encounter-stats.campaigndatastats": "campaigndatastats",
+    },
+    { renderSheet: false, activate: false }
+  );
+}
+
+// Campaign Article
+async function _getCampaignArticle() {
+  return game.journal.find(
+    (e) =>
+      e.getFlag("fvtt-encounter-stats", "campaignstats") === "campaignstats"
+  );
+}
+
+export async function GetCampaignArticle() {
+  let article = await _getCampaignArticle();
+
+  if (!article) {
+    await CreateCampaignJournal();
+  }
+
+  return _getCampaignArticle();
+}
+
+export async function CreateCampaignJournal() {
+  const folder = GetFolder();
+
+  const article = {
+    title: "Campaign Stats",
+  };
+  const content = {
+    html: ``,
+  };
+
+  await JournalEntry.create(
+    {
+      name: article.title,
+      content: content.html,
+      folder: folder ? folder.id : null,
+      "flags.fvtt-encounter-stats.campaignstats": "campaignstats",
     },
     { renderSheet: false, activate: false }
   );

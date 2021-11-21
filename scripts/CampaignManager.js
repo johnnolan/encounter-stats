@@ -1,11 +1,11 @@
-import {
-  STORAGE_NAME_CAMPAIGN_DATA,
-  STORAGE_NAME_CAMPAIGN_ID,
-  STORAGE_NAME,
-} from "./Settings.js";
+import { STORAGE_NAME } from "./Settings.js";
 import { GetItemFromLocalStorage } from "./LocalStorage.js";
 import { Generate } from "./CampaignTemplate.js";
-import { UpdateJournal, GetCampaignDataArticle } from "./Journal.js";
+import {
+  UpdateJournal,
+  GetCampaignDataArticle,
+  GetCampaignArticle,
+} from "./Journal.js";
 
 async function _getDataArticle() {
   let article = await GetCampaignDataArticle();
@@ -16,11 +16,12 @@ async function _getDataArticle() {
 async function _updateDataArticle(data) {
   let article = await GetCampaignDataArticle();
   await UpdateJournal(JSON.stringify(data), article);
-  /*const markup = Generate(data);
 
-  let article = await GetArticle(STORAGE_NAME_CAMPAIGN_ID);
+  const markup = Generate(data);
 
-  await UpdateJournal(markup, article);*/
+  let campaignArticle = await GetCampaignArticle();
+
+  await UpdateJournal(markup, campaignArticle);
 }
 
 export async function CampaignTrackNat1(actorName, flavor) {

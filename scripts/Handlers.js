@@ -53,12 +53,20 @@ export async function OnTrackDiceRoll(data) {
   if (data !== undefined) {
     if (data.data.roll !== undefined) {
       if (data.roll.dice[0].faces === 20) {
-        if (data.roll.dice[0].results[0].result === 1) {
-          CampaignTrackNat1(data.data.speaker.actor, data.data.flavor);
+        if (
+          data.roll.dice[0].results.filter((f) => {
+            return f.active;
+          })[0].result === 1
+        ) {
+          CampaignTrackNat1(data.data.speaker.alias, data.data.flavor);
         }
 
-        if (data.roll.dice[0].results[0].result === 20) {
-          CampaignTrackNat20(data.data.speaker.actor, data.data.flavor);
+        if (
+          data.roll.dice[0].results.filter((f) => {
+            return f.active;
+          })[0].result === 20
+        ) {
+          CampaignTrackNat20(data.data.speaker.alias, data.data.flavor);
         }
       }
     }
