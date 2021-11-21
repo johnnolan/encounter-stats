@@ -5,7 +5,11 @@ import TrackKill from "./parsers/TrackKill.js";
 import { ROLL_HOOK, MODULE_ID, OPT_ENABLE_AOE_DAMAGE } from "./Settings.js";
 import { GetStat, SaveStat, RemoveStat } from "./StatManager.js";
 import { TargetsHit, ResetTemplateHealthCheck, IsInCombat } from "./Utils.js";
-import { CampaignTrackKill } from "./CampaignManager.js";
+import {
+  CampaignTrack,
+  CampaignTrackNat1,
+  CampaignTrackNat20,
+} from "./CampaignManager.js";
 
 async function _createCombat(data) {
   const encounterId = data.data._id;
@@ -50,11 +54,11 @@ export async function OnTrackDiceRoll(data) {
     if (data.data.roll !== undefined) {
       if (data.roll.dice[0].faces === 20) {
         if (data.roll.dice[0].results[0].result === 1) {
-          CampaignTrackNat1(data.data.speaker.actor);
+          CampaignTrackNat1(data.data.speaker.actor, data.data.flavor);
         }
 
         if (data.roll.dice[0].results[0].result === 20) {
-          CampaignTrackNat20(data.data.speaker.actor);
+          CampaignTrackNat20(data.data.speaker.actor, data.data.flavor);
         }
       }
     }
@@ -75,6 +79,8 @@ export async function OnCreateCombat(arg1) {
 }
 
 export async function OnDeleteCombat() {
+  const date = new Date();
+  await CampaignTrack(date.toISOString());
   RemoveStat();
 }
 
@@ -111,7 +117,6 @@ export async function OnUpdateHealth(data) {
 export async function OnTrackKill(targetName, tokenId) {
   if (!IsInCombat()) return;
   TrackKill(targetName, tokenId);
-  CampaignTrackKill(targetName, tokenId);
 }
 
 export async function OnUpdateCombat(round) {

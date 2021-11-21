@@ -1,4 +1,4 @@
-import { STORAGE_NAME } from "./Settings";
+import { STORAGE_NAME } from "./Settings.js";
 
 export function GetItemFromLocalStorage(item) {
   return JSON.parse(window.localStorage.getItem(item));

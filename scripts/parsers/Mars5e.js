@@ -58,5 +58,6 @@ export default async function Mars5e(stat, attackData, data) {
   return {
     stat: stat,
     isNewAttack: isNewAttack,
+    attackData: attackData,
   };
 }

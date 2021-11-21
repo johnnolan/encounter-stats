@@ -39,3 +39,42 @@ export async function GetArticle(encounterId) {
     (e) => e.getFlag("fvtt-encounter-stats", "encounterId") === encounterId
   );
 }
+
+async function _getCampaignDataArticle() {
+  return game.journal.find(
+    (e) =>
+      e.getFlag("fvtt-encounter-stats", "campaigndatastats") ===
+      "campaigndatastats"
+  );
+}
+
+export async function GetCampaignDataArticle() {
+  let article = await _getCampaignDataArticle();
+
+  if (!article) {
+    await CreateCampaignDataJournal();
+  }
+
+  return _getCampaignDataArticle();
+}
+
+export async function CreateCampaignDataJournal() {
+  const folder = GetFolder();
+
+  const article = {
+    title: "Campaign Data Stats",
+  };
+  const content = {
+    html: `{"kills": [], "nat1": [], "nat20": [], "heals": []}`,
+  };
+
+  await JournalEntry.create(
+    {
+      name: article.title,
+      content: content.html,
+      folder: folder ? folder.id : null,
+      "flags.fvtt-encounter-stats.campaigndatastats": "campaigndatastats",
+    },
+    { renderSheet: false, activate: false }
+  );
+}
