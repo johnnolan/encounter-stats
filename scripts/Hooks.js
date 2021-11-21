@@ -170,6 +170,15 @@ export async function SetupHooks() {
   }
 
   window.Hooks.on("createChatMessage", async function (data, options, user) {
-    OnTrackDiceRoll(data);
+    if (
+      game.modules.get("betterrolls5e")?.active ||
+      game.modules.get("midi-qol")?.active ||
+      game.modules.get("mars-5e")?.active ||
+      game.modules.get("beyond20")?.active
+    ) {
+      return;
+    } else {
+      OnTrackDiceRoll(data);
+    }
   });
 }
