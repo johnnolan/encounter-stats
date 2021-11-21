@@ -57,5 +57,5 @@ export default async function MidiQol(stat, attackData, workflow) {
 
   CombatantStats(combatantStat);
 
-  return { stat: stat, isNewAttack: isNewAttack };
+  return { stat: stat, isNewAttack: isNewAttack, attackData: attackData };
 }

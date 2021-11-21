@@ -61,5 +61,5 @@ export default async function BetterRollsFor5e(stat, attackData, $html, isNew) {
 
   CombatantStats(combatantStat);
 
-  return { stat: stat, isNewAttack: isNew };
+  return { stat: stat, isNewAttack: isNew, attackData: attackData };
 }

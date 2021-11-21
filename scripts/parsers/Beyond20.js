@@ -91,5 +91,5 @@ export default async function Beyond20(stat, attackData, data) {
 
   CombatantStats(combatantStat);
 
-  return { stat: stat, isNewAttack: true };
+  return { stat: stat, isNewAttack: true, attackData: attackData };
 }

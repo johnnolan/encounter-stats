@@ -3,15 +3,16 @@ import {
   SaveToLocalStorageStat,
   TruncateLocalStorage,
 } from "./LocalStorage.js";
+import { STORAGE_NAME } from "./Settings.js";
 import { Generate } from "./Template.js";
 import { UpdateJournal, GetArticle } from "./Journal.js";
 
 export function GetStat() {
-  return GetItemFromLocalStorage();
+  return GetItemFromLocalStorage(STORAGE_NAME);
 }
 
 export async function SaveStat(data) {
-  SaveToLocalStorageStat(data);
+  SaveToLocalStorageStat(STORAGE_NAME, data);
   const markup = Generate(data);
 
   let article = await GetArticle(data.encounterId);

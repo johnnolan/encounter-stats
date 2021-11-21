@@ -5,6 +5,11 @@ import TrackKill from "./parsers/TrackKill.js";
 import { ROLL_HOOK, MODULE_ID, OPT_ENABLE_AOE_DAMAGE } from "./Settings.js";
 import { GetStat, SaveStat, RemoveStat } from "./StatManager.js";
 import { TargetsHit, ResetTemplateHealthCheck, IsInCombat } from "./Utils.js";
+import {
+  CampaignTrack,
+  CampaignTrackNat1,
+  CampaignTrackNat20,
+} from "./CampaignManager.js";
 
 async function _createCombat(data) {
   const encounterId = data.data._id;
@@ -44,6 +49,30 @@ async function _updateRound(currentRound) {
   }
 }
 
+export async function OnTrackDiceRoll(data) {
+  if (data !== undefined) {
+    if (data.data.roll !== undefined) {
+      if (data.roll.dice[0].faces === 20) {
+        if (
+          data.roll.dice[0].results.filter((f) => {
+            return f.active;
+          })[0].result === 1
+        ) {
+          CampaignTrackNat1(data.data.speaker.alias, data.data.flavor);
+        }
+
+        if (
+          data.roll.dice[0].results.filter((f) => {
+            return f.active;
+          })[0].result === 20
+        ) {
+          CampaignTrackNat20(data.data.speaker.alias, data.data.flavor);
+        }
+      }
+    }
+  }
+}
+
 export async function OnCreateMeasuredTemplate(data) {
   if (!IsInCombat()) return;
   await TargetsHit(data);
@@ -58,6 +87,8 @@ export async function OnCreateCombat(arg1) {
 }
 
 export async function OnDeleteCombat() {
+  const date = new Date();
+  await CampaignTrack(date.toISOString());
   RemoveStat();
 }
 

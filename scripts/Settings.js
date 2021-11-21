@@ -1,6 +1,11 @@
 export const MODULE_NAME = "FVTT Encounter Stats";
 export const MODULE_ID = "fvtt-encounter-stats";
 
+export const STORAGE_NAME = "fvtt-encounter-stats-data";
+export const STORAGE_NAME_CAMPAIGN_DATA =
+  "do-not-delete-fvtt-encounter-stats-data-campaign";
+export const STORAGE_NAME_CAMPAIGN_ID = "Campaign Statistics";
+
 export const OPT_ENABLE = "enable";
 export const OPT_ENABLE_AOE_DAMAGE = "enable_aoe_damage";
 export const OPT_ENABLE_MONSTER_STATS = "enable_monster_stats";

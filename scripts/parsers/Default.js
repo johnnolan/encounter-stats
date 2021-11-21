@@ -63,5 +63,6 @@ export default async function Default(stat, attackData, data) {
   return {
     stat: stat,
     isNewAttack: combatantStat.events.length > eventsLength,
+    attackData: attackData,
   };
 }

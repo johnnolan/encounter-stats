@@ -159,6 +159,12 @@ function _getTopStats(data) {
     });
 
   let mostDamageInOneTurn = data.combatants.map((m) => {
+    if (m.roundSummary.totals.length === 0) {
+      return {
+        name: "None",
+        details: 0,
+      };
+    }
     return {
       name: m.name,
       details: m.roundSummary.totals.reduce(function (max, obj) {

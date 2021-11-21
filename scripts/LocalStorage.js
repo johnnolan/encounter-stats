@@ -1,11 +1,11 @@
-const STORAGE_NAME = "fvtt-encounter-stats-data";
+import { STORAGE_NAME } from "./Settings.js";
 
-export function GetItemFromLocalStorage() {
-  return JSON.parse(window.localStorage.getItem(STORAGE_NAME));
+export function GetItemFromLocalStorage(item) {
+  return JSON.parse(window.localStorage.getItem(item));
 }
 
-export function SaveToLocalStorageStat(data) {
-  window.localStorage.setItem(STORAGE_NAME, JSON.stringify(data));
+export function SaveToLocalStorageStat(statType, data) {
+  window.localStorage.setItem(statType, JSON.stringify(data));
 }
 
 export function TruncateLocalStorage() {
