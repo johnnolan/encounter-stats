@@ -66,7 +66,7 @@ export async function CreateCampaignDataJournal() {
     title: "Campaign Data Stats",
   };
   const content = {
-    html: `{"kills": [], "nat1": [], "nat20": [], "heals": []}`,
+    html: `{"kills": {}, "nat1": {}, "nat20": {}, "heals": {}}`,
   };
 
   await JournalEntry.create(

@@ -10,6 +10,10 @@ $color-3: #4b4a44;
 $color-red: #ff0000;
 $color-blue: #0000ff;
 
+li.item.flexrow.campaign-row {
+  padding-bottom: 5px;
+}
+
 .fvtt-enc-stats {
   &_enemies {
     font-family: $font-modesto-condensed;

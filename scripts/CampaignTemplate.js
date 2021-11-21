@@ -6,49 +6,25 @@ export function Generate(data) {
     <hr />
     <h2 class="fvtt-enc-stats_enemies">Natural 20s</h2>
     <div>
-      <ol class="item-list">
-        ${data.nat20
-          .map(function (kill) {
-            return Generatenat20Row(kill);
-          })
-          .join("")}
-      </ol>
+        ${Generatenat20Row(data.nat20)}
     </div>
 
     <hr />
     <h2 class="fvtt-enc-stats_enemies">Natural 1s</h2>
     <div>
-      <ol class="item-list">
-        ${data.nat1
-          .map(function (kill) {
-            return Generatenat1Row(kill);
-          })
-          .join("")}
-      </ol>
+        ${GenerateNat1Row(data.nat1)}
     </div>
 
     <hr />
     <h2 class="fvtt-enc-stats_enemies">Heals</h2>
     <div>
-      <ol class="item-list">
-        ${data.heals
-          .map(function (kill) {
-            return GenerateHealRow(kill);
-          })
-          .join("")}
-      </ol>
+        ${GenerateHealRow(data.heals)}
     </div>
 
     <hr />
     <h2 class="fvtt-enc-stats_enemies">Kills</h2>
     <div>
-      <ol class="item-list">
-        ${data.kills
-          .map(function (kill) {
-            return GenerateKillRow(kill);
-          })
-          .join("")}
-      </ol>
+        ${GenerateKillRow(data.kills)}
     </div>
   </div>
   `;
@@ -57,48 +33,87 @@ export function Generate(data) {
 }
 
 function GenerateKillRow(event) {
-  let markup = `
-  <li class="item flexrow">
-    <div class="item-name">${event.actorName}</div>
-    <div class="item-name">${event.tokenName}</div>
-    <div class="item-name">${event.date}</div>
+  let markup = ``;
+
+  for (const [key] of Object.entries(event)) {
+    markup += `<h3>${key}</h3><ol class="item-list">`;
+
+    event[key].forEach((eventItem) => {
+      markup += `
+  <li class="item flexrow campaign-row">
+    <div class="item-name">${eventItem.actorName}</div>
+    <div class="item-name">${eventItem.tokenName}</div>
+    <div class="item-name">${eventItem.date}</div>
   </li>`;
+    });
+
+    markup += `</ol>`;
+  }
 
   return markup;
 }
 
-function Generatenat1Row(event) {
-  let markup = `
-  <li class="item flexrow">
-    <div class="item-name">${event.actorName}</div>
-    <div class="item-name">${event.flavor}</div>
-    <div class="item-name">${event.date}</div>
+function GenerateNat1Row(event) {
+  let markup = ``;
+
+  for (const [key] of Object.entries(event)) {
+    markup += `<h3>${key}</h3><ol class="item-list">`;
+
+    event[key].forEach((eventItem) => {
+      markup += `
+  <li class="item flexrow campaign-row">
+    <div class="item-name">${eventItem.actorName}</div>
+    <div class="item-name">${eventItem.flavor}</div>
+    <div class="item-name">${eventItem.date}</div>
   </li>`;
+    });
+
+    markup += `</ol>`;
+  }
 
   return markup;
 }
 
 function Generatenat20Row(event) {
-  let markup = `
-  <li class="item flexrow">
-    <div class="item-name">${event.actorName}</div>
-    <div class="item-name">${event.flavor}</div>
-    <div class="item-name">${event.date}</div>
-  </li>`;
+  let markup = ``;
+
+  for (const [key] of Object.entries(event)) {
+    markup += `<h3>${key}</h3><ol class="item-list">`;
+
+    event[key].forEach((eventItem) => {
+      markup += `
+      <li class="item flexrow campaign-row">
+        <div class="item-name">${eventItem.actorName}</div>
+        <div class="item-name">${eventItem.flavor}</div>
+        <div class="item-name">${eventItem.date}</div>
+      </li>`;
+    });
+
+    markup += `</ol>`;
+  }
 
   return markup;
 }
 
 function GenerateHealRow(event) {
-  let markup = `
-  <li class="item flexrow">
-    <div class="item-name">${event.actorName}</div>
-    <div class="item-name">${
-      event.itemLink ? event.itemLink : event.spellName
-    }</div>
-    <div class="item-name">${event.damageTotal}</div>
-    <div class="item-name">${event.date}</div>
-  </li>`;
+  let markup = ``;
 
+  for (const [key] of Object.entries(event)) {
+    markup += `<h3>${key}</h3><ol class="item-list">`;
+
+    event[key].forEach((eventItem) => {
+      markup += `
+  <li class="item flexrow campaign-row">
+    <div class="item-name">${eventItem.actorName}</div>
+    <div class="item-name">${
+      eventItem.itemLink ? eventItem.itemLink : eventItem.spellName
+    }</div>
+    <div class="item-name">${eventItem.damageTotal}</div>
+    <div class="item-name">${eventItem.date}</div>
+  </li>`;
+    });
+
+    markup += `</ol>`;
+  }
   return markup;
 }

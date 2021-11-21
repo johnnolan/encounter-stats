@@ -25,8 +25,15 @@ async function _updateDataArticle(data) {
 }
 
 export async function CampaignTrackNat1(actorName, flavor) {
+  let d = new Date().toISOString();
+  const dName = `D${d.substring(0, 9).replace(/-/g, "")}`;
+
   let data = await _getDataArticle();
-  data.nat1.push({
+  if (!data.nat1[dName]) {
+    data.nat1[dName] = [];
+  }
+
+  data.nat1[dName].push({
     date: new Date().toISOString(),
     actorName: actorName,
     flavor: flavor,
@@ -36,8 +43,15 @@ export async function CampaignTrackNat1(actorName, flavor) {
 }
 
 export async function CampaignTrackNat20(actorName, flavor) {
+  let d = new Date().toISOString();
+  const dName = `D${d.substring(0, 9).replace(/-/g, "")}`;
+
   let data = await _getDataArticle();
-  data.nat20.push({
+  if (!data.nat20[dName]) {
+    data.nat20[dName] = [];
+  }
+
+  data.nat20[dName].push({
     date: new Date().toISOString(),
     actorName: actorName,
     flavor: flavor,
@@ -47,6 +61,9 @@ export async function CampaignTrackNat20(actorName, flavor) {
 }
 
 export async function CampaignTrack(date) {
+  let d = new Date().toISOString();
+  const dName = `D${d.substring(0, 9).replace(/-/g, "")}`;
+
   let data = await _getDataArticle();
 
   let currentEncounterStats = GetItemFromLocalStorage(STORAGE_NAME);
@@ -56,7 +73,10 @@ export async function CampaignTrack(date) {
     if (combatant.type === "character") {
       for (let j = 0; j < combatant.kills.length; j++) {
         const event = combatant.kills[j];
-        data.kills.push({
+        if (!data.kills[dName]) {
+          data.kills[dName] = [];
+        }
+        data.kills[dName].push({
           actorId: combatant.id,
           tokenName: event.tokenName,
           actorName: combatant.name,
@@ -72,7 +92,10 @@ export async function CampaignTrack(date) {
       for (let j = 0; j < combatant.events.length; j++) {
         const event = combatant.events[j];
         if (event.actionType === "heal") {
-          data.heals.push({
+          if (!data.heals[dName]) {
+            data.heals[dName] = [];
+          }
+          data.heals[dName].push({
             actorId: combatant.id,
             spellName: event.item.name ? event.item.name : null,
             itemLink: event.item.itemLink ? event.item.itemLink : null,
