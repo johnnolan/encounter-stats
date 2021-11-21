@@ -23,6 +23,8 @@ This module is designed to capture your
 - Support Actions
 - Battlefield Actions
 
+It also stores your `Natural 1s`, `Natural 20s`, `Kills` and `Heals` throughout your campaign currently split by day recorded. **Do not delete the 2 entries for this, you will lose your data!**
+
 All this is stored in a Journal Entry with a summary of their stats for each after you end the Encounter. There is also a copy of the raw JSON data from each battle should you wish to do more analysis of the recorded data.
 
 You have an option for AOE attacks to either use the dice roll damage or record the damage taken to creatures within the template area.
