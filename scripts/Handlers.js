@@ -1,5 +1,5 @@
 import { CreateJournal } from "./Journal.js";
-import { AddCombatants, AddAttack } from "./DataParsing.js";
+import { AddCombatants, AddAttack, AddDiceRoll } from "./DataParsing.js";
 import UpdateHealth from "./parsers/UpdateHealth.js";
 import TrackKill from "./parsers/TrackKill.js";
 import { ROLL_HOOK, MODULE_ID, OPT_ENABLE_AOE_DAMAGE } from "./Settings.js";
@@ -113,6 +113,7 @@ export async function OnMidiRollComplete(workflow) {
 }
 
 export async function OnUpdateBetterRolls(attackData, isNew) {
+  AddDiceRoll(attackData, ROLL_HOOK.BETTERROLLS5E);
   if (!IsInCombat()) return;
   AddAttack(attackData, ROLL_HOOK.BETTERROLLS5E, isNew);
 }

@@ -8,7 +8,30 @@ import {
   _add,
 } from "../Utils.js";
 
-export default async function BetterRollsFor5e(stat, attackData, $html, isNew) {
+export async function BetterRollsFor5eRollCheck($html) {
+  if ($html.find(".dice-tooltip").text().trim().indexOf("1d20") === 0) {
+    let actor;
+    let actorId = $html.attr("data-actor-id");
+    if (actorId) {
+      actor = await game.actors.get(actorId);
+    }
+
+    if (actor) {
+      let isCritical = $html.attr("data-critical") === "true" ? true : false;
+      let isFumble = $html.find("h4.failure").length > 0;
+
+      return {
+        isCritical: isCritical,
+        isFumble: isFumble,
+        flavor: $html.find("h3.item-name").text().trim(),
+        name: actor.name,
+      };
+    }
+  }
+  return;
+}
+
+export async function BetterRollsFor5e(stat, attackData, $html, isNew) {
   let combatantStat = GetCombatantStats(stat, $html.attr("data-actor-id"));
   if (!combatantStat) return;
   attackData.actorId = $html.attr("data-actor-id");
@@ -45,7 +68,7 @@ export default async function BetterRollsFor5e(stat, attackData, $html, isNew) {
   attackData.advantage =
     $attackRollData.attr("data-rollState") === "highest" ? true : false;
   attackData.isCritical = $html.attr("data-critical") === "true" ? true : false;
-  attackData.isFumble = false;
+  attackData.isFumble = $attackRollData.find("h4.failure").length > 0;
   attackData.disadvantage =
     $attackRollData.attr("data-rollState") === "lowest" ? true : false;
   attackData.attackTotal = attackTotal;
