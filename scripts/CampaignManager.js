@@ -7,6 +7,13 @@ import {
   GetCampaignArticle,
 } from "./Journal.js";
 
+function _getDateGroup() {
+  let d = new Date().toISOString();
+  const dName = `D${d.substring(0, 10).replace(/-/g, "")}`;
+
+  return dName;
+}
+
 async function _getDataArticle() {
   let article = await GetCampaignDataArticle();
   let content = article.data.content.replace("<p>", "").replace("</p>", "");
@@ -25,8 +32,7 @@ async function _updateDataArticle(data) {
 }
 
 export async function CampaignTrackNat1(actorName, flavor) {
-  let d = new Date().toISOString();
-  const dName = `D${d.substring(0, 9).replace(/-/g, "")}`;
+  const dName = _getDateGroup();
 
   let data = await _getDataArticle();
   if (!data.nat1[dName]) {
@@ -43,8 +49,7 @@ export async function CampaignTrackNat1(actorName, flavor) {
 }
 
 export async function CampaignTrackNat20(actorName, flavor) {
-  let d = new Date().toISOString();
-  const dName = `D${d.substring(0, 9).replace(/-/g, "")}`;
+  const dName = _getDateGroup();
 
   let data = await _getDataArticle();
   if (!data.nat20[dName]) {
@@ -61,8 +66,7 @@ export async function CampaignTrackNat20(actorName, flavor) {
 }
 
 export async function CampaignTrack(date) {
-  let d = new Date().toISOString();
-  const dName = `D${d.substring(0, 9).replace(/-/g, "")}`;
+  const dName = _getDateGroup();
 
   let data = await _getDataArticle();
 

@@ -9,7 +9,6 @@ import {
 } from "../Utils.js";
 
 export async function MidiQolRollCheck(workflow) {
-  
   const actorId = workflow.actor._id;
   let actor;
 
