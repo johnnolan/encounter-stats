@@ -1,7 +1,10 @@
 import { GetStat, SaveStat } from "./StatManager.js";
 import Default from "./parsers/Default.js";
-import BetterRollsFor5e from "./parsers/BetterRollsFor5e.js";
-import MidiQol from "./parsers/MidiQol.js";
+import {
+  BetterRollsFor5e,
+  BetterRollsFor5eRollCheck,
+} from "./parsers/BetterRollsFor5e.js";
+import { MidiQol, MidiQolRollCheck } from "./parsers/MidiQol.js";
 import Beyond20 from "./parsers/Beyond20.js";
 import Mars5e from "./parsers/Mars5e.js";
 import {
@@ -10,6 +13,7 @@ import {
   MODULE_ID,
   OPT_ENABLE_MONSTER_STATS,
 } from "./Settings.js";
+import { CampaignTrackNat1, CampaignTrackNat20 } from "./CampaignManager.js";
 
 export async function AddAttack(data, type, isNew = false) {
   let stat = GetStat();
@@ -46,6 +50,39 @@ export async function AddAttack(data, type, isNew = false) {
   }
 
   await SaveStat(stat);
+}
+export async function AddDiceRoll(data, type) {
+  let rollResult;
+
+  switch (type) {
+    case ROLL_HOOK.BETTERROLLS5E:
+      rollResult = await BetterRollsFor5eRollCheck(data);
+      break;
+    case ROLL_HOOK.MIDI_QOL:
+      statResult = await MidiQolRollCheck(data);
+      break;
+    /*case ROLL_HOOK.BEYOND_20:
+      statResult = await Beyond20(stat, attackData, data);
+      break;
+    case ROLL_HOOK.MARS5E:
+      statResult = await Mars5e(stat, attackData, data);
+      break;
+    case ROLL_HOOK.DEFAULT:
+      statResult = await Default(stat, attackData, data);
+      break;*/
+    default:
+      return;
+  }
+
+  if (rollResult) {
+    if (rollResult.isCritical) {
+      CampaignTrackNat20(rollResult.name, rollResult.flavor);
+    }
+
+    if (rollResult.isFumble) {
+      CampaignTrackNat1(rollResult.name, rollResult.flavor);
+    }
+  }
 }
 
 export async function AddCombatants(actor, tokenId) {

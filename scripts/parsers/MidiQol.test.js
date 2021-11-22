@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import MidiQol from "./MidiQol.js";
+import { MidiQol } from "./MidiQol.js";
 import { duplicate } from "../mocks/helpers.js";
 global.duplicate = duplicate;
 import { combatantStats } from "../mockdata/combatantStatsMidiQol.js";

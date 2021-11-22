@@ -8,7 +8,23 @@ import {
   _add,
 } from "../Utils.js";
 
-export default async function MidiQol(stat, attackData, workflow) {
+export async function MidiQolRollCheck(workflow) {
+  const actorId = workflow.actor._id;
+  let actor;
+
+  if (actorId) {
+    actor = await game.actors.get(actorId);
+  }
+
+  return {
+    isCritical: workflow.isCritical,
+    isFumble: workflow.isFumble,
+    flavor: "",
+    name: actor.name,
+  };
+}
+
+export async function MidiQol(stat, attackData, workflow) {
   let combatantStat = GetCombatantStats(stat, workflow.actor._id);
   if (!combatantStat) return;
   stat.templateHealthCheck = [];
