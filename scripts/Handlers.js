@@ -112,6 +112,10 @@ export async function OnMidiRollComplete(workflow) {
   AddAttack(workflow, ROLL_HOOK.MIDI_QOL);
 }
 
+export async function OnUpdateBetterRollsRollCapture(workflow) {
+  AddDiceRoll(workflow, ROLL_HOOK.BETTERROLLS5E);
+}
+
 export async function OnUpdateBetterRolls(attackData, isNew) {
   AddDiceRoll(attackData, ROLL_HOOK.BETTERROLLS5E);
   if (!IsInCombat()) return;

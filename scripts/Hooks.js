@@ -6,6 +6,7 @@ import {
   OnCreateChatMessage,
   OnUpdateCombat,
   OnUpdateBetterRolls,
+  OnUpdateBetterRollsRollCapture,
   OnMidiRollComplete,
   OnUpdateHealth,
   OnBeyond20,
@@ -92,6 +93,15 @@ export async function SetupHooks() {
         OnUpdateHealth(data);
       }
     });
+    if (game.modules.get("betterrolls5e")?.active) {
+      window.Hooks.on(
+        "messageBetterRolls",
+        async function (data, options, user) {
+          OnUpdateBetterRollsRollCapture($(options.content));
+        }
+      );
+    }
+
     if (game.modules.get("midi-qol")?.active) {
       window.Hooks.on("midi-qol.RollComplete", async function (workflow) {
         OnMidiRollComplete(FormatMidiQol(workflow));
@@ -172,7 +182,6 @@ export async function SetupHooks() {
   window.Hooks.on("createChatMessage", async function (data, options, user) {
     if (
       game.modules.get("betterrolls5e")?.active ||
-      game.modules.get("midi-qol")?.active ||
       game.modules.get("mars-5e")?.active ||
       game.modules.get("beyond20")?.active
     ) {
