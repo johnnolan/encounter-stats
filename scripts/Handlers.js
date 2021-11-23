@@ -2,7 +2,12 @@ import { CreateJournal } from "./Journal.js";
 import { AddCombatants, AddAttack, AddDiceRoll } from "./DataParsing.js";
 import UpdateHealth from "./parsers/UpdateHealth.js";
 import TrackKill from "./parsers/TrackKill.js";
-import { ROLL_HOOK, MODULE_ID, OPT_ENABLE_AOE_DAMAGE } from "./Settings.js";
+import {
+  ROLL_HOOK,
+  MODULE_ID,
+  OPT_ENABLE_AOE_DAMAGE,
+  OPT_TOGGLE_CAMPAIGN_TRACKING,
+} from "./Settings.js";
 import { GetStat, SaveStat, RemoveStat } from "./StatManager.js";
 import { TargetsHit, ResetTemplateHealthCheck, IsInCombat } from "./Utils.js";
 import {
@@ -87,8 +92,10 @@ export async function OnCreateCombat(arg1) {
 }
 
 export async function OnDeleteCombat() {
-  const date = new Date();
-  await CampaignTrack(date.toISOString());
+  if (game.settings.get(`${MODULE_ID}`, `${OPT_TOGGLE_CAMPAIGN_TRACKING}`)) {
+    const date = new Date();
+    await CampaignTrack(date.toISOString());
+  }
   RemoveStat();
 }
 
