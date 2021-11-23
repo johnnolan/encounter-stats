@@ -5,6 +5,7 @@ import {
   OPT_REPORT_BUG,
   OPT_ENABLE_MONSTER_STATS,
   OPT_ENABLE_JOURNAL_NOTIFICATION,
+  OPT_TOGGLE_CAMPAIGN_TRACKING,
 } from "./Settings.js";
 import { CreateFolder } from "./Folder.js";
 import { SetupHooks } from "./Hooks.js";
@@ -49,6 +50,18 @@ Hooks.once("init", async function () {
     scope: "world",
     config: true,
     default: false,
+    type: Boolean,
+  });
+  game.settings.register(`${MODULE_ID}`, `${OPT_TOGGLE_CAMPAIGN_TRACKING}`, {
+    name: game.i18n.format(
+      "FVTTEncounterStats.opt_toggle_campaign_tracking_name"
+    ),
+    hint: game.i18n.format(
+      "FVTTEncounterStats.opt_toggle_campaign_tracking_hint"
+    ),
+    scope: "world",
+    config: true,
+    default: true,
     type: Boolean,
   });
 });

@@ -12,6 +12,7 @@ import {
   ATTACK_DATA_TEMPLATE,
   MODULE_ID,
   OPT_ENABLE_MONSTER_STATS,
+  OPT_TOGGLE_CAMPAIGN_TRACKING,
 } from "./Settings.js";
 import { CampaignTrackNat1, CampaignTrackNat20 } from "./CampaignManager.js";
 
@@ -52,16 +53,17 @@ export async function AddAttack(data, type, isNew = false) {
   await SaveStat(stat);
 }
 export async function AddDiceRoll(data, type) {
-  let rollResult;
+  if (game.settings.get(`${MODULE_ID}`, `${OPT_TOGGLE_CAMPAIGN_TRACKING}`)) {
+    let rollResult;
 
-  switch (type) {
-    case ROLL_HOOK.BETTERROLLS5E:
-      rollResult = await BetterRollsFor5eRollCheck(data);
-      break;
-    case ROLL_HOOK.MIDI_QOL:
-      statResult = await MidiQolRollCheck(data);
-      break;
-    /*case ROLL_HOOK.BEYOND_20:
+    switch (type) {
+      case ROLL_HOOK.BETTERROLLS5E:
+        rollResult = await BetterRollsFor5eRollCheck(data);
+        break;
+      case ROLL_HOOK.MIDI_QOL:
+        statResult = await MidiQolRollCheck(data);
+        break;
+      /*case ROLL_HOOK.BEYOND_20:
       statResult = await Beyond20(stat, attackData, data);
       break;
     case ROLL_HOOK.MARS5E:
@@ -70,17 +72,18 @@ export async function AddDiceRoll(data, type) {
     case ROLL_HOOK.DEFAULT:
       statResult = await Default(stat, attackData, data);
       break;*/
-    default:
-      return;
-  }
-
-  if (rollResult) {
-    if (rollResult.isCritical) {
-      CampaignTrackNat20(rollResult.name, rollResult.flavor);
+      default:
+        return;
     }
 
-    if (rollResult.isFumble) {
-      CampaignTrackNat1(rollResult.name, rollResult.flavor);
+    if (rollResult) {
+      if (rollResult.isCritical) {
+        CampaignTrackNat20(rollResult.name, rollResult.flavor);
+      }
+
+      if (rollResult.isFumble) {
+        CampaignTrackNat1(rollResult.name, rollResult.flavor);
+      }
     }
   }
 }
