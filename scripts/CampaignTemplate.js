@@ -124,7 +124,7 @@ function _getItemListTitle(key, event, simpleCalendarEnabled) {
   let markup = ``;
 
   if (simpleCalendarEnabled) {
-    if (event[key] && event[key].length > 0) {
+    if (event[key] && event[key].length > 0 && event[key].simpleCalendarName) {
       markup += `<h3>${event[key][0].simpleCalendarName}</h3><ol class="item-list">`;
     } else {
       markup += `<h3>${key}</h3><ol class="item-list">`;
