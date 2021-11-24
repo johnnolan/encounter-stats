@@ -9,8 +9,17 @@ import {
 import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration.js";
 
 function _getDateGroup() {
-  let d = new Date().toISOString();
-  const dName = `D${d.substring(0, 10).replace(/-/g, "")}`;
+  let dName;
+
+  let simpleCalendarIntegration = new SimpleCalendarIntegration();
+  if (simpleCalendarIntegration.IsEnabled()) {
+    dName = `D${simpleCalendarIntegration
+      .GetCurrentDateToString()
+      .replace(/ /g, "")}`;
+  } else {
+    let d = new Date().toISOString();
+    dName = `D${d.substring(0, 10).replace(/-/g, "")}`;
+  }
 
   return dName;
 }
