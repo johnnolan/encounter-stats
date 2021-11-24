@@ -6,12 +6,19 @@ import {
   GetCampaignDataArticle,
   GetCampaignArticle,
 } from "./Journal.js";
+import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration.js";
 
 function _getDateGroup() {
   let d = new Date().toISOString();
   const dName = `D${d.substring(0, 10).replace(/-/g, "")}`;
 
   return dName;
+}
+
+function _simpleCalendarName() {
+  let simpleCalendarIntegration = new SimpleCalendarIntegration();
+
+  return simpleCalendarIntegration.GetCurrentDateToString();
 }
 
 async function _getDataArticle() {
@@ -43,6 +50,7 @@ export async function CampaignTrackNat1(actorName, flavor) {
     date: new Date().toISOString(),
     actorName: actorName,
     flavor: flavor,
+    simpleCalendarName: _simpleCalendarName(),
   });
 
   _updateDataArticle(data);
@@ -60,6 +68,7 @@ export async function CampaignTrackNat20(actorName, flavor) {
     date: new Date().toISOString(),
     actorName: actorName,
     flavor: flavor,
+    simpleCalendarName: _simpleCalendarName(),
   });
 
   _updateDataArticle(data);
@@ -85,6 +94,7 @@ export async function CampaignTrack(date) {
           tokenName: event.tokenName,
           actorName: combatant.name,
           date: date,
+          simpleCalendarName: _simpleCalendarName(),
         });
       }
     }
@@ -106,6 +116,7 @@ export async function CampaignTrack(date) {
             damageTotal: event.damageTotal,
             actorName: combatant.name,
             date: date,
+            simpleCalendarName: _simpleCalendarName(),
           });
         }
       }

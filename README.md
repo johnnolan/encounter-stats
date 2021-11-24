@@ -54,6 +54,11 @@ If you would like to see another module supported that isn't above then feel fre
 
 [![Example](https://raw.githubusercontent.com/johnnolan/fvtt-encounter-stats/main/images/example.jpg)](https://raw.githubusercontent.com/johnnolan/fvtt-encounter-stats/main/images/example.jpg)
 
+
+## Simple Calendar Integration
+
+The module optionally supports [Simple Calendar](https://foundryvtt.com/packages/foundryvtt-simple-calendar) dates for naming Journal entries and tracking Campaign Stats. This is enabled by default if the module is installed and can be turned off to use real dates from the settings.
+
 ## Installation
 
 To install, follow these instructions:

@@ -1,12 +1,18 @@
 import { GetFolder } from "./Folder.js";
 import { MODULE_ID, OPT_ENABLE_JOURNAL_NOTIFICATION } from "./Settings.js";
+import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration.js";
 
 export async function CreateJournal(encounterId) {
-  const d = new Date();
+  let title = new Date().toISOString();
+  let simpleCalendarIntegration = new SimpleCalendarIntegration();
   const folder = GetFolder();
 
+  if (simpleCalendarIntegration.IsEnabled()) {
+    title = `${simpleCalendarIntegration.GetCurrentDateToString()} (${encounterId})`;
+  }
+
   const article = {
-    title: d.toISOString(),
+    title: title,
   };
   const content = {
     html: "",

@@ -1,28 +1,32 @@
+import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration.js";
+
 export function Generate(data) {
+  const simpleCalendarIntegration = new SimpleCalendarIntegration();
+  const simpleCalendarEnabled = simpleCalendarIntegration.IsEnabled();
   const markup = `
   <div class="fvtt-enc-stats">
     <hr />
     <h2 class="fvtt-enc-stats_enemies">Natural 20s</h2>
     <div>
-        ${Generatenat20Row(data.nat20)}
+        ${Generatenat20Row(data.nat20, simpleCalendarEnabled)}
     </div>
 
     <hr />
     <h2 class="fvtt-enc-stats_enemies">Natural 1s</h2>
     <div>
-        ${GenerateNat1Row(data.nat1)}
+        ${GenerateNat1Row(data.nat1, simpleCalendarEnabled)}
     </div>
 
     <hr />
     <h2 class="fvtt-enc-stats_enemies">Heals</h2>
     <div>
-        ${GenerateHealRow(data.heals)}
+        ${GenerateHealRow(data.heals, simpleCalendarEnabled)}
     </div>
 
     <hr />
     <h2 class="fvtt-enc-stats_enemies">Kills</h2>
     <div>
-        ${GenerateKillRow(data.kills)}
+        ${GenerateKillRow(data.kills, simpleCalendarEnabled)}
     </div>
   </div>
   `;
@@ -30,11 +34,11 @@ export function Generate(data) {
   return markup;
 }
 
-function GenerateKillRow(event) {
+function GenerateKillRow(event, simpleCalendarEnabled) {
   let markup = ``;
 
   for (const [key] of Object.entries(event)) {
-    markup += `<h3>${key}</h3><ol class="item-list">`;
+    markup += _getItemListTitle(key, event, simpleCalendarEnabled);
 
     event[key].forEach((eventItem) => {
       markup += `
@@ -51,11 +55,11 @@ function GenerateKillRow(event) {
   return markup;
 }
 
-function GenerateNat1Row(event) {
+function GenerateNat1Row(event, simpleCalendarEnabled) {
   let markup = ``;
 
   for (const [key] of Object.entries(event)) {
-    markup += `<h3>${key}</h3><ol class="item-list">`;
+    markup += _getItemListTitle(key, event, simpleCalendarEnabled);
 
     event[key].forEach((eventItem) => {
       markup += `
@@ -72,11 +76,11 @@ function GenerateNat1Row(event) {
   return markup;
 }
 
-function Generatenat20Row(event) {
+function Generatenat20Row(event, simpleCalendarEnabled) {
   let markup = ``;
 
   for (const [key] of Object.entries(event)) {
-    markup += `<h3>${key}</h3><ol class="item-list">`;
+    markup += _getItemListTitle(key, event, simpleCalendarEnabled);
 
     event[key].forEach((eventItem) => {
       markup += `
@@ -93,11 +97,11 @@ function Generatenat20Row(event) {
   return markup;
 }
 
-function GenerateHealRow(event) {
+function GenerateHealRow(event, simpleCalendarEnabled) {
   let markup = ``;
 
   for (const [key] of Object.entries(event)) {
-    markup += `<h3>${key}</h3><ol class="item-list">`;
+    markup += _getItemListTitle(key, event, simpleCalendarEnabled);
 
     event[key].forEach((eventItem) => {
       markup += `
@@ -113,5 +117,21 @@ function GenerateHealRow(event) {
 
     markup += `</ol>`;
   }
+  return markup;
+}
+
+function _getItemListTitle(key, event, simpleCalendarEnabled) {
+  let markup = ``;
+
+  if (simpleCalendarEnabled) {
+    if (event[key] && event[key].length > 0) {
+      markup += `<h3>${event[key][0].simpleCalendarName}</h3><ol class="item-list">`;
+    } else {
+      markup += `<h3>${key}</h3><ol class="item-list">`;
+    }
+  } else {
+    markup += `<h3>${key}</h3><ol class="item-list">`;
+  }
+
   return markup;
 }
