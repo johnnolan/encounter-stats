@@ -11,6 +11,8 @@ export const OPT_ENABLE_AOE_DAMAGE = "enable_aoe_damage";
 export const OPT_ENABLE_MONSTER_STATS = "enable_monster_stats";
 export const OPT_ENABLE_JOURNAL_NOTIFICATION = "enable_journal_notification";
 export const OPT_TOGGLE_CAMPAIGN_TRACKING = "toggle_campaign_tracking_name";
+export const OPT_ENABLE_SIMPLE_CALENDAR_INTEGRATION =
+  "enable_simple_calendar_integration";
 
 export const OPT_REPORT_BUG = "report_bug";
 

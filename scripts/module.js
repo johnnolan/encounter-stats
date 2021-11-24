@@ -6,6 +6,7 @@ import {
   OPT_ENABLE_MONSTER_STATS,
   OPT_ENABLE_JOURNAL_NOTIFICATION,
   OPT_TOGGLE_CAMPAIGN_TRACKING,
+  OPT_ENABLE_SIMPLE_CALENDAR_INTEGRATION,
 } from "./Settings.js";
 import { CreateFolder } from "./Folder.js";
 import { SetupHooks } from "./Hooks.js";
@@ -64,6 +65,22 @@ Hooks.once("init", async function () {
     default: true,
     type: Boolean,
   });
+  game.settings.register(
+    `${MODULE_ID}`,
+    `${OPT_ENABLE_SIMPLE_CALENDAR_INTEGRATION}`,
+    {
+      name: game.i18n.format(
+        "FVTTEncounterStats.opt_enable_simple_calendar_integration_name"
+      ),
+      hint: game.i18n.format(
+        "FVTTEncounterStats.opt_enable_simple_calendar_integration_hint"
+      ),
+      scope: "world",
+      config: true,
+      default: true,
+      type: Boolean,
+    }
+  );
 });
 
 Hooks.once("ready", async function () {
