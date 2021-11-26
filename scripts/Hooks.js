@@ -42,12 +42,12 @@ function _setupSockerListeners() {
 
 function FormatMidiQol(workflow) {
   const wf = {
-    _id: workflow._id,
+    _id: workflow.id,
     actor: {
-      _id: workflow.actor._id,
+      _id: workflow.actor.id,
     },
     item: {
-      _id: workflow.item._id,
+      _id: workflow.itemId,
     },
     attackRoll: workflow.attackRoll,
     damageRoll: workflow.damageRoll,
