@@ -63,6 +63,14 @@ export async function MidiQol(stat, attackData, workflow) {
 
   nullChecks(attackData);
 
+  if (
+    attackData.item.name === "unknown" &&
+    attackData.item.itemLink === "unknown" &&
+    attackData.actionType === "unknown"
+  ) {
+    return;
+  }
+
   let isNewAttack = false;
   if (combatantStat.events.find((f) => f.id === attackData.id)) {
     combatantStat.events[combatantStat.events.length - 1] = attackData;

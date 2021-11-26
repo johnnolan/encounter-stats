@@ -199,7 +199,7 @@ export async function GetItemData(attackData, actorId, content, itemId = null) {
     attackData.item.name = "unknown";
     attackData.item.itemLink = "unknown";
 
-    if (getItem.link && getItem.data.name) {
+    if (getItem?.link && getItem?.data?.name) {
       attackData.item.name = getItem.data.name;
       attackData.item.itemLink = getItem.link;
     }
@@ -212,6 +212,50 @@ export async function GetItemData(attackData, actorId, content, itemId = null) {
 
     attackData.item.name = itemData.name;
     attackData.item.itemLink = itemData.link;
+  }
+
+  return attackData;
+}
+
+export async function GetItemDataTODO(
+  attackData,
+  actorId,
+  content,
+  itemId = null
+) {
+  let actor = game.actors.get(actorId);
+
+  if (!itemId) {
+    let match = getItemId(content);
+    if (match) {
+      itemId = match[2];
+    }
+  }
+
+  if (!itemId) {
+    return attackData;
+  }
+
+  let compendiumOwnedItem = await getIndex({ itemId: itemId });
+  let actorOwnedItem;
+
+  if (compendiumOwnedItem) {
+    attackData.item.name = compendiumOwnedItem.name;
+    attackData.item.itemLink = compendiumOwnedItem.link;
+    attackData.actionType = "unknown";
+  } else {
+    actorOwnedItem = await actor.items.find((i) => i.id === itemId);
+    if (actorOwnedItem) {
+      attackData.item.name = actorOwnedItem.data.name;
+      attackData.item.itemLink = actorOwnedItem.link;
+      attackData.actionType = actorOwnedItem.data.data.actionType;
+    }
+  }
+
+  if (!compendiumOwnedItem && !actorOwnedItem) {
+    attackData.actionType = "unknown";
+    attackData.item.name = "unknown";
+    attackData.item.itemLink = "unknown";
   }
 
   return attackData;
