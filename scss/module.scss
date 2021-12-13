@@ -45,9 +45,6 @@ li.item.flexrow.campaign-row {
         max-width: 110px;
         height: 110px;
         object-fit: contain;
-        border-right-color: currentcolor;
-        border-right-style: none;
-        border-right-width: medium;
         border-right: $border-style-groove;
       }
     }
@@ -58,10 +55,7 @@ li.item.flexrow.campaign-row {
         @include table-content-font-align();
         .item-list {
           margin: 0;
-          padding: 0;
           list-style: none;
-          margin: 0;
-          padding: 0;
           overflow-y: auto;
           scrollbar-width: thin;
           color: $color-1;
