@@ -118,7 +118,7 @@ export async function ChatType(data) {
 
 async function getIndex({ name = "", itemId = "" }) {
   var itemPacks = game.packs
-    .filter((f) => f.metadata.entity === "Item")
+    .filter((f) => f.metadata.documentName === "Item")
     .map((m) => {
       return `${m.metadata.package}.${m.metadata.name}`;
     });
