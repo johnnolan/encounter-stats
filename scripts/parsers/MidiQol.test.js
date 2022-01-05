@@ -17,7 +17,7 @@ SaveStat.mockImplementation(() => true);
 
 const packs = new Collection();
 let pack = new CompendiumCollection({
-  entity: "Item",
+  documentName: "Item",
   label: "Items (SRD)",
   name: "items",
   package: "dnd5e",
