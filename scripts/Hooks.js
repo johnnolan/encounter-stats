@@ -146,6 +146,23 @@ export async function SetupHooks() {
         }
       );
     }
+
+    if (game.settings.get(`${MODULE_ID}`, `${OPT_TOGGLE_CAMPAIGN_TRACKING}`)) {
+      window.Hooks.on(
+        "createChatMessage",
+        async function (data, options, user) {
+          if (
+            game.modules.get("betterrolls5e")?.active ||
+            game.modules.get("mars-5e")?.active ||
+            game.modules.get("beyond20")?.active
+          ) {
+            return;
+          } else {
+            OnTrackDiceRoll(data);
+          }
+        }
+      );
+    }
   } else {
     window.Hooks.on("updateActor", async function (data, diff) {
       if (diff.data?.attributes?.hp) {
@@ -181,19 +198,5 @@ export async function SetupHooks() {
         });
       });
     }
-  }
-
-  if (game.settings.get(`${MODULE_ID}`, `${OPT_TOGGLE_CAMPAIGN_TRACKING}`)) {
-    window.Hooks.on("createChatMessage", async function (data, options, user) {
-      if (
-        game.modules.get("betterrolls5e")?.active ||
-        game.modules.get("mars-5e")?.active ||
-        game.modules.get("beyond20")?.active
-      ) {
-        return;
-      } else {
-        OnTrackDiceRoll(data);
-      }
-    });
   }
 }
