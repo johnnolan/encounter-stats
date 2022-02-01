@@ -18,11 +18,11 @@ export default class SimpleCalendarIntegration {
 
   GetCurrentDate() {
     return {
-      day: SimpleCalendar.api.getCurrentDay().name,
-      month: SimpleCalendar.api.getCurrentMonth().name,
-      year: `${SimpleCalendar.api.getCurrentYear().numericRepresentation} ${
-        SimpleCalendar.api.getCurrentYear().postfix
-      }`,
+      day: window.SimpleCalendar.api.getCurrentDay().name,
+      month: window.SimpleCalendar.api.getCurrentMonth().name,
+      year: `${
+        window.SimpleCalendar.api.getCurrentYear().numericRepresentation
+      } ${window.SimpleCalendar.api.getCurrentYear().postfix}`,
     };
   }
 
