@@ -2,13 +2,13 @@ import { GetFolder } from "./Folder.js";
 import { MODULE_ID, OPT_ENABLE_JOURNAL_NOTIFICATION } from "./Settings.js";
 import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration.js";
 
-export async function CreateJournal(encounterId) {
-  let title = new Date().toISOString();
+export async function CreateJournal(encounterId, type) {
+  let title = `${new Date().toISOString()} - ${type}`;
   let simpleCalendarIntegration = new SimpleCalendarIntegration();
   const folder = GetFolder();
 
   if (simpleCalendarIntegration.IsEnabled()) {
-    title = `${simpleCalendarIntegration.GetCurrentDateToString()} (${encounterId})`;
+    title = `${simpleCalendarIntegration.GetCurrentDateToString()} (${encounterId} - ${type})`;
   }
 
   const article = {
@@ -23,7 +23,7 @@ export async function CreateJournal(encounterId) {
       name: article.title,
       content: content.html,
       folder: folder ? folder.id : null,
-      "flags.fvtt-encounter-stats.encounterId": encounterId,
+      "flags.fvtt-encounter-stats.encounterId": encounterId + type,
     },
     { renderSheet: false, activate: false }
   );
@@ -40,9 +40,10 @@ export async function UpdateJournal(html, article) {
   });
 }
 
-export async function GetArticle(encounterId) {
+export async function GetArticle(encounterId, type) {
   return game.journal.find(
-    (e) => e.getFlag("fvtt-encounter-stats", "encounterId") === encounterId
+    (e) =>
+      e.getFlag("fvtt-encounter-stats", "encounterId") === encounterId + type
   );
 }
 
