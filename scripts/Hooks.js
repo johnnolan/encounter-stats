@@ -151,14 +151,16 @@ export async function SetupHooks() {
       window.Hooks.on(
         "createChatMessage",
         async function (data, options, user) {
-          if (
-            game.modules.get("betterrolls5e")?.active ||
-            game.modules.get("mars-5e")?.active ||
-            game.modules.get("beyond20")?.active
-          ) {
-            return;
-          } else {
-            OnTrackDiceRoll(data);
+          if (!data.user.isGM) {
+            if (
+              game.modules.get("betterrolls5e")?.active ||
+              game.modules.get("mars-5e")?.active ||
+              game.modules.get("beyond20")?.active
+            ) {
+              return;
+            } else {
+              OnTrackDiceRoll(data);
+            }
           }
         }
       );
