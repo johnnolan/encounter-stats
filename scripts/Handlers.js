@@ -7,6 +7,7 @@ import {
   MODULE_ID,
   OPT_ENABLE_AOE_DAMAGE,
   OPT_TOGGLE_CAMPAIGN_TRACKING,
+  OPT_ENABLE_MONSTER_STATS,
 } from "./Settings.js";
 import { GetStat, SaveStat, RemoveStat } from "./StatManager.js";
 import { TargetsHit, ResetTemplateHealthCheck, IsInCombat } from "./Utils.js";
@@ -31,7 +32,11 @@ async function _createCombat(data) {
     },
     templateHealthCheck: [],
   };
-  await CreateJournal(encounterId);
+
+  await CreateJournal(encounterId, "PC");
+  if (game.settings.get(`${MODULE_ID}`, `${OPT_ENABLE_MONSTER_STATS}`)) {
+    await CreateJournal(encounterId, "NPC");
+  }
   await SaveStat(stat);
 }
 

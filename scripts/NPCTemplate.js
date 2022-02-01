@@ -4,86 +4,20 @@ export function Generate(data) {
   const markup = `
   <div class="fvtt-enc-stats">
     <hr />
-    <div class="fvtt-enc-stats_top">
-      <div class="fvtt-enc-stats_actor_statlist flexrow">
-        <div class="fvtt-enc-stats_actor_stat">
-          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-            "FVTTEncounterStats.template.most_damage_overall"
-          )}</div>
-          <div class="fvtt-enc-stats_actor_stat-value">${
-            data.top.maxDamage
-          }</div>
-        </div>
-        <div class="fvtt-enc-stats_actor_stat">
-          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-            "FVTTEncounterStats.template.most_damage_per_turn"
-          )}</div>
-          <div class="fvtt-enc-stats_actor_stat-value">${
-            data.top.mostDamageInOneTurn
-          }</div>
-        </div>
-        <div class="fvtt-enc-stats_actor_stat">
-          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-            "FVTTEncounterStats.template.highest_average_damage"
-          )}</div>
-          <div class="fvtt-enc-stats_actor_stat-value">${
-            data.top.highestAvgDamage
-          }</div>
-        </div>
-        <div class="fvtt-enc-stats_actor_stat">
-          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-            "FVTTEncounterStats.template.highest_damage_in_1_hit"
-          )}</div>
-          <div class="fvtt-enc-stats_actor_stat-value">${
-            data.top.highestMaxDamage
-          }</div>
-        </div>
-      </div>
-    </div>
-    <hr />
-    <div class="fvtt-enc-stats_top">
-      <div class="fvtt-enc-stats_actor_statlist flexrow">
-        <div class="fvtt-enc-stats_actor_stat">
-          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-            "FVTTEncounterStats.template.most_kills"
-          )}</div>
-          <div class="fvtt-enc-stats_actor_stat-value">${
-            data.top.mostKills
-          }</div>
-        </div>
-        <div class="fvtt-enc-stats_actor_stat">
-          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-            "FVTTEncounterStats.template.most_healing"
-          )}</div>
-          <div class="fvtt-enc-stats_actor_stat-value">${
-            data.top.mostHealing
-          }</div>
-        </div>
-        <div class="fvtt-enc-stats_actor_stat">
-          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-            "FVTTEncounterStats.template.most_support_actions"
-          )}</div>
-          <div class="fvtt-enc-stats_actor_stat-value">${
-            data.top.mostSupportActions
-          }</div>
-        </div>
-        <div class="fvtt-enc-stats_actor_stat">
-          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-            "FVTTEncounterStats.template.battlefield_actions"
-          )}</div>
-          <div class="fvtt-enc-stats_actor_stat-value">${
-            data.top.mostBattlefieldActions
-          }</div>
-        </div>
-      </div>
-    </div>
     <div class="fvtt-enc-stats_combatants">
-    <div>${data.combatants
-      .filter((f) => f.type === "character")
-      .map(function (combatant) {
-        return GenerateCombatant(combatant, data.round);
-      })
-      .join("")}</div></div></div>
+      <h2 class="fvtt-enc-stats_enemies">
+      ${game.i18n.format("FVTTEncounterStats.template.enemies")}
+      </h2>
+      <div>${data.combatants
+        .filter((f) => f.type === "npc")
+        .map(function (combatant) {
+          return GenerateCombatant(combatant, data.round);
+        })
+        .join(
+          ""
+        )}</div></div></div><div>JSON Source: <textarea rows="20">${JSON.stringify(
+    data
+  )}</textarea></div>
   `;
 
   return markup;
