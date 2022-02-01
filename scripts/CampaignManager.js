@@ -25,9 +25,16 @@ function _getDateGroup() {
 }
 
 function _simpleCalendarName() {
-  let simpleCalendarIntegration = new SimpleCalendarIntegration();
+  let dName;
 
-  return simpleCalendarIntegration.GetCurrentDateToString();
+  let simpleCalendarIntegration = new SimpleCalendarIntegration();
+  if (simpleCalendarIntegration.IsEnabled()) {
+    dName = `${simpleCalendarIntegration.GetCurrentDateToString()}`;
+  } else {
+    let d = new Date().toISOString();
+    dName = `${d.substring(0, 10)}`;
+  }
+  return dName;
 }
 
 async function _getDataArticle() {
