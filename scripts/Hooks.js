@@ -151,7 +151,7 @@ export async function SetupHooks() {
       window.Hooks.on(
         "createChatMessage",
         async function (data, options, user) {
-          if (!data.user.isGM) {
+          if (!data?.user?.isGM) {
             if (
               game.modules.get("betterrolls5e")?.active ||
               game.modules.get("mars-5e")?.active ||
