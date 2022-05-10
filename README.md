@@ -11,6 +11,16 @@
 
 # FVTT Encounter Stats
 
+# THIS MODULE IS NOT ARCHIVED
+
+Due to home life, rapid changes in modules and the upcoming V10 Foundry update, I am unable to keep this module up to date.
+
+If in the future, the ability to capture roll stats is a part of the core functionality then it will be easier to maintain.
+
+Should someone want to fork and carry on supporting this repo, please feel free to take the source code.
+
+Thank you to everyone I got to speak to and for your support while building it.
+
 ## Individual Encounter
 
 This module is designed to capture your 
