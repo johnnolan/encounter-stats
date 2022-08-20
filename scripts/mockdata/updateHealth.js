@@ -623,32 +623,6 @@ export const updateHealth = {
                         "definitionId": 4638,
                         "originalName": "Flame Tongue Greatsword"
                     },
-                    "betterRolls5e": {
-                        "quickDamage": {
-                            "context": {
-                                "0": ""
-                            },
-                            "value": {
-                                "0": true
-                            },
-                            "altValue": {
-                                "0": true
-                            }
-                        },
-                        "quickVersatile": {
-                            "altValue": true
-                        },
-                        "quickCharges": {
-                            "value": {
-                                "use": false,
-                                "resource": true
-                            },
-                            "altValue": {
-                                "use": false,
-                                "resource": true
-                            }
-                        }
-                    },
                     "magicitems": {
                         "enabled": true,
                         "charges": 0,
