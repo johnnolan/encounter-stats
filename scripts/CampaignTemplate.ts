@@ -1,9 +1,8 @@
 import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration.js";
 
 export function Generate(data) {
-  const simpleCalendarIntegration = new SimpleCalendarIntegration();
-  const simpleCalendarEnabled = simpleCalendarIntegration.IsEnabled();
-  const markup = `
+  const simpleCalendarEnabled = SimpleCalendarIntegration.IsEnabled();
+  return `
   <div class="fvtt-enc-stats">
     <hr />
     <h2 class="fvtt-enc-stats_enemies">Natural 20s</h2>
@@ -30,8 +29,6 @@ export function Generate(data) {
     </div>
   </div>
   `;
-
-  return markup;
 }
 
 function GenerateKillRow(event, simpleCalendarEnabled) {

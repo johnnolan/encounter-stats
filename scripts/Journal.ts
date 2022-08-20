@@ -4,11 +4,10 @@ import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration.
 
 export async function CreateJournal(encounterId, type) {
   let title = `${new Date().toISOString()} - ${type}`;
-  let simpleCalendarIntegration = new SimpleCalendarIntegration();
   const folder = GetFolder();
 
-  if (simpleCalendarIntegration.IsEnabled()) {
-    title = `${simpleCalendarIntegration.GetCurrentDateToString()} (${encounterId} - ${type})`;
+  if (SimpleCalendarIntegration.IsEnabled()) {
+    title = `${SimpleCalendarIntegration.GetCurrentDateToString()} (${encounterId} - ${type})`;
   }
 
   const article = {

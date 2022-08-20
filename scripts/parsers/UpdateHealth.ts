@@ -5,10 +5,12 @@ import {
 } from "../Utils.js";
 import { GetStat, SaveStat } from "../StatManager.js";
 import { HEALTH_DATA_TEMPLATE } from "../Settings.js";
+import { HealthData } from "../types/globals.js";
 
 export default async function UpdateHealth(data) {
   let stat = GetStat();
-  let healthData = duplicate(HEALTH_DATA_TEMPLATE);
+  //let healthData = duplicate(HEALTH_DATA_TEMPLATE);
+  let healthData = <HealthData>{};
 
   let combatantStat = GetCombatantStats(stat, data.id);
   if (!combatantStat) return;

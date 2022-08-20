@@ -1,81 +1,101 @@
+type RollModuleType = "default" | "midi";
+
 type CombatantType = "character" | "npc";
 
 type AttackTypes = "mwak" | "rwak" | "msak" | "rsak" | "save" | "heal";
 
-type ValidAttackTypes = AttackTypes.mwak | AttackTypes.rwak | AttackTypes.msak | AttackTypes.rsak | AttackTypes.save;
+type ValidAttackTypes =
+  | AttackTypes.mwak
+  | AttackTypes.rwak
+  | AttackTypes.msak
+  | AttackTypes.rsak
+  | AttackTypes.save;
 
 type ValidHealingTypes = AttackTypes.heal;
 
-type Combatant = {
-  name: string,
-  id: string,
-  tokenId: string,
-  img: string,
-  type: string,
-  hp: number,
-  max: number,
-  ac: nuber,
-  events: Array<string>,
-  health: Array<string>,
-  kills: Array<string>,
-  summaryList: {
-    min: number,
-    max: number,
-    avg: number,
-    total: number,
-  },
+export interface EventItem {
+  item: {
+    itemLink: string;
+    name: string;
+  };
+}
+
+export interface CombatantEvent {
+  id: string;
+  actionType: AttackTypes;
+  round: string;
+  advantage: boolean;
+  disadvantage: boolean;
+  attackTotal: string;
+  damageTotal: string;
+  tokenId: string;
+  actorId: string;
+  isCritical: boolean;
+  isFumble: boolean;
+  item: EventItem;
+}
+
+export interface CombatantHealthData {
+  id: string;
+  round: string;
+  tokenId: string;
+  actorId: string;
+  max: number;
+  diff: number;
+  previous: number;
+  current: number;
+  isdamage: boolean;
+  isheal: boolean;
+}
+
+export interface CombatantKills {
+  round: string,
+  tokenName: string,
+};
+
+export interface Combatant {
+  name: string;
+  id: string;
+  tokenId: string;
+  img: string;
+  type: string;
+  hp: number;
+  max: number;
+  ac: nuber;
+  events: Array<CombatantEvent>;
+  health: Array<CombatantHealthData>;
+  kills: Array<CombatantKills>;
+  summaryList: CombatantEventSummaryList;
   roundSummary: {
     totals: [
       {
-        round: number,
-        damageTotal: number,
-      },
-    ],
-  },
+        round: number;
+        damageTotal: number;
+      }
+    ];
+  };
+}
+
+export interface CombatantEventSummaryList {
+  min: number;
+  max: number;
+  avg: number;
+  total: number;
 }
 
 type HealthCheck = {
-  name: string
-}
+  name: string;
+};
 
 type Encounter = {
-  encounterId: string,
-  round: number,
-  combatants: Array<Combatant>,
+  encounterId: string;
+  round: number;
+  combatants: Array<Combatant>;
   top: {
-    maxDamage: string,
-    mostDamageInOneTurn: string,
-    highestAvgDamage: string,
-    highestMaxDamage: string,
-  },
-  templateHealthCheck: Array<HealthCheck>,
-};
-
-type ModuleSetup = {
-  actor: {
-    name: string;
+    maxDamage: string;
+    mostDamageInOneTurn: string;
+    highestAvgDamage: string;
+    highestMaxDamage: string;
   };
-  settings: {
-    isValid: boolean;
-    hasWildMagicFeat: boolean;
-    hasTidesOfChaosResource: boolean;
-    hasTidesOfChaosFeat: boolean;
-  };
-};
-
-type HookValue = {
-  value: string | boolean | number;
-};
-
-type HookSurgeValue = {
-  surge: boolean;
-  result: string | undefined;
-  tokenId: string;
-};
-
-type FlagValue = {
-  max?: number;
-  min?: number;
-  value: number;
-  dieValue?: DieValue;
+  templateHealthCheck: Array<HealthCheck>;
 };
