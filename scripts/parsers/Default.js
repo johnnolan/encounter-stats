@@ -10,7 +10,6 @@ import {
 import { ATTACKTYPES } from "../Settings.js";
 
 export default async function Default(stat, attackData, data) {
-  if (data.data.content.indexOf("beyond20-message") > -1) return;
   let combatantStat = GetCombatantStats(stat, data.data.speaker.actor);
   if (!combatantStat) return;
   const eventsLength = combatantStat.events.length;

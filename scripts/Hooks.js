@@ -9,12 +9,8 @@ import {
   OnDeleteCombat,
   OnCreateChatMessage,
   OnUpdateCombat,
-  OnUpdateBetterRolls,
-  OnUpdateBetterRollsRollCapture,
   OnMidiRollComplete,
   OnUpdateHealth,
-  OnBeyond20,
-  OnMars5e,
   OnCreateMeasuredTemplate,
   OnTrackKill,
   OnTrackDiceRoll,
@@ -31,10 +27,6 @@ function _setupSockerListeners() {
         break;
       case "midi-qol.RollComplete":
         OnMidiRollComplete(payload.data);
-        break;
-      case "messageBetterRolls":
-      case "updateBetterRolls":
-        OnUpdateBetterRolls($(payload.data), payload.isNew);
         break;
     }
   });
@@ -97,38 +89,10 @@ export async function SetupHooks() {
         OnUpdateHealth(data);
       }
     });
-    if (game.modules.get("betterrolls5e")?.active) {
-      window.Hooks.on(
-        "messageBetterRolls",
-        async function (data, options, user) {
-          OnUpdateBetterRollsRollCapture($(options.content));
-        }
-      );
-    }
 
     if (game.modules.get("midi-qol")?.active) {
       window.Hooks.on("midi-qol.RollComplete", async function (workflow) {
         OnMidiRollComplete(FormatMidiQol(workflow));
-      });
-    } else if (game.modules.get("betterrolls5e")?.active) {
-      window.Hooks.on(
-        "messageBetterRolls",
-        async function (data, options, user) {
-          OnUpdateBetterRolls($(options.content), true);
-        }
-      );
-      window.Hooks.on("updateBetterRolls", async function (data, html, user) {
-        OnUpdateBetterRolls($(html), false);
-      });
-    } else if (game.modules.get("mars-5e")?.active) {
-      window.Hooks.on(
-        "createChatMessage",
-        async function (data, options, user) {
-          OnMars5e(data, true);
-        }
-      );
-      window.Hooks.on("updateChatMessage", async function (data) {
-        OnMars5e(data, false);
       });
     } else {
       window.Hooks.on(
@@ -138,29 +102,13 @@ export async function SetupHooks() {
         }
       );
     }
-    if (game.modules.get("beyond20")?.active) {
-      window.Hooks.on(
-        "createChatMessage",
-        async function (data, options, user) {
-          OnBeyond20(data);
-        }
-      );
-    }
 
     if (game.settings.get(`${MODULE_ID}`, `${OPT_TOGGLE_CAMPAIGN_TRACKING}`)) {
       window.Hooks.on(
         "createChatMessage",
         async function (data, options, user) {
           if (!data?.user?.isGM) {
-            if (
-              game.modules.get("betterrolls5e")?.active ||
-              game.modules.get("mars-5e")?.active ||
-              game.modules.get("beyond20")?.active
-            ) {
-              return;
-            } else {
-              OnTrackDiceRoll(data);
-            }
+            OnTrackDiceRoll(data);
           }
         }
       );
@@ -179,24 +127,6 @@ export async function SetupHooks() {
         game.socket.emit(SOCKET_NAME, {
           event: "midi-qol.RollComplete",
           data: FormatMidiQol(workflow),
-        });
-      });
-    } else if (game.modules.get("betterrolls5e")?.active) {
-      window.Hooks.on(
-        "messageBetterRolls",
-        async function (data, options, user) {
-          game.socket.emit(SOCKET_NAME, {
-            event: "messageBetterRolls",
-            data: options.content,
-            isNew: true,
-          });
-        }
-      );
-      window.Hooks.on("updateBetterRolls", async function (data, html, user) {
-        game.socket.emit(SOCKET_NAME, {
-          event: "updateBetterRolls",
-          data: html,
-          isNew: false,
         });
       });
     }

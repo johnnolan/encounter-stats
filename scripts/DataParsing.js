@@ -1,12 +1,6 @@
 import { GetStat, SaveStat } from "./StatManager.js";
 import Default from "./parsers/Default.js";
-import {
-  BetterRollsFor5e,
-  BetterRollsFor5eRollCheck,
-} from "./parsers/BetterRollsFor5e.js";
 import { MidiQol, MidiQolRollCheck } from "./parsers/MidiQol.js";
-import Beyond20 from "./parsers/Beyond20.js";
-import Mars5e from "./parsers/Mars5e.js";
 import {
   ROLL_HOOK,
   ATTACK_DATA_TEMPLATE,
@@ -16,24 +10,15 @@ import {
 } from "./Settings.js";
 import { CampaignTrackNat1, CampaignTrackNat20 } from "./CampaignManager.js";
 
-export async function AddAttack(data, type, isNew = false) {
+export async function AddAttack(data, type) {
   let stat = GetStat();
   let attackData = duplicate(ATTACK_DATA_TEMPLATE);
   attackData.round = stat.round;
   let statResult;
 
   switch (type) {
-    case ROLL_HOOK.BETTERROLLS5E:
-      statResult = await BetterRollsFor5e(stat, attackData, data, isNew);
-      break;
     case ROLL_HOOK.MIDI_QOL:
       statResult = await MidiQol(stat, attackData, data);
-      break;
-    case ROLL_HOOK.BEYOND_20:
-      statResult = await Beyond20(stat, attackData, data);
-      break;
-    case ROLL_HOOK.MARS5E:
-      statResult = await Mars5e(stat, attackData, data);
       break;
     case ROLL_HOOK.DEFAULT:
       statResult = await Default(stat, attackData, data);
@@ -57,21 +42,9 @@ export async function AddDiceRoll(data, type) {
     let rollResult;
 
     switch (type) {
-      case ROLL_HOOK.BETTERROLLS5E:
-        rollResult = await BetterRollsFor5eRollCheck(data);
-        break;
       case ROLL_HOOK.MIDI_QOL:
         statResult = await MidiQolRollCheck(data);
         break;
-      /*case ROLL_HOOK.BEYOND_20:
-      statResult = await Beyond20(stat, attackData, data);
-      break;
-    case ROLL_HOOK.MARS5E:
-      statResult = await Mars5e(stat, attackData, data);
-      break;
-    case ROLL_HOOK.DEFAULT:
-      statResult = await Default(stat, attackData, data);
-      break;*/
       default:
         return;
     }

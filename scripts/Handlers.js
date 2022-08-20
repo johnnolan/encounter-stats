@@ -1,5 +1,5 @@
 import { CreateJournal } from "./Journal.js";
-import { AddCombatants, AddAttack, AddDiceRoll } from "./DataParsing.js";
+import { AddCombatants, AddAttack } from "./DataParsing.js";
 import UpdateHealth from "./parsers/UpdateHealth.js";
 import TrackKill from "./parsers/TrackKill.js";
 import {
@@ -109,29 +109,9 @@ export async function OnCreateChatMessage(attackData) {
   AddAttack(attackData, ROLL_HOOK.DEFAULT);
 }
 
-export async function OnBeyond20(workflow) {
-  if (!IsInCombat()) return;
-  AddAttack(workflow, ROLL_HOOK.BEYOND_20);
-}
-
-export async function OnMars5e(data, isNew) {
-  if (!IsInCombat()) return;
-  AddAttack(data, ROLL_HOOK.MARS5E, isNew);
-}
-
 export async function OnMidiRollComplete(workflow) {
   if (!IsInCombat()) return;
   AddAttack(workflow, ROLL_HOOK.MIDI_QOL);
-}
-
-export async function OnUpdateBetterRollsRollCapture(workflow) {
-  AddDiceRoll(workflow, ROLL_HOOK.BETTERROLLS5E);
-}
-
-export async function OnUpdateBetterRolls(attackData, isNew) {
-  AddDiceRoll(attackData, ROLL_HOOK.BETTERROLLS5E);
-  if (!IsInCombat()) return;
-  AddAttack(attackData, ROLL_HOOK.BETTERROLLS5E, isNew);
 }
 
 export async function OnUpdateHealth(data) {

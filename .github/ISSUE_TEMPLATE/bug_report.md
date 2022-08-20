@@ -13,14 +13,6 @@ A clear and concise description of what the bug is.
 **What version of FoundryVTT are you using?**
 Version 0.8.7? 0.7.9?
 
-**Do you use any of these modules and are they active?**
-
-[] DDB Gamelog
-[] Beyond20
-[] Better Rolls for 5e
-[] midi-qol
-[] Minimal Rolling Enhancements
-
 **To Reproduce**
 Steps to reproduce the behavior:
 1. Go to '...'
