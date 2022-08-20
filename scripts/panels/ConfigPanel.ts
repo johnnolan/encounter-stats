@@ -26,7 +26,7 @@ export class ConfigPanel extends FormApplication {
     for (const [key] of game.settings.settings.entries()) {
       if (
         key.indexOf("fvtt-encounter-stats.") === 0 ||
-        key.indexOf("midi-qol.") === 0 ||
+        key.indexOf("midi-qol.") === 0
       ) {
         let keySplit = key.split(".");
         let gameSetting = game.settings.get(`${keySplit[0]}`, `${keySplit[1]}`);

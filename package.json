@@ -1,7 +1,6 @@
 {
   "name": "fvtt-encounter-stats",
   "version": "1.0.0",
-  "main": "index.js",
   "type": "module",
   "repository": "git@github.com:johnnolan/fvtt-encounter-stats.git",
   "author": "John Nolan <me@johnnolan.dev>",
@@ -12,8 +11,9 @@
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
     "lint:check": "eslint --ignore-path .gitignore .",
+    "lint:report": "eslint --ignore-path .gitignore --output-file eslint_report.json --format json .",
     "lint:fix": "eslint --fix --ignore-path .gitignore .",
-    "build": "node esbuild.js"
+    "build": "node ./build.js"
   },
   "dependencies": {},
   "devDependencies": {
