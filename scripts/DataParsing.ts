@@ -5,7 +5,6 @@ import {
   ROLL_HOOK,
   ATTACK_DATA_TEMPLATE,
   MODULE_ID,
-  OPT_ENABLE_MONSTER_STATS,
   OPT_TOGGLE_CAMPAIGN_TRACKING,
 } from "./Settings.js";
 import { CampaignTrackNat1, CampaignTrackNat20 } from "./CampaignManager.js";
@@ -66,9 +65,7 @@ export async function AddCombatants(actor, tokenId) {
   const combatant = actor?.data;
   if (!_isValidCombatant(combatant?.type)) return;
 
-  if (!game.settings.get(`${MODULE_ID}`, `${OPT_ENABLE_MONSTER_STATS}`)) {
-    if (_isNPC(combatant?.type)) return;
-  }
+  if (_isNPC(combatant?.type)) return;
 
   let stat = GetStat();
   if (!stat) return;
