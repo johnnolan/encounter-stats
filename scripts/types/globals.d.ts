@@ -1,13 +1,54 @@
-type SurgeType = "WMS" | "POWM" | "TOCSURGE";
+type CombatantType = "character" | "npc";
 
-type Comparison = "EQ" | "GT" | "LT";
+type AttackTypes = "mwak" | "rwak" | "msak" | "rsak" | "save" | "heal";
 
-type DieValue = undefined | "1d20" | "1d12" | "1d10" | "1d8" | "1d6" | "1d4";
+type ValidAttackTypes = AttackTypes.mwak | AttackTypes.rwak | AttackTypes.msak | AttackTypes.rsak | AttackTypes.save;
 
-type TidesItemData = {
-  hasTidesOfChaosResource: boolean;
-  hasTidesOfChaosFeat: boolean;
-  isValid: boolean;
+type ValidHealingTypes = AttackTypes.heal;
+
+type Combatant = {
+  name: string,
+  id: string,
+  tokenId: string,
+  img: string,
+  type: string,
+  hp: number,
+  max: number,
+  ac: nuber,
+  events: Array<string>,
+  health: Array<string>,
+  kills: Array<string>,
+  summaryList: {
+    min: number,
+    max: number,
+    avg: number,
+    total: number,
+  },
+  roundSummary: {
+    totals: [
+      {
+        round: number,
+        damageTotal: number,
+      },
+    ],
+  },
+}
+
+type HealthCheck = {
+  name: string
+}
+
+type Encounter = {
+  encounterId: string,
+  round: number,
+  combatants: Array<Combatant>,
+  top: {
+    maxDamage: string,
+    mostDamageInOneTurn: string,
+    highestAvgDamage: string,
+    highestMaxDamage: string,
+  },
+  templateHealthCheck: Array<HealthCheck>,
 };
 
 type ModuleSetup = {
