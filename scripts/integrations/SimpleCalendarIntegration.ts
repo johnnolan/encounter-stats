@@ -4,9 +4,7 @@ import {
 } from "../Settings.js";
 
 export default class SimpleCalendarIntegration {
-  constructor() {}
-
-  IsEnabled() {
+  static IsEnabled() {
     return (
       window.SimpleCalendar !== undefined &&
       game.settings.get(
@@ -16,7 +14,7 @@ export default class SimpleCalendarIntegration {
     );
   }
 
-  GetCurrentDate() {
+  static GetCurrentDate() {
     return {
       day: window.SimpleCalendar.api.getCurrentDay().name,
       month: window.SimpleCalendar.api.getCurrentMonth().name,
@@ -26,7 +24,7 @@ export default class SimpleCalendarIntegration {
     };
   }
 
-  GetCurrentDateToString() {
+  static GetCurrentDateToString() {
     const d = this.GetCurrentDate();
     return `${d.day} ${d.month} ${d.year}`;
   }

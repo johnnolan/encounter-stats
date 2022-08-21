@@ -1,7 +1,7 @@
 import { IsValidAttack, IsHealingSpell } from "./Utils.js";
 
 export function Generate(data) {
-  const markup = `
+  return `
   <div class="fvtt-enc-stats">
     <hr />
     <div class="fvtt-enc-stats_top">
@@ -85,12 +85,10 @@ export function Generate(data) {
       })
       .join("")}</div></div></div>
   `;
-
-  return markup;
 }
 
 function GenerateCombatant(combatant, numberOfRounds) {
-  const markup = `
+  return `
   <div class="fvtt-enc-stats_combatant" data-fvtt-id="${combatant.id}">
     <div class="fvtt-enc-stats_combatants_overview">
       <header class="fvtt-enc-stats_combatants_actor flexrow">
@@ -169,8 +167,6 @@ function GenerateCombatant(combatant, numberOfRounds) {
     </div>
   </div>
   `;
-
-  return markup;
 }
 function GenerateRoundHtml(combatant, numberOfRounds) {
   let markup = ``;
@@ -281,7 +277,7 @@ function GenerateRoundHtml(combatant, numberOfRounds) {
 }
 
 function GenerateAttackRow(event) {
-  let markup = `
+  return `
   <li class="item flexrow">
     <div class="item-name item-weapon">${
       event.item.itemLink ? event.item.itemLink : event.item.name
@@ -301,8 +297,6 @@ function GenerateAttackRow(event) {
     event.damageTotal
   }</div>
   </li>`;
-
-  return markup;
 }
 
 function getHealOrDamageClass(attackType) {

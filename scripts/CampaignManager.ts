@@ -11,9 +11,8 @@ import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration.
 function _getDateGroup() {
   let dName;
 
-  let simpleCalendarIntegration = new SimpleCalendarIntegration();
-  if (simpleCalendarIntegration.IsEnabled()) {
-    dName = `D${simpleCalendarIntegration
+  if (SimpleCalendarIntegration.IsEnabled()) {
+    dName = `D${SimpleCalendarIntegration
       .GetCurrentDateToString()
       .replace(/ /g, "")}`;
   } else {
@@ -27,9 +26,8 @@ function _getDateGroup() {
 function _simpleCalendarName() {
   let dName;
 
-  let simpleCalendarIntegration = new SimpleCalendarIntegration();
-  if (simpleCalendarIntegration.IsEnabled()) {
-    dName = `${simpleCalendarIntegration.GetCurrentDateToString()}`;
+  if (SimpleCalendarIntegration.IsEnabled()) {
+    dName = `${SimpleCalendarIntegration.GetCurrentDateToString()}`;
   } else {
     let d = new Date().toISOString();
     dName = `${d.substring(0, 10)}`;

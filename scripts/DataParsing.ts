@@ -1,39 +1,25 @@
 import { GetStat, SaveStat } from "./StatManager.js";
 import Default from "./parsers/Default.js";
-import {
-  BetterRollsFor5e,
-  BetterRollsFor5eRollCheck,
-} from "./parsers/BetterRollsFor5e.js";
 import { MidiQol, MidiQolRollCheck } from "./parsers/MidiQol.js";
-import Beyond20 from "./parsers/Beyond20.js";
-import Mars5e from "./parsers/Mars5e.js";
 import {
   ROLL_HOOK,
   ATTACK_DATA_TEMPLATE,
   MODULE_ID,
-  OPT_ENABLE_MONSTER_STATS,
   OPT_TOGGLE_CAMPAIGN_TRACKING,
 } from "./Settings.js";
 import { CampaignTrackNat1, CampaignTrackNat20 } from "./CampaignManager.js";
+import { Encounter } from "./types/globals.js";
+import Stat from "./Stat.js";
 
-export async function AddAttack(data, type, isNew = false) {
+export async function AddAttack(data, type) {
   let stat = GetStat();
   let attackData = duplicate(ATTACK_DATA_TEMPLATE);
   attackData.round = stat.round;
   let statResult;
 
   switch (type) {
-    case ROLL_HOOK.BETTERROLLS5E:
-      statResult = await BetterRollsFor5e(stat, attackData, data, isNew);
-      break;
     case ROLL_HOOK.MIDI_QOL:
       statResult = await MidiQol(stat, attackData, data);
-      break;
-    case ROLL_HOOK.BEYOND_20:
-      statResult = await Beyond20(stat, attackData, data);
-      break;
-    case ROLL_HOOK.MARS5E:
-      statResult = await Mars5e(stat, attackData, data);
       break;
     case ROLL_HOOK.DEFAULT:
       statResult = await Default(stat, attackData, data);
@@ -57,21 +43,9 @@ export async function AddDiceRoll(data, type) {
     let rollResult;
 
     switch (type) {
-      case ROLL_HOOK.BETTERROLLS5E:
-        rollResult = await BetterRollsFor5eRollCheck(data);
-        break;
       case ROLL_HOOK.MIDI_QOL:
         statResult = await MidiQolRollCheck(data);
         break;
-      /*case ROLL_HOOK.BEYOND_20:
-      statResult = await Beyond20(stat, attackData, data);
-      break;
-    case ROLL_HOOK.MARS5E:
-      statResult = await Mars5e(stat, attackData, data);
-      break;
-    case ROLL_HOOK.DEFAULT:
-      statResult = await Default(stat, attackData, data);
-      break;*/
       default:
         return;
     }
@@ -93,14 +67,12 @@ export async function AddCombatants(actor, tokenId) {
   const combatant = actor?.data;
   if (!_isValidCombatant(combatant?.type)) return;
 
-  if (!game.settings.get(`${MODULE_ID}`, `${OPT_ENABLE_MONSTER_STATS}`)) {
-    if (_isNPC(combatant?.type)) return;
-  }
+  if (_isNPC(combatant?.type)) return;
 
-  let stat = GetStat();
+  const stat: Stat = GetStat();
   if (!stat) return;
 
-  const newCombatants = {
+  const newCombatant: EncounterCombatant = {
     name: combatant.name,
     id: combatant._id,
     tokenId: tokenId,
@@ -128,10 +100,9 @@ export async function AddCombatants(actor, tokenId) {
     },
   };
 
-  if (!stat.combatants.find((f) => f.id === newCombatants.id)) {
-    stat.combatants.push(newCombatants);
-    await SaveStat(stat);
-  }
+  stat.addCombatant(newCombatant);
+
+  await SaveStat(stat.encounter);
 }
 
 function _isValidCombatant(type) {

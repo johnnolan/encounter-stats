@@ -1,8 +1,13 @@
 {
-    "extends": ["prettier", "@typhonjs-fvtt/eslint-config-foundry.js"],
-    "plugins": ["prettier"],
-    "parser": "@babel/eslint-parser",
+    "extends": ["prettier", "@typhonjs-fvtt/eslint-config-foundry.js", "eslint:recommended", "plugin:@typescript-eslint/recommended"],
+    "plugins": ["prettier", "@typescript-eslint"],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "requireConfigFile": false
+    },
     "rules": {
         "prettier/prettier": ["error"]
-    }
+    },
+    "ignorePatterns": ["scripts/mocks/**/*", "scripts/mockdata/**/*", "scripts/panels/**/*.ts"]
 }

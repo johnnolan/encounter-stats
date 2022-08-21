@@ -644,32 +644,6 @@ export const midiQolData = {
                         "definitionId": 4638,
                         "originalName": "Flame Tongue Greatsword"
                     },
-                    "betterRolls5e": {
-                        "quickDamage": {
-                            "context": {
-                                "0": ""
-                            },
-                            "value": {
-                                "0": true
-                            },
-                            "altValue": {
-                                "0": true
-                            }
-                        },
-                        "quickVersatile": {
-                            "altValue": true
-                        },
-                        "quickCharges": {
-                            "value": {
-                                "use": false,
-                                "resource": true
-                            },
-                            "altValue": {
-                                "use": false,
-                                "resource": true
-                            }
-                        }
-                    },
                     "magicitems": {
                         "enabled": true,
                         "charges": 0,
@@ -862,32 +836,6 @@ export const midiQolData = {
                 "definitionEntityTypeId": 112130694,
                 "definitionId": 4638,
                 "originalName": "Flame Tongue Greatsword"
-            },
-            "betterRolls5e": {
-                "quickDamage": {
-                    "context": {
-                        "0": ""
-                    },
-                    "value": {
-                        "0": true
-                    },
-                    "altValue": {
-                        "0": true
-                    }
-                },
-                "quickVersatile": {
-                    "altValue": true
-                },
-                "quickCharges": {
-                    "value": {
-                        "use": false,
-                        "resource": true
-                    },
-                    "altValue": {
-                        "use": false,
-                        "resource": true
-                    }
-                }
             },
             "magicitems": {
                 "enabled": true,
