@@ -6,17 +6,18 @@ import {
 import { STORAGE_NAME } from "./Settings.js";
 import { Generate } from "./Template.js";
 import { UpdateJournal, GetArticle } from "./Journal.js";
+import { Encounter } from "./types/globals.js";
 
 export function GetStat() {
-  return GetItemFromLocalStorage(STORAGE_NAME);
+  return <Encounter>GetItemFromLocalStorage(STORAGE_NAME);
 }
 
-export async function SaveStat(data) {
-  SaveToLocalStorageStat(STORAGE_NAME, data);
+export async function SaveStat(encounter: Encounter) {
+  SaveToLocalStorageStat(STORAGE_NAME, encounter);
 
-  const markup = Generate(data);
+  const markup = Generate(encounter);
 
-  let article = await GetArticle(data.encounterId, "PC");
+  const article = await GetArticle(encounter.encounterId, "PC");
 
   await UpdateJournal(markup, article);
 }

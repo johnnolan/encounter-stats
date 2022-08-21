@@ -49,11 +49,11 @@ export interface CombatantHealthData {
 }
 
 export interface CombatantKills {
-  round: string,
-  tokenName: string,
-};
+  round: string;
+  tokenName: string;
+}
 
-export interface Combatant {
+export interface EncounterCombatant {
   name: string;
   id: string;
   tokenId: string;
@@ -89,8 +89,8 @@ type HealthCheck = {
 
 type Encounter = {
   encounterId: string;
-  round: number;
-  combatants: Array<Combatant>;
+  round: string;
+  combatants: Array<EncounterCombatant>;
   top: {
     maxDamage: string;
     mostDamageInOneTurn: string;

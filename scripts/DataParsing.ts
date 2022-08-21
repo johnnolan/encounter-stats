@@ -8,6 +8,8 @@ import {
   OPT_TOGGLE_CAMPAIGN_TRACKING,
 } from "./Settings.js";
 import { CampaignTrackNat1, CampaignTrackNat20 } from "./CampaignManager.js";
+import { Encounter } from "./types/globals.js";
+import Stat from "./Stat.js";
 
 export async function AddAttack(data, type) {
   let stat = GetStat();
@@ -67,10 +69,10 @@ export async function AddCombatants(actor, tokenId) {
 
   if (_isNPC(combatant?.type)) return;
 
-  let stat = GetStat();
+  const stat: Stat = GetStat();
   if (!stat) return;
 
-  const newCombatants = {
+  const newCombatant: EncounterCombatant = {
     name: combatant.name,
     id: combatant._id,
     tokenId: tokenId,
@@ -98,10 +100,9 @@ export async function AddCombatants(actor, tokenId) {
     },
   };
 
-  if (!stat.combatants.find((f) => f.id === newCombatants.id)) {
-    stat.combatants.push(newCombatants);
-    await SaveStat(stat);
-  }
+  stat.addCombatant(newCombatant);
+
+  await SaveStat(stat.encounter);
 }
 
 function _isValidCombatant(type) {

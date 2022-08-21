@@ -15,11 +15,12 @@ import {
   CampaignTrackNat1,
   CampaignTrackNat20,
 } from "./CampaignManager.js";
+import Stat from "./Stat.js";
 
 async function _createCombat(data) {
   const encounterId = data.data._id;
   if (!encounterId) return "";
-  let stat = {
+  const stat = new Stat({
     encounterId: encounterId,
     round: 1,
     combatants: [],
@@ -30,7 +31,7 @@ async function _createCombat(data) {
       highestMaxDamage: "",
     },
     templateHealthCheck: [],
-  };
+  });
 
   await CreateJournal(encounterId, "PC");
   await SaveStat(stat);
