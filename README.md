@@ -9,17 +9,7 @@
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X8X354DCG)
 
-# FVTT Encounter Stats
-
-# THIS MODULE IS NOT ARCHIVED
-
-Due to home life, rapid changes in modules and the upcoming V10 Foundry update, I am unable to keep this module up to date.
-
-If in the future, the ability to capture roll stats is a part of the core functionality then it will be easier to maintain.
-
-Should someone want to fork and carry on supporting this repo, please feel free to take the source code.
-
-Thank you to everyone I got to speak to and for your support while building it.
+# Encounter Stats
 
 ## Individual Encounter
 
@@ -55,10 +45,7 @@ This can then be viewed post battle to look upon for the Players to analyse and 
 
 The current module works on rolls from the following list.
 
-* [Better Rolls for 5e](https://github.com/RedReign/FoundryVTT-BetterRolls5e)
-* [Beyond20](https://foundryvtt.com/packages/beyond20/)
 * [midi-qol](https://gitlab.com/tposney/midi-qol)
-* [MARS 5e - Moerills alternative rolling style for 5e](https://github.com/Moerill/fvtt-mars-5e)
 * Vanilla Foundry
 
 If you would like to see another module supported that isn't above then feel free to add it as a feature to the issues list in Github.
