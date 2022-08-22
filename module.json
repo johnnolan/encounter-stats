@@ -1,6 +1,6 @@
 {
-  "name": "fvtt-encounter-stats",
-  "title": "FVTT Encounter Stats",
+  "name": "encounter-stats",
+  "title": "Encounter Statistics",
   "description": "Capture your Players attacks and damage in an Encounter and store the results into a Journal Entry with a summary of their stats for each after you end the Encounter.",
   "version": "This is auto replaced",
   "library": "false",

@@ -18,7 +18,7 @@ import {
 import MidiQol from "./parsers/MidiQol";
 import { IsInCombat } from "./Utils";
 
-const SOCKET_NAME = "module.fvtt-encounter-stats";
+const SOCKET_NAME = "module.encounter-stats";
 
 function _setupSockerListeners() {
   game.socket.on(SOCKET_NAME, function (payload) {
