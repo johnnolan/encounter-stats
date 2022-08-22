@@ -11,26 +11,17 @@ import { CampaignTrackNat1, CampaignTrackNat20 } from "./CampaignManager";
 import Stat from "./Stat";
 import { EncounterMidiWorkflow } from "./types/globals";
 
-export async function OnTrackDiceRoll(data): Promise<void> {
-  if (data !== undefined) {
-    if (data.data.roll !== undefined) {
-      if (data.roll.dice[0].faces === 20) {
-        if (
-          data.roll.dice[0].results.filter((f) => {
-            return f.active;
-          })[0].result === 1
-        ) {
-          CampaignTrackNat1(data.data.speaker.alias, data.data.flavor);
-        }
+export async function OnTrackDiceRoll(rolls: Array<Roll>, alias: string, flavor: string): Promise<void> {
+  if (rolls.length !== 1) return;
 
-        if (
-          data.roll.dice[0].results.filter((f) => {
-            return f.active;
-          })[0].result === 20
-        ) {
-          CampaignTrackNat20(data.data.speaker.alias, data.data.flavor);
-        }
-      }
+  const roll: Roll = rolls[0];
+  if (roll.formula === "1d20") {
+    if (roll.total === 1) {
+      CampaignTrackNat1(alias, flavor);
+    }
+
+    if (roll.total === 20) {
+      CampaignTrackNat20(alias, flavor);
     }
   }
 }
@@ -85,7 +76,7 @@ export async function OnMidiRollComplete(
 ): Promise<void> {
   if (!IsInCombat()) return;
   const stat = new Stat();
-  stat.AddAttack(workflow, stat.currentRound);
+  stat.AddAttack(workflow);
   stat.Save();
 }
 

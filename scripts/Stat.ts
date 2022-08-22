@@ -86,6 +86,9 @@ export default class Stat {
       actionType: workflow.actionType,
       round: this.currentRound,
       enemyHit: workflow.enemyHit,
+      attackTotal: 0,
+      damageTotal: 0,
+      isCritical: false,
     };
 
     if (this.IsValidAttack(newCombatantEvent.actionType)) {

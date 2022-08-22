@@ -75,6 +75,20 @@ export async function SetupHooks() {
       });
     }
 
+    /*window.Hooks.on(
+      "createChatMessage",
+      async function (chatMessage: ChatMessage, options, user) {
+        console.debug(chatMessage, options, user);
+        if (!chatMessage?.user?.isGM) {
+          OnTrackDiceRoll(
+            chatMessage.rolls,
+            chatMessage.speaker.alias,
+            chatMessage.flavor
+          );
+        }
+      }
+    );*/
+
     /* else {
       window.Hooks.on(
         "createChatMessage",
