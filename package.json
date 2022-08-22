@@ -13,7 +13,8 @@
     "lint:check": "eslint --ignore-path .gitignore .",
     "lint:report": "eslint --ignore-path .gitignore --output-file eslint_report.json --format json .",
     "lint:fix": "eslint --fix --ignore-path .gitignore .",
-    "build": "node ./build.js"
+    "sass": "sass --style=compressed scss/module.scss styles/module.css",
+    "build": "node ./build.js && yarn run sass"
   },
   "dependencies": {},
   "devDependencies": {
@@ -36,6 +37,7 @@
     "jest-junit": "^14.0.0",
     "jest-localstorage-mock": "^2.4.22",
     "prettier": "^2.7.1",
+    "sass": "^1.54.5",
     "ts-jest": "^28.0.8",
     "ts-migrate": "^0.1.31",
     "typescript": "^4.7.4"
