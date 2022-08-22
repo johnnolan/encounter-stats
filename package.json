@@ -8,7 +8,7 @@
   "scripts": {
     "jshint": "jshint scripts/",
     "test": "jest",
-    "test:coverage": "jest --coverage",
+    "test:coverage": "jest --ci --runInBand",
     "test:watch": "jest --watch",
     "lint:check": "eslint --ignore-path .gitignore .",
     "lint:report": "eslint --ignore-path .gitignore --output-file eslint_report.json --format json .",

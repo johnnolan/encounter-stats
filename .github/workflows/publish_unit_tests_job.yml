@@ -1,0 +1,56 @@
+on:
+  workflow_call:
+
+jobs:
+  publish_unit_tests:
+    name: Publish Unit Tests
+    runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }}
+
+    steps:
+      - name: Download Junit Artifact
+        id: download_junit
+        uses: actions/download-artifact@v3
+        with:
+          name: junit
+          path: test-results/junit
+
+      - name: Download Clover Artifact
+        id: download_clover
+        uses: actions/download-artifact@v3
+        with:
+          name: clover
+          path: coverage
+
+      - name: Download ESLint Artifact
+        id: eslint_report
+        uses: actions/download-artifact@v3
+        with:
+          name: eslint_report
+          path: eslint_report.json
+
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          check_name: "Unit Test Results"
+          junit_files: test-results/junit/results.xml
+
+      - name: Coverage Report
+        uses: lucassabreu/comment-coverage-clover@main
+        with:
+          file: "coverage/clover.xml"
+          min-line-coverage: 80
+          min-method-coverage: 80
+
+      # - name: Annotate Code Linting Results
+      #   uses: ataylorme/eslint-annotate-action@v2
+      #   with:
+      #     repo-token: "${{ secrets.GITHUB_TOKEN }}"
+      #     report-json: "eslint_report.json"
+
+      # - name: Upload ESLint report
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: eslint_report.json
+      #     path: eslint_report.json
