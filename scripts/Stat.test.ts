@@ -2,7 +2,7 @@ import { Encounter, EncounterMidiWorkflow } from "./types/globals";
 import Stat from "./Stat";
 jest.mock("./StatManager");
 import { GetStat, RemoveStat, SaveStat } from "./StatManager";
-import { actor } from "../MockData/actor";
+import { actor } from "./mockdata/actor";
 
 const encounter: Encounter = {
   encounterId: "t98gppsau45ypm3t",

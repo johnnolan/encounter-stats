@@ -1,0 +1,97 @@
+name: "[Workflow] Main"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: ESLint Javascript
+    uses: ./.github/workflows/lint_job.yml
+
+  test:
+    name: Jest Tests
+    uses: ./.github/workflows/test_job.yml
+
+  publish_unit_tests:
+    name: Publish Unit Tests
+    needs: ['lint', 'test']
+    uses: ./.github/workflows/publish_unit_tests_job.yml
+
+  create_tag_publish:
+    name: Bump, Tag and Publish Pre-release
+    runs-on: ubuntu-latest
+    needs: ['lint', 'test']
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version-file: '.nvmrc'
+
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+
+    - name: Cache yarn dependencies
+      uses: actions/cache@v3
+      with:
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+
+    - name: Install dependencies
+      run: yarn install
+
+    - name: Build Module
+      run: yarn run build
+
+    - name: Bump version
+      id: bump_version
+      uses: anothrNick/github-tag-action@1.39.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        INITIAL_VERSION: 1.0.0
+        DEFAULT_BUMP: patch
+        PRERELEASE_SUFFIX: ${{ env.BRANCH_NAME }}
+        RELEASE_BRANCHES: main
+        WITH_V: false
+
+    - name: Changelog
+      uses: Bullrich/generate-release-changelog@2.0.1
+      id: changelog
+      env:
+        REPO: ${{ github.repository }}
+
+    # Substitute the Manifest and Download URLs in the module.json
+    - name: Substitute Manifest and Download Links For Versioned Ones
+      id: sub_manifest_link_version
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: 'module.json'
+      env:
+        version: ${{steps.bump_version.outputs.new_tag}}
+        url: https://github.com/${{github.repository}}
+        manifest: https://github.com/${{github.repository}}/releases/latest/download/module.json
+        download: https://github.com/${{github.repository}}/releases/download/${{steps.bump_version.outputs.new_tag}}/module.zip
+
+    # Create a zip file with all files required by the module to add to the release
+    - run: zip -r ./module.zip module.json LICENSE dist/ languages/ templates/
+
+    # Create a release for this specific version
+    - name: Update Release with Files
+      id: create_version_release
+      uses: ncipollo/release-action@v1
+      with:
+        allowUpdates: true # Set this to false if you want to prevent updating existing releases
+        name: ${{ steps.bump_version.outputs.new_tag }}
+        draft: false
+        prerelease: true
+        token: ${{ secrets.GITHUB_TOKEN }}
+        artifacts: './module.json, ./module.zip'
+        tag: ${{ steps.bump_version.outputs.new_tag }}
+        body: ${{ steps.changelog.outputs.changelog }}

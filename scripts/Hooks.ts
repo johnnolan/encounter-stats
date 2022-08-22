@@ -27,7 +27,6 @@ function _setupSockerListeners() {
         OnUpdateHealth(payload.data);
         break;
       case "midi-qol.RollComplete":
-        console.debug("payload.data", payload.data);
         OnMidiRollComplete(MidiQol.ParseWorkflow(payload.data));
         //OnMidiRollComplete(payload.data);
         break;
@@ -49,14 +48,6 @@ function updateActorToken(data, diff) {
 export async function SetupHooks() {
   if (game.user.isGM) {
     _setupSockerListeners();
-    /*if (game.settings.get(`${MODULE_ID}`, `${OPT_ENABLE_AOE_DAMAGE}`)) {
-      window.Hooks.on(
-        "createMeasuredTemplate",
-        async function (data, arg2, arg3) {
-          OnCreateMeasuredTemplate(data);
-        }
-      );
-    }*/
     window.Hooks.on("renderCombatTracker", async function (arg1, arg2, data) {
       OnRenderCombatTracker(data);
     });
@@ -120,5 +111,22 @@ export async function SetupHooks() {
         });
       });
     }*/
+  } else {
+    /*window.Hooks.on("updateActor", async function (data, diff) {
+      if (diff.data?.attributes?.hp) {
+        game.socket.emit(SOCKET_NAME, {
+          event: "updateActor",
+          data: data,
+        });
+      }
+    });*/
+    if (game.modules.get("midi-qol")?.active) {
+      window.Hooks.on("midi-qol.RollComplete", async function (workflow) {
+        game.socket.emit(SOCKET_NAME, {
+          event: "midi-qol.RollComplete",
+          data: MidiQol.ParseWorkflow(workflow),
+        });
+      });
+    }
   }
 }

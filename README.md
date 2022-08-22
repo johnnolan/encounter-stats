@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/Foundry-v0.9.0-informational)
+![](https://img.shields.io/badge/Foundry-v0.10.0-informational)
 ![Latest Release Download Count](https://img.shields.io/github/downloads/johnnolan/fvtt-encounter-stats/latest/module.zip)
 ![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Ffvtt-encounter-stats&colorB=4aa94a)
 [![Foundry Hub Endorsements](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Ffvtt-encounter-stats%2Fshield%2Fendorsements)](https://www.foundryvtt-hub.com/package/fvtt-encounter-stats/)
@@ -10,6 +10,23 @@
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X8X354DCG)
 
 # Encounter Stats
+
+## !IMPORTANT!
+
+This package is being updated for V10. It should work now but with bugs. I will be updating it over the coming weeks to tighten the reporting up and will remove this section once ready for feedback.
+
+### Current limitations and features are
+
+* Only works with `midi-qol` and `dnd5e`
+* Enemies must be targetted in order for kills to be registered
+* Uses the new V10 Journal
+* Campaign Stats are not currently enabled
+* Due to time and life I will not be adding other systems except midi-qol
+
+### Upcoming
+
+* Vanilla foundry roll support
+* Enabled Campaign Stats
 
 ## Individual Encounter
 

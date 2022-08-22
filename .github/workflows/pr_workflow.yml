@@ -1,0 +1,25 @@
+name: "[Workflow] PR"
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: ESLint Javascript
+    uses: ./.github/workflows/lint_job.yml
+
+  test:
+    name: Jest Tests
+    uses: ./.github/workflows/test_job.yml
+
+  publish_unit_tests:
+    name: Publish Unit Tests
+    needs: ['lint', 'test']
+    uses: ./.github/workflows/publish_unit_tests_job.yml
+
+  dependabot:
+    name: Dependabot Approve and Auto Merge
+    needs: ['lint', 'test']
+    uses: ./.github/workflows/dependabot-approve-and-auto-merge_job.yml
