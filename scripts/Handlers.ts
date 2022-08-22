@@ -6,11 +6,8 @@ import {
   OPT_ENABLE_AOE_DAMAGE,
   OPT_TOGGLE_CAMPAIGN_TRACKING,
 } from "./Settings";
-import { TargetsHit, ResetTemplateHealthCheck, IsInCombat } from "./Utils";
-import {
-  CampaignTrackNat1,
-  CampaignTrackNat20,
-} from "./CampaignManager";
+import { ResetTemplateHealthCheck, IsInCombat } from "./Utils";
+import { CampaignTrackNat1, CampaignTrackNat20 } from "./CampaignManager";
 import Stat from "./Stat";
 import { EncounterMidiWorkflow } from "./types/globals";
 
