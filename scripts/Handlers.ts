@@ -76,7 +76,7 @@ export async function OnMidiRollComplete(
 ): Promise<void> {
   if (!IsInCombat()) return;
   const stat = new Stat();
-  stat.AddAttack(workflow, stat.currentRound);
+  stat.AddAttack(workflow);
   stat.Save();
 }
 
