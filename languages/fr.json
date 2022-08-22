@@ -1,6 +1,6 @@
 {
-    "EncounterStats.opt_enable_name": "Activer Encounter Stats",
-    "EncounterStats.opt_enable_hint": "Active le module Encounter Stats",
+    "EncounterStats.opt_enable_name": "Activer Encounter Statistics",
+    "EncounterStats.opt_enable_hint": "Active le module Encounter Statistics",
     "EncounterStats.enable_aoe_damage_name": "Activer le suivi des dégâts de zone",
     "EncounterStats.enable_aoe_damage_hint": "Quand actif, pour chaque sort qui utilise un gabarit de zone, le module prendra en compte tous les dégâts reçus par les tokens dans la zone au lieu de ne prendre en compte que les dégâts lancés au dé.",
     "EncounterStats.enable_monster_stats_name": "Activer le suivi des statistiques des Monstres/PNJ",

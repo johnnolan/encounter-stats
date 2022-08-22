@@ -1,4 +1,4 @@
-export const MODULE_NAME = "FVTT Encounter Stats";
+export const MODULE_NAME = "FVTT Encounter Statistics";
 export const MODULE_ID = "encounter-stats";
 
 export const STORAGE_NAME = "encounter-stats-data";
