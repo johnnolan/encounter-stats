@@ -22,7 +22,7 @@
   ],
   "conflicts": [],
   "esmodules": [
-    "/scripts/module.js"
+    "/dist/module.js"
   ],
   "scripts": [],
   "styles": [

@@ -1,4 +1,4 @@
-import { IsValidAttack, IsHealingSpell } from "./Utils.js";
+import Stat from "./Stat";
 
 export function Generate(data) {
   return `
@@ -300,8 +300,9 @@ function GenerateAttackRow(event) {
 }
 
 function getHealOrDamageClass(attackType) {
-  if (IsHealingSpell(attackType)) return "blue";
-  if (IsValidAttack(attackType)) return "red";
+  const stat = new Stat();
+  if (stat.IsHealingSpell(attackType)) return "blue";
+  if (stat.IsValidAttack(attackType)) return "red";
 }
 
 function getAttackTypeFAIcon(attackType) {

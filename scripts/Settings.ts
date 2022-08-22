@@ -63,3 +63,8 @@ export const KILLED_DATA_TEMPLATE = {
   round: null,
   tokenName: null,
 };
+
+export const CombatantType = {
+  character: "character",
+  npc: "npc",
+}

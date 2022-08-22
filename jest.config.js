@@ -8,6 +8,7 @@ export default {
       },
     },
   },
+  setupFiles: ["jest-localstorage-mock"],
   transform: { "^.+\\.ts?$": "ts-jest" },
   reporters: ["default", "jest-junit"],
   coverageThreshold: {

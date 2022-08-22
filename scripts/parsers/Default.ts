@@ -5,8 +5,8 @@ import {
   ChatType,
   GetCombatantStats,
   CombatantStats
-} from "../Utils.js";
-import { ATTACKTYPES } from "../Settings.js";
+} from "../Utils";
+import { ATTACKTYPES } from "../Settings";
 
 export default async function Default(stat, attackData, data) {
   const combatantStat = GetCombatantStats(stat, data.data.speaker.actor);

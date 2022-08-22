@@ -1,7 +1,8 @@
-import { MODULE_ID, OPT_ENABLE } from "./Settings.js";
-import { CreateFolder } from "./Folder.js";
-import { SetupHooks } from "./Hooks.js";
-import ModuleSettings from "./ModuleSettings.js";
+import { MODULE_ID, OPT_ENABLE } from "./Settings";
+import { CreateFolder } from "./Folder";
+import { SetupHooks } from "./Hooks";
+import ModuleSettings from "./ModuleSettings";
+import EncounterJournal from "./EncounterJournal";
 
 Hooks.once("init", async function () {
   ModuleSettings.Register();
@@ -14,6 +15,10 @@ Hooks.once("ready", async function () {
 
   if (game.user.isGM) {
     CreateFolder();
+    const journalEntry = await EncounterJournal.GetJournal();
+    if (!journalEntry) {
+      EncounterJournal.CreateJournal();
+    }
   }
   SetupHooks();
 });

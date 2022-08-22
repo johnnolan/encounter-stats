@@ -1,62 +1,20 @@
-import { CreateJournal } from "./Journal.js";
-import { AddCombatants, AddAttack } from "./DataParsing.js";
-import UpdateHealth from "./parsers/UpdateHealth.js";
-import TrackKill from "./parsers/TrackKill.js";
+import EncounterJournal from "./EncounterJournal";
+import TrackKill from "./parsers/TrackKill";
 import {
   ROLL_HOOK,
   MODULE_ID,
   OPT_ENABLE_AOE_DAMAGE,
   OPT_TOGGLE_CAMPAIGN_TRACKING,
-} from "./Settings.js";
-import { GetStat, SaveStat, RemoveStat } from "./StatManager.js";
-import { TargetsHit, ResetTemplateHealthCheck, IsInCombat } from "./Utils.js";
+} from "./Settings";
+import { TargetsHit, ResetTemplateHealthCheck, IsInCombat } from "./Utils";
 import {
-  CampaignTrack,
   CampaignTrackNat1,
   CampaignTrackNat20,
-} from "./CampaignManager.js";
-import Stat from "./Stat.js";
+} from "./CampaignManager";
+import Stat from "./Stat";
+import { EncounterMidiWorkflow } from "./types/globals";
 
-async function _createCombat(data) {
-  const encounterId = data.data._id;
-  if (!encounterId) return "";
-  const stat = new Stat({
-    encounterId: encounterId,
-    round: 1,
-    combatants: [],
-    top: {
-      maxDamage: "",
-      mostDamageInOneTurn: "",
-      highestAvgDamage: "",
-      highestMaxDamage: "",
-    },
-    templateHealthCheck: [],
-  });
-
-  await CreateJournal(encounterId, "PC");
-  await SaveStat(stat);
-}
-
-async function _addCombatants(data) {
-  if (!data.combat) return;
-  const combatantsList = data.combat.data._source.combatants;
-  for (let i = 0; i < combatantsList.length; i++) {
-    const actorId = combatantsList[i].actorId;
-    const tokenId = combatantsList[i].tokenId;
-    AddCombatants(game.actors.get(actorId), tokenId);
-  }
-}
-
-async function _updateRound(currentRound) {
-  if (!currentRound) return;
-  let stat = GetStat();
-  if (stat.round !== currentRound) {
-    stat.round = currentRound;
-    await SaveStat(stat);
-  }
-}
-
-export async function OnTrackDiceRoll(data) {
+export async function OnTrackDiceRoll(data): Promise<void> {
   if (data !== undefined) {
     if (data.data.roll !== undefined) {
       if (data.roll.dice[0].faces === 20) {
@@ -80,50 +38,70 @@ export async function OnTrackDiceRoll(data) {
   }
 }
 
-export async function OnCreateMeasuredTemplate(data) {
-  if (!IsInCombat()) return;
-  await TargetsHit(data);
+export async function OnUpdateCombat(currentRound: number): Promise<void> {
+  if (!currentRound) return;
+  const stat = new Stat();
+
+  stat.UpdateRound(currentRound);
+
+  await stat.Save();
 }
 
-export async function OnRenderCombatTracker(arg3) {
-  await _addCombatants(arg3);
+export async function OnRenderCombatTracker(data: any): Promise<void> {
+  if (!data.hasCombat) return;
+  const stat = new Stat();
+
+  const combatantsList = data.combat.combatants;
+  for (const element of combatantsList) {
+    const actorId = element.actorId;
+    const tokenId = element.tokenId;
+    stat.AddCombatant(game.actors.get(actorId), tokenId);
+  }
+  await stat.Save();
 }
 
-export async function OnCreateCombat(arg1) {
-  _createCombat(arg1);
+export async function OnCreateCombat(combat: Combat): Promise<void> {
+  const encounterId = combat.id;
+  if (!encounterId) return;
+  const stat = new Stat(encounterId);
+
+  EncounterJournal.CreateJournalEntryPage(encounterId);
+  await stat.Save();
 }
 
-export async function OnDeleteCombat() {
-  if (game.settings.get(`${MODULE_ID}`, `${OPT_TOGGLE_CAMPAIGN_TRACKING}`)) {
+export async function OnDeleteCombat(): Promise<void> {
+  /*if (game.settings.get(`${MODULE_ID}`, `${OPT_TOGGLE_CAMPAIGN_TRACKING}`)) {
     const date = new Date();
     await CampaignTrack(date.toISOString());
-  }
-  RemoveStat();
+  }*/
+  const stat = new Stat();
+  stat.Delete();
 }
 
-export async function OnCreateChatMessage(attackData) {
+export async function OnCreateChatMessage(attackData): Promise<void> {
   if (!IsInCombat()) return;
   AddAttack(attackData, ROLL_HOOK.DEFAULT);
 }
 
-export async function OnMidiRollComplete(workflow) {
+export async function OnMidiRollComplete(
+  workflow: EncounterMidiWorkflow
+): Promise<void> {
   if (!IsInCombat()) return;
-  AddAttack(workflow, ROLL_HOOK.MIDI_QOL);
+  const stat = new Stat();
+  stat.AddAttack(workflow, stat.currentRound);
+  stat.Save();
 }
 
-export async function OnUpdateHealth(data) {
+export async function OnUpdateHealth(actor: Actor): Promise<void> {
   if (!IsInCombat()) return;
-  UpdateHealth(data);
+  const stat = new Stat();
+  stat.UpdateHealth(actor);
+  stat.Save();
 }
 
-export async function OnTrackKill(targetName, tokenId) {
+export async function OnTrackKill(targetName, tokenId): Promise<void> {
   if (!IsInCombat()) return;
-  TrackKill(targetName, tokenId);
-}
-
-export async function OnUpdateCombat(round) {
-  await _updateRound(round);
-  if (game.settings.get(`${MODULE_ID}`, `${OPT_ENABLE_AOE_DAMAGE}`)) {
-    await ResetTemplateHealthCheck();
-  }
+  const stat = new Stat();
+  stat.AddKill(targetName, tokenId);
+  stat.Save();
 }

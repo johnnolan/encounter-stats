@@ -1,78 +1,67 @@
 import {
-  IsValidAttack,
-  IsValidRollEvent,
-  nullChecks,
-  GetItemData,
-  GetCombatantStats,
-  CombatantStats,
-  _add,
-} from "../Utils.js";
+  EncounterMidiWorkflow,
+  EnemyHit,
+  MidiQolWorkflow,
+} from "../types/globals";
 
-export async function MidiQolRollCheck(workflow) {
-  const actorId = workflow.actor._id;
-  let actor;
+class MidiQol {
+  static ParseWorkflow(workflow: MidiQolWorkflow): EncounterMidiWorkflow {
+    const enemiesHit: Array<EnemyHit> = workflow.applicationTargets
+      .filter(
+        (f) => workflow.attackTotal >= f.sheet.actor.system.attributes.ac.value
+      )
+      .map(
+        (m) =>
+          <EnemyHit>{
+            tokenId: m.id,
+            name: m.sheet.actor.name,
+          }
+      );
 
-  if (actorId) {
-    actor = await game.actors.get(actorId);
+    return <EncounterMidiWorkflow>{
+      id: workflow.id,
+      actor: {
+        id: workflow.actor.id,
+      },
+      item: {
+        id: workflow.item.id,
+        name: workflow.item.name,
+        link: workflow.item.link,
+        type: workflow.item.type,
+        img: workflow.item.img,
+      },
+      actionType: workflow.item.system.actionType,
+      attackRoll: workflow.attackRoll?.total ?? 0,
+      damageRoll: workflow.damageRoll ?? 0,
+      damageTotal: workflow.damageTotal ?? 0,
+      damageMultipleEnemiesTotal: workflow.damageTotal ?? 0 * enemiesHit.length,
+      attackTotal: workflow.attackTotal ?? 0,
+      workflowType: workflow.workflowType,
+      advantage:
+        workflow.attackRoll?.options?.advantageMode === 1 ? true : false,
+      disadvantage:
+        workflow.attackRoll?.options?.advantageMode === -1 ? true : false,
+      isCritical: workflow.isCritical,
+      isFumble: workflow.isFumble,
+      enemyHit: enemiesHit,
+    };
   }
 
-  return {
-    isCritical: workflow.isCritical,
-    isFumble: workflow.isFumble,
-    flavor: "",
-    name: actor.name,
-  };
+  static async RollCheck(workflow: MidiQolWorkflow) {
+    const actorId = workflow.actor.id;
+    let actor;
+
+    if (actorId) {
+      actor = await game.actors.get(actorId);
+    }
+
+    return {
+      isCritical: workflow.isCritical,
+      isFumble: workflow.isFumble,
+      flavor: "",
+      name: actor.name,
+    };
+  }
 }
 
-export async function MidiQol(stat, attackData, workflow) {
-  let combatantStat = GetCombatantStats(stat, workflow.actor._id);
-  if (!combatantStat) return;
-  stat.templateHealthCheck = [];
-  attackData.id = workflow._id;
-  attackData.actorId = workflow.actor._id;
-
-  attackData = await GetItemData(
-    attackData,
-    attackData.actorId,
-    null,
-    workflow.item._id
-  );
-
-  if (IsValidAttack(attackData.actionType)) {
-    if (workflow.attackRoll) {
-      attackData.attackTotal = workflow.attackRoll.total;
-      attackData.advantage =
-        workflow.attackRoll.options.advantageMode === 1 ? true : false;
-      attackData.disadvantage =
-        workflow.attackRoll.options.advantageMode === -1 ? true : false;
-    }
-  }
-  if (IsValidRollEvent(attackData.actionType)) {
-    if (workflow.damageRoll) {
-      attackData.damageTotal = workflow.damageRoll.total;
-      attackData.isCritical = workflow.damageRoll.options.critical;
-    }
-  }
-
-  nullChecks(attackData);
-
-  if (
-    attackData.item.name === "unknown" &&
-    attackData.item.itemLink === "unknown" &&
-    attackData.actionType === "unknown"
-  ) {
-    return;
-  }
-
-  let isNewAttack = false;
-  if (combatantStat.events.find((f) => f.id === attackData.id)) {
-    combatantStat.events[combatantStat.events.length - 1] = attackData;
-  } else {
-    combatantStat.events.push(attackData);
-    isNewAttack = true;
-  }
-
-  CombatantStats(combatantStat);
-
-  return { stat: stat, isNewAttack: isNewAttack, attackData: attackData };
-}
+export default MidiQol;

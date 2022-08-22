@@ -1,14 +1,14 @@
 /**
  * @jest-environment jsdom
  */
-import Default from "./Default.js";
-import { duplicate } from "../mocks/helpers.js";
+import Default from "./Default";
+import { duplicate } from "../mocks/helpers";
 global.duplicate = duplicate;
-import { combatantStats } from "../mockdata/combatantStats.js";
-import { defaultData } from "../mockdata/defaultData.js";
+import { combatantStats } from "../mockdata/combatantStats";
+import { defaultData } from "../mockdata/defaultData";
 jest.mock("../StatManager.js");
-import { ATTACK_DATA_TEMPLATE } from "../Settings.js";
-import { GetStat, SaveStat } from "../StatManager.js";
+import { ATTACK_DATA_TEMPLATE } from "../Settings";
+import { GetStat, SaveStat } from "../StatManager";
 
 GetStat.mockImplementation(() => combatantStats);
 SaveStat.mockImplementation(() => true);
