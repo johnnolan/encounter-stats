@@ -1,6 +1,6 @@
 /* istanbul ignore file */
-import Collection from "./Collection.js";
-import ItemCollection from "./ItemCollection.js";
+import Collection from "./Collection";
+import ItemCollection from "./ItemCollection";
 
 class CompendiumCollection extends Collection {
   constructor(metadata) {

@@ -2,7 +2,7 @@ import {
   MODULE_ID,
   OPT_ENABLE_AOE_DAMAGE,
   OPT_TOGGLE_CAMPAIGN_TRACKING,
-} from "./Settings.js";
+} from "./Settings";
 import {
   OnRenderCombatTracker,
   OnCreateCombat,
@@ -14,8 +14,9 @@ import {
   OnCreateMeasuredTemplate,
   OnTrackKill,
   OnTrackDiceRoll,
-} from "./Handlers.js";
-import { IsInCombat } from "./Utils.js";
+} from "./Handlers";
+import MidiQol from "./parsers/MidiQol";
+import { IsInCombat } from "./Utils";
 
 const SOCKET_NAME = "module.fvtt-encounter-stats";
 
@@ -26,46 +27,36 @@ function _setupSockerListeners() {
         OnUpdateHealth(payload.data);
         break;
       case "midi-qol.RollComplete":
-        OnMidiRollComplete(payload.data);
+        console.debug("payload.data", payload.data);
+        OnMidiRollComplete(MidiQol.ParseWorkflow(payload.data));
+        //OnMidiRollComplete(payload.data);
         break;
     }
   });
 }
 
-function FormatMidiQol(workflow) {
-  const wf = {
-    _id: workflow.id,
-    actor: {
-      _id: workflow.actor.id,
-    },
-    item: {
-      _id: workflow.itemId,
-    },
-    attackRoll: workflow.attackRoll,
-    damageRoll: workflow.damageRoll,
-    damageTotal: workflow.damageTotal,
-    attackTotal: workflow.attackTotal,
-    workflowType: workflow.workflowType,
-    advantage: workflow.advantage,
-    disadvantage: workflow.disadvantage,
-    isCritical: workflow.isCritical,
-    isFumble: workflow.isFumble,
-  };
-
-  return wf;
+function updateActorToken(data, diff) {
+  if (IsInCombat()) {
+    if (!data.hasPlayerOwner && diff.system?.attributes?.hp?.value === 0) {
+      OnTrackKill(data.name, game.combat.current.tokenId);
+    }
+  }
+  if (diff.system?.attributes?.hp) {
+    OnUpdateHealth(data);
+  }
 }
 
 export async function SetupHooks() {
   if (game.user.isGM) {
     _setupSockerListeners();
-    if (game.settings.get(`${MODULE_ID}`, `${OPT_ENABLE_AOE_DAMAGE}`)) {
+    /*if (game.settings.get(`${MODULE_ID}`, `${OPT_ENABLE_AOE_DAMAGE}`)) {
       window.Hooks.on(
         "createMeasuredTemplate",
         async function (data, arg2, arg3) {
           OnCreateMeasuredTemplate(data);
         }
       );
-    }
+    }*/
     window.Hooks.on("renderCombatTracker", async function (arg1, arg2, data) {
       OnRenderCombatTracker(data);
     });
@@ -80,30 +71,29 @@ export async function SetupHooks() {
     });
 
     window.Hooks.on("updateActor", async function (data, diff) {
-      if (IsInCombat()) {
-        if (!data.hasPlayerOwner && diff.data?.attributes?.hp?.value === 0) {
-          OnTrackKill(data.name, game.combat.current.tokenId);
-        }
-      }
-      if (diff.data?.attributes?.hp) {
-        OnUpdateHealth(data);
-      }
+      updateActorToken(data, diff);
+    });
+
+    window.Hooks.on("updateToken", async function (data, diff) {
+      updateActorToken(data, diff);
     });
 
     if (game.modules.get("midi-qol")?.active) {
       window.Hooks.on("midi-qol.RollComplete", async function (workflow) {
-        OnMidiRollComplete(FormatMidiQol(workflow));
+        OnMidiRollComplete(MidiQol.ParseWorkflow(workflow));
       });
-    } else {
+    }
+
+    /* else {
       window.Hooks.on(
         "createChatMessage",
         async function (data, options, user) {
           OnCreateChatMessage(data);
         }
       );
-    }
+    }*/
 
-    if (game.settings.get(`${MODULE_ID}`, `${OPT_TOGGLE_CAMPAIGN_TRACKING}`)) {
+    /*if (game.settings.get(`${MODULE_ID}`, `${OPT_TOGGLE_CAMPAIGN_TRACKING}`)) {
       window.Hooks.on(
         "createChatMessage",
         async function (data, options, user) {
@@ -114,7 +104,7 @@ export async function SetupHooks() {
       );
     }
   } else {
-    window.Hooks.on("updateActor", async function (data, diff) {
+    /*window.Hooks.on("updateActor", async function (data, diff) {
       if (diff.data?.attributes?.hp) {
         game.socket.emit(SOCKET_NAME, {
           event: "updateActor",
@@ -126,9 +116,9 @@ export async function SetupHooks() {
       window.Hooks.on("midi-qol.RollComplete", async function (workflow) {
         game.socket.emit(SOCKET_NAME, {
           event: "midi-qol.RollComplete",
-          data: FormatMidiQol(workflow),
+          data: MidiQol.ParseWorkflow(workflow),
         });
       });
-    }
+    }*/
   }
 }

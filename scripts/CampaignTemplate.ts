@@ -1,4 +1,4 @@
-import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration.js";
+import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration";
 
 export function Generate(data) {
   const simpleCalendarEnabled = SimpleCalendarIntegration.IsEnabled();

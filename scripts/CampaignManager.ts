@@ -1,12 +1,8 @@
-import { STORAGE_NAME } from "./Settings.js";
-import { GetItemFromLocalStorage } from "./LocalStorage.js";
-import { Generate } from "./CampaignTemplate.js";
-import {
-  UpdateJournal,
-  GetCampaignDataArticle,
-  GetCampaignArticle,
-} from "./Journal.js";
-import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration.js";
+import { STORAGE_NAME } from "./Settings";
+import { GetItemFromLocalStorage } from "./LocalStorage";
+import { Generate } from "./CampaignTemplate";
+import EncounterJournal from "./EncounterJournal";
+import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration";
 
 function _getDateGroup() {
   let dName;

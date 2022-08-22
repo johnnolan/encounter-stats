@@ -7,10 +7,10 @@ import {
   CombatantStats,
   ChatType,
   GetItemData,
-} from "./Utils.js";
-import { ATTACKTYPES } from "./Settings.js";
-import Collection from "./mocks/Collection.js";
-import CompendiumCollection from "./mocks/CompendiumCollection.js";
+} from "./Utils";
+import { ATTACKTYPES } from "./Settings";
+import Collection from "./mocks/Collection";
+import CompendiumCollection from "./mocks/CompendiumCollection";
 
 const packs = new Collection();
 let pack = new CompendiumCollection({

@@ -6,8 +6,8 @@ import {
   OPT_ENABLE_JOURNAL_NOTIFICATION,
   OPT_TOGGLE_CAMPAIGN_TRACKING,
   OPT_ENABLE_SIMPLE_CALENDAR_INTEGRATION,
-} from "./Settings.js";
-import { ConfigPanel } from "./panels/ConfigPanel.js";
+} from "./Settings";
+import { ConfigPanel } from "./panels/ConfigPanel";
 
 class ModuleSettings {
   /**

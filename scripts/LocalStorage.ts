@@ -1,10 +1,11 @@
-import { STORAGE_NAME } from "./Settings.js";
+import { STORAGE_NAME } from "./Settings";
+import { Encounter } from "./types/globals";
 
-export function GetItemFromLocalStorage(item) {
+export function GetItemFromLocalStorage(item: string) {
   return JSON.parse(window.localStorage.getItem(item));
 }
 
-export function SaveToLocalStorageStat(statType, data) {
+export function SaveToLocalStorageStat(statType: string, data: Encounter) {
   window.localStorage.setItem(statType, JSON.stringify(data));
 }
 

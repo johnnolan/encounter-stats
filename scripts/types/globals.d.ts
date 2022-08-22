@@ -1,7 +1,5 @@
 type RollModuleType = "default" | "midi";
 
-type CombatantType = "character" | "npc";
-
 type AttackTypes = "mwak" | "rwak" | "msak" | "rsak" | "save" | "heal";
 
 type ValidAttackTypes =
@@ -13,31 +11,106 @@ type ValidAttackTypes =
 
 type ValidHealingTypes = AttackTypes.heal;
 
-export interface EventItem {
-  item: {
-    itemLink: string;
-    name: string;
+export interface MidiQolWorkflow {
+  id: string;
+  actor: {
+    id: string;
   };
+  item: MidiQolEventItem;
+  attackRoll: {
+    options: {
+      advantageMode: number;
+    };
+    total: number;
+  };
+  damageRoll: number;
+  damageTotal: number;
+  attackTotal: number;
+  workflowType: string;
+  isCritical: boolean;
+  isFumble: boolean;
+  applicationTargets: [
+    {
+      id: string;
+      sheet: {
+        actor: {
+          name: string;
+          system: {
+            attributes: {
+              ac: {
+                value: number;
+              };
+            };
+          };
+        };
+      };
+    }
+  ];
+}
+
+export interface EncounterMidiWorkflow {
+  id: string;
+  actor: {
+    id: string;
+  };
+  item: EventItem;
+  attackRoll: number;
+  damageRoll: number;
+  damageTotal: number;
+  damageMultipleEnemiesTotal: number;
+  attackTotal: number;
+  workflowType: string;
+  advantage: boolean;
+  disadvantage: boolean;
+  isCritical: boolean;
+  isFumble: boolean;
+  actionType: string;
+  enemyHit: Array<EnemyHit>;
+}
+
+export interface EventItem {
+  id: string;
+  name: string;
+  link: string;
+  type: string;
+  img: string;
+}
+
+export interface MidiQolEventItem {
+  id: string;
+  name: string;
+  link: string;
+  type: string;
+  img: string;
+  system: {
+    actionType: string;
+  };
+}
+
+export interface EnemyHit {
+  tokenId: string;
+  name: string;
 }
 
 export interface CombatantEvent {
   id: string;
   actionType: AttackTypes;
-  round: string;
   advantage: boolean;
   disadvantage: boolean;
-  attackTotal: string;
-  damageTotal: string;
+  attackTotal: number;
+  damageTotal: number;
   tokenId: string;
   actorId: string;
   isCritical: boolean;
   isFumble: boolean;
   item: EventItem;
+  round: number;
+  enemyHit: Array<EnemyHit>;
 }
 
 export interface CombatantHealthData {
   id: string;
-  round: string;
+  round: number;
   tokenId: string;
   actorId: string;
   max: number;
@@ -49,7 +122,7 @@ export interface CombatantHealthData {
 }
 
 export interface CombatantKills {
-  round: string;
+  round: number;
   tokenName: string;
 }
 
@@ -88,8 +161,8 @@ type HealthCheck = {
 };
 
 type Encounter = {
-  encounterId: string;
-  round: string;
+  encounterId?: string;
+  round: number;
   combatants: Array<EncounterCombatant>;
   top: {
     maxDamage: string;

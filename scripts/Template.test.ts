@@ -1,5 +1,5 @@
 import { beforeAll } from "@jest/globals";
-import { Generate } from "./Template.js";
+import { Generate } from "./Template";
 
 let statsDataWithNoEvents;
 let statsData;

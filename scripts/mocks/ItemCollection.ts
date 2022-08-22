@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-import Collection from "./Collection.js";
+import Collection from "./Collection";
 
 class ItemCollection extends Collection {
   constructor(metadata) {
