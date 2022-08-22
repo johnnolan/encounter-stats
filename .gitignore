@@ -1,6 +1,5 @@
 node_modules/
 coverage/
-styles/
 dist/
 test-results/
 .vscode/
