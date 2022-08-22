@@ -2,13 +2,14 @@ import { GetFolder } from "./Folder";
 import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration";
 
 class EncounterJournal {
+  static readonly JOURNAL_TITLE = "Encounter Statistics";
+
   static async CreateJournal() {
-    const title = `Encounter Statistics`;
     const folder = GetFolder();
 
     await JournalEntry.create(
       {
-        name: title,
+        name: this.JOURNAL_TITLE,
         folder: folder ? folder.id : null,
       },
       { renderSheet: false, activate: false }
@@ -23,7 +24,7 @@ class EncounterJournal {
     }
 
     const journalEntry = game.journal.find(
-      (e) => e.name === "Encounter Statistics"
+      (e) => e.name === this.JOURNAL_TITLE
     );
     journalEntry.createEmbeddedDocuments("JournalEntryPage", [
       {
@@ -39,12 +40,11 @@ class EncounterJournal {
   }
 
   static async UpdateJournal(html: string, encounterId: string) {
-    let journalEntryPage = await this.GetJournalEntryPage(encounterId);
-
-    if (!journalEntryPage) {
-      this.CreateJournalEntryPage(encounterId);
-      journalEntryPage = await this.GetJournalEntryPage(encounterId);
-    }
+    let journalEntryPage = game.journal
+      .find((e) => e.name === this.JOURNAL_TITLE)
+      ?.pages.find(
+        (e) => e.getFlag("encounter-stats", "encounterId") === encounterId
+      );
 
     await journalEntryPage?.update({
       text: {
@@ -53,16 +53,10 @@ class EncounterJournal {
     });
   }
 
-  static async GetJournal(): JournalEntry | undefined {
-    return game.journal.find((e) => e.name === "Encounter Statistics");
-  }
-
-  static async GetJournalEntryPage(encounterId: string): JournalEntryPage {
-    return game.journal
-      .find((e) => e.name === "Encounter Statistics")
-      ?.pages.find(
-        (e) => e.getFlag("encounter-stats", "encounterId") === encounterId
-      );
+  static IsJournalSetup(): boolean {
+    return (
+      game.journal.find((e) => e.name === this.JOURNAL_TITLE) !== undefined
+    );
   }
 }
 

@@ -15,8 +15,7 @@ Hooks.once("ready", async function () {
 
   if (game.user.isGM) {
     CreateFolder();
-    const journalEntry = await EncounterJournal.GetJournal();
-    if (!journalEntry) {
+    if (!EncounterJournal.IsJournalSetup()) {
       EncounterJournal.CreateJournal();
     }
   }
