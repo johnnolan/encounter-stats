@@ -1,9 +1,9 @@
 export class ConfigPanel extends FormApplication {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      title: game.i18n.format("FVTTEncounterStats.config.debug"),
-      template: "modules/fvtt-encounter-stats/templates/config.html",
-      id: "fvtt-encounter-stats-bug-report",
+      title: game.i18n.format("EncounterStats.config.debug"),
+      template: "modules/encounter-stats/templates/config.html",
+      id: "encounter-stats-bug-report",
       width: 520,
       height: "500",
       closeOnSubmit: true,
@@ -25,7 +25,7 @@ export class ConfigPanel extends FormApplication {
     var gameSettingsData = [];
     for (const [key] of game.settings.settings.entries()) {
       if (
-        key.indexOf("fvtt-encounter-stats.") === 0 ||
+        key.indexOf("encounter-stats.") === 0 ||
         key.indexOf("midi-qol.") === 0
       ) {
         let keySplit = key.split(".");

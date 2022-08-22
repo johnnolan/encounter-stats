@@ -1,15 +1,12 @@
 ![](https://img.shields.io/badge/Foundry-v0.10.0-informational)
-![Latest Release Download Count](https://img.shields.io/github/downloads/johnnolan/fvtt-encounter-stats/latest/module.zip)
-![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Ffvtt-encounter-stats&colorB=4aa94a)
-[![Foundry Hub Endorsements](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Ffvtt-encounter-stats%2Fshield%2Fendorsements)](https://www.foundryvtt-hub.com/package/fvtt-encounter-stats/)
-[![Foundry Hub Comments](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Ffvtt-encounter-stats%2Fshield%2Fcomments)](https://www.foundryvtt-hub.com/package/fvtt-encounter-stats/)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/johnnolan/fvtt-encounter-stats.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/johnnolan/fvtt-encounter-stats/alerts/)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/johnnolan/fvtt-encounter-stats.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/johnnolan/fvtt-encounter-stats/context:javascript)
-[![CodeFactor](https://www.codefactor.io/repository/github/johnnolan/fvtt-encounter-stats/badge)](https://www.codefactor.io/repository/github/johnnolan/fvtt-encounter-stats)
+![Latest Release Download Count](https://img.shields.io/github/downloads/johnnolan/encounter-stats/latest/module.zip)
+![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fencounter-stats&colorB=4aa94a)
+[![Foundry Hub Endorsements](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fencounter-stats%2Fshield%2Fendorsements)](https://www.foundryvtt-hub.com/package/encounter-stats/)
+[![Foundry Hub Comments](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fencounter-stats%2Fshield%2Fcomments)](https://www.foundryvtt-hub.com/package/encounter-stats/)
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X8X354DCG)
 
-# Encounter Stats
+# Encounter Statistics
 
 ## !IMPORTANT!
 
@@ -67,7 +64,7 @@ The current module works on rolls from the following list.
 
 If you would like to see another module supported that isn't above then feel free to add it as a feature to the issues list in Github.
 
-[![Example](https://raw.githubusercontent.com/johnnolan/fvtt-encounter-stats/main/images/example.jpg)](https://raw.githubusercontent.com/johnnolan/fvtt-encounter-stats/main/images/example.jpg)
+[![Example](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example.jpg)](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example.jpg)
 
 
 ## Simple Calendar Integration
@@ -79,12 +76,12 @@ The module optionally supports [Simple Calendar](https://foundryvtt.com/packages
 To install, follow these instructions:
 
 - Inside Foundry, select the Game Modules tab in the Configuration and Setup menu.
-- Click the Install Module button and enter the following URL: `https://github.com/johnnolan/fvtt-encounter-stats/releases/latest/download/module.json`
+- Click the Install Module button and enter the following URL: `https://github.com/johnnolan/encounter-stats/releases/latest/download/module.json`
 - Click Install and wait for installation to complete.
 
 Alternatively, use the integrated module manager in Foundry.
 
-Foundry modules page: [https://foundryvtt.com/packages/fvtt-encounter-stats](https://foundryvtt.com/packages/fvtt-encounter-stats)
+Foundry modules page: [https://foundryvtt.com/packages/encounter-stats](https://foundryvtt.com/packages/encounter-stats)
 
 ## Dependencies
 
@@ -92,6 +89,6 @@ Foundry modules page: [https://foundryvtt.com/packages/fvtt-encounter-stats](htt
 
 ## Contact
 
-For issues, please raise a bug in Github and use the Report a Bug option in the settings to get debug information to help me reproduce the issue easily on my computer. I will try and fix things depending on fatherhood responsibilities [https://github.com/johnnolan/fvtt-encounter-stats/issues](https://github.com/johnnolan/fvtt-encounter-stats/issues)
+For issues, please raise a bug in Github and use the Report a Bug option in the settings to get debug information to help me reproduce the issue easily on my computer. I will try and fix things depending on fatherhood responsibilities [https://github.com/johnnolan/encounter-stats/issues](https://github.com/johnnolan/encounter-stats/issues)
 
 You can also find me lurking around on the Foundry VTT Discord [https://discord.gg/foundryvtt](https://discord.gg/foundryvtt). My Discord Tag is `JB#2780`.

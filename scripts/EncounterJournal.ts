@@ -10,7 +10,6 @@ class EncounterJournal {
       {
         name: title,
         folder: folder ? folder.id : null,
-        //"flags.fvtt-encounter-stats.encounterId": encounterId,
       },
       { renderSheet: false, activate: false }
     );
@@ -34,7 +33,7 @@ class EncounterJournal {
           content: "",
           format: CONST.JOURNAL_ENTRY_PAGE_FORMATS.HTML,
         },
-        "flags.fvtt-encounter-stats.encounterId": encounterId,
+        "flags.encounter-stats.encounterId": encounterId,
       },
     ]);
   }
@@ -62,7 +61,7 @@ class EncounterJournal {
     return game.journal
       .find((e) => e.name === "Encounter Statistics")
       ?.pages.find(
-        (e) => e.getFlag("fvtt-encounter-stats", "encounterId") === encounterId
+        (e) => e.getFlag("encounter-stats", "encounterId") === encounterId
       );
   }
 }
@@ -73,7 +72,7 @@ export default EncounterJournal;
 async function _getCampaignDataArticle() {
   return game.journal.find(
     (e) =>
-      e.getFlag("fvtt-encounter-stats", "campaigndatastats") ===
+      e.getFlag("encounter-stats", "campaigndatastats") ===
       "campaigndatastats"
   );
 }
@@ -103,7 +102,7 @@ export async function CreateCampaignDataJournal() {
       name: article.title,
       content: content.html,
       folder: folder ? folder.id : null,
-      "flags.fvtt-encounter-stats.campaigndatastats": "campaigndatastats",
+      "flags.encounter-stats.campaigndatastats": "campaigndatastats",
     },
     { renderSheet: false, activate: false }
   );
@@ -113,7 +112,7 @@ export async function CreateCampaignDataJournal() {
 async function _getCampaignArticle() {
   return game.journal.find(
     (e) =>
-      e.getFlag("fvtt-encounter-stats", "campaignstats") === "campaignstats"
+      e.getFlag("encounter-stats", "campaignstats") === "campaignstats"
   );
 }
 
@@ -142,7 +141,7 @@ export async function CreateCampaignJournal() {
       name: article.title,
       content: content.html,
       folder: folder ? folder.id : null,
-      "flags.fvtt-encounter-stats.campaignstats": "campaignstats",
+      "flags.encounter-stats.campaignstats": "campaignstats",
     },
     { renderSheet: false, activate: false }
   );

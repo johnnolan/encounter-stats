@@ -1,8 +1,8 @@
 {
-  "name": "fvtt-encounter-stats",
+  "name": "encounter-stats",
   "version": "1.0.0",
   "type": "module",
-  "repository": "git@github.com:johnnolan/fvtt-encounter-stats.git",
+  "repository": "git@github.com:johnnolan/encounter-stats.git",
   "author": "John Nolan <me@johnnolan.dev>",
   "license": "MIT",
   "scripts": {
