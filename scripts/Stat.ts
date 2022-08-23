@@ -1,10 +1,14 @@
 import {
   CombatantEvent,
+  CombatantEventSummaryList,
   CombatantHealthData,
   CombatantKills,
   Encounter,
   EncounterCombatant,
-  EncounterMidiWorkflow,
+  EncounterRoundSummary,
+  EncounterRoundTotal,
+  EncounterTop,
+  EncounterWorkflow,
 } from "./types/globals";
 import { GetStat, SaveStat, RemoveStat } from "./StatManager";
 import { CombatantType } from "./Settings";
@@ -24,6 +28,10 @@ export default class Stat {
           mostDamageInOneTurn: "",
           highestAvgDamage: "",
           highestMaxDamage: "",
+          mostKills: "",
+          mostHealing: "",
+          mostSupportActions: "",
+          mostBattlefieldActions: ",",
         },
         templateHealthCheck: [],
       };
@@ -72,7 +80,7 @@ export default class Stat {
     combatantStat.health.push(healthData);
   }
 
-  AddAttack(workflow: EncounterMidiWorkflow) {
+  AddAttack(workflow: EncounterWorkflow) {
     const combatantStat: EncounterCombatant | undefined =
       this.GetCombatantStats(workflow.actor.id);
     if (!combatantStat) return;
@@ -110,10 +118,6 @@ export default class Stat {
       combatantStat.events.push(newCombatantEvent);
       //isNewAttack = true;
     }
-
-    this.GenerateCombatantStats(combatantStat);
-
-    this.top(_getTopStats(this._encounter));
 
     /*if (statResult.isNewAttack) {
       stat.templateHealthCheck = [];
@@ -171,7 +175,7 @@ export default class Stat {
     return this._encounter.round;
   }
 
-  top(top) {
+  top(top: EncounterTop) {
     this._encounter.top = top;
   }
 
@@ -217,6 +221,9 @@ export default class Stat {
 
   async Save(): Promise<void> {
     console.debug("Saved Encounter", this._encounter);
+
+    this.GenerateCombatantStats();
+    this.GetTopStats();
     await SaveStat(this._encounter);
   }
 
@@ -224,33 +231,30 @@ export default class Stat {
     RemoveStat();
   }
 
-  GenerateCombatantStats(combatantStat: EncounterCombatant) {
-    const damageTotalArray = combatantStat.events
-      .filter((f) => {
+  GenerateCombatantStats(): void {
+    this._encounter.combatants.forEach((combatantStat) => {
+      const combatantAttacks = combatantStat.events.filter((f) => {
         return this.IsValidAttack(f.actionType);
-      })
-      .map((m) => {
+      });
+
+      const combatantTotalDamage: Array<number> = combatantAttacks.map((m) => {
         return m.damageTotal ?? 0;
       });
 
-    combatantStat.summaryList =
-      this._getSummaryStatsFromArray(damageTotalArray);
+      combatantStat.summaryList =
+        this._getSummaryStatsFromArray(combatantTotalDamage);
 
-    const damageTotalPerRoundArray = combatantStat.events
-      .filter((f) => {
-        return this.IsValidAttack(f.actionType);
-      })
-      .map((m) => {
-        return {
-          damageTotal: m.damageTotal ?? 0,
+      const combatantTotalDamagePerRound = combatantAttacks.map((m) => {
+        return <EncounterRoundTotal>{
           round: m.round,
+          damageTotal: m.damageTotal ?? 0,
         };
       });
 
-    combatantStat.roundSummary = this._getRoundSummaryStats(
-      damageTotalPerRoundArray
-    );
-    return combatantStat;
+      combatantStat.roundSummary = this._getRoundSummaryStats(
+        combatantTotalDamagePerRound
+      );
+    });
   }
 
   groupBy(xs, key) {
@@ -260,15 +264,15 @@ export default class Stat {
     }, {});
   }
 
-  _getRoundSummaryStats(obj) {
-    const rounds = {
-      individual: this.groupBy(obj, "round"),
+  _getRoundSummaryStats(encounterRoundTotals: Array<EncounterRoundTotal>) {
+    const individual = this.groupBy(encounterRoundTotals, "round");
+    const rounds = <EncounterRoundSummary>{
       totals: [],
     };
-    for (const round in rounds.individual) {
-      rounds.totals.push({
-        round: round,
-        damageTotal: rounds.individual[round]
+    for (const round in individual) {
+      rounds.totals.push(<EncounterRoundTotal>{
+        round: parseInt(round),
+        damageTotal: individual[round]
           .map((m) => {
             return m.damageTotal ?? 0;
           })
@@ -279,16 +283,176 @@ export default class Stat {
     return rounds;
   }
 
-  _add(accumulator, a) {
+  _add(accumulator: number, a: number) {
     return accumulator + a;
   }
 
-  _getSummaryStatsFromArray(arr) {
-    return {
-      min: Math.min(...arr),
-      max: Math.max(...arr),
-      avg: Math.round(arr.reduce(this._add, 0) / arr.length),
-      total: arr.reduce(this._add, 0),
+  _getSummaryStatsFromArray(
+    combatantTotalDamage: Array<number>
+  ): CombatantEventSummaryList {
+    if (combatantTotalDamage.length === 0) {
+      return {
+        min: 0,
+        max: 0,
+        avg: 0,
+        total: 0,
+      };
+    }
+
+    return <CombatantEventSummaryList>{
+      min: Math.min(...combatantTotalDamage),
+      max: Math.max(...combatantTotalDamage),
+      avg: Math.round(
+        combatantTotalDamage.reduce(this._add, 0) / combatantTotalDamage.length
+      ),
+      total: combatantTotalDamage.reduce(this._add, 0),
     };
+  }
+
+  private GetTopStats(): void {
+    if (this._encounter.combatants.length === 0) {
+      this.top({
+        maxDamage: "",
+        mostDamageInOneTurn: "",
+        highestAvgDamage: "",
+        highestMaxDamage: "",
+        mostKills: "",
+        mostHealing: "",
+        mostSupportActions: "",
+        mostBattlefieldActions: "",
+      });
+      return;
+    }
+
+    const mostKills = this._encounter.combatants
+      .map((m) => {
+        if (m.kills.length === 0) {
+          return {
+            name: "None",
+            total: 0,
+          };
+        }
+        return {
+          name: m.name,
+          total: m.kills.length,
+        };
+      })
+      .reduce(function (max, obj) {
+        return obj.total > max.total ? obj : max;
+      });
+
+    const mostHealing = this._encounter.combatants
+      .map((m) => {
+        if (m.events.length === 0) {
+          return {
+            name: "None",
+            total: 0,
+          };
+        }
+        return {
+          name: m.name,
+          total: m.events.filter((f) => {
+            return f.actionType === "heal";
+          }).length,
+        };
+      })
+      .reduce(function (max, obj) {
+        return obj.total > max.total ? obj : max;
+      });
+
+    const mostSupportActions = this._encounter.combatants
+      .map((m) => {
+        if (m.events.length === 0) {
+          return {
+            name: "None",
+            total: 0,
+          };
+        }
+        return {
+          name: m.name,
+          total: m.events.filter((f) => {
+            return f.actionType === "save" || f.actionType === "heal";
+          }).length,
+        };
+      })
+      .reduce(function (max, obj) {
+        return obj.total > max.total ? obj : max;
+      });
+
+    const mostBattlefieldActions = this._encounter.combatants
+      .map((m) => {
+        if (m.events.length === 0) {
+          return {
+            name: "None",
+            total: 0,
+          };
+        }
+        return {
+          name: m.name,
+          total: m.events.filter((f) => {
+            return f.actionType === "other";
+          }).length,
+        };
+      })
+      .reduce(function (max, obj) {
+        return obj.total > max.total ? obj : max;
+      });
+
+    const mostDamageInOneTurn = this._encounter.combatants
+      .map((m) => {
+        if (m.roundSummary.totals.length === 0) {
+          return {
+            name: "None",
+            total: 0,
+          };
+        }
+        return {
+          name: m.name,
+          total: m.roundSummary.totals.reduce(function (max, obj) {
+            return obj.damageTotal > max.damageTotal ? obj : max;
+          }).damageTotal,
+        };
+      })
+      .reduce((a, b) => (a.total > b.total ? a : b));
+
+    const result = this._encounter.combatants.map((m) => {
+      if (m.summaryList.total === 0) {
+        return {
+          name: "None",
+          min: 0,
+          max: 0,
+          avg: 0,
+          total: 0,
+        };
+      }
+      return {
+        name: m.name,
+        min: m.summaryList.min,
+        max: m.summaryList.max,
+        avg: m.summaryList.avg,
+        total: m.summaryList.total,
+      };
+    });
+
+    const maxDamage = result.reduce(function (max, obj) {
+      return obj.total > max.total ? obj : max;
+    });
+    const highestAvgDamage = result.reduce(function (max, obj) {
+      return obj.avg > max.avg ? obj : max;
+    });
+    const highestMaxDamage = result.reduce(function (max, obj) {
+      return obj.max > max.max ? obj : max;
+    });
+
+    this.top({
+      maxDamage: `${maxDamage.name}<br />${maxDamage.total}`,
+      mostDamageInOneTurn: `${mostDamageInOneTurn.name}<br />${mostDamageInOneTurn.total}`,
+      highestAvgDamage: `${highestAvgDamage.name}<br />${highestAvgDamage.avg}`,
+      highestMaxDamage: `${highestMaxDamage.name}<br />${highestMaxDamage.max}`,
+      mostKills: `${mostKills.name}<br />${mostKills.total}`,
+      mostHealing: `${mostHealing.name}<br />${mostHealing.total}`,
+      mostSupportActions: `${mostSupportActions.name}<br />${mostSupportActions.total}`,
+      mostBattlefieldActions: `${mostBattlefieldActions.name}<br />${mostBattlefieldActions.total}`,
+    });
   }
 }

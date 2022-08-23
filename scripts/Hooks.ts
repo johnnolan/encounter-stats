@@ -1,6 +1,5 @@
 import {
   MODULE_ID,
-  OPT_ENABLE_AOE_DAMAGE,
   OPT_TOGGLE_CAMPAIGN_TRACKING,
 } from "./Settings";
 import {

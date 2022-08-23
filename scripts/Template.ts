@@ -1,41 +1,49 @@
 import Stat from "./Stat";
+import Trans from "./Trans";
+import {
+  CombatantEvent,
+  CombatantKills,
+  Encounter,
+  EncounterCombatant,
+  CombatantHealthData,
+} from "./types/globals";
 
-export function Generate(data) {
+export function Generate(encounter: Encounter) {
   return `
   <div class="fvtt-enc-stats">
     <hr />
     <div class="fvtt-enc-stats_top">
       <div class="fvtt-enc-stats_actor_statlist flexrow">
         <div class="fvtt-enc-stats_actor_stat">
-          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-            "EncounterStats.template.most_damage_overall"
+          <div class="fvtt-enc-stats_actor_stat-key">${Trans.Get(
+            "template.most_damage_overall"
           )}</div>
           <div class="fvtt-enc-stats_actor_stat-value">${
-            data.top.maxDamage
+            encounter.top.maxDamage
           }</div>
         </div>
         <div class="fvtt-enc-stats_actor_stat">
-          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-            "EncounterStats.template.most_damage_per_turn"
+          <div class="fvtt-enc-stats_actor_stat-key">${Trans.Get(
+            "template.most_damage_per_turn"
           )}</div>
           <div class="fvtt-enc-stats_actor_stat-value">${
-            data.top.mostDamageInOneTurn
+            encounter.top.mostDamageInOneTurn
           }</div>
         </div>
         <div class="fvtt-enc-stats_actor_stat">
-          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-            "EncounterStats.template.highest_average_damage"
+          <div class="fvtt-enc-stats_actor_stat-key">${Trans.Get(
+            "template.highest_average_damage"
           )}</div>
           <div class="fvtt-enc-stats_actor_stat-value">${
-            data.top.highestAvgDamage
+            encounter.top.highestAvgDamage
           }</div>
         </div>
         <div class="fvtt-enc-stats_actor_stat">
-          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-            "EncounterStats.template.highest_damage_in_1_hit"
+          <div class="fvtt-enc-stats_actor_stat-key">${Trans.Get(
+            "template.highest_damage_in_1_hit"
           )}</div>
           <div class="fvtt-enc-stats_actor_stat-value">${
-            data.top.highestMaxDamage
+            encounter.top.highestMaxDamage
           }</div>
         </div>
       </div>
@@ -44,50 +52,53 @@ export function Generate(data) {
     <div class="fvtt-enc-stats_top">
       <div class="fvtt-enc-stats_actor_statlist flexrow">
         <div class="fvtt-enc-stats_actor_stat">
-          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-            "EncounterStats.template.most_kills"
+          <div class="fvtt-enc-stats_actor_stat-key">${Trans.Get(
+            "template.most_kills"
           )}</div>
           <div class="fvtt-enc-stats_actor_stat-value">${
-            data.top.mostKills
+            encounter.top.mostKills
           }</div>
         </div>
         <div class="fvtt-enc-stats_actor_stat">
-          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-            "EncounterStats.template.most_healing"
+          <div class="fvtt-enc-stats_actor_stat-key">${Trans.Get(
+            "template.most_healing"
           )}</div>
           <div class="fvtt-enc-stats_actor_stat-value">${
-            data.top.mostHealing
+            encounter.top.mostHealing
           }</div>
         </div>
         <div class="fvtt-enc-stats_actor_stat">
-          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-            "EncounterStats.template.most_support_actions"
+          <div class="fvtt-enc-stats_actor_stat-key">${Trans.Get(
+            "template.most_support_actions"
           )}</div>
           <div class="fvtt-enc-stats_actor_stat-value">${
-            data.top.mostSupportActions
+            encounter.top.mostSupportActions
           }</div>
         </div>
         <div class="fvtt-enc-stats_actor_stat">
-          <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-            "EncounterStats.template.battlefield_actions"
+          <div class="fvtt-enc-stats_actor_stat-key">${Trans.Get(
+            "template.battlefield_actions"
           )}</div>
           <div class="fvtt-enc-stats_actor_stat-value">${
-            data.top.mostBattlefieldActions
+            encounter.top.mostBattlefieldActions
           }</div>
         </div>
       </div>
     </div>
     <div class="fvtt-enc-stats_combatants">
-    <div>${data.combatants
+    <div>${encounter.combatants
       .filter((f) => f.type === "character")
       .map(function (combatant) {
-        return GenerateCombatant(combatant, data.round);
+        return GenerateCombatant(combatant, encounter.round);
       })
       .join("")}</div></div></div>
   `;
 }
 
-function GenerateCombatant(combatant, numberOfRounds) {
+function GenerateCombatant(
+  combatant: EncounterCombatant,
+  numberOfRounds: number
+) {
   return `
   <div class="fvtt-enc-stats_combatant" data-fvtt-id="${combatant.id}">
     <div class="fvtt-enc-stats_combatants_overview">
@@ -99,8 +110,8 @@ function GenerateCombatant(combatant, numberOfRounds) {
           <h1 class="fvtt-enc-stats_actor_stats_name">${combatant.name}</h1>
           <div class="fvtt-enc-stats_actor_statlist flexrow">
             <div class="fvtt-enc-stats_actor_stat">
-              <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-                "EncounterStats.template.startinghp"
+              <div class="fvtt-enc-stats_actor_stat-key">${Trans.Get(
+                "template.startinghp"
               )}</div>
               <div class="fvtt-enc-stats_actor_stat-value">
                 <span>${combatant.hp}</span><span class="sep">/</span><span>${
@@ -108,8 +119,8 @@ function GenerateCombatant(combatant, numberOfRounds) {
   }</span></div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
-              <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-                "EncounterStats.template.finalhp"
+              <div class="fvtt-enc-stats_actor_stat-key">${Trans.Get(
+                "template.finalhp"
               )}</div>
               <div class="fvtt-enc-stats_actor_stat-value">
                 <span>${
@@ -121,40 +132,40 @@ function GenerateCombatant(combatant, numberOfRounds) {
   }</span></div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
-              <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-                "EncounterStats.template.ac"
+              <div class="fvtt-enc-stats_actor_stat-key">${Trans.Get(
+                "template.ac"
               )}</div>
               <div class="fvtt-enc-stats_actor_stat-value"><span>${
                 combatant.ac
               }</span></div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
-              <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-                "EncounterStats.template.damage_total"
+              <div class="fvtt-enc-stats_actor_stat-key">${Trans.Get(
+                "template.damage_total"
               )}</div>
               <div class="fvtt-enc-stats_actor_stat-value"><span>${
                 combatant.summaryList.total
               }</span></div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
-              <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-                "EncounterStats.template.min_damage"
+              <div class="fvtt-enc-stats_actor_stat-key">${Trans.Get(
+                "template.min_damage"
               )}</div>
               <div class="fvtt-enc-stats_actor_stat-value"><span>${
                 combatant.summaryList.min
               }</span></div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
-              <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-                "EncounterStats.template.max_damage"
+              <div class="fvtt-enc-stats_actor_stat-key">${Trans.Get(
+                "template.max_damage"
               )}</div>
               <div class="fvtt-enc-stats_actor_stat-value"><span>${
                 combatant.summaryList.max
               }</span></div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
-              <div class="fvtt-enc-stats_actor_stat-key">${game.i18n.format(
-                "EncounterStats.template.avg_damage"
+              <div class="fvtt-enc-stats_actor_stat-key">${Trans.Get(
+                "template.avg_damage"
               )}</div>
               <div class="fvtt-enc-stats_actor_stat-value"><span>${
                 combatant.summaryList.avg
@@ -168,24 +179,25 @@ function GenerateCombatant(combatant, numberOfRounds) {
   </div>
   `;
 }
-function GenerateRoundHtml(combatant, numberOfRounds) {
+function GenerateRoundHtml(
+  combatant: EncounterCombatant,
+  numberOfRounds: number
+) {
   let markup = ``;
   for (let index = 0; index < numberOfRounds; index++) {
     const round = index + 1;
     markup =
       markup +
       `
-    <div class="fvtt-enc-stats_title3">${game.i18n.format(
-      "EncounterStats.template.round"
+    <div class="fvtt-enc-stats_title3">${Trans.Get(
+      "template.round"
     )} ${round}</div>
     <section class="fvtt-enc-stats_combatants_data">
       <section class="fvtt-enc-stats_combatants_data_section fvtt-enc-stats_combatants_data_section-health">
         <div class="flexcol">
           <ol class="items-list flexcol">
             <li class="items-header flexrow">
-              <div class="item-name">${game.i18n.format(
-                "EncounterStats.template.kills"
-              )}</div>
+              <div class="item-name">${Trans.Get("template.kills")}</div>
             </li>
             <ol class="item-list">
               ${combatant.kills
@@ -201,14 +213,12 @@ function GenerateRoundHtml(combatant, numberOfRounds) {
           </ol>
           <ol class="items-list flexcol">
             <li class="items-header flexrow">
-              <div class="item-name">${game.i18n.format(
-                "EncounterStats.template.rounddmg"
-              )}</div>
+              <div class="item-name">${Trans.Get("template.rounddmg")}</div>
             </li>
             <ol class="item-list">
               ${combatant.roundSummary.totals
                 .filter((f) => {
-                  return f.round === round.toString();
+                  return f.round === round;
                 })
                 .map(function (event) {
                   return GenerateRoundRow(event);
@@ -218,9 +228,7 @@ function GenerateRoundHtml(combatant, numberOfRounds) {
           </ol>
           <ol class="items-list flexcol">
             <li class="items-header flexrow">
-              <div class="item-name">${game.i18n.format(
-                "EncounterStats.template.health"
-              )}</div>
+              <div class="item-name">${Trans.Get("template.health")}</div>
             </li>
             <ol class="item-list">
               ${combatant.health
@@ -240,21 +248,13 @@ function GenerateRoundHtml(combatant, numberOfRounds) {
         <div class="flexcol">
           <ol class="items-list flexcol">
             <li class="items-header flexrow">
-              <div class="item-name item-weapon">${game.i18n.format(
-                "EncounterStats.template.weapon_spell_name"
+              <div class="item-name item-weapon">${Trans.Get(
+                "template.weapon_spell_name"
               )}</div>
-              <div class="item-name">${game.i18n.format(
-                "EncounterStats.template.type"
-              )}</div>
-              <div class="item-name">${game.i18n.format(
-                "EncounterStats.template.rolltype"
-              )}</div>
-              <div class="item-name">${game.i18n.format(
-                "EncounterStats.template.attack_total"
-              )}</div>
-              <div class="item-name">${game.i18n.format(
-                "EncounterStats.template.damage_total"
-              )}</div>
+              <div class="item-name">${Trans.Get("template.type")}</div>
+              <div class="item-name">${Trans.Get("template.rolltype")}</div>
+              <div class="item-name">${Trans.Get("template.attack_total")}</div>
+              <div class="item-name">${Trans.Get("template.damage_total")}</div>
             </li>
             <ol class="item-list">
               ${combatant.events
@@ -276,95 +276,91 @@ function GenerateRoundHtml(combatant, numberOfRounds) {
   return markup;
 }
 
-function GenerateAttackRow(event) {
+function GenerateAttackRow(combatantEvent: CombatantEvent) {
   return `
   <li class="item flexrow">
     <div class="item-name item-weapon">${
-      event.item.itemLink ? event.item.itemLink : event.item.name
+      combatantEvent.item.link
+        ? combatantEvent.item.link
+        : combatantEvent.item.name
     }</div>
-    <div class="item-name">${getAttackTypeFAIcon(event.actionType)}</div>
+    <div class="item-name">${getAttackTypeFAIcon(
+      combatantEvent.actionType
+    )}</div>
     <div class="item-name">${
-      event.advantage
+      combatantEvent.advantage
         ? "advantage"
-        : event.disadvantage
+        : combatantEvent.disadvantage
         ? "disadvantage"
         : "normal"
     }</div>
-    <div class="item-name">${event.attackTotal} ${
-    event.isCritical ? " (c)" : ""
+    <div class="item-name">${combatantEvent.attackTotal} ${
+    combatantEvent.isCritical ? " (c)" : ""
   }</div>
-    <div class="item-name ${getHealOrDamageClass(event.actionType)}">${
-    event.damageTotal
+    <div class="item-name ${getHealOrDamageClass(combatantEvent.actionType)}">${
+    combatantEvent.damageTotal
   }</div>
   </li>`;
 }
 
-function getHealOrDamageClass(attackType) {
+function getHealOrDamageClass(attackType: string) {
   const stat = new Stat();
   if (stat.IsHealingSpell(attackType)) return "blue";
   if (stat.IsValidAttack(attackType)) return "red";
 }
 
-function getAttackTypeFAIcon(attackType) {
+function getAttackTypeFAIcon(attackType: string) {
   let iconName = "dice-d20";
-  let iconDescription = game.i18n.format(
-    "EncounterStats.actiontypes.other"
-  );
+  let iconDescription = Trans.Get("actiontypes.other");
   switch (attackType) {
     case "heal":
       iconName = "heart";
-      iconDescription = game.i18n.format("EncounterStats.actiontypes.heal");
+      iconDescription = Trans.Get("actiontypes.heal");
       break;
     case "msak":
       iconName = "scroll";
-      iconDescription = game.i18n.format("EncounterStats.actiontypes.msak");
+      iconDescription = Trans.Get("actiontypes.msak");
       break;
     case "rsak":
       iconName = "scroll";
-      iconDescription = game.i18n.format("EncounterStats.actiontypes.rsak");
+      iconDescription = Trans.Get("actiontypes.rsak");
       break;
     case "mwak":
       iconName = "fist-raised";
-      iconDescription = game.i18n.format("EncounterStats.actiontypes.mwak");
+      iconDescription = Trans.Get("actiontypes.mwak");
       break;
     case "rwak":
       iconName = "fist-raised";
-      iconDescription = game.i18n.format("EncounterStats.actiontypes.rwak");
+      iconDescription = Trans.Get("actiontypes.rwak");
       break;
     case "save":
       iconName = "shield-alt";
-      iconDescription = game.i18n.format("EncounterStats.actiontypes.save");
+      iconDescription = Trans.Get("actiontypes.save");
       break;
   }
 
   return `<i title="${iconDescription}" class="fas fa-${iconName}"></i>`;
 }
 
-function GenerateKillRow(kill) {
-  let markup = `
+function GenerateKillRow(kill: CombatantKills) {
+  return `
   <li class="item flexrow">
     <div class="item-name">${kill.tokenName}</div>
   </li>`;
-
-  return markup;
 }
 
-function GenerateHealtRow(event) {
-  let markup = `
+function GenerateHealtRow(event: CombatantHealthData) {
+  return `
   <li class="item flexrow">
     <div class="item-name">${event.current} (${event.isheal ? "+" : "-"}${
     event.diff
   })</div>
   </li>`;
-
-  return markup;
 }
 
-function GenerateRoundRow(event) {
-  let markup = `
+function GenerateRoundRow(combatantEvent: CombatantEvent) {
+  return `
   <li class="item flexrow">
-    <div class="item-name">${event.damageTotal}</div>
+    <div class="item-name">${combatantEvent.damageTotal}</div>
   </li>`;
-
-  return markup;
 }
