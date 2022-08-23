@@ -7,8 +7,6 @@ export const STORAGE_NAME_CAMPAIGN_DATA =
 export const STORAGE_NAME_CAMPAIGN_ID = "Campaign Statistics";
 
 export const OPT_ENABLE = "enable";
-export const OPT_ENABLE_AOE_DAMAGE = "enable_aoe_damage";
-export const OPT_ENABLE_JOURNAL_NOTIFICATION = "enable_journal_notification";
 export const OPT_TOGGLE_CAMPAIGN_TRACKING = "toggle_campaign_tracking_name";
 export const OPT_ENABLE_SIMPLE_CALENDAR_INTEGRATION =
   "enable_simple_calendar_integration";

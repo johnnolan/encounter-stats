@@ -1,7 +1,9 @@
+import Trans from "../Trans";
+
 export class ConfigPanel extends FormApplication {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      title: game.i18n.format("EncounterStats.config.debug"),
+      title: Trans.Get("config.debug"),
       template: "modules/encounter-stats/templates/config.html",
       id: "encounter-stats-bug-report",
       width: 520,

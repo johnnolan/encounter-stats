@@ -1,16 +1,3 @@
-type RollModuleType = "default" | "midi";
-
-type AttackTypes = "mwak" | "rwak" | "msak" | "rsak" | "save" | "heal";
-
-type ValidAttackTypes =
-  | AttackTypes.mwak
-  | AttackTypes.rwak
-  | AttackTypes.msak
-  | AttackTypes.rsak
-  | AttackTypes.save;
-
-type ValidHealingTypes = AttackTypes.heal;
-
 export interface MidiQolWorkflow {
   id: string;
   actor: {
@@ -47,8 +34,18 @@ export interface MidiQolWorkflow {
     }
   ];
 }
+export interface MidiQolEventItem {
+  id: string;
+  name: string;
+  link: string;
+  type: string;
+  img: string;
+  system: {
+    actionType: string;
+  };
+}
 
-export interface EncounterMidiWorkflow {
+export interface EncounterWorkflow {
   id: string;
   actor: {
     id: string;
@@ -68,29 +65,24 @@ export interface EncounterMidiWorkflow {
   enemyHit: Array<EnemyHit>;
 }
 
-export interface EventItem {
-  id: string;
-  name: string;
-  link: string;
-  type: string;
-  img: string;
-}
+type Encounter = {
+  encounterId?: string;
+  round: number;
+  combatants: Array<EncounterCombatant>;
+  top: EncounterTop;
+  templateHealthCheck: Array<HealthCheck>;
+};
 
-export interface MidiQolEventItem {
-  id: string;
-  name: string;
-  link: string;
-  type: string;
-  img: string;
-  system: {
-    actionType: string;
-  };
-}
-
-export interface EnemyHit {
-  tokenId: string;
-  name: string;
-}
+type EncounterTop = {
+  maxDamage: string;
+  mostDamageInOneTurn: string;
+  highestAvgDamage: string;
+  highestMaxDamage: string;
+  mostKills: string;
+  mostHealing: string;
+  mostSupportActions: string;
+  mostBattlefieldActions: string;
+};
 
 export interface CombatantEvent {
   id: string;
@@ -106,6 +98,55 @@ export interface CombatantEvent {
   item: EventItem;
   round: number;
   enemyHit: Array<EnemyHit>;
+}
+
+export interface EncounterCombatant {
+  name: string;
+  id: string;
+  tokenId: string;
+  img: string;
+  type: string;
+  hp: number;
+  max: number;
+  ac: nuber;
+  events: Array<CombatantEvent>;
+  health: Array<CombatantHealthData>;
+  kills: Array<CombatantKills>;
+  summaryList: CombatantEventSummaryList;
+  roundSummary: EncounterRoundSummary;
+}
+
+export interface EncounterRoundSummary {
+  totals: Array<EncounterRoundTotal>;
+}
+
+export interface EncounterRoundTotal {
+  round: number;
+  damageTotal: number;
+}
+
+export interface CombatantEventSummaryList {
+  min: number;
+  max: number;
+  avg: number;
+  total: number;
+}
+
+type HealthCheck = {
+  name: string;
+};
+
+export interface EventItem {
+  id: string;
+  name: string;
+  link: string;
+  type: string;
+  img: string;
+}
+
+export interface EnemyHit {
+  tokenId: string;
+  name: string;
 }
 
 export interface CombatantHealthData {
@@ -125,50 +166,3 @@ export interface CombatantKills {
   round: number;
   tokenName: string;
 }
-
-export interface EncounterCombatant {
-  name: string;
-  id: string;
-  tokenId: string;
-  img: string;
-  type: string;
-  hp: number;
-  max: number;
-  ac: nuber;
-  events: Array<CombatantEvent>;
-  health: Array<CombatantHealthData>;
-  kills: Array<CombatantKills>;
-  summaryList: CombatantEventSummaryList;
-  roundSummary: {
-    totals: [
-      {
-        round: number;
-        damageTotal: number;
-      }
-    ];
-  };
-}
-
-export interface CombatantEventSummaryList {
-  min: number;
-  max: number;
-  avg: number;
-  total: number;
-}
-
-type HealthCheck = {
-  name: string;
-};
-
-type Encounter = {
-  encounterId?: string;
-  round: number;
-  combatants: Array<EncounterCombatant>;
-  top: {
-    maxDamage: string;
-    mostDamageInOneTurn: string;
-    highestAvgDamage: string;
-    highestMaxDamage: string;
-  };
-  templateHealthCheck: Array<HealthCheck>;
-};

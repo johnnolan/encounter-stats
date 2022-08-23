@@ -1,11 +1,7 @@
-import {
-  EncounterMidiWorkflow,
-  EnemyHit,
-  MidiQolWorkflow,
-} from "../types/globals";
+import { EncounterWorkflow, EnemyHit, MidiQolWorkflow } from "../types/globals";
 
 class MidiQol {
-  static ParseWorkflow(workflow: MidiQolWorkflow): EncounterMidiWorkflow {
+  static ParseWorkflow(workflow: MidiQolWorkflow): EncounterWorkflow {
     const enemiesHit: Array<EnemyHit> = workflow.applicationTargets
       .filter(
         (f) => workflow.attackTotal >= f.sheet.actor.system.attributes.ac.value
@@ -18,7 +14,7 @@ class MidiQol {
           }
       );
 
-    return <EncounterMidiWorkflow>{
+    return <EncounterWorkflow>{
       id: workflow.id,
       actor: {
         id: workflow.actor.id,

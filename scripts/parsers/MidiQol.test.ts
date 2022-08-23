@@ -1,4 +1,4 @@
-import { EncounterMidiWorkflow, MidiQolWorkflow } from "../types/globals";
+import { EncounterWorkflow, MidiQolWorkflow } from "../types/globals";
 import MidiQol from "./MidiQol";
 
 const midiWorkflow: MidiQolWorkflow = {
@@ -89,9 +89,8 @@ describe("MidiQol", () => {
   describe("ParseWorkflow", () => {
     describe("If it has a attack and damage roll", () => {
       test("it returns the correct EncounterMidiWorkflow", async () => {
-        const result: EncounterMidiWorkflow =
-          MidiQol.ParseWorkflow(midiWorkflow);
-        expect(result).toStrictEqual(<EncounterMidiWorkflow>{
+        const result: EncounterWorkflow = MidiQol.ParseWorkflow(midiWorkflow);
+        expect(result).toStrictEqual(<EncounterWorkflow>{
           id: "d75gppsau45ypm2m",
           actionType: "mwak",
           actor: {
@@ -126,10 +125,10 @@ describe("MidiQol", () => {
 
     describe("If it has no attack and damage roll", () => {
       test("it returns the correct EncounterMidiWorkflow", async () => {
-        const result: EncounterMidiWorkflow = MidiQol.ParseWorkflow(
+        const result: EncounterWorkflow = MidiQol.ParseWorkflow(
           midiWorkflowNoDiceRoll
         );
-        expect(result).toStrictEqual(<EncounterMidiWorkflow>{
+        expect(result).toStrictEqual(<EncounterWorkflow>{
           id: "d75gppsau45ypm2m",
           actionType: "mwak",
           actor: {
