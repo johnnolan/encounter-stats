@@ -1,17 +1,16 @@
 import EncounterJournal from "./EncounterJournal";
 import TrackKill from "./parsers/TrackKill";
-import {
-  ROLL_HOOK,
-  MODULE_ID,
-  OPT_ENABLE_AOE_DAMAGE,
-  OPT_TOGGLE_CAMPAIGN_TRACKING,
-} from "./Settings";
+import { ROLL_HOOK, MODULE_ID, OPT_TOGGLE_CAMPAIGN_TRACKING } from "./Settings";
 import { ResetTemplateHealthCheck, IsInCombat } from "./Utils";
 import { CampaignTrackNat1, CampaignTrackNat20 } from "./CampaignManager";
 import Stat from "./Stat";
-import { EncounterMidiWorkflow } from "./types/globals";
+import { EncounterWorkflow } from "./types/globals";
 
-export async function OnTrackDiceRoll(rolls: Array<Roll>, alias: string, flavor: string): Promise<void> {
+export async function OnTrackDiceRoll(
+  rolls: Array<Roll>,
+  alias: string,
+  flavor: string
+): Promise<void> {
   if (rolls.length !== 1) return;
 
   const roll: Roll = rolls[0];
@@ -72,7 +71,7 @@ export async function OnCreateChatMessage(attackData): Promise<void> {
 }
 
 export async function OnMidiRollComplete(
-  workflow: EncounterMidiWorkflow
+  workflow: EncounterWorkflow
 ): Promise<void> {
   if (!IsInCombat()) return;
   const stat = new Stat();
