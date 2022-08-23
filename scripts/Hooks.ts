@@ -1,33 +1,29 @@
 import {
-  MODULE_ID,
-  OPT_TOGGLE_CAMPAIGN_TRACKING,
-} from "./Settings";
-import {
   OnRenderCombatTracker,
   OnCreateCombat,
   OnDeleteCombat,
-  OnCreateChatMessage,
   OnUpdateCombat,
   OnMidiRollComplete,
   OnUpdateHealth,
-  OnCreateMeasuredTemplate,
   OnTrackKill,
+  OnTrackDice,
   OnTrackDiceRoll,
 } from "./Handlers";
 import MidiQol from "./parsers/MidiQol";
 import { IsInCombat } from "./Utils";
+import { MidiQolWorkflow } from "./types/globals";
 
 const SOCKET_NAME = "module.encounter-stats";
 
 function _setupSockerListeners() {
-  game.socket.on(SOCKET_NAME, function (payload) {
+  game.socket.on(SOCKET_NAME, async function (payload) {
     switch (payload.event) {
       case "updateActor":
         OnUpdateHealth(payload.data);
         break;
       case "midi-qol.RollComplete":
         OnMidiRollComplete(MidiQol.ParseWorkflow(payload.data));
-        //OnMidiRollComplete(payload.data);
+        OnTrackDice(await MidiQol.RollCheck(payload.data));
         break;
     }
   });
@@ -69,16 +65,20 @@ export async function SetupHooks() {
     });
 
     if (game.modules.get("midi-qol")?.active) {
-      window.Hooks.on("midi-qol.RollComplete", async function (workflow) {
-        OnMidiRollComplete(MidiQol.ParseWorkflow(workflow));
-      });
+      window.Hooks.on(
+        "midi-qol.RollComplete",
+        async function (workflow: MidiQolWorkflow) {
+          OnMidiRollComplete(MidiQol.ParseWorkflow(workflow));
+          OnTrackDice(await MidiQol.RollCheck(workflow));
+        }
+      );
     }
 
-    /*window.Hooks.on(
+    window.Hooks.on(
       "createChatMessage",
       async function (chatMessage: ChatMessage, options, user) {
         console.debug(chatMessage, options, user);
-        if (!chatMessage?.user?.isGM) {
+        if (chatMessage?.user?.isGM) {
           OnTrackDiceRoll(
             chatMessage.rolls,
             chatMessage.speaker.alias,
@@ -86,7 +86,7 @@ export async function SetupHooks() {
           );
         }
       }
-    );*/
+    );
 
     /* else {
       window.Hooks.on(

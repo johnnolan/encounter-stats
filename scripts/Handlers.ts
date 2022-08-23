@@ -1,10 +1,8 @@
 import EncounterJournal from "./EncounterJournal";
-import TrackKill from "./parsers/TrackKill";
-import { ROLL_HOOK, MODULE_ID, OPT_TOGGLE_CAMPAIGN_TRACKING } from "./Settings";
-import { ResetTemplateHealthCheck, IsInCombat } from "./Utils";
-import { CampaignTrackNat1, CampaignTrackNat20 } from "./CampaignManager";
+import { IsInCombat } from "./Utils";
 import Stat from "./Stat";
-import { EncounterWorkflow } from "./types/globals";
+import { DiceTrackParse, EncounterWorkflow } from "./types/globals";
+import CampaignStat from "./CampaignStat";
 
 export async function OnTrackDiceRoll(
   rolls: Array<Roll>,
@@ -13,14 +11,14 @@ export async function OnTrackDiceRoll(
 ): Promise<void> {
   if (rolls.length !== 1) return;
 
-  const roll: Roll = rolls[0];
-  if (roll.formula === "1d20") {
-    if (roll.total === 1) {
-      CampaignTrackNat1(alias, flavor);
+  const dice: Die = rolls[0].dice[0];
+  if (dice.faces === 20) {
+    if (dice.total === 1) {
+      CampaignStat.AddRole("nat1", alias, flavor);
     }
 
-    if (roll.total === 20) {
-      CampaignTrackNat20(alias, flavor);
+    if (dice.total === 20) {
+      CampaignStat.AddRole("nat20", alias, flavor);
     }
   }
 }
@@ -57,17 +55,18 @@ export async function OnCreateCombat(combat: Combat): Promise<void> {
 }
 
 export async function OnDeleteCombat(): Promise<void> {
-  /*if (game.settings.get(`${MODULE_ID}`, `${OPT_TOGGLE_CAMPAIGN_TRACKING}`)) {
-    const date = new Date();
-    await CampaignTrack(date.toISOString());
-  }*/
   const stat = new Stat();
   stat.Delete();
 }
 
-export async function OnCreateChatMessage(attackData): Promise<void> {
-  if (!IsInCombat()) return;
-  AddAttack(attackData, ROLL_HOOK.DEFAULT);
+export async function OnTrackDice(diceTrackParsed: DiceTrackParse) {
+  if (diceTrackParsed.isCritical || diceTrackParsed.isFumble) {
+    CampaignStat.AddRole(
+      diceTrackParsed.isCritical ? "nat20" : "nat1",
+      diceTrackParsed.name,
+      diceTrackParsed.flavor
+    );
+  }
 }
 
 export async function OnMidiRollComplete(
@@ -77,6 +76,18 @@ export async function OnMidiRollComplete(
   const stat = new Stat();
   stat.AddAttack(workflow);
   stat.Save();
+
+  if (stat.IsHealingSpell(workflow.actionType)) {
+    const combatantStat = stat.GetCombatantStats(workflow.actor.id);
+    if (combatantStat) {
+      CampaignStat.AddHeal(
+        combatantStat.name,
+        workflow.item.link,
+        workflow.item.name,
+        workflow.damageTotal
+      );
+    }
+  }
 }
 
 export async function OnUpdateHealth(actor: Actor): Promise<void> {
@@ -86,9 +97,16 @@ export async function OnUpdateHealth(actor: Actor): Promise<void> {
   stat.Save();
 }
 
-export async function OnTrackKill(targetName, tokenId): Promise<void> {
+export async function OnTrackKill(
+  targetName: string,
+  tokenId: string
+): Promise<void> {
   if (!IsInCombat()) return;
   const stat = new Stat();
   stat.AddKill(targetName, tokenId);
   stat.Save();
+  const combatantStat = stat.GetCombatantStatsByTokenId(tokenId);
+  if (combatantStat) {
+    CampaignStat.AddKill(combatantStat?.name, targetName);
+  }
 }

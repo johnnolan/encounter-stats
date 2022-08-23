@@ -1,5 +1,6 @@
 import { GetFolder } from "./Folder";
 import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration";
+import { CampaignStats } from "./types/globals";
 
 class EncounterJournal {
   static readonly JOURNAL_TITLE = "Encounter Statistics";
@@ -39,8 +40,36 @@ class EncounterJournal {
     ]);
   }
 
+  static async CreateCampaignJournalEntryPage() {
+    const journalEntry = game.journal.find(
+      (e) => e.name === this.JOURNAL_TITLE
+    );
+    journalEntry.createEmbeddedDocuments("JournalEntryPage", [
+      {
+        name: "Campaign Data - Do Not Delete",
+        type: "text",
+        text: {
+          content: `{"kills": [], "nat1": [], "nat20": [], "heals": []}`,
+          format: CONST.JOURNAL_ENTRY_PAGE_FORMATS.HTML,
+        },
+        "flags.encounter-stats.campaignstats": "data",
+      },
+    ]);
+    journalEntry.createEmbeddedDocuments("JournalEntryPage", [
+      {
+        name: "Campaign Statistics",
+        type: "text",
+        text: {
+          content: "",
+          format: CONST.JOURNAL_ENTRY_PAGE_FORMATS.HTML,
+        },
+        "flags.encounter-stats.campaignstats": "view",
+      },
+    ]);
+  }
+
   static async UpdateJournal(html: string, encounterId: string) {
-    let journalEntryPage = game.journal
+    const journalEntryPage = game.journal
       .find((e) => e.name === this.JOURNAL_TITLE)
       ?.pages.find(
         (e) => e.getFlag("encounter-stats", "encounterId") === encounterId
@@ -53,91 +82,60 @@ class EncounterJournal {
     });
   }
 
+  static async UpdateCampaignDataJournal(jsonData: string) {
+    const journalEntryPage = game.journal
+      .find((e) => e.name === this.JOURNAL_TITLE)
+      ?.pages.find(
+        (e) => e.getFlag("encounter-stats", "campaignstats") === "data"
+      );
+
+    await journalEntryPage?.update({
+      text: {
+        content: jsonData,
+      },
+    });
+  }
+
+  static async UpdateCampaignJournal(html: string) {
+    const journalEntryPage = game.journal
+      .find((e) => e.name === this.JOURNAL_TITLE)
+      ?.pages.find(
+        (e) => e.getFlag("encounter-stats", "campaignstats") === "view"
+      );
+
+    await journalEntryPage?.update({
+      text: {
+        content: html,
+      },
+    });
+  }
+
+  static async GetCampaignJournal(): Promise<CampaignStats> {
+    const journalEntryPage = game.journal
+      .find((e) => e.name === this.JOURNAL_TITLE)
+      ?.pages.find((e) => e.getFlag("encounter-stats", "campaignstats"));
+
+    return <CampaignStats>(
+      JSON.parse(
+        journalEntryPage.text.content.replace("<p>", "").replace("</p>", "")
+      )
+    );
+  }
+
   static IsJournalSetup(): boolean {
     return (
       game.journal.find((e) => e.name === this.JOURNAL_TITLE) !== undefined
     );
   }
+
+  static async IsCampaignJournalSetup(): Promise<boolean> {
+    const journal = await game.journal
+      .find((e) => e.name === this.JOURNAL_TITLE)
+      ?.pages.find(
+        (e) => e.getFlag("encounter-stats", "campaignstats") === "data"
+      );
+    return journal;
+  }
 }
 
 export default EncounterJournal;
-/*
-// Campaign Data Article
-async function _getCampaignDataArticle() {
-  return game.journal.find(
-    (e) =>
-      e.getFlag("encounter-stats", "campaigndatastats") ===
-      "campaigndatastats"
-  );
-}
-
-export async function GetCampaignDataArticle() {
-  let article = await _getCampaignDataArticle();
-
-  if (!article) {
-    await CreateCampaignDataJournal();
-  }
-
-  return _getCampaignDataArticle();
-}
-
-export async function CreateCampaignDataJournal() {
-  const folder = GetFolder();
-
-  const article = {
-    title: "Campaign Data Stats",
-  };
-  const content = {
-    html: `{"kills": {}, "nat1": {}, "nat20": {}, "heals": {}}`,
-  };
-
-  await JournalEntry.create(
-    {
-      name: article.title,
-      content: content.html,
-      folder: folder ? folder.id : null,
-      "flags.encounter-stats.campaigndatastats": "campaigndatastats",
-    },
-    { renderSheet: false, activate: false }
-  );
-}
-
-// Campaign Article
-async function _getCampaignArticle() {
-  return game.journal.find(
-    (e) =>
-      e.getFlag("encounter-stats", "campaignstats") === "campaignstats"
-  );
-}
-
-export async function GetCampaignArticle() {
-  let article = await _getCampaignArticle();
-
-  if (!article) {
-    await CreateCampaignJournal();
-  }
-
-  return _getCampaignArticle();
-}
-
-export async function CreateCampaignJournal() {
-  const folder = GetFolder();
-
-  const article = {
-    title: "Campaign Stats",
-  };
-  const content = {
-    html: ``,
-  };
-
-  await JournalEntry.create(
-    {
-      name: article.title,
-      content: content.html,
-      folder: folder ? folder.id : null,
-      "flags.encounter-stats.campaignstats": "campaignstats",
-    },
-    { renderSheet: false, activate: false }
-  );
-}
-*/

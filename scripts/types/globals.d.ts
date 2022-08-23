@@ -1,3 +1,61 @@
+export interface CampaignStats {
+  nat1: [
+    {
+      id: string;
+      dateDisplay: string;
+      data: Array<DiceTrack>;
+    }
+  ];
+  nat20: [
+    {
+      id: string;
+      dateDisplay: string;
+      data: Array<DiceTrack>;
+    }
+  ];
+  heals: [
+    {
+      id: string;
+      dateDisplay: string;
+      data: Array<HealTrack>;
+    }
+  ];
+  kills: [
+    {
+      id: string;
+      dateDisplay: string;
+      data: Array<KillTrack>;
+    }
+  ];
+}
+
+type DiceTrack = {
+  actorName: string;
+  flavor: string;
+  date: string;
+};
+
+type HealTrack = {
+  actorName: string;
+  itemLink: string;
+  spellName: string;
+  total: number;
+  date: string;
+};
+
+type KillTrack = {
+  actorName: string;
+  tokenName: string;
+  date: string;
+};
+
+type DiceTrackParse = {
+  name: string;
+  flavor: string;
+  isCritical: boolean;
+  isFumble: boolean;
+};
+
 export interface MidiQolWorkflow {
   id: string;
   actor: {
