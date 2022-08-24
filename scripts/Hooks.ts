@@ -3,7 +3,7 @@ import {
   OnCreateCombat,
   OnDeleteCombat,
   OnUpdateCombat,
-  OnMidiRollComplete,
+  OnEncounterWorkflowComplete,
   OnUpdateHealth,
   OnTrackKill,
   OnTrackDice,
@@ -12,6 +12,7 @@ import {
 import MidiQol from "./parsers/MidiQol";
 import { IsInCombat } from "./Utils";
 import { MidiQolWorkflow } from "./types/globals";
+import Default from "./parsers/Default";
 
 const SOCKET_NAME = "module.encounter-stats";
 
@@ -19,11 +20,12 @@ function _setupSockerListeners() {
   game.socket.on(SOCKET_NAME, async function (payload) {
     switch (payload.event) {
       case "updateActor":
-        OnUpdateHealth(payload.data);
+      case "updateToken":
+        updateActorToken(payload.data.data, payload.data.diff);
         break;
       case "midi-qol.RollComplete":
-        OnMidiRollComplete(MidiQol.ParseWorkflow(payload.data));
-        OnTrackDice(await MidiQol.RollCheck(payload.data));
+        OnEncounterWorkflowComplete(payload.data.workflow);
+        OnTrackDice(payload.data.rollCheck);
         break;
     }
   });
@@ -68,7 +70,7 @@ export async function SetupHooks() {
       window.Hooks.on(
         "midi-qol.RollComplete",
         async function (workflow: MidiQolWorkflow) {
-          OnMidiRollComplete(MidiQol.ParseWorkflow(workflow));
+          OnEncounterWorkflowComplete(MidiQol.ParseWorkflow(workflow));
           OnTrackDice(await MidiQol.RollCheck(workflow));
         }
       );
@@ -77,8 +79,12 @@ export async function SetupHooks() {
     window.Hooks.on(
       "createChatMessage",
       async function (chatMessage: ChatMessage, options, user) {
-        console.debug(chatMessage, options, user);
         if (!chatMessage?.user?.isGM) {
+          if (!game.modules.get("midi-qol")?.active) {
+            OnEncounterWorkflowComplete(
+              await Default.ParseChatMessage(chatMessage)
+            );
+          }
           OnTrackDiceRoll(
             chatMessage.rolls,
             chatMessage.speaker.alias,
@@ -87,57 +93,27 @@ export async function SetupHooks() {
         }
       }
     );
-
-    /* else {
-      window.Hooks.on(
-        "createChatMessage",
-        async function (data, options, user) {
-          OnCreateChatMessage(data);
-        }
-      );
-    }*/
-
-    /*if (game.settings.get(`${MODULE_ID}`, `${OPT_TOGGLE_CAMPAIGN_TRACKING}`)) {
-      window.Hooks.on(
-        "createChatMessage",
-        async function (data, options, user) {
-          if (!data?.user?.isGM) {
-            OnTrackDiceRoll(data);
-          }
-        }
-      );
-    }
   } else {
-    /*window.Hooks.on("updateActor", async function (data, diff) {
-      if (diff.data?.attributes?.hp) {
-        game.socket.emit(SOCKET_NAME, {
-          event: "updateActor",
-          data: data,
-        });
-      }
+    window.Hooks.on("updateActor", async function (data, diff) {
+      game.socket.emit(SOCKET_NAME, {
+        event: "updateActor",
+        data: { data: data, diff: diff },
+      });
+    });
+    window.Hooks.on("updateToken", async function (data, diff) {
+      game.socket.emit(SOCKET_NAME, {
+        event: "updateToken",
+        data: { data: data, diff: diff },
+      });
     });
     if (game.modules.get("midi-qol")?.active) {
       window.Hooks.on("midi-qol.RollComplete", async function (workflow) {
         game.socket.emit(SOCKET_NAME, {
           event: "midi-qol.RollComplete",
-          data: MidiQol.ParseWorkflow(workflow),
-        });
-      });
-    }*/
-  } else {
-    /*window.Hooks.on("updateActor", async function (data, diff) {
-      if (diff.data?.attributes?.hp) {
-        game.socket.emit(SOCKET_NAME, {
-          event: "updateActor",
-          data: data,
-        });
-      }
-    });*/
-    if (game.modules.get("midi-qol")?.active) {
-      window.Hooks.on("midi-qol.RollComplete", async function (workflow) {
-        game.socket.emit(SOCKET_NAME, {
-          event: "midi-qol.RollComplete",
-          data: MidiQol.ParseWorkflow(workflow),
+          data: {
+            workflow: MidiQol.ParseWorkflow(workflow),
+            rollCheck: await MidiQol.RollCheck(workflow),
+          },
         });
       });
     }

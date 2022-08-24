@@ -12,7 +12,6 @@ import {
 } from "./types/globals";
 import { GetStat, SaveStat, RemoveStat } from "./StatManager";
 import { CombatantType } from "./Settings";
-import { _getTopStats } from "./DataParsing";
 
 export default class Stat {
   _encounter: Encounter;
@@ -81,47 +80,78 @@ export default class Stat {
   }
 
   AddAttack(workflow: EncounterWorkflow) {
+    if (!workflow?.actor?.id) {
+      return;
+    }
     const combatantStat: EncounterCombatant | undefined =
       this.GetCombatantStats(workflow.actor.id);
     if (!combatantStat) return;
+    let isNew = true;
+    let newCombatantEvent: CombatantEvent;
 
-    const newCombatantEvent = <CombatantEvent>{
-      id: workflow.id,
-      actorId: workflow.actor.id,
-      item: workflow.item,
-      advantage: workflow.advantage,
-      disadvantage: workflow.disadvantage,
-      actionType: workflow.actionType,
-      round: this.currentRound,
-      enemyHit: workflow.enemyHit,
-      attackTotal: 0,
-      damageTotal: 0,
-      isCritical: false,
-    };
+    // Get any existing event, if so merge object and update
+    const isExistingEvent: boolean =
+      combatantStat.events.find(
+        (f) => f.id === workflow.id && f.round === this.currentRound
+      ) !== undefined;
 
-    if (this.IsValidAttack(newCombatantEvent.actionType)) {
-      if (workflow.attackRoll) {
-        newCombatantEvent.attackTotal = workflow.attackTotal;
-      }
-    }
-    if (this.IsValidRollEvent(newCombatantEvent.actionType)) {
-      if (workflow.damageRoll) {
+    if (isExistingEvent && workflow.type !== "itemCard") {
+      isNew = false;
+      newCombatantEvent = combatantStat.events
+        .filter((f) => f.id === workflow.id)
+        .reverse()[0];
+
+      if (workflow.type === "damage") {
         newCombatantEvent.damageTotal = workflow.damageTotal;
+      } else if (workflow.type === "attack") {
+        newCombatantEvent.attackTotal = workflow.attackTotal;
         newCombatantEvent.isCritical = workflow.isCritical;
+        newCombatantEvent.isFumble = workflow.isFumble;
+        newCombatantEvent.advantage = workflow.advantage;
+        newCombatantEvent.disadvantage = workflow.disadvantage;
+      }
+    } else {
+      if (workflow.type === "itemCard") {
+        newCombatantEvent = <CombatantEvent>{
+          id: workflow.id,
+          actorId: workflow.actor.id,
+          item: workflow.item,
+          round: this.currentRound,
+          attackTotal: 0,
+          damageTotal: 0,
+        };
+      } else {
+        newCombatantEvent = <CombatantEvent>{
+          id: workflow.id,
+          actorId: workflow.actor.id,
+          item: workflow.item,
+          advantage: workflow.advantage,
+          disadvantage: workflow.disadvantage,
+          actionType: workflow.actionType,
+          round: this.currentRound,
+          enemyHit: workflow.enemyHit,
+          attackTotal: 0,
+          damageTotal: 0,
+          isCritical: false,
+        };
+
+        if (this.IsValidAttack(newCombatantEvent.actionType)) {
+          if (workflow.attackRoll) {
+            newCombatantEvent.attackTotal = workflow.attackTotal;
+          }
+        }
+        if (this.IsValidRollEvent(newCombatantEvent.actionType)) {
+          if (workflow.damageRoll) {
+            newCombatantEvent.damageTotal = workflow.damageTotal;
+            newCombatantEvent.isCritical = workflow.isCritical;
+          }
+        }
       }
     }
 
-    //let isNewAttack = false;
-    if (combatantStat.events.find((f) => f.id === newCombatantEvent.id)) {
-      combatantStat.events[combatantStat.events.length - 1] = newCombatantEvent;
-    } else {
+    if (isNew) {
       combatantStat.events.push(newCombatantEvent);
-      //isNewAttack = true;
     }
-
-    /*if (statResult.isNewAttack) {
-      stat.templateHealthCheck = [];
-    }*/
   }
 
   AddCombatant(actor: Actor, tokenId: string) {
@@ -220,8 +250,6 @@ export default class Stat {
   }
 
   async Save(): Promise<void> {
-    console.debug("Saved Encounter", this._encounter);
-
     this.GenerateCombatantStats();
     this.GetTopStats();
     await SaveStat(this._encounter);

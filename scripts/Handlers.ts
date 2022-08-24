@@ -69,10 +69,11 @@ export async function OnTrackDice(diceTrackParsed: DiceTrackParse) {
   }
 }
 
-export async function OnMidiRollComplete(
+export async function OnEncounterWorkflowComplete(
   workflow: EncounterWorkflow
 ): Promise<void> {
   if (!IsInCombat()) return;
+  if (!workflow) return;
   const stat = new Stat();
   stat.AddAttack(workflow);
   stat.Save();

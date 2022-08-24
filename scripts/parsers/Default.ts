@@ -1,66 +1,100 @@
-import {
-  nullChecks,
-  resetDamageIfAreaEffect,
-  GetItemData,
-  ChatType,
-  GetCombatantStats,
-  CombatantStats
-} from "../Utils";
-import { ATTACKTYPES } from "../Settings";
+import { EncounterWorkflow, EnemyHit } from "../types/globals";
 
-export default async function Default(stat, attackData, data) {
-  const combatantStat = GetCombatantStats(stat, data.data.speaker.actor);
-  if (!combatantStat) return;
-  const eventsLength = combatantStat.events.length;
-  attackData.actorId = data.data.speaker.actor;
-
-  const chatType = await ChatType(data);
-  if (chatType === ATTACKTYPES.NONE) return;
-
-  if (chatType === ATTACKTYPES.INFO) {
-    attackData = await GetItemData(
-      attackData,
-      attackData.actorId,
-      data.data.content
+export default class Default {
+  static async ParseChatMessage(
+    chatMessage: ChatMessage
+  ): Promise<EncounterWorkflow | undefined> {
+    const enemiesHit: Array<EnemyHit> = chatMessage.user.targets.map(
+      (m) =>
+        <EnemyHit>{
+          tokenId: m.id,
+          name: m.name,
+        }
     );
 
-    combatantStat.events.push(attackData);
-  }
-
-  if (
-    chatType === ATTACKTYPES.ATTACK ||
-    chatType === ATTACKTYPES.DAMAGE ||
-    chatType === ATTACKTYPES.DAMAGE_FORMULA
-  ) {
-    attackData = combatantStat.events[combatantStat.events.length - 1];
-
-    if (chatType === ATTACKTYPES.ATTACK) {
-      attackData.attackTotal = data._roll.total;
-      attackData.advantage =
-        data._roll.options.advantageMode === 1 ? true : false;
-      attackData.disadvantage =
-        data._roll.options.advantageMode === -1 ? true : false;
+    let type: string | undefined;
+    const actor = game.actors.get(chatMessage.speaker.actor);
+    if (!actor) {
+      return;
     }
-    if (
-      chatType === ATTACKTYPES.DAMAGE ||
-      chatType === ATTACKTYPES.DAMAGE_FORMULA
-    ) {
-      attackData.damageTotal = data._roll.total;
-      if (data._roll.options.critical != null) {
-        attackData.isCritical = data._roll.options.critical;
+    const itemMatch = chatMessage.content?.match(
+      /data-item-id=\"([a-zA-Z0-9]+)\"/
+    );
+    let itemId: string;
+
+    if (itemMatch !== null && itemMatch !== undefined) {
+      itemId = itemMatch[1];
+      type = "itemCard";
+    } else if (chatMessage.flags?.dnd5e?.roll?.type) {
+      itemId = chatMessage.flags.dnd5e.roll.itemId;
+      type = chatMessage.flags.dnd5e.roll.type;
+    } else {
+      return;
+    }
+
+    if (!type) {
+      return;
+    }
+
+    const actorItems = actor.items;
+    const item = actorItems.find((f) => f.id === itemId);
+
+    if (type === "damage") {
+      return <EncounterWorkflow>{
+        id: itemId + actor.id,
+        actor: {
+          id: actor.id,
+        },
+        damageRoll: chatMessage.rolls[0]?.dice[0].total ?? 0,
+        damageTotal: chatMessage.rolls[0]?.total ?? 0,
+        damageMultipleEnemiesTotal:
+          chatMessage.rolls[0]?.total ?? 0 * enemiesHit.length,
+        type: type,
+      };
+    } else if (type === "attack") {
+      let isCritical = false;
+      let isFumble = false;
+      const dice: Die = chatMessage.rolls[0]?.dice[0];
+      if (dice?.faces === 20) {
+        if (dice.total === 1) {
+          isFumble = true;
+        }
+
+        if (dice.total === 20) {
+          isCritical = true;
+        }
       }
+      return <EncounterWorkflow>{
+        id: itemId + actor.id,
+        actor: {
+          id: actor.id,
+        },
+        attackRoll: chatMessage.rolls[0]?.dice[0]?.total ?? 0,
+        attackTotal: chatMessage.rolls[0]?.total ?? 0,
+        isCritical: isCritical,
+        isFumble: isFumble,
+        advantage: chatMessage.rolls[0]?.hasAdvantage,
+        disadvantage: chatMessage.rolls[0]?.hasDisadvantage,
+        type: type,
+      };
+    } else if (type === "itemCard") {
+      return <EncounterWorkflow>{
+        id: itemId + actor.id,
+        actor: {
+          id: actor.id,
+        },
+        item: {
+          //data-item-id
+          id: item.id,
+          name: item.name,
+          link: item.link,
+          type: item.type,
+          img: item.img,
+        },
+        actionType: item.system.actionType,
+        enemyHit: enemiesHit,
+        type: type,
+      };
     }
   }
-
-  resetDamageIfAreaEffect(attackData, stat.templateHealthCheck.length > 1);
-
-  nullChecks(attackData);
-
-  CombatantStats(combatantStat);
-
-  return {
-    stat: stat,
-    isNewAttack: combatantStat.events.length > eventsLength,
-    attackData: attackData,
-  };
 }

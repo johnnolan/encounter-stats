@@ -8,6 +8,7 @@ import Stat from "./Stat";
 jest.mock("./StatManager");
 import { GetStat, RemoveStat, SaveStat } from "./StatManager";
 import { actor } from "./mockdata/actor";
+import { chatActor } from "./mockdata/chatActor";
 
 const encounter: Encounter = {
   encounterId: "t98gppsau45ypm3t",
@@ -52,6 +53,7 @@ const encoutnerMidiWorkflow: EncounterWorkflow = {
     },
   ],
 };
+
 const encoutnerMidiWorkflow2: EncounterWorkflow = {
   id: "d75gppsau45ypm2b",
   actionType: "mwak",
@@ -106,6 +108,53 @@ const encoutnerMidiWorkflowHeal: EncounterWorkflow = {
     type: "sword",
     img: "itemImageUrl",
   },
+};
+
+const encounterDefaultWorkflowItemCard: EncounterWorkflow = {
+  id: `C3c6l9SPMCqMiceV5H4YnyD6zf9vcJ3P`,
+  actionType: "mwak",
+  actor: {
+    id: "5H4YnyD6zf9vcJ3P",
+  },
+  item: {
+    id: "C3c6l9SPMCqMiceV",
+    name: "Flame Tongue Greatsword",
+    link: "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
+    type: "sword",
+    img: "itemImageUrl",
+  },
+  enemyHit: [
+    {
+      name: "Acolyte",
+      tokenId: "tokenId",
+    },
+  ],
+  type: "itemCard",
+};
+
+const encounterDefaultWorkflowAttack: EncounterWorkflow = {
+  id: `C3c6l9SPMCqMiceV5H4YnyD6zf9vcJ3P`,
+  actor: {
+    id: "5H4YnyD6zf9vcJ3P",
+  },
+  attackTotal: 19,
+  attackRoll: 18,
+  advantage: true,
+  disadvantage: false,
+  isCritical: false,
+  isFumble: false,
+  type: "attack",
+};
+
+const encounterDefaultWorkflowDamage: EncounterWorkflow = {
+  id: `C3c6l9SPMCqMiceV5H4YnyD6zf9vcJ3P`,
+  actor: {
+    id: "5H4YnyD6zf9vcJ3P",
+  },
+  damageRoll: 41,
+  damageTotal: 41,
+  damageMultipleEnemiesTotal: 41,
+  type: "damage",
 };
 
 describe("Stat", () => {
@@ -250,107 +299,198 @@ describe("Stat", () => {
       );
     });
 
-    describe("If you add a new Attack", () => {
-      test("the initial stats all return 0", () => {
-        stat.AddCombatant(actor, "tokenId");
-        stat.Save();
-        expect(stat.encounter.combatants.length).toBe(1);
-        const combatantResult = stat.GetCombatantStats("eMyoELkOwFNPGEK8");
+    describe("MidiQol", () => {
+      describe("If you add a new Attack", () => {
+        test("the initial stats all return 0", () => {
+          stat.AddCombatant(actor, "tokenId");
+          stat.Save();
+          expect(stat.encounter.combatants.length).toBe(1);
+          const combatantResult = stat.GetCombatantStats("eMyoELkOwFNPGEK8");
 
-        expect(stat.encounter.combatants.length).toBe(1);
-        expect(combatantResult?.events.length).toBe(0);
+          expect(stat.encounter.combatants.length).toBe(1);
+          expect(combatantResult?.events.length).toBe(0);
 
-        expect(stat.encounter.top.maxDamage).toBe("None<br />0");
-        expect(stat.encounter.top.mostDamageInOneTurn).toBe("None<br />0");
-        expect(stat.encounter.top.highestAvgDamage).toBe("None<br />0");
-        expect(stat.encounter.top.highestMaxDamage).toBe("None<br />0");
-        expect(stat.encounter.top.mostKills).toBe("None<br />0");
-        expect(stat.encounter.top.mostHealing).toBe("None<br />0");
-        expect(stat.encounter.top.mostSupportActions).toBe("None<br />0");
-        expect(stat.encounter.top.mostBattlefieldActions).toBe("None<br />0");
+          expect(stat.encounter.top.maxDamage).toBe("None<br />0");
+          expect(stat.encounter.top.mostDamageInOneTurn).toBe("None<br />0");
+          expect(stat.encounter.top.highestAvgDamage).toBe("None<br />0");
+          expect(stat.encounter.top.highestMaxDamage).toBe("None<br />0");
+          expect(stat.encounter.top.mostKills).toBe("None<br />0");
+          expect(stat.encounter.top.mostHealing).toBe("None<br />0");
+          expect(stat.encounter.top.mostSupportActions).toBe("None<br />0");
+          expect(stat.encounter.top.mostBattlefieldActions).toBe("None<br />0");
 
-        expect(combatantResult?.summaryList).toStrictEqual(<
-          CombatEventSummaryList
-        >{ min: 0, max: 0, avg: 0, total: 0 });
-        expect(combatantResult?.roundSummary).toStrictEqual(<
-          EncounterRoundSummary
-        >{
-          totals: [],
+          expect(combatantResult?.summaryList).toStrictEqual(<
+            CombatEventSummaryList
+          >{ min: 0, max: 0, avg: 0, total: 0 });
+          expect(combatantResult?.roundSummary).toStrictEqual(<
+            EncounterRoundSummary
+          >{
+            totals: [],
+          });
+        });
+        test("you can get the combatant by actor id", () => {
+          stat.AddCombatant(actor, "tokenId");
+          stat.AddAttack(encoutnerMidiWorkflow);
+          stat.AddAttack(encoutnerMidiWorkflow2);
+          stat.AddAttack(encoutnerMidiWorkflowHeal);
+          stat.AddKill("Acolyte", "tokenId");
+          stat.Save();
+          expect(stat.encounter.combatants.length).toBe(1);
+          const combatantResult = stat.GetCombatantStats("eMyoELkOwFNPGEK8");
+          expect(stat.encounter.combatants.length).toBe(1);
+          expect(combatantResult?.events.length).toBe(3);
+
+          expect(stat.encounter.top.maxDamage).toBe("Graa S'oua<br />35");
+          expect(stat.encounter.top.mostDamageInOneTurn).toBe(
+            "Graa S'oua<br />35"
+          );
+          expect(stat.encounter.top.highestAvgDamage).toBe(
+            "Graa S'oua<br />18"
+          );
+          expect(stat.encounter.top.highestMaxDamage).toBe(
+            "Graa S'oua<br />20"
+          );
+          expect(stat.encounter.top.mostKills).toBe("Graa S'oua<br />1");
+          expect(stat.encounter.top.mostHealing).toBe("Graa S'oua<br />1");
+          expect(stat.encounter.top.mostSupportActions).toBe(
+            "Graa S'oua<br />1"
+          );
+          expect(stat.encounter.top.mostBattlefieldActions).toBe(
+            "Graa S'oua<br />0"
+          );
+
+          expect(combatantResult?.summaryList).toStrictEqual(<
+            CombatEventSummaryList
+          >{ min: 15, max: 20, avg: 18, total: 35 });
+          expect(combatantResult?.roundSummary).toStrictEqual(<
+            EncounterRoundSummary
+          >{
+            totals: [
+              {
+                round: 1,
+                damageTotal: 35,
+              },
+            ],
+          });
         });
       });
-      test("you can get the combatant by actor id", () => {
-        stat.AddCombatant(actor, "tokenId");
-        stat.AddAttack(encoutnerMidiWorkflow);
-        stat.AddAttack(encoutnerMidiWorkflow2);
-        stat.AddAttack(encoutnerMidiWorkflowHeal);
-        stat.AddKill("Acolyte", "tokenId");
-        stat.Save();
-        expect(stat.encounter.combatants.length).toBe(1);
-        const combatantResult = stat.GetCombatantStats("eMyoELkOwFNPGEK8");
-        expect(stat.encounter.combatants.length).toBe(1);
-        expect(combatantResult?.events.length).toBe(3);
 
-        expect(stat.encounter.top.maxDamage).toBe("Graa S'oua<br />35");
-        expect(stat.encounter.top.mostDamageInOneTurn).toBe(
-          "Graa S'oua<br />35"
-        );
-        expect(stat.encounter.top.highestAvgDamage).toBe("Graa S'oua<br />18");
-        expect(stat.encounter.top.highestMaxDamage).toBe("Graa S'oua<br />20");
-        expect(stat.encounter.top.mostKills).toBe("Graa S'oua<br />1");
-        expect(stat.encounter.top.mostHealing).toBe("Graa S'oua<br />1");
-        expect(stat.encounter.top.mostSupportActions).toBe("Graa S'oua<br />1");
-        expect(stat.encounter.top.mostBattlefieldActions).toBe(
-          "Graa S'oua<br />0"
-        );
-
-        expect(combatantResult?.summaryList).toStrictEqual(<
-          CombatEventSummaryList
-        >{ min: 15, max: 20, avg: 18, total: 35 });
-        expect(combatantResult?.roundSummary).toStrictEqual(<
-          EncounterRoundSummary
-        >{
-          totals: [
-            {
-              round: 1,
-              damageTotal: 35,
-            },
-          ],
+      describe("If you add a new Kill", () => {
+        test("you can see the kill added", () => {
+          stat.AddCombatant(actor, "tokenId");
+          stat.AddKill("Acolyte", "tokenId");
+          stat.Save();
+          expect(stat.encounter.combatants.length).toBe(1);
+          expect(stat.GetCombatantStats("eMyoELkOwFNPGEK8")?.kills.length).toBe(
+            1
+          );
         });
       });
-    });
 
-    describe("If you add a new Kill", () => {
-      test("you can see the kill added", () => {
-        stat.AddCombatant(actor, "tokenId");
-        stat.AddKill("Acolyte", "tokenId");
-        stat.Save();
-        expect(stat.encounter.combatants.length).toBe(1);
-        expect(stat.GetCombatantStats("eMyoELkOwFNPGEK8")?.kills.length).toBe(
-          1
-        );
-      });
-    });
-
-    describe("If you update Health", () => {
-      test("you can see healing done", () => {
-        stat.AddCombatant(actor, "tokenId");
-        stat.UpdateHealth({
-          id: "eMyoELkOwFNPGEK8",
-          system: {
-            attributes: {
-              hp: {
-                value: 60,
-                max: 100,
+      describe("If you update Health", () => {
+        test("you can see healing done", () => {
+          stat.AddCombatant(actor, "tokenId");
+          stat.UpdateHealth({
+            id: "eMyoELkOwFNPGEK8",
+            system: {
+              attributes: {
+                hp: {
+                  value: 60,
+                  max: 100,
+                },
               },
             },
-          },
+          });
+          stat.Save();
+          expect(stat.encounter.combatants.length).toBe(1);
+          const combatantResult = stat.GetCombatantStats("eMyoELkOwFNPGEK8");
+          expect(combatantResult?.health.length).toBe(1);
+          expect(combatantResult?.health[0].current).toBe(60);
+          expect(combatantResult?.health[0].previous).toBe(80);
         });
-        stat.Save();
-        expect(stat.encounter.combatants.length).toBe(1);
-        const combatantResult = stat.GetCombatantStats("eMyoELkOwFNPGEK8");
-        expect(combatantResult?.health.length).toBe(1);
-        expect(combatantResult?.health[0].current).toBe(60);
-        expect(combatantResult?.health[0].previous).toBe(80);
+      });
+    });
+    describe("Default", () => {
+      describe("If you add a new Attack", () => {
+        test("The basic Item Card is added", () => {
+          stat.AddCombatant(chatActor, "tokenId");
+          stat.AddAttack(encounterDefaultWorkflowItemCard);
+          stat.Save();
+          expect(stat.encounter.combatants.length).toBe(1);
+          const combatantResult = stat.GetCombatantStats("5H4YnyD6zf9vcJ3P");
+          expect(combatantResult?.events.length).toBe(1);
+          expect(combatantResult?.events[0]).toStrictEqual({
+            id: "C3c6l9SPMCqMiceV5H4YnyD6zf9vcJ3P",
+            actorId: "5H4YnyD6zf9vcJ3P",
+            item: {
+              id: "C3c6l9SPMCqMiceV",
+              name: "Flame Tongue Greatsword",
+              link: "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
+              type: "sword",
+              img: "itemImageUrl",
+            },
+            round: 1,
+            attackTotal: 0,
+            damageTotal: 0,
+          });
+        });
+
+        test("The Attack is added to the same item card", async () => {
+          stat.AddCombatant(chatActor, "tokenId");
+          stat.AddAttack(encounterDefaultWorkflowItemCard);
+          stat.AddAttack(encounterDefaultWorkflowAttack);
+          stat.Save();
+          expect(stat.encounter.combatants.length).toBe(1);
+          const combatantResult = stat.GetCombatantStats("5H4YnyD6zf9vcJ3P");
+          expect(combatantResult?.events.length).toBe(1);
+          expect(combatantResult?.events[0]).toStrictEqual({
+            id: "C3c6l9SPMCqMiceV5H4YnyD6zf9vcJ3P",
+            actorId: "5H4YnyD6zf9vcJ3P",
+            item: {
+              id: "C3c6l9SPMCqMiceV",
+              name: "Flame Tongue Greatsword",
+              link: "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
+              type: "sword",
+              img: "itemImageUrl",
+            },
+            round: 1,
+            attackTotal: 19,
+            isCritical: false,
+            isFumble: false,
+            advantage: true,
+            disadvantage: false,
+            damageTotal: 0,
+          });
+        });
+
+        test("The Damage is added to the same item card", async () => {
+          stat.AddCombatant(chatActor, "tokenId");
+          stat.AddAttack(encounterDefaultWorkflowItemCard);
+          stat.AddAttack(encounterDefaultWorkflowAttack);
+          stat.AddAttack(encounterDefaultWorkflowDamage);
+          stat.Save();
+          expect(stat.encounter.combatants.length).toBe(1);
+          const combatantResult = stat.GetCombatantStats("5H4YnyD6zf9vcJ3P");
+          expect(combatantResult?.events.length).toBe(1);
+          expect(combatantResult?.events[0]).toStrictEqual({
+            id: "C3c6l9SPMCqMiceV5H4YnyD6zf9vcJ3P",
+            actorId: "5H4YnyD6zf9vcJ3P",
+            item: {
+              id: "C3c6l9SPMCqMiceV",
+              name: "Flame Tongue Greatsword",
+              link: "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
+              type: "sword",
+              img: "itemImageUrl",
+            },
+            round: 1,
+            attackTotal: 19,
+            isCritical: false,
+            isFumble: false,
+            advantage: true,
+            disadvantage: false,
+            damageTotal: 41,
+          });
+        });
       });
     });
   });

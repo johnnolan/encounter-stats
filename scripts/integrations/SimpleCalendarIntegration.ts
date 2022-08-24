@@ -1,17 +1,6 @@
-import {
-  MODULE_ID,
-  OPT_ENABLE_SIMPLE_CALENDAR_INTEGRATION,
-} from "../Settings";
-
 export default class SimpleCalendarIntegration {
   static IsEnabled() {
-    return (
-      window.SimpleCalendar !== undefined &&
-      game.settings.get(
-        `${MODULE_ID}`,
-        `${OPT_ENABLE_SIMPLE_CALENDAR_INTEGRATION}`
-      )
-    );
+    return window.SimpleCalendar !== undefined;
   }
 
   static GetCurrentDate() {
