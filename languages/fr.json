@@ -43,6 +43,5 @@
     "EncounterStats.actiontypes.mwak": "Attaque au CàC",
     "EncounterStats.actiontypes.rwak": "Attaque à distance",
     "EncounterStats.actiontypes.save": "Sauvegarde",
-    "EncounterStats.actiontypes.other": "Autre",
-    "EncounterStats.config.debug": "Rapporter un Bug"
+    "EncounterStats.actiontypes.other": "Autre"
 }
