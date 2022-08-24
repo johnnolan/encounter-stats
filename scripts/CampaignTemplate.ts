@@ -38,7 +38,7 @@ export function Generate(campaignStats: CampaignStats) {
 function GenerateKillRow(campaignStats: CampaignStats) {
   let markup = ``;
 
-  campaignStats.kills.forEach((kills) => {
+  campaignStats.kills.reverse().forEach((kills) => {
     markup += _getItemListTitle(kills.dateDisplay);
 
     kills.data.forEach((kill: KillTrack) => {
@@ -59,7 +59,7 @@ function GenerateKillRow(campaignStats: CampaignStats) {
 function GenerateNat1Row(campaignStats: CampaignStats) {
   let markup = ``;
 
-  campaignStats.nat1.forEach((nat1s) => {
+  campaignStats.nat1.reverse().forEach((nat1s) => {
     markup += _getItemListTitle(nat1s.dateDisplay);
 
     nat1s.data.forEach((diceTrack: DiceTrack) => {
@@ -80,7 +80,7 @@ function GenerateNat1Row(campaignStats: CampaignStats) {
 function Generatenat20Row(campaignStats: CampaignStats) {
   let markup = ``;
 
-  campaignStats.nat20.forEach((nat20s) => {
+  campaignStats.nat20.reverse().forEach((nat20s) => {
     markup += _getItemListTitle(nat20s.dateDisplay);
 
     nat20s.data.forEach((diceTrack: DiceTrack) => {
@@ -101,7 +101,7 @@ function Generatenat20Row(campaignStats: CampaignStats) {
 function GenerateHealRow(campaignStats: CampaignStats) {
   let markup = ``;
 
-  campaignStats.heals.forEach((heals) => {
+  campaignStats.heals.reverse().forEach((heals) => {
     markup += _getItemListTitle(heals.dateDisplay);
 
     heals.data.forEach((healTrack: HealTrack) => {
