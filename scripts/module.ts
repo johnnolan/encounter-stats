@@ -18,6 +18,9 @@ Hooks.once("ready", async function () {
     if (!EncounterJournal.IsJournalSetup()) {
       EncounterJournal.CreateJournal();
     }
+    if (!(await EncounterJournal.IsCampaignJournalSetup())) {
+      EncounterJournal.CreateCampaignJournalEntryPage();
+    }
   }
   SetupHooks();
 });

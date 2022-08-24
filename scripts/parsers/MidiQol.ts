@@ -1,4 +1,9 @@
-import { EncounterWorkflow, EnemyHit, MidiQolWorkflow } from "../types/globals";
+import {
+  DiceTrackParse,
+  EncounterWorkflow,
+  EnemyHit,
+  MidiQolWorkflow,
+} from "../types/globals";
 
 class MidiQol {
   static ParseWorkflow(workflow: MidiQolWorkflow): EncounterWorkflow {
@@ -43,7 +48,7 @@ class MidiQol {
     };
   }
 
-  static async RollCheck(workflow: MidiQolWorkflow) {
+  static async RollCheck(workflow: MidiQolWorkflow): Promise<DiceTrackParse> {
     const actorId = workflow.actor.id;
     let actor;
 
@@ -51,10 +56,10 @@ class MidiQol {
       actor = await game.actors.get(actorId);
     }
 
-    return {
+    return <DiceTrackParse>{
       isCritical: workflow.isCritical,
       isFumble: workflow.isFumble,
-      flavor: "",
+      flavor: workflow.item.name,
       name: actor.name,
     };
   }
