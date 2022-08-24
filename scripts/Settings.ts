@@ -65,4 +65,4 @@ export const KILLED_DATA_TEMPLATE = {
 export const CombatantType = {
   character: "character",
   npc: "npc",
-}
+};

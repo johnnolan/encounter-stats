@@ -1,7 +1,4 @@
-import {
-  MODULE_ID,
-  OPT_ENABLE_SIMPLE_CALENDAR_INTEGRATION,
-} from "../Settings";
+import { MODULE_ID, OPT_ENABLE_SIMPLE_CALENDAR_INTEGRATION } from "../Settings";
 
 export default class SimpleCalendarIntegration {
   static IsEnabled() {

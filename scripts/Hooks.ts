@@ -3,7 +3,7 @@ import {
   OnCreateCombat,
   OnDeleteCombat,
   OnUpdateCombat,
-  OnMidiRollComplete,
+  OnEncounterWorkflowComplete,
   OnUpdateHealth,
   OnTrackKill,
   OnTrackDice,
@@ -12,6 +12,7 @@ import {
 import MidiQol from "./parsers/MidiQol";
 import { IsInCombat } from "./Utils";
 import { MidiQolWorkflow } from "./types/globals";
+import Default from "./parsers/Default";
 
 const SOCKET_NAME = "module.encounter-stats";
 
@@ -22,7 +23,7 @@ function _setupSockerListeners() {
         OnUpdateHealth(payload.data);
         break;
       case "midi-qol.RollComplete":
-        OnMidiRollComplete(MidiQol.ParseWorkflow(payload.data));
+        OnEncounterWorkflowComplete(MidiQol.ParseWorkflow(payload.data));
         OnTrackDice(await MidiQol.RollCheck(payload.data));
         break;
     }
@@ -68,7 +69,7 @@ export async function SetupHooks() {
       window.Hooks.on(
         "midi-qol.RollComplete",
         async function (workflow: MidiQolWorkflow) {
-          OnMidiRollComplete(MidiQol.ParseWorkflow(workflow));
+          OnEncounterWorkflowComplete(MidiQol.ParseWorkflow(workflow));
           OnTrackDice(await MidiQol.RollCheck(workflow));
         }
       );
@@ -77,8 +78,10 @@ export async function SetupHooks() {
     window.Hooks.on(
       "createChatMessage",
       async function (chatMessage: ChatMessage, options, user) {
-        console.debug(chatMessage, options, user);
-        if (!chatMessage?.user?.isGM) {
+        if (chatMessage?.user?.isGM) {
+          OnEncounterWorkflowComplete(
+            await Default.ParseChatMessage(chatMessage)
+          );
           OnTrackDiceRoll(
             chatMessage.rolls,
             chatMessage.speaker.alias,
