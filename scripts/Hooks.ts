@@ -78,7 +78,7 @@ export async function SetupHooks() {
       "createChatMessage",
       async function (chatMessage: ChatMessage, options, user) {
         console.debug(chatMessage, options, user);
-        if (chatMessage?.user?.isGM) {
+        if (!chatMessage?.user?.isGM) {
           OnTrackDiceRoll(
             chatMessage.rolls,
             chatMessage.speaker.alias,
