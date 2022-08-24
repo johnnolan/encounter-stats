@@ -121,7 +121,7 @@ export interface EncounterWorkflow {
   isFumble: boolean;
   actionType: string;
   enemyHit: Array<EnemyHit>;
-  type: string?;
+  type: string;
 }
 
 type Encounter = {
