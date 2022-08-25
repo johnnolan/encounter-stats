@@ -1,4 +1,3 @@
-import { GetFolder } from "./Folder";
 //import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration";
 import { CampaignStats } from "./types/globals";
 
@@ -6,12 +5,10 @@ class EncounterJournal {
   static readonly JOURNAL_TITLE = "Encounter Statistics";
 
   static async CreateJournal() {
-    const folder = GetFolder();
 
     await JournalEntry.create(
       {
         name: this.JOURNAL_TITLE,
-        folder: folder ? folder.id : null,
       },
       { renderSheet: false, activate: false }
     );
