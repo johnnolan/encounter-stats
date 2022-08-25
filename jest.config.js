@@ -27,7 +27,6 @@ export default {
     "!scripts/CampaignManager.ts",
     "!scripts/CampaignTemplate.ts",
     "!scripts/DataParsing.ts",
-    "!scripts/Folder.ts",
     "!scripts/EncounterJournal.ts",
     "!scripts/Handlers.ts",
     "!scripts/Hooks.ts",

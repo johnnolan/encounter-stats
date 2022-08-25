@@ -11,7 +11,7 @@ export async function OnTrackDiceRoll(
 ): Promise<void> {
   if (rolls.length !== 1) return;
 
-  const dice: Die = rolls[0].dice[0];
+  const dice: DiceTerm = rolls[0].dice[0];
   if (dice.faces === 20) {
     if (dice.total === 1) {
       CampaignStat.AddRole("nat1", alias, flavor);
@@ -70,7 +70,7 @@ export async function OnTrackDice(diceTrackParsed: DiceTrackParse) {
 }
 
 export async function OnEncounterWorkflowComplete(
-  workflow: EncounterWorkflow
+  workflow: EncounterWorkflow | undefined
 ): Promise<void> {
   if (!IsInCombat()) return;
   if (!workflow) return;

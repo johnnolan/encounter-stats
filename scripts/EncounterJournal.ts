@@ -1,4 +1,3 @@
-import { GetFolder } from "./Folder";
 //import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration";
 import { CampaignStats } from "./types/globals";
 
@@ -6,26 +5,23 @@ class EncounterJournal {
   static readonly JOURNAL_TITLE = "Encounter Statistics";
 
   static async CreateJournal() {
-    const folder = GetFolder();
-
     await JournalEntry.create(
       {
         name: this.JOURNAL_TITLE,
-        folder: folder ? folder.id : null,
       },
       { renderSheet: false, activate: false }
     );
   }
 
   static async CreateJournalEntryPage(encounterId: string) {
-    let title = `${new Date().toISOString()}`;
+    const title = `${new Date().toISOString()}`;
 
     /*if (SimpleCalendarIntegration.IsEnabled()) {
       title = `${SimpleCalendarIntegration.GetCurrentDateToString()} (${encounterId})`;
     }*/
 
     const journalEntry = game.journal.find(
-      (e) => e.name === this.JOURNAL_TITLE
+      (e: JournalEntry) => e.name === this.JOURNAL_TITLE
     );
     journalEntry.createEmbeddedDocuments("JournalEntryPage", [
       {
@@ -42,7 +38,7 @@ class EncounterJournal {
 
   static async CreateCampaignJournalEntryPage() {
     const journalEntry = game.journal.find(
-      (e) => e.name === this.JOURNAL_TITLE
+      (e: JournalEntry) => e.name === this.JOURNAL_TITLE
     );
     journalEntry.createEmbeddedDocuments("JournalEntryPage", [
       {
@@ -70,9 +66,10 @@ class EncounterJournal {
 
   static async UpdateJournal(html: string, encounterId: string) {
     const journalEntryPage = game.journal
-      .find((e) => e.name === this.JOURNAL_TITLE)
+      .find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
       ?.pages.find(
-        (e) => e.getFlag("encounter-stats", "encounterId") === encounterId
+        (e: JournalEntryPage) =>
+          e.getFlag("encounter-stats", "encounterId") === encounterId
       );
 
     await journalEntryPage?.update({
@@ -84,9 +81,10 @@ class EncounterJournal {
 
   static async UpdateCampaignDataJournal(jsonData: string) {
     const journalEntryPage = game.journal
-      .find((e) => e.name === this.JOURNAL_TITLE)
+      .find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
       ?.pages.find(
-        (e) => e.getFlag("encounter-stats", "campaignstats") === "data"
+        (e: JournalEntryPage) =>
+          e.getFlag("encounter-stats", "campaignstats") === "data"
       );
 
     await journalEntryPage?.update({
@@ -98,9 +96,10 @@ class EncounterJournal {
 
   static async UpdateCampaignJournal(html: string) {
     const journalEntryPage = game.journal
-      .find((e) => e.name === this.JOURNAL_TITLE)
+      .find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
       ?.pages.find(
-        (e) => e.getFlag("encounter-stats", "campaignstats") === "view"
+        (e: JournalEntryPage) =>
+          e.getFlag("encounter-stats", "campaignstats") === "view"
       );
 
     await journalEntryPage?.update({
@@ -112,8 +111,10 @@ class EncounterJournal {
 
   static async GetCampaignJournal(): Promise<CampaignStats> {
     const journalEntryPage = game.journal
-      .find((e) => e.name === this.JOURNAL_TITLE)
-      ?.pages.find((e) => e.getFlag("encounter-stats", "campaignstats"));
+      .find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
+      ?.pages.find((e: JournalEntryPage) =>
+        e.getFlag("encounter-stats", "campaignstats")
+      );
 
     return <CampaignStats>(
       JSON.parse(
@@ -124,17 +125,17 @@ class EncounterJournal {
 
   static IsJournalSetup(): boolean {
     return (
-      game.journal.find((e) => e.name === this.JOURNAL_TITLE) !== undefined
+      game.journal.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE) !==
+      undefined
     );
   }
 
   static async IsCampaignJournalSetup(): Promise<boolean> {
-    const journal = await game.journal
-      .find((e) => e.name === this.JOURNAL_TITLE)
+    return await game.journal
+      .find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
       ?.pages.find(
         (e) => e.getFlag("encounter-stats", "campaignstats") === "data"
       );
-    return journal;
   }
 }
 

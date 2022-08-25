@@ -1,5 +1,5 @@
 import { EncounterWorkflow } from "../types/globals";
-import Default from "./Default";
+import DND5e from "./DND5e";
 import { chatActor } from "../mockdata/chatActor";
 
 const chatMessageItem: ChatMessage = {
@@ -15,14 +15,7 @@ const chatMessageItem: ChatMessage = {
       },
     ],
   },
-  flags: {
-    /*dnd5e: {
-      roll: {
-        itemId: "C3c6l9SPMCqMiceV",
-        type: "attack",
-      }
-    }*/
-  },
+  flags: {},
 };
 
 const chatMessageItemAttack: ChatMessage = {
@@ -106,7 +99,7 @@ describe("Default", () => {
         };
       });
       test("it returns the correct EncounterWorkflow", async () => {
-        const result: Default = await Default.ParseChatMessage(chatMessageItem);
+        const result = await DND5e.ParseChatMessage(chatMessageItem);
         expect(result).toStrictEqual(<EncounterWorkflow>{
           id: `C3c6l9SPMCqMiceV${chatMessageItem.speaker.actor}`,
           actionType: "mwak",
@@ -140,9 +133,7 @@ describe("Default", () => {
         };
       });
       test("it returns the correct EncounterWorkflow", async () => {
-        const result: Default = await Default.ParseChatMessage(
-          chatMessageItemAttack
-        );
+        const result = await DND5e.ParseChatMessage(chatMessageItemAttack);
         expect(result).toStrictEqual(<EncounterWorkflow>{
           id: `C3c6l9SPMCqMiceV${chatMessageItemAttack.speaker.actor}`,
           actor: {
@@ -168,9 +159,7 @@ describe("Default", () => {
         };
       });
       test("it returns the correct EncounterWorkflow", async () => {
-        const result: Default = await Default.ParseChatMessage(
-          chatMessageItemDamage
-        );
+        const result = await DND5e.ParseChatMessage(chatMessageItemDamage);
         expect(result).toStrictEqual(<EncounterWorkflow>{
           id: `C3c6l9SPMCqMiceV${chatMessageItemDamage.speaker.actor}`,
           actor: {

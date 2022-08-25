@@ -1,6 +1,6 @@
 import { EncounterWorkflow, EnemyHit } from "../types/globals";
 
-export default class Default {
+export default class DND5e {
   static async ParseChatMessage(
     chatMessage: ChatMessage
   ): Promise<EncounterWorkflow | undefined> {
@@ -18,7 +18,7 @@ export default class Default {
       return;
     }
     const itemMatch = chatMessage.content?.match(
-      /data-item-id=\"([a-zA-Z0-9]+)\"/
+      /data-item-id="([a-zA-Z0-9]+)"/
     );
     let itemId: string;
 

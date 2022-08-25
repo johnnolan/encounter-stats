@@ -39,6 +39,18 @@ export default class Stat {
     }
   }
 
+  get encounter(): Encounter {
+    return this._encounter;
+  }
+
+  get hasEncounter(): boolean {
+    return this._encounter !== undefined;
+  }
+
+  get currentRound(): number {
+    return this._encounter.round;
+  }
+
   AddKill(targetName: string, tokenId: string) {
     const killData = <CombatantKills>{};
 
@@ -58,7 +70,7 @@ export default class Stat {
     if (!combatantStat) return;
 
     healthData.round = this.currentRound;
-    healthData.actorId = actor.id;
+    healthData.actorId = actor?.id ?? "";
     healthData.max = actor.system.attributes.hp.max;
     healthData.current = actor.system.attributes.hp.value;
 
@@ -193,28 +205,6 @@ export default class Stat {
     }
   }
 
-  get encounter(): Encounter {
-    return this._encounter;
-  }
-
-  get hasEncounter(): boolean {
-    return this._encounter !== undefined;
-  }
-
-  get currentRound(): number {
-    return this._encounter.round;
-  }
-
-  top(top: EncounterTop) {
-    this._encounter.top = top;
-  }
-
-  IsValidRollEvent(attackType: string) {
-    const validTypes = ["mwak", "rwak", "msak", "rsak", "save", "heal"];
-
-    return validTypes.indexOf(attackType) > -1;
-  }
-
   IsValidAttack(attackType: string) {
     const validTypes = ["mwak", "rwak", "msak", "rsak", "save"];
 
@@ -255,11 +245,21 @@ export default class Stat {
     await SaveStat(this._encounter);
   }
 
-  Delete() {
+  Delete(): void {
     RemoveStat();
   }
 
-  GenerateCombatantStats(): void {
+  private SetTopEncounter(top: EncounterTop) {
+    this._encounter.top = top;
+  }
+
+  private IsValidRollEvent(attackType: string) {
+    const validTypes = ["mwak", "rwak", "msak", "rsak", "save", "heal"];
+
+    return validTypes.indexOf(attackType) > -1;
+  }
+
+  private GenerateCombatantStats(): void {
     this._encounter.combatants.forEach((combatantStat) => {
       const combatantAttacks = combatantStat.events.filter((f) => {
         return this.IsValidAttack(f.actionType);
@@ -270,7 +270,7 @@ export default class Stat {
       });
 
       combatantStat.summaryList =
-        this._getSummaryStatsFromArray(combatantTotalDamage);
+        this.GetSummaryStatsFromArray(combatantTotalDamage);
 
       const combatantTotalDamagePerRound = combatantAttacks.map((m) => {
         return <EncounterRoundTotal>{
@@ -279,21 +279,16 @@ export default class Stat {
         };
       });
 
-      combatantStat.roundSummary = this._getRoundSummaryStats(
+      combatantStat.roundSummary = this.GetRoundSummaryStats(
         combatantTotalDamagePerRound
       );
     });
   }
 
-  groupBy(xs, key) {
-    return xs.reduce(function (rv, x) {
-      (rv[x[key]] = rv[x[key]] || []).push(x);
-      return rv;
-    }, {});
-  }
-
-  _getRoundSummaryStats(encounterRoundTotals: Array<EncounterRoundTotal>) {
-    const individual = this.groupBy(encounterRoundTotals, "round");
+  private GetRoundSummaryStats(
+    encounterRoundTotals: Array<EncounterRoundTotal>
+  ) {
+    const individual = this.GroupBy(encounterRoundTotals, "round");
     const rounds = <EncounterRoundSummary>{
       totals: [],
     };
@@ -304,18 +299,14 @@ export default class Stat {
           .map((m) => {
             return m.damageTotal ?? 0;
           })
-          .reduce(this._add, 0),
+          .reduce(this.AddAccumulator, 0),
       });
     }
 
     return rounds;
   }
 
-  _add(accumulator: number, a: number) {
-    return accumulator + a;
-  }
-
-  _getSummaryStatsFromArray(
+  private GetSummaryStatsFromArray(
     combatantTotalDamage: Array<number>
   ): CombatantEventSummaryList {
     if (combatantTotalDamage.length === 0) {
@@ -331,15 +322,16 @@ export default class Stat {
       min: Math.min(...combatantTotalDamage),
       max: Math.max(...combatantTotalDamage),
       avg: Math.round(
-        combatantTotalDamage.reduce(this._add, 0) / combatantTotalDamage.length
+        combatantTotalDamage.reduce(this.AddAccumulator, 0) /
+          combatantTotalDamage.length
       ),
-      total: combatantTotalDamage.reduce(this._add, 0),
+      total: combatantTotalDamage.reduce(this.AddAccumulator, 0),
     };
   }
 
   private GetTopStats(): void {
     if (this._encounter.combatants.length === 0) {
-      this.top({
+      this.SetTopEncounter({
         maxDamage: "",
         mostDamageInOneTurn: "",
         highestAvgDamage: "",
@@ -472,7 +464,7 @@ export default class Stat {
       return obj.max > max.max ? obj : max;
     });
 
-    this.top({
+    this.SetTopEncounter({
       maxDamage: `${maxDamage.name}<br />${maxDamage.total}`,
       mostDamageInOneTurn: `${mostDamageInOneTurn.name}<br />${mostDamageInOneTurn.total}`,
       highestAvgDamage: `${highestAvgDamage.name}<br />${highestAvgDamage.avg}`,
@@ -482,5 +474,16 @@ export default class Stat {
       mostSupportActions: `${mostSupportActions.name}<br />${mostSupportActions.total}`,
       mostBattlefieldActions: `${mostBattlefieldActions.name}<br />${mostBattlefieldActions.total}`,
     });
+  }
+
+  private GroupBy(xs, key) {
+    return xs.reduce(function (rv, x) {
+      (rv[x[key]] = rv[x[key]] || []).push(x);
+      return rv;
+    }, {});
+  }
+
+  private AddAccumulator(accumulator: number, a: number) {
+    return accumulator + a;
   }
 }
