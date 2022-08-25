@@ -146,17 +146,17 @@ type EncounterTop = {
 export interface CombatantEvent {
   id: string;
   actionType: AttackTypes;
-  advantage: boolean;
-  disadvantage: boolean;
-  attackTotal: number;
-  damageTotal: number;
+  advantage?: boolean;
+  disadvantage?: boolean;
+  attackTotal?: number;
+  damageTotal?: number;
   tokenId: string;
   actorId: string;
-  isCritical: boolean;
-  isFumble: boolean;
-  item: EventItem;
+  isCritical?: boolean;
+  isFumble?: boolean;
+  item?: EventItem;
   round: number;
-  enemyHit: Array<EnemyHit>;
+  enemyHit?: Array<EnemyHit>;
 }
 
 export interface EncounterCombatant {

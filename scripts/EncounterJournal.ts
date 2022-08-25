@@ -5,7 +5,6 @@ class EncounterJournal {
   static readonly JOURNAL_TITLE = "Encounter Statistics";
 
   static async CreateJournal() {
-
     await JournalEntry.create(
       {
         name: this.JOURNAL_TITLE,

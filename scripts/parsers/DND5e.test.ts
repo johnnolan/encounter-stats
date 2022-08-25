@@ -15,14 +15,7 @@ const chatMessageItem: ChatMessage = {
       },
     ],
   },
-  flags: {
-    /*dnd5e: {
-      roll: {
-        itemId: "C3c6l9SPMCqMiceV",
-        type: "attack",
-      }
-    }*/
-  },
+  flags: {},
 };
 
 const chatMessageItemAttack: ChatMessage = {
