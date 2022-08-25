@@ -106,7 +106,7 @@ describe("Default", () => {
         };
       });
       test("it returns the correct EncounterWorkflow", async () => {
-        const result: Default = await Default.ParseChatMessage(chatMessageItem);
+        const result = await Default.ParseChatMessage(chatMessageItem);
         expect(result).toStrictEqual(<EncounterWorkflow>{
           id: `C3c6l9SPMCqMiceV${chatMessageItem.speaker.actor}`,
           actionType: "mwak",
@@ -140,9 +140,7 @@ describe("Default", () => {
         };
       });
       test("it returns the correct EncounterWorkflow", async () => {
-        const result: Default = await Default.ParseChatMessage(
-          chatMessageItemAttack
-        );
+        const result = await Default.ParseChatMessage(chatMessageItemAttack);
         expect(result).toStrictEqual(<EncounterWorkflow>{
           id: `C3c6l9SPMCqMiceV${chatMessageItemAttack.speaker.actor}`,
           actor: {
@@ -168,9 +166,7 @@ describe("Default", () => {
         };
       });
       test("it returns the correct EncounterWorkflow", async () => {
-        const result: Default = await Default.ParseChatMessage(
-          chatMessageItemDamage
-        );
+        const result = await Default.ParseChatMessage(chatMessageItemDamage);
         expect(result).toStrictEqual(<EncounterWorkflow>{
           id: `C3c6l9SPMCqMiceV${chatMessageItemDamage.speaker.actor}`,
           actor: {

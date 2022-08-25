@@ -18,7 +18,7 @@ export default class Default {
       return;
     }
     const itemMatch = chatMessage.content?.match(
-      /data-item-id=\"([a-zA-Z0-9]+)\"/
+      /data-item-id="([a-zA-Z0-9]+)"/
     );
     let itemId: string;
 

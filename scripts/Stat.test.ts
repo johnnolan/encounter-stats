@@ -1,7 +1,7 @@
 import {
   Encounter,
   EncounterWorkflow,
-  CombatEventSummaryList,
+  CombatantEventSummaryList,
   EncounterRoundSummary,
 } from "./types/globals";
 import Stat from "./Stat";
@@ -19,11 +19,15 @@ const encounter: Encounter = {
     mostDamageInOneTurn: "",
     highestAvgDamage: "",
     highestMaxDamage: "",
+    mostKills: "",
+    mostHealing: "",
+    mostSupportActions: "",
+    mostBattlefieldActions: "",
   },
   templateHealthCheck: [],
 };
 
-const encoutnerMidiWorkflow: EncounterWorkflow = {
+const encounterMidiWorkflow: EncounterWorkflow = {
   id: "d75gppsau45ypm2m",
   actionType: "mwak",
   actor: {
@@ -52,9 +56,10 @@ const encoutnerMidiWorkflow: EncounterWorkflow = {
       tokenId: "tokenId",
     },
   ],
+  type: "midiqol",
 };
 
-const encoutnerMidiWorkflow2: EncounterWorkflow = {
+const encounterMidiWorkflow2: EncounterWorkflow = {
   id: "d75gppsau45ypm2b",
   actionType: "mwak",
   actor: {
@@ -83,9 +88,10 @@ const encoutnerMidiWorkflow2: EncounterWorkflow = {
       tokenId: "tokenId",
     },
   ],
+  type: "midiqol",
 };
 
-const encoutnerMidiWorkflowHeal: EncounterWorkflow = {
+const encounterMidiWorkflowHeal: EncounterWorkflow = {
   id: "d75gppsau45ypm2c",
   actionType: "heal",
   actor: {
@@ -108,6 +114,7 @@ const encoutnerMidiWorkflowHeal: EncounterWorkflow = {
     type: "sword",
     img: "itemImageUrl",
   },
+  type: "midiqol",
 };
 
 const encounterDefaultWorkflowItemCard: EncounterWorkflow = {
@@ -320,7 +327,7 @@ describe("Stat", () => {
           expect(stat.encounter.top.mostBattlefieldActions).toBe("None<br />0");
 
           expect(combatantResult?.summaryList).toStrictEqual(<
-            CombatEventSummaryList
+            CombatantEventSummaryList
           >{ min: 0, max: 0, avg: 0, total: 0 });
           expect(combatantResult?.roundSummary).toStrictEqual(<
             EncounterRoundSummary
@@ -330,9 +337,9 @@ describe("Stat", () => {
         });
         test("you can get the combatant by actor id", () => {
           stat.AddCombatant(actor, "tokenId");
-          stat.AddAttack(encoutnerMidiWorkflow);
-          stat.AddAttack(encoutnerMidiWorkflow2);
-          stat.AddAttack(encoutnerMidiWorkflowHeal);
+          stat.AddAttack(encounterMidiWorkflow);
+          stat.AddAttack(encounterMidiWorkflow2);
+          stat.AddAttack(encounterMidiWorkflowHeal);
           stat.AddKill("Acolyte", "tokenId");
           stat.Save();
           expect(stat.encounter.combatants.length).toBe(1);
@@ -360,7 +367,7 @@ describe("Stat", () => {
           );
 
           expect(combatantResult?.summaryList).toStrictEqual(<
-            CombatEventSummaryList
+            CombatantEventSummaryList
           >{ min: 15, max: 20, avg: 18, total: 35 });
           expect(combatantResult?.roundSummary).toStrictEqual(<
             EncounterRoundSummary
