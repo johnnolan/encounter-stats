@@ -9,10 +9,10 @@ import {
   OnTrackDice,
   OnTrackDiceRoll,
 } from "./Handlers";
-import MidiQol from "./parsers/MidiQol";
 import { IsInCombat } from "./Utils";
 import { MidiQolWorkflow } from "./types/globals";
 import DND5e from "./parsers/DND5e";
+import MidiQol from "./parsers/MidiQol";
 
 const SOCKET_NAME = "module.encounter-stats";
 

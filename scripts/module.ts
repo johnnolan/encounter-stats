@@ -1,5 +1,4 @@
 import { MODULE_ID, OPT_ENABLE } from "./Settings";
-import { CreateFolder } from "./Folder";
 import { SetupHooks } from "./Hooks";
 import ModuleSettings from "./ModuleSettings";
 import EncounterJournal from "./EncounterJournal";
@@ -14,7 +13,6 @@ Hooks.once("ready", async function () {
   }
 
   if (game.user.isGM) {
-    CreateFolder();
     if (!EncounterJournal.IsJournalSetup()) {
       EncounterJournal.CreateJournal();
     }
