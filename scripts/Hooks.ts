@@ -12,7 +12,7 @@ import {
 import MidiQol from "./parsers/MidiQol";
 import { IsInCombat } from "./Utils";
 import { MidiQolWorkflow } from "./types/globals";
-import Default from "./parsers/Default";
+import DND5e from "./parsers/DND5e";
 
 const SOCKET_NAME = "module.encounter-stats";
 
@@ -82,7 +82,7 @@ export async function SetupHooks() {
         if (!chatMessage?.user?.isGM) {
           if (!game.modules.get("midi-qol")?.active) {
             OnEncounterWorkflowComplete(
-              await Default.ParseChatMessage(chatMessage)
+              await DND5e.ParseChatMessage(chatMessage)
             );
           }
           OnTrackDiceRoll(

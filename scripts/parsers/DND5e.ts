@@ -1,6 +1,6 @@
 import { EncounterWorkflow, EnemyHit } from "../types/globals";
 
-export default class Default {
+export default class DND5e {
   static async ParseChatMessage(
     chatMessage: ChatMessage
   ): Promise<EncounterWorkflow | undefined> {
