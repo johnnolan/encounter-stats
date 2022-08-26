@@ -1,4 +1,4 @@
-# Contributing to Wild Magic Surge 5e
+# Contributing to Encounter Statistics
 
 :+1::tada: First off, thanks for taking the time to contribute! :tada::+1:
 
@@ -6,9 +6,9 @@ There are many ways to contribute to this repository. Each one is equally helpfu
 
 ## Raising an Issue
 
-If you have found a bug or have an idea for a Feature, please use the [Issues](https://github.com/johnnolan/wild-magic-surge-5e/issues/new/choose) functionality in Github. You have two options to create an issue, [Bug Report](https://github.com/johnnolan/wild-magic-surge-5e/issues/new?assignees=johnnolan&labels=bug&template=bug_report.md&title=%5BBUG%5D) or [New Feature](https://github.com/johnnolan/wild-magic-surge-5e/issues/new?assignees=johnnolan&labels=feature&template=feature_report.md&title=%5BFEATURE%5D).
+If you have found a bug or have an idea for a Feature, please use the [Issues](https://github.com/johnnolan/encounter-stats/issues/new/choose) functionality in Github. You have two options to create an issue, [Bug Report](https://github.com/johnnolan/encounter-stats/issues/new?assignees=johnnolan&labels=bug&template=bug_report.md&title=%5BBUG%5D) or [New Feature](https://github.com/johnnolan/encounter-stats/issues/new?assignees=johnnolan&labels=feature&template=feature_report.md&title=%5BFEATURE%5D).
 
-If the issue you are raising does not fit these criteria, feel free to [open a blank issue](https://github.com/johnnolan/wild-magic-surge-5e/issues/new) instead.
+If the issue you are raising does not fit these criteria, feel free to [open a blank issue](https://github.com/johnnolan/encounter-stats/issues/new) instead.
 
 ## Contributing Code
 
