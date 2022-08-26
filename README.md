@@ -52,6 +52,16 @@ TBC - Awaiting newer V10 version
 
 * `dnd5e` game system
 
+## Contributing
+
+The contributing guidelines can be found in the [CONTRIBUTING.md](./CONTRIBUTING.md) file.
+
+Our Code of Conduct can also be found in the [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) file.
+
+## License
+
+Encounter Statistics is released under the [MIT License](./LICENSE).
+
 ## Contact
 
 For issues, please raise a bug in Github and use the Report a Bug option in the settings to get debug information to help me reproduce the issue easily on my computer. I will try and fix things depending on fatherhood responsibilities [https://github.com/johnnolan/encounter-stats/issues](https://github.com/johnnolan/encounter-stats/issues)

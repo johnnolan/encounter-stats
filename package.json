@@ -6,15 +6,16 @@
   "author": "John Nolan <me@johnnolan.dev>",
   "license": "MIT",
   "scripts": {
+    "build": "node ./build.js && yarn run sass",
+    "build:dev": "node ./build.js && yarn run sass && node ./build-copy.js",
+    "sass": "sass --style=compressed scss/module.scss styles/module.css",
     "jshint": "jshint scripts/",
     "test": "jest",
     "test:coverage": "jest --ci --runInBand",
     "test:watch": "jest --watch",
     "lint:check": "eslint --ignore-path .gitignore .",
     "lint:report": "eslint --ignore-path .gitignore --output-file eslint_report.json --format json .",
-    "lint:fix": "eslint --fix --ignore-path .gitignore .",
-    "sass": "sass --style=compressed scss/module.scss styles/module.css",
-    "build": "node ./build.js && yarn run sass"
+    "lint:fix": "eslint --fix --ignore-path .gitignore ."
   },
   "dependencies": {},
   "devDependencies": {
