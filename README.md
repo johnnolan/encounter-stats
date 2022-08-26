@@ -60,7 +60,7 @@ Our Code of Conduct can also be found in the [CODE_OF_CONDUCT.md](./CODE_OF_COND
 
 ## License
 
-Wild Magic Surge 5e is released under the [MIT License](./LICENSE).
+Encounter Statistics is released under the [MIT License](./LICENSE).
 
 ## Contact
 
