@@ -4,3 +4,4 @@ styles/
 dist/
 test-results/
 .vscode/
+build-copy.js
