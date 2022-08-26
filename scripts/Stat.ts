@@ -10,7 +10,7 @@ import {
   EncounterTop,
   EncounterWorkflow,
 } from "./types/globals";
-import { GetStat, SaveStat, RemoveStat } from "./StatManager";
+import StatManager from "./StatManager";
 import { CombatantType } from "./Settings";
 
 export default class Stat {
@@ -35,7 +35,7 @@ export default class Stat {
         templateHealthCheck: [],
       };
     } else {
-      this._encounter = GetStat();
+      this._encounter = StatManager.GetStat();
     }
   }
 
@@ -242,11 +242,11 @@ export default class Stat {
   async Save(): Promise<void> {
     this.GenerateCombatantStats();
     this.GetTopStats();
-    await SaveStat(this._encounter);
+    await StatManager.SaveStat(this._encounter);
   }
 
   Delete(): void {
-    RemoveStat();
+    StatManager.RemoveStat();
   }
 
   private SetTopEncounter(top: EncounterTop) {

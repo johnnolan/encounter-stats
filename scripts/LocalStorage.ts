@@ -1,6 +1,10 @@
 import { STORAGE_NAME } from "./Settings";
 import { Encounter } from "./types/globals";
 
+export function IsSet(item: string): boolean {
+  return window.localStorage.getItem(item) !== null;
+}
+
 export function GetItemFromLocalStorage(item: string) {
   return JSON.parse(window.localStorage.getItem(item));
 }

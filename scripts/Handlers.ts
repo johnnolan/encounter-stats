@@ -1,5 +1,5 @@
 import EncounterJournal from "./EncounterJournal";
-import { IsInCombat } from "./Utils";
+import StatManager from "./StatManager";
 import Stat from "./Stat";
 import { DiceTrackParse, EncounterWorkflow } from "./types/globals";
 import CampaignStat from "./CampaignStat";
@@ -72,7 +72,7 @@ export async function OnTrackDice(diceTrackParsed: DiceTrackParse) {
 export async function OnEncounterWorkflowComplete(
   workflow: EncounterWorkflow | undefined
 ): Promise<void> {
-  if (!IsInCombat()) return;
+  if (!StatManager.IsInCombat()) return;
   if (!workflow) return;
   const stat = new Stat();
   stat.AddAttack(workflow);
@@ -92,7 +92,7 @@ export async function OnEncounterWorkflowComplete(
 }
 
 export async function OnUpdateHealth(actor: Actor): Promise<void> {
-  if (!IsInCombat()) return;
+  if (!StatManager.IsInCombat()) return;
   const stat = new Stat();
   stat.UpdateHealth(actor);
   stat.Save();
@@ -102,7 +102,7 @@ export async function OnTrackKill(
   targetName: string,
   tokenId: string
 ): Promise<void> {
-  if (!IsInCombat()) return;
+  if (!StatManager.IsInCombat()) return;
   const stat = new Stat();
   stat.AddKill(targetName, tokenId);
   stat.Save();
