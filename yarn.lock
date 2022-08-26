@@ -4570,17 +4570,10 @@ json5-writer@^0.1.8:
   dependencies:
     jscodeshift "^0.6.3"
 
-json5@^2.1.1, json5@^2.2.1:
+json5@^2.1.1, json5@^2.1.2, json5@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.1.tgz#655d50ed1e6f95ad1a3caababd2b0efda10b395c"
   integrity sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==
-
-json5@^2.1.2:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.0.tgz#2dfefe720c6ba525d9ebd909950f0515316c89a3"
-  integrity sha512-f+8cldu7X/y7RAJurMEJmdoKXGB/X550w2Nr3tTbezL6RwEE/iMcm+tZnXeoZtKuOq6ft8+CqzEkrIgx1fPoQA==
-  dependencies:
-    minimist "^1.2.5"
 
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
@@ -5923,10 +5916,10 @@ ts-jest@^28.0.8:
     semver "7.x"
     yargs-parser "^21.0.1"
 
-ts-migrate-plugins@^0.1.31:
-  version "0.1.31"
-  resolved "https://registry.yarnpkg.com/ts-migrate-plugins/-/ts-migrate-plugins-0.1.31.tgz#dba7435135d52cc236a89194439308249c404ae9"
-  integrity sha512-sqeZBcu6PiResqEQn6cUJ5gux0wZ6VRuUZA8Ds4ERjFqU7gWSzV1l9juaq7VyqGtj1KHRiTQpoLUmXap3uIU+A==
+ts-migrate-plugins@^0.1.32:
+  version "0.1.32"
+  resolved "https://registry.yarnpkg.com/ts-migrate-plugins/-/ts-migrate-plugins-0.1.32.tgz#b4b8a64f0c457eeea50d51b9ca541a449ad94443"
+  integrity sha512-B9Cdd040lKDJfGxQN8CFXr8bbutfhScByeYGlXGUQJfxAQt0ouJPnB7P4DeIUqQcZBbeT8VcgJDAhuDjWI7Rxw==
   dependencies:
     eslint "^7.14.0"
     jscodeshift "^0.13.0"
@@ -5942,15 +5935,15 @@ ts-migrate-server@^0.1.31:
     pretty-ms "^7.0.1"
     updatable-log "^0.2.0"
 
-ts-migrate@^0.1.31:
-  version "0.1.31"
-  resolved "https://registry.yarnpkg.com/ts-migrate/-/ts-migrate-0.1.31.tgz#e9c240385d249b744c33f6d48d45345bf4f46219"
-  integrity sha512-PLo4ieKPkpx/JV/AWiCs/9qKZeo5PDyYc1vsbCErwPfwDUcsboq9aXjWCrVLxz9KMocNQHWD/gAEyl35yyV37A==
+ts-migrate@^0.1.32:
+  version "0.1.32"
+  resolved "https://registry.yarnpkg.com/ts-migrate/-/ts-migrate-0.1.32.tgz#700aaf176272e509d5438433d1019e11b2265174"
+  integrity sha512-RYj2Rr4FlulhgT0soNvs6xCbXD9R+WmkxOsz70cN9W5e/crE5oOceotGEVTVF5Oo+mdD5zoe9rbA1KBig3VIFw==
   dependencies:
     create-jest-runner "^0.5.3"
     json5 "^2.1.1"
     json5-writer "^0.1.8"
-    ts-migrate-plugins "^0.1.31"
+    ts-migrate-plugins "^0.1.32"
     ts-migrate-server "^0.1.31"
     updatable-log "^0.2.0"
     yargs "^15.0.2"
