@@ -1,5 +1,6 @@
 import StatManager from "./StatManager";
 import { CombatantType } from "./Settings";
+import { ChatMessageType } from "./enums";
 
 export default class Stat {
   _encounter: Encounter;
@@ -95,15 +96,15 @@ export default class Stat {
         (f) => f.id === workflow.id && f.round === this.currentRound
       ) !== undefined;
 
-    if (isExistingEvent && workflow.type !== "itemCard") {
+    if (isExistingEvent && workflow.type !== ChatMessageType.ItemCard) {
       isNew = false;
       newCombatantEvent = combatantStat.events
         .filter((f) => f.id === workflow.id)
         .reverse()[0];
 
-      if (workflow.type === "damage") {
+      if (workflow.type === ChatMessageType.Damage) {
         newCombatantEvent.damageTotal = workflow.damageTotal;
-      } else if (workflow.type === "attack") {
+      } else if (workflow.type === ChatMessageType.Attack) {
         newCombatantEvent.attackTotal = workflow.attackTotal;
         newCombatantEvent.isCritical = workflow.isCritical;
         newCombatantEvent.isFumble = workflow.isFumble;
@@ -111,7 +112,7 @@ export default class Stat {
         newCombatantEvent.disadvantage = workflow.disadvantage;
       }
     } else {
-      if (workflow.type === "itemCard") {
+      if (workflow.type === ChatMessageType.ItemCard) {
         newCombatantEvent = <CombatantEvent>{
           id: workflow.id,
           actorId: workflow.actor.id,
@@ -120,7 +121,7 @@ export default class Stat {
           attackTotal: 0,
           damageTotal: 0,
         };
-      } else {
+      } else if (workflow.type === ChatMessageType.MidiQol) {
         newCombatantEvent = <CombatantEvent>{
           id: workflow.id,
           actorId: workflow.actor.id,

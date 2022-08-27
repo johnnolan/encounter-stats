@@ -3,6 +3,7 @@ jest.mock("./StatManager");
 import StatManager from "./StatManager";
 import { actor } from "./mockdata/actor";
 import { chatActor } from "./mockdata/chatActor";
+import { ChatMessageType } from "./enums";
 
 const encounter: Encounter = {
   encounterId: "t98gppsau45ypm3t",
@@ -50,7 +51,7 @@ const encounterMidiWorkflow: EncounterWorkflow = {
       tokenId: "tokenId",
     },
   ],
-  type: "midiqol",
+  type: ChatMessageType.MidiQol,
 };
 
 const encounterMidiWorkflow2: EncounterWorkflow = {
@@ -82,7 +83,7 @@ const encounterMidiWorkflow2: EncounterWorkflow = {
       tokenId: "tokenId",
     },
   ],
-  type: "midiqol",
+  type: ChatMessageType.MidiQol,
 };
 
 const encounterMidiWorkflowHeal: EncounterWorkflow = {
@@ -108,7 +109,7 @@ const encounterMidiWorkflowHeal: EncounterWorkflow = {
     type: "sword",
     img: "itemImageUrl",
   },
-  type: "midiqol",
+  type: ChatMessageType.MidiQol,
 };
 
 const encounterDefaultWorkflowItemCard: EncounterWorkflow = {
@@ -130,7 +131,7 @@ const encounterDefaultWorkflowItemCard: EncounterWorkflow = {
       tokenId: "tokenId",
     },
   ],
-  type: "itemCard",
+  type: ChatMessageType.ItemCard,
 };
 
 const encounterDefaultWorkflowAttack: EncounterWorkflow = {
@@ -155,7 +156,7 @@ const encounterDefaultWorkflowDamage: EncounterWorkflow = {
   damageRoll: 41,
   damageTotal: 41,
   damageMultipleEnemiesTotal: 41,
-  type: "damage",
+  type: ChatMessageType.Damage,
 };
 
 describe("Stat", () => {

@@ -1,3 +1,5 @@
+import { ChatMessageType } from "../enums";
+
 declare global {
   interface CampaignStats {
     nat1: [
@@ -123,7 +125,7 @@ declare global {
     isFumble?: boolean;
     actionType?: string;
     enemyHit?: Array<EnemyHit>;
-    type: string;
+    type: ChatMessageType;
   }
 
   type Encounter = {

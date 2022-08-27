@@ -1,3 +1,5 @@
+import { ChatMessageType } from "../enums";
+
 class MidiQol {
   static ParseWorkflow(workflow: MidiQolWorkflow): EncounterWorkflow {
     const enemiesHit: Array<EnemyHit> = workflow.applicationTargets
@@ -38,6 +40,7 @@ class MidiQol {
       isCritical: workflow.isCritical,
       isFumble: workflow.isFumble,
       enemyHit: enemiesHit,
+      type: ChatMessageType.MidiQol,
     };
   }
 
