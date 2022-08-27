@@ -1,4 +1,3 @@
-import { EncounterWorkflow, MidiQolWorkflow } from "../types/globals";
 import MidiQol from "./MidiQol";
 
 const midiWorkflow: MidiQolWorkflow = {

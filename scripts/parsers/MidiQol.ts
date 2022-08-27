@@ -1,10 +1,3 @@
-import {
-  DiceTrackParse,
-  EncounterWorkflow,
-  EnemyHit,
-  MidiQolWorkflow,
-} from "../types/globals";
-
 class MidiQol {
   static ParseWorkflow(workflow: MidiQolWorkflow): EncounterWorkflow {
     const enemiesHit: Array<EnemyHit> = workflow.applicationTargets

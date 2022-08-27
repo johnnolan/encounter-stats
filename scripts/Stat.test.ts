@@ -1,9 +1,3 @@
-import {
-  Encounter,
-  EncounterWorkflow,
-  CombatantEventSummaryList,
-  EncounterRoundSummary,
-} from "./types/globals";
 import Stat from "./Stat";
 jest.mock("./StatManager");
 import StatManager from "./StatManager";

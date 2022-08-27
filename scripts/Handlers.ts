@@ -1,7 +1,6 @@
 import EncounterJournal from "./EncounterJournal";
 import StatManager from "./StatManager";
 import Stat from "./Stat";
-import { DiceTrackParse, EncounterWorkflow } from "./types/globals";
 import CampaignStat from "./CampaignStat";
 
 export async function OnTrackDiceRoll(

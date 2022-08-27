@@ -10,7 +10,6 @@ import {
   OnTrackDiceRoll,
 } from "./Handlers";
 import StatManager from "./StatManager";
-import { MidiQolWorkflow } from "./types/globals";
 import DND5e from "./parsers/DND5e";
 import MidiQol from "./parsers/MidiQol";
 

@@ -1,10 +1,3 @@
-import {
-  CampaignStats,
-  DiceTrack,
-  HealTrack,
-  KillTrack,
-} from "./types/globals";
-
 export function Generate(campaignStats: CampaignStats) {
   return `
   <div class="fvtt-enc-stats">

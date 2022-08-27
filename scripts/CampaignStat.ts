@@ -1,11 +1,5 @@
 import { Generate } from "./CampaignTemplate";
 import EncounterJournal from "./EncounterJournal";
-import {
-  CampaignStats,
-  DiceTrack,
-  HealTrack,
-  KillTrack,
-} from "./types/globals";
 
 export default class CampaignStat {
   private static Date() {

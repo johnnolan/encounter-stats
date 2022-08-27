@@ -7,7 +7,6 @@ import {
 } from "./LocalStorage";
 import { STORAGE_NAME } from "./Settings";
 import { Generate } from "./Template";
-import { Encounter } from "./types/globals";
 
 class StatManager {
   static IsInCombat() {

@@ -1,15 +1,3 @@
-import {
-  CombatantEvent,
-  CombatantEventSummaryList,
-  CombatantHealthData,
-  CombatantKills,
-  Encounter,
-  EncounterCombatant,
-  EncounterRoundSummary,
-  EncounterRoundTotal,
-  EncounterTop,
-  EncounterWorkflow,
-} from "./types/globals";
 import StatManager from "./StatManager";
 import { CombatantType } from "./Settings";
 
