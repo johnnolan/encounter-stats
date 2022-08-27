@@ -1,10 +1,10 @@
-import StatManager from "./StatManager";
+import StatManager from "../StatManager";
 import {
   CombatantType,
   ValidAttacks,
   ValidHeals,
   ValidRollEvent,
-} from "./enums";
+} from "../enums";
 
 export default class Stat {
   _encounter: Encounter;

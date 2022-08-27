@@ -1,4 +1,4 @@
-import { ChatMessageType } from "./enums";
+import { ChatMessageType } from "../enums";
 import Stat from "./Stat";
 
 export default class DND5eStat extends Stat {

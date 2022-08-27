@@ -1,4 +1,4 @@
-import Stat from "./Stat";
+import Stat from "./stats/Stat";
 import Trans from "./Trans";
 
 export function Generate(encounter: Encounter) {

@@ -1,8 +1,8 @@
 import EncounterJournal from "./EncounterJournal";
 import StatManager from "./StatManager";
-import Stat from "./Stat";
-import MidiQolStat from "./MidiQolStat";
-import DND5eStat from "./DND5eStat";
+import Stat from "./stats/Stat";
+import MidiQolStat from "./stats/MidiQolStat";
+import DND5eStat from "./stats/DND5eStat";
 import CampaignStat from "./CampaignStat";
 import { ChatType, RoleType } from "./enums";
 

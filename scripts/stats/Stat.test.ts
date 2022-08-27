@@ -1,11 +1,11 @@
 import Stat from "./Stat";
 import DND5eStat from "./DND5eStat";
 import MidiQolStat from "./MidiQolStat";
-jest.mock("./StatManager");
-import StatManager from "./StatManager";
-import { actor } from "./mockdata/actor";
-import { chatActor } from "./mockdata/chatActor";
-import { ChatMessageType } from "./enums";
+jest.mock("../StatManager");
+import StatManager from "../StatManager";
+import { actor } from "../mockdata/actor";
+import { chatActor } from "../mockdata/chatActor";
+import { ChatMessageType } from "../enums";
 
 const encounter: Encounter = {
   encounterId: "t98gppsau45ypm3t",
