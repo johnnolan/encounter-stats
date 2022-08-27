@@ -1,6 +1,5 @@
 import StatManager from "./StatManager";
-import { CombatantType } from "./Settings";
-import { ChatMessageType } from "./enums";
+import { ChatMessageType, CombatantType } from "./enums";
 
 export default class Stat {
   _encounter: Encounter;
@@ -207,11 +206,11 @@ export default class Stat {
   }
 
   IsValidCombatant(type: string): boolean {
-    return type === CombatantType.character || type === CombatantType.npc;
+    return type === CombatantType.Character || type === CombatantType.NPC;
   }
 
   IsNPC(type: string): boolean {
-    return type === CombatantType.npc;
+    return type === CombatantType.NPC;
   }
 
   UpdateRound(currentRound: number) {

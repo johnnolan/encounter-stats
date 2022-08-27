@@ -10,3 +10,8 @@ export enum RoleType {
   Fumble = "fumble",
   Critial = "critical",
 }
+
+export enum CombatantType {
+  Character = "character",
+  NPC = "npc",
+}
