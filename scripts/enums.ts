@@ -5,3 +5,8 @@ export enum ChatMessageType {
   MidiQol = "midiqol",
   None = "none",
 }
+
+export enum RoleType {
+  Fumble = "fumble",
+  Critial = "critical",
+}

@@ -4,13 +4,13 @@ export function Generate(campaignStats: CampaignStats) {
     <hr />
     <h2 class="fvtt-enc-stats_enemies">Natural 20s</h2>
     <div>
-        ${Generatenat20Row(campaignStats)}
+        ${GenerateCritialRow(campaignStats)}
     </div>
 
     <hr />
     <h2 class="fvtt-enc-stats_enemies">Natural 1s</h2>
     <div>
-        ${GenerateNat1Row(campaignStats)}
+        ${GenerateFumbleRow(campaignStats)}
     </div>
 
     <hr />
@@ -49,13 +49,13 @@ function GenerateKillRow(campaignStats: CampaignStats) {
   return markup;
 }
 
-function GenerateNat1Row(campaignStats: CampaignStats) {
+function GenerateFumbleRow(campaignStats: CampaignStats) {
   let markup = ``;
 
-  campaignStats.nat1.reverse().forEach((nat1s) => {
-    markup += _getItemListTitle(nat1s.dateDisplay);
+  campaignStats.fumble.reverse().forEach((fumbles) => {
+    markup += _getItemListTitle(fumbles.dateDisplay);
 
-    nat1s.data.forEach((diceTrack: DiceTrack) => {
+    fumbles.data.forEach((diceTrack: DiceTrack) => {
       markup += `
   <li class="item flexrow campaign-row">
     <div class="item-name">${diceTrack.actorName}</div>
@@ -70,13 +70,13 @@ function GenerateNat1Row(campaignStats: CampaignStats) {
   return markup;
 }
 
-function Generatenat20Row(campaignStats: CampaignStats) {
+function GenerateCritialRow(campaignStats: CampaignStats) {
   let markup = ``;
 
-  campaignStats.nat20.reverse().forEach((nat20s) => {
-    markup += _getItemListTitle(nat20s.dateDisplay);
+  campaignStats.critical.reverse().forEach((criticals) => {
+    markup += _getItemListTitle(criticals.dateDisplay);
 
-    nat20s.data.forEach((diceTrack: DiceTrack) => {
+    criticals.data.forEach((diceTrack: DiceTrack) => {
       markup += `
       <li class="item flexrow campaign-row">
         <div class="item-name">${diceTrack.actorName}</div>

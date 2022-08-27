@@ -1,5 +1,6 @@
 import { Generate } from "./CampaignTemplate";
 import EncounterJournal from "./EncounterJournal";
+import { RoleType } from "./enums";
 
 export default class CampaignStat {
   private static Date() {
@@ -65,7 +66,7 @@ export default class CampaignStat {
     await this.Save(campaignStats);
   }
 
-  static async AddRole(type: string, actorName: string, flavor: string) {
+  static async AddRole(type: RoleType, actorName: string, flavor: string) {
     const campaignStats = await this.Get();
     const date = this.Date();
 
@@ -75,23 +76,23 @@ export default class CampaignStat {
       date: new Date().toISOString(),
     };
 
-    if (type === "nat1") {
-      const dateEntry = campaignStats.nat1.find((f) => f.id === date.id);
+    if (type === RoleType.Fumble) {
+      const dateEntry = campaignStats.fumble.find((f) => f.id === date.id);
       if (dateEntry) {
         dateEntry.data.push(dice);
       } else {
-        campaignStats.nat1.push({
+        campaignStats.fumble.push({
           id: date.id,
           dateDisplay: date.dateDisplay,
           data: [dice],
         });
       }
-    } else if (type === "nat20") {
-      const dateEntry = campaignStats.nat20.find((f) => f.id === date.id);
+    } else if (type === RoleType.Critial) {
+      const dateEntry = campaignStats.critical.find((f) => f.id === date.id);
       if (dateEntry) {
         dateEntry.data.push(dice);
       } else {
-        campaignStats.nat20.push({
+        campaignStats.critical.push({
           id: date.id,
           dateDisplay: date.dateDisplay,
           data: [dice],

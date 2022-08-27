@@ -1,5 +1,6 @@
 import CampaignStat from "./CampaignStat";
 import EncounterJournal from "./EncounterJournal";
+import { RoleType } from "./enums";
 
 const mockEncounterJournalGetCampaignJournal = jest.fn();
 EncounterJournal.GetCampaignJournal = mockEncounterJournalGetCampaignJournal;
@@ -28,8 +29,8 @@ describe("CampaignStat", () => {
       mockEncounterJournalGetCampaignJournal.mockReturnValue({
         kills: [],
         heals: [],
-        nat20: [],
-        nat1: [],
+        critical: [],
+        fumble: [],
       });
       jest.spyOn(CampaignStat, "Save");
     });
@@ -53,8 +54,8 @@ describe("CampaignStat", () => {
             },
           ],
           heals: [],
-          nat20: [],
-          nat1: [],
+          critical: [],
+          fumble: [],
         })
       );
     });
@@ -65,8 +66,8 @@ describe("CampaignStat", () => {
       mockEncounterJournalGetCampaignJournal.mockReturnValue({
         kills: [],
         heals: [],
-        nat20: [],
-        nat1: [],
+        critical: [],
+        fumble: [],
       });
       jest.spyOn(CampaignStat, "Save");
     });
@@ -97,33 +98,37 @@ describe("CampaignStat", () => {
               ],
             },
           ],
-          nat20: [],
-          nat1: [],
+          critical: [],
+          fumble: [],
         })
       );
     });
   });
 
-  describe("If I add a new nat1", () => {
+  describe("If I add a new fumble", () => {
     beforeEach(() => {
       mockEncounterJournalGetCampaignJournal.mockReturnValue({
         kills: [],
         heals: [],
-        nat20: [],
-        nat1: [],
+        critical: [],
+        fumble: [],
       });
       jest.spyOn(CampaignStat, "Save");
     });
 
-    test("it adds the nat1 correctly", async () => {
-      await CampaignStat.AddRole("nat1", "Lorena Aldabra", "Wisdom Check");
+    test("it adds the fumble correctly", async () => {
+      await CampaignStat.AddRole(
+        RoleType.Fumble,
+        "Lorena Aldabra",
+        "Wisdom Check"
+      );
       expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalled();
       expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalledWith(
         JSON.stringify({
           kills: [],
           heals: [],
-          nat20: [],
-          nat1: [
+          critical: [],
+          fumble: [
             {
               id: "20200101",
               dateDisplay: "2020-01-01",
@@ -141,25 +146,25 @@ describe("CampaignStat", () => {
     });
   });
 
-  describe("If I add a new Nat20", () => {
+  describe("If I add a new critical", () => {
     beforeEach(() => {
       mockEncounterJournalGetCampaignJournal.mockReturnValue({
         kills: [],
         heals: [],
-        nat20: [],
-        nat1: [],
+        critical: [],
+        fumble: [],
       });
       jest.spyOn(CampaignStat, "Save");
     });
 
-    test("it adds the Nat20 correctly", async () => {
-      await CampaignStat.AddRole("nat20", "Lorena Aldabra", "Insight Check");
+    test("it adds the critical correctly", async () => {
+      await CampaignStat.AddRole(RoleType.Critial, "Lorena Aldabra", "Insight Check");
       expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalled();
       expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalledWith(
         JSON.stringify({
           kills: [],
           heals: [],
-          nat20: [
+          critical: [
             {
               id: "20200101",
               dateDisplay: "2020-01-01",
@@ -172,7 +177,7 @@ describe("CampaignStat", () => {
               ],
             },
           ],
-          nat1: [],
+          fumble: [],
         })
       );
     });
