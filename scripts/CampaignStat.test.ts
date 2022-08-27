@@ -158,7 +158,11 @@ describe("CampaignStat", () => {
     });
 
     test("it adds the critical correctly", async () => {
-      await CampaignStat.AddRole(RoleType.Critial, "Lorena Aldabra", "Insight Check");
+      await CampaignStat.AddRole(
+        RoleType.Critial,
+        "Lorena Aldabra",
+        "Insight Check"
+      );
       expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalled();
       expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalledWith(
         JSON.stringify({
