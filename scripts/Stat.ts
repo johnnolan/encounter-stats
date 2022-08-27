@@ -86,8 +86,6 @@ export default class Stat {
     const combatantStat: EncounterCombatant | undefined =
       this.GetCombatantStats(workflow.actor.id);
     if (!combatantStat) return;
-    let isNew = true;
-    let newCombatantEvent: CombatantEvent;
 
     // Get any existing event, if so merge object and update
     const isExistingEvent: boolean =
@@ -96,8 +94,7 @@ export default class Stat {
       ) !== undefined;
 
     if (isExistingEvent && workflow.type !== ChatMessageType.ItemCard) {
-      isNew = false;
-      newCombatantEvent = combatantStat.events
+      const newCombatantEvent = combatantStat.events
         .filter((f) => f.id === workflow.id)
         .reverse()[0];
 
@@ -112,7 +109,7 @@ export default class Stat {
       }
     } else {
       if (workflow.type === ChatMessageType.ItemCard) {
-        newCombatantEvent = <CombatantEvent>{
+        const newCombatantEvent = <CombatantEvent>{
           id: workflow.id,
           actorId: workflow.actor.id,
           item: workflow.item,
@@ -120,8 +117,9 @@ export default class Stat {
           attackTotal: 0,
           damageTotal: 0,
         };
+        combatantStat.events.push(newCombatantEvent);
       } else if (workflow.type === ChatMessageType.MidiQol) {
-        newCombatantEvent = <CombatantEvent>{
+        const newCombatantEvent = <CombatantEvent>{
           id: workflow.id,
           actorId: workflow.actor.id,
           item: workflow.item,
@@ -146,11 +144,8 @@ export default class Stat {
             newCombatantEvent.isCritical = workflow.isCritical;
           }
         }
+        combatantStat.events.push(newCombatantEvent);
       }
-    }
-
-    if (isNew) {
-      combatantStat.events.push(newCombatantEvent);
     }
   }
 
