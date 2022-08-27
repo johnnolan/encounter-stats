@@ -1,5 +1,6 @@
 import CampaignStat from "./CampaignStat";
 import EncounterJournal from "./EncounterJournal";
+import { RoleType } from "./enums";
 
 const mockEncounterJournalGetCampaignJournal = jest.fn();
 EncounterJournal.GetCampaignJournal = mockEncounterJournalGetCampaignJournal;
@@ -104,7 +105,7 @@ describe("CampaignStat", () => {
     });
   });
 
-  describe("If I add a new nat1", () => {
+  describe("If I add a new fumble", () => {
     beforeEach(() => {
       mockEncounterJournalGetCampaignJournal.mockReturnValue({
         kills: [],
@@ -115,8 +116,12 @@ describe("CampaignStat", () => {
       jest.spyOn(CampaignStat, "Save");
     });
 
-    test("it adds the nat1 correctly", async () => {
-      await CampaignStat.AddRole("nat1", "Lorena Aldabra", "Wisdom Check");
+    test("it adds the fumble correctly", async () => {
+      await CampaignStat.AddRole(
+        RoleType.Fumble,
+        "Lorena Aldabra",
+        "Wisdom Check"
+      );
       expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalled();
       expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalledWith(
         JSON.stringify({
@@ -141,7 +146,7 @@ describe("CampaignStat", () => {
     });
   });
 
-  describe("If I add a new Nat20", () => {
+  describe("If I add a new critical", () => {
     beforeEach(() => {
       mockEncounterJournalGetCampaignJournal.mockReturnValue({
         kills: [],
@@ -152,8 +157,12 @@ describe("CampaignStat", () => {
       jest.spyOn(CampaignStat, "Save");
     });
 
-    test("it adds the Nat20 correctly", async () => {
-      await CampaignStat.AddRole("nat20", "Lorena Aldabra", "Insight Check");
+    test("it adds the critical correctly", async () => {
+      await CampaignStat.AddRole(
+        RoleType.Critial,
+        "Lorena Aldabra",
+        "Insight Check"
+      );
       expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalled();
       expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalledWith(
         JSON.stringify({

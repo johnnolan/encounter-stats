@@ -1,17 +1,5 @@
-import {
-  CombatantEvent,
-  CombatantEventSummaryList,
-  CombatantHealthData,
-  CombatantKills,
-  Encounter,
-  EncounterCombatant,
-  EncounterRoundSummary,
-  EncounterRoundTotal,
-  EncounterTop,
-  EncounterWorkflow,
-} from "./types/globals";
-import { GetStat, SaveStat, RemoveStat } from "./StatManager";
-import { CombatantType } from "./Settings";
+import StatManager from "./StatManager";
+import { ChatMessageType, CombatantType } from "./enums";
 
 export default class Stat {
   _encounter: Encounter;
@@ -35,7 +23,7 @@ export default class Stat {
         templateHealthCheck: [],
       };
     } else {
-      this._encounter = GetStat();
+      this._encounter = StatManager.GetStat();
     }
   }
 
@@ -98,8 +86,6 @@ export default class Stat {
     const combatantStat: EncounterCombatant | undefined =
       this.GetCombatantStats(workflow.actor.id);
     if (!combatantStat) return;
-    let isNew = true;
-    let newCombatantEvent: CombatantEvent;
 
     // Get any existing event, if so merge object and update
     const isExistingEvent: boolean =
@@ -107,15 +93,14 @@ export default class Stat {
         (f) => f.id === workflow.id && f.round === this.currentRound
       ) !== undefined;
 
-    if (isExistingEvent && workflow.type !== "itemCard") {
-      isNew = false;
-      newCombatantEvent = combatantStat.events
+    if (isExistingEvent && workflow.type !== ChatMessageType.ItemCard) {
+      const newCombatantEvent = combatantStat.events
         .filter((f) => f.id === workflow.id)
         .reverse()[0];
 
-      if (workflow.type === "damage") {
+      if (workflow.type === ChatMessageType.Damage) {
         newCombatantEvent.damageTotal = workflow.damageTotal;
-      } else if (workflow.type === "attack") {
+      } else if (workflow.type === ChatMessageType.Attack) {
         newCombatantEvent.attackTotal = workflow.attackTotal;
         newCombatantEvent.isCritical = workflow.isCritical;
         newCombatantEvent.isFumble = workflow.isFumble;
@@ -123,8 +108,8 @@ export default class Stat {
         newCombatantEvent.disadvantage = workflow.disadvantage;
       }
     } else {
-      if (workflow.type === "itemCard") {
-        newCombatantEvent = <CombatantEvent>{
+      if (workflow.type === ChatMessageType.ItemCard) {
+        const newCombatantEvent = <CombatantEvent>{
           id: workflow.id,
           actorId: workflow.actor.id,
           item: workflow.item,
@@ -132,8 +117,9 @@ export default class Stat {
           attackTotal: 0,
           damageTotal: 0,
         };
-      } else {
-        newCombatantEvent = <CombatantEvent>{
+        combatantStat.events.push(newCombatantEvent);
+      } else if (workflow.type === ChatMessageType.MidiQol) {
+        const newCombatantEvent = <CombatantEvent>{
           id: workflow.id,
           actorId: workflow.actor.id,
           item: workflow.item,
@@ -158,11 +144,8 @@ export default class Stat {
             newCombatantEvent.isCritical = workflow.isCritical;
           }
         }
+        combatantStat.events.push(newCombatantEvent);
       }
-    }
-
-    if (isNew) {
-      combatantStat.events.push(newCombatantEvent);
     }
   }
 
@@ -218,11 +201,11 @@ export default class Stat {
   }
 
   IsValidCombatant(type: string): boolean {
-    return type === CombatantType.character || type === CombatantType.npc;
+    return type === CombatantType.Character || type === CombatantType.NPC;
   }
 
   IsNPC(type: string): boolean {
-    return type === CombatantType.npc;
+    return type === CombatantType.NPC;
   }
 
   UpdateRound(currentRound: number) {
@@ -242,11 +225,11 @@ export default class Stat {
   async Save(): Promise<void> {
     this.GenerateCombatantStats();
     this.GetTopStats();
-    await SaveStat(this._encounter);
+    await StatManager.SaveStat(this._encounter);
   }
 
   Delete(): void {
-    RemoveStat();
+    StatManager.RemoveStat();
   }
 
   private SetTopEncounter(top: EncounterTop) {

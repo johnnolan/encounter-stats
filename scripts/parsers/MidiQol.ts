@@ -1,9 +1,4 @@
-import {
-  DiceTrackParse,
-  EncounterWorkflow,
-  EnemyHit,
-  MidiQolWorkflow,
-} from "../types/globals";
+import { ChatMessageType } from "../enums";
 
 class MidiQol {
   static ParseWorkflow(workflow: MidiQolWorkflow): EncounterWorkflow {
@@ -45,6 +40,7 @@ class MidiQol {
       isCritical: workflow.isCritical,
       isFumble: workflow.isFumble,
       enemyHit: enemiesHit,
+      type: ChatMessageType.MidiQol,
     };
   }
 

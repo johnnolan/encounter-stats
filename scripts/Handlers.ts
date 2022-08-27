@@ -1,8 +1,8 @@
 import EncounterJournal from "./EncounterJournal";
-import { IsInCombat } from "./Utils";
+import StatManager from "./StatManager";
 import Stat from "./Stat";
-import { DiceTrackParse, EncounterWorkflow } from "./types/globals";
 import CampaignStat from "./CampaignStat";
+import { RoleType } from "./enums";
 
 export async function OnTrackDiceRoll(
   rolls: Array<Roll>,
@@ -14,11 +14,11 @@ export async function OnTrackDiceRoll(
   const dice: DiceTerm = rolls[0].dice[0];
   if (dice.faces === 20) {
     if (dice.total === 1) {
-      CampaignStat.AddRole("nat1", alias, flavor);
+      CampaignStat.AddRole(RoleType.Fumble, alias, flavor);
     }
 
     if (dice.total === 20) {
-      CampaignStat.AddRole("nat20", alias, flavor);
+      CampaignStat.AddRole(RoleType.Critial, alias, flavor);
     }
   }
 }
@@ -62,7 +62,7 @@ export async function OnDeleteCombat(): Promise<void> {
 export async function OnTrackDice(diceTrackParsed: DiceTrackParse) {
   if (diceTrackParsed.isCritical || diceTrackParsed.isFumble) {
     CampaignStat.AddRole(
-      diceTrackParsed.isCritical ? "nat20" : "nat1",
+      diceTrackParsed.isCritical ? RoleType.Critial : RoleType.Fumble,
       diceTrackParsed.name,
       diceTrackParsed.flavor
     );
@@ -72,7 +72,7 @@ export async function OnTrackDice(diceTrackParsed: DiceTrackParse) {
 export async function OnEncounterWorkflowComplete(
   workflow: EncounterWorkflow | undefined
 ): Promise<void> {
-  if (!IsInCombat()) return;
+  if (!StatManager.IsInCombat()) return;
   if (!workflow) return;
   const stat = new Stat();
   stat.AddAttack(workflow);
@@ -92,7 +92,7 @@ export async function OnEncounterWorkflowComplete(
 }
 
 export async function OnUpdateHealth(actor: Actor): Promise<void> {
-  if (!IsInCombat()) return;
+  if (!StatManager.IsInCombat()) return;
   const stat = new Stat();
   stat.UpdateHealth(actor);
   stat.Save();
@@ -102,7 +102,7 @@ export async function OnTrackKill(
   targetName: string,
   tokenId: string
 ): Promise<void> {
-  if (!IsInCombat()) return;
+  if (!StatManager.IsInCombat()) return;
   const stat = new Stat();
   stat.AddKill(targetName, tokenId);
   stat.Save();

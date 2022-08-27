@@ -1,4 +1,4 @@
-import { EncounterWorkflow, MidiQolWorkflow } from "../types/globals";
+import { ChatMessageType } from "../enums";
 import MidiQol from "./MidiQol";
 
 const midiWorkflow: MidiQolWorkflow = {
@@ -119,6 +119,7 @@ describe("MidiQol", () => {
               tokenId: "tokenId",
             },
           ],
+          type: ChatMessageType.MidiQol,
         });
       });
     });
@@ -152,6 +153,7 @@ describe("MidiQol", () => {
             img: "itemImageUrl",
           },
           enemyHit: [],
+          type: ChatMessageType.MidiQol,
         });
       });
     });

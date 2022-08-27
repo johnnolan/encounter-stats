@@ -1,5 +1,4 @@
 //import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration";
-import { CampaignStats } from "./types/globals";
 
 class EncounterJournal {
   static readonly JOURNAL_TITLE = "Encounter Statistics";

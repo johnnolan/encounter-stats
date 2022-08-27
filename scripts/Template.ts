@@ -1,12 +1,5 @@
 import Stat from "./Stat";
 import Trans from "./Trans";
-import {
-  CombatantEvent,
-  CombatantKills,
-  Encounter,
-  EncounterCombatant,
-  CombatantHealthData,
-} from "./types/globals";
 
 export function Generate(encounter: Encounter) {
   return `

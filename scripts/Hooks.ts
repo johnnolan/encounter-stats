@@ -9,8 +9,7 @@ import {
   OnTrackDice,
   OnTrackDiceRoll,
 } from "./Handlers";
-import { IsInCombat } from "./Utils";
-import { MidiQolWorkflow } from "./types/globals";
+import StatManager from "./StatManager";
 import DND5e from "./parsers/DND5e";
 import MidiQol from "./parsers/MidiQol";
 
@@ -32,7 +31,7 @@ function _setupSockerListeners() {
 }
 
 function updateActorToken(data, diff) {
-  if (IsInCombat()) {
+  if (StatManager.IsInCombat()) {
     if (!data.hasPlayerOwner && diff.system?.attributes?.hp?.value === 0) {
       OnTrackKill(data.name, game.combat.current.tokenId);
     }

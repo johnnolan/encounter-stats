@@ -1,23 +1,16 @@
-import {
-  CampaignStats,
-  DiceTrack,
-  HealTrack,
-  KillTrack,
-} from "./types/globals";
-
 export function Generate(campaignStats: CampaignStats) {
   return `
   <div class="fvtt-enc-stats">
     <hr />
     <h2 class="fvtt-enc-stats_enemies">Natural 20s</h2>
     <div>
-        ${Generatenat20Row(campaignStats)}
+        ${GenerateCritialRow(campaignStats)}
     </div>
 
     <hr />
     <h2 class="fvtt-enc-stats_enemies">Natural 1s</h2>
     <div>
-        ${GenerateNat1Row(campaignStats)}
+        ${GenerateFumbleRow(campaignStats)}
     </div>
 
     <hr />
@@ -56,7 +49,7 @@ function GenerateKillRow(campaignStats: CampaignStats) {
   return markup;
 }
 
-function GenerateNat1Row(campaignStats: CampaignStats) {
+function GenerateFumbleRow(campaignStats: CampaignStats) {
   let markup = ``;
 
   campaignStats.nat1.reverse().forEach((nat1s) => {
@@ -77,7 +70,7 @@ function GenerateNat1Row(campaignStats: CampaignStats) {
   return markup;
 }
 
-function Generatenat20Row(campaignStats: CampaignStats) {
+function GenerateCritialRow(campaignStats: CampaignStats) {
   let markup = ``;
 
   campaignStats.nat20.reverse().forEach((nat20s) => {

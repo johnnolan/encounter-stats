@@ -7,8 +7,3 @@ export const STORAGE_NAME_CAMPAIGN_DATA =
 export const STORAGE_NAME_CAMPAIGN_ID = "Campaign Statistics";
 
 export const OPT_ENABLE = "enable";
-
-export const CombatantType = {
-  character: "character",
-  npc: "npc",
-};

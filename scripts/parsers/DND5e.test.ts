@@ -1,6 +1,6 @@
-import { EncounterWorkflow } from "../types/globals";
 import DND5e from "./DND5e";
 import { chatActor } from "../mockdata/chatActor";
+import { ChatMessageType } from "../enums";
 
 const chatMessageItem: ChatMessage = {
   content: '<div data-item-id="C3c6l9SPMCqMiceV"></div>',
@@ -119,7 +119,7 @@ describe("Default", () => {
               tokenId: "tokenId",
             },
           ],
-          type: "itemCard",
+          type: ChatMessageType.ItemCard,
         });
       });
     });
@@ -145,7 +145,7 @@ describe("Default", () => {
           disadvantage: false,
           isCritical: false,
           isFumble: false,
-          type: "attack",
+          type: ChatMessageType.Attack,
         });
       });
     });
@@ -168,7 +168,7 @@ describe("Default", () => {
           damageRoll: 41,
           damageTotal: 41,
           damageMultipleEnemiesTotal: 41,
-          type: "damage",
+          type: ChatMessageType.Damage,
         });
       });
     });

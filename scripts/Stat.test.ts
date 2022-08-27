@@ -1,14 +1,9 @@
-import {
-  Encounter,
-  EncounterWorkflow,
-  CombatantEventSummaryList,
-  EncounterRoundSummary,
-} from "./types/globals";
 import Stat from "./Stat";
 jest.mock("./StatManager");
-import { GetStat, RemoveStat, SaveStat } from "./StatManager";
+import StatManager from "./StatManager";
 import { actor } from "./mockdata/actor";
 import { chatActor } from "./mockdata/chatActor";
+import { ChatMessageType } from "./enums";
 
 const encounter: Encounter = {
   encounterId: "t98gppsau45ypm3t",
@@ -56,7 +51,7 @@ const encounterMidiWorkflow: EncounterWorkflow = {
       tokenId: "tokenId",
     },
   ],
-  type: "midiqol",
+  type: ChatMessageType.MidiQol,
 };
 
 const encounterMidiWorkflow2: EncounterWorkflow = {
@@ -88,7 +83,7 @@ const encounterMidiWorkflow2: EncounterWorkflow = {
       tokenId: "tokenId",
     },
   ],
-  type: "midiqol",
+  type: ChatMessageType.MidiQol,
 };
 
 const encounterMidiWorkflowHeal: EncounterWorkflow = {
@@ -114,7 +109,7 @@ const encounterMidiWorkflowHeal: EncounterWorkflow = {
     type: "sword",
     img: "itemImageUrl",
   },
-  type: "midiqol",
+  type: ChatMessageType.MidiQol,
 };
 
 const encounterDefaultWorkflowItemCard: EncounterWorkflow = {
@@ -136,7 +131,7 @@ const encounterDefaultWorkflowItemCard: EncounterWorkflow = {
       tokenId: "tokenId",
     },
   ],
-  type: "itemCard",
+  type: ChatMessageType.ItemCard,
 };
 
 const encounterDefaultWorkflowAttack: EncounterWorkflow = {
@@ -161,7 +156,7 @@ const encounterDefaultWorkflowDamage: EncounterWorkflow = {
   damageRoll: 41,
   damageTotal: 41,
   damageMultipleEnemiesTotal: 41,
-  type: "damage",
+  type: ChatMessageType.Damage,
 };
 
 describe("Stat", () => {
@@ -170,8 +165,8 @@ describe("Stat", () => {
     const encounterId = "encounterId";
     beforeEach(() => {
       stat = new Stat(encounterId);
-      RemoveStat.mockImplementation(() => true);
-      SaveStat.mockImplementation(() => true);
+      StatManager.RemoveStat.mockImplementation(() => true);
+      StatManager.SaveStat.mockImplementation(() => true);
     });
 
     test("it returns true to hasEncounter", () => {
@@ -199,12 +194,12 @@ describe("Stat", () => {
 
     test("it calls RemoveStat", () => {
       stat.Delete();
-      expect(RemoveStat).toBeCalled();
+      expect(StatManager.RemoveStat).toBeCalled();
     });
 
     test("it calls SaveStat", () => {
       stat.Save();
-      expect(SaveStat).toBeCalled();
+      expect(StatManager.SaveStat).toBeCalled();
     });
 
     test("it Updates the Round correctly", () => {
@@ -258,7 +253,7 @@ describe("Stat", () => {
   describe("If it pulls from localstorage", () => {
     let stat: Stat;
     beforeAll(() => {
-      GetStat.mockImplementation(() => encounter);
+      StatManager.GetStat.mockImplementation(() => encounter);
       stat = new Stat();
     });
 

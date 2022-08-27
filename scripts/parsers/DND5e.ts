@@ -1,4 +1,4 @@
-import { EncounterWorkflow, EnemyHit } from "../types/globals";
+import { ChatMessageType } from "../enums";
 
 export default class DND5e {
   static async ParseChatMessage(
@@ -12,7 +12,7 @@ export default class DND5e {
         }
     );
 
-    let type: string | undefined;
+    let type = ChatMessageType.None;
     const actor = game.actors.get(chatMessage.speaker.actor);
     if (!actor) {
       return;
@@ -24,22 +24,25 @@ export default class DND5e {
 
     if (itemMatch !== null && itemMatch !== undefined) {
       itemId = itemMatch[1];
-      type = "itemCard";
+      type = ChatMessageType.ItemCard;
     } else if (chatMessage.flags?.dnd5e?.roll?.type) {
       itemId = chatMessage.flags.dnd5e.roll.itemId;
-      type = chatMessage.flags.dnd5e.roll.type;
+      type =
+        chatMessage.flags.dnd5e.roll.type === "attack"
+          ? ChatMessageType.Attack
+          : ChatMessageType.Damage;
     } else {
       return;
     }
 
-    if (!type) {
+    if ((type as ChatMessageType) === ChatMessageType.None) {
       return;
     }
 
     const actorItems = actor.items;
     const item = actorItems.find((f) => f.id === itemId);
 
-    if (type === "damage") {
+    if (type === ChatMessageType.Damage) {
       return <EncounterWorkflow>{
         id: itemId + actor.id,
         actor: {
@@ -51,7 +54,7 @@ export default class DND5e {
           chatMessage.rolls[0]?.total ?? 0 * enemiesHit.length,
         type: type,
       };
-    } else if (type === "attack") {
+    } else if (type === ChatMessageType.Attack) {
       let isCritical = false;
       let isFumble = false;
       const dice: Die = chatMessage.rolls[0]?.dice[0];
@@ -77,7 +80,7 @@ export default class DND5e {
         disadvantage: chatMessage.rolls[0]?.hasDisadvantage,
         type: type,
       };
-    } else if (type === "itemCard") {
+    } else if (type === ChatMessageType.ItemCard) {
       return <EncounterWorkflow>{
         id: itemId + actor.id,
         actor: {
