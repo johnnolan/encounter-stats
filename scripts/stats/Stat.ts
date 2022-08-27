@@ -1,5 +1,10 @@
-import StatManager from "./StatManager";
-import { ChatMessageType, CombatantType } from "./enums";
+import StatManager from "../StatManager";
+import {
+  CombatantType,
+  ValidAttacks,
+  ValidHeals,
+  ValidRollEvent,
+} from "../enums";
 
 export default class Stat {
   _encounter: Encounter;
@@ -79,76 +84,6 @@ export default class Stat {
     combatantStat.health.push(healthData);
   }
 
-  AddAttack(workflow: EncounterWorkflow) {
-    if (!workflow?.actor?.id) {
-      return;
-    }
-    const combatantStat: EncounterCombatant | undefined =
-      this.GetCombatantStats(workflow.actor.id);
-    if (!combatantStat) return;
-
-    // Get any existing event, if so merge object and update
-    const isExistingEvent: boolean =
-      combatantStat.events.find(
-        (f) => f.id === workflow.id && f.round === this.currentRound
-      ) !== undefined;
-
-    if (isExistingEvent && workflow.type !== ChatMessageType.ItemCard) {
-      const newCombatantEvent = combatantStat.events
-        .filter((f) => f.id === workflow.id)
-        .reverse()[0];
-
-      if (workflow.type === ChatMessageType.Damage) {
-        newCombatantEvent.damageTotal = workflow.damageTotal;
-      } else if (workflow.type === ChatMessageType.Attack) {
-        newCombatantEvent.attackTotal = workflow.attackTotal;
-        newCombatantEvent.isCritical = workflow.isCritical;
-        newCombatantEvent.isFumble = workflow.isFumble;
-        newCombatantEvent.advantage = workflow.advantage;
-        newCombatantEvent.disadvantage = workflow.disadvantage;
-      }
-    } else {
-      if (workflow.type === ChatMessageType.ItemCard) {
-        const newCombatantEvent = <CombatantEvent>{
-          id: workflow.id,
-          actorId: workflow.actor.id,
-          item: workflow.item,
-          round: this.currentRound,
-          attackTotal: 0,
-          damageTotal: 0,
-        };
-        combatantStat.events.push(newCombatantEvent);
-      } else if (workflow.type === ChatMessageType.MidiQol) {
-        const newCombatantEvent = <CombatantEvent>{
-          id: workflow.id,
-          actorId: workflow.actor.id,
-          item: workflow.item,
-          advantage: workflow.advantage,
-          disadvantage: workflow.disadvantage,
-          actionType: workflow.actionType,
-          round: this.currentRound,
-          enemyHit: workflow.enemyHit,
-          attackTotal: 0,
-          damageTotal: 0,
-          isCritical: false,
-        };
-
-        if (this.IsValidAttack(newCombatantEvent.actionType)) {
-          if (workflow.attackRoll) {
-            newCombatantEvent.attackTotal = workflow.attackTotal;
-          }
-        }
-        if (this.IsValidRollEvent(newCombatantEvent.actionType)) {
-          if (workflow.damageRoll) {
-            newCombatantEvent.damageTotal = workflow.damageTotal;
-            newCombatantEvent.isCritical = workflow.isCritical;
-          }
-        }
-        combatantStat.events.push(newCombatantEvent);
-      }
-    }
-  }
-
   AddCombatant(actor: Actor, tokenId: string) {
     const tokenImage = canvas.tokens.get(tokenId)?.img;
     if (!this.IsValidCombatant(actor?.type)) return;
@@ -189,23 +124,23 @@ export default class Stat {
   }
 
   IsValidAttack(attackType: string) {
-    const validTypes = ["mwak", "rwak", "msak", "rsak", "save"];
-
-    return validTypes.indexOf(attackType) > -1;
+    return Object.values(ValidAttacks).includes(attackType);
   }
 
   IsHealingSpell(attackType: string) {
-    const validTypes = ["heal"];
-
-    return validTypes.indexOf(attackType) > -1;
+    return Object.values(ValidHeals).includes(attackType);
   }
 
-  IsValidCombatant(type: string): boolean {
+  private IsValidCombatant(type: string): boolean {
     return type === CombatantType.Character || type === CombatantType.NPC;
   }
 
-  IsNPC(type: string): boolean {
+  private IsNPC(type: string): boolean {
     return type === CombatantType.NPC;
+  }
+
+  protected IsValidRollEvent(attackType: string) {
+    return Object.values(ValidRollEvent).includes(attackType);
   }
 
   UpdateRound(currentRound: number) {
@@ -234,12 +169,6 @@ export default class Stat {
 
   private SetTopEncounter(top: EncounterTop) {
     this._encounter.top = top;
-  }
-
-  private IsValidRollEvent(attackType: string) {
-    const validTypes = ["mwak", "rwak", "msak", "rsak", "save", "heal"];
-
-    return validTypes.indexOf(attackType) > -1;
   }
 
   private GenerateCombatantStats(): void {

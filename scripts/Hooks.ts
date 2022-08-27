@@ -12,6 +12,7 @@ import {
 import StatManager from "./StatManager";
 import DND5e from "./parsers/DND5e";
 import MidiQol from "./parsers/MidiQol";
+import { ChatType } from "./enums";
 
 const SOCKET_NAME = "module.encounter-stats";
 
@@ -23,7 +24,7 @@ function _setupSockerListeners() {
         updateActorToken(payload.data.data, payload.data.diff);
         break;
       case "midi-qol.RollComplete":
-        OnEncounterWorkflowComplete(payload.data.workflow);
+        OnEncounterWorkflowComplete(payload.data.workflow, ChatType.MidiQol);
         OnTrackDice(payload.data.rollCheck);
         break;
     }
@@ -69,7 +70,10 @@ export async function SetupHooks() {
       window.Hooks.on(
         "midi-qol.RollComplete",
         async function (workflow: MidiQolWorkflow) {
-          OnEncounterWorkflowComplete(MidiQol.ParseWorkflow(workflow));
+          OnEncounterWorkflowComplete(
+            MidiQol.ParseWorkflow(workflow),
+            ChatType.MidiQol
+          );
           OnTrackDice(await MidiQol.RollCheck(workflow));
         }
       );
@@ -81,7 +85,8 @@ export async function SetupHooks() {
         if (!chatMessage?.user?.isGM) {
           if (!game.modules.get("midi-qol")?.active) {
             OnEncounterWorkflowComplete(
-              await DND5e.ParseChatMessage(chatMessage)
+              await DND5e.ParseChatMessage(chatMessage),
+              ChatType.DND5e
             );
           }
           OnTrackDiceRoll(
