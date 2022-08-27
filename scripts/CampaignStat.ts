@@ -77,22 +77,22 @@ export default class CampaignStat {
     };
 
     if (type === RoleType.Fumble) {
-      const dateEntry = campaignStats.fumble.find((f) => f.id === date.id);
+      const dateEntry = campaignStats.nat1.find((f) => f.id === date.id);
       if (dateEntry) {
         dateEntry.data.push(dice);
       } else {
-        campaignStats.fumble.push({
+        campaignStats.nat1.push({
           id: date.id,
           dateDisplay: date.dateDisplay,
           data: [dice],
         });
       }
     } else if (type === RoleType.Critial) {
-      const dateEntry = campaignStats.critical.find((f) => f.id === date.id);
+      const dateEntry = campaignStats.nat20.find((f) => f.id === date.id);
       if (dateEntry) {
         dateEntry.data.push(dice);
       } else {
-        campaignStats.critical.push({
+        campaignStats.nat20.push({
           id: date.id,
           dateDisplay: date.dateDisplay,
           data: [dice],

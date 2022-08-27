@@ -29,8 +29,8 @@ describe("CampaignStat", () => {
       mockEncounterJournalGetCampaignJournal.mockReturnValue({
         kills: [],
         heals: [],
-        critical: [],
-        fumble: [],
+        nat20: [],
+        nat1: [],
       });
       jest.spyOn(CampaignStat, "Save");
     });
@@ -54,8 +54,8 @@ describe("CampaignStat", () => {
             },
           ],
           heals: [],
-          critical: [],
-          fumble: [],
+          nat20: [],
+          nat1: [],
         })
       );
     });
@@ -66,8 +66,8 @@ describe("CampaignStat", () => {
       mockEncounterJournalGetCampaignJournal.mockReturnValue({
         kills: [],
         heals: [],
-        critical: [],
-        fumble: [],
+        nat20: [],
+        nat1: [],
       });
       jest.spyOn(CampaignStat, "Save");
     });
@@ -98,8 +98,8 @@ describe("CampaignStat", () => {
               ],
             },
           ],
-          critical: [],
-          fumble: [],
+          nat20: [],
+          nat1: [],
         })
       );
     });
@@ -110,8 +110,8 @@ describe("CampaignStat", () => {
       mockEncounterJournalGetCampaignJournal.mockReturnValue({
         kills: [],
         heals: [],
-        critical: [],
-        fumble: [],
+        nat20: [],
+        nat1: [],
       });
       jest.spyOn(CampaignStat, "Save");
     });
@@ -127,8 +127,8 @@ describe("CampaignStat", () => {
         JSON.stringify({
           kills: [],
           heals: [],
-          critical: [],
-          fumble: [
+          nat20: [],
+          nat1: [
             {
               id: "20200101",
               dateDisplay: "2020-01-01",
@@ -151,8 +151,8 @@ describe("CampaignStat", () => {
       mockEncounterJournalGetCampaignJournal.mockReturnValue({
         kills: [],
         heals: [],
-        critical: [],
-        fumble: [],
+        nat20: [],
+        nat1: [],
       });
       jest.spyOn(CampaignStat, "Save");
     });
@@ -168,7 +168,7 @@ describe("CampaignStat", () => {
         JSON.stringify({
           kills: [],
           heals: [],
-          critical: [
+          nat20: [
             {
               id: "20200101",
               dateDisplay: "2020-01-01",
@@ -181,7 +181,7 @@ describe("CampaignStat", () => {
               ],
             },
           ],
-          fumble: [],
+          nat1: [],
         })
       );
     });

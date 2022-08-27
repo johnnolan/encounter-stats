@@ -52,10 +52,10 @@ function GenerateKillRow(campaignStats: CampaignStats) {
 function GenerateFumbleRow(campaignStats: CampaignStats) {
   let markup = ``;
 
-  campaignStats.fumble.reverse().forEach((fumbles) => {
-    markup += _getItemListTitle(fumbles.dateDisplay);
+  campaignStats.nat1.reverse().forEach((nat1s) => {
+    markup += _getItemListTitle(nat1s.dateDisplay);
 
-    fumbles.data.forEach((diceTrack: DiceTrack) => {
+    nat1s.data.forEach((diceTrack: DiceTrack) => {
       markup += `
   <li class="item flexrow campaign-row">
     <div class="item-name">${diceTrack.actorName}</div>
@@ -73,10 +73,10 @@ function GenerateFumbleRow(campaignStats: CampaignStats) {
 function GenerateCritialRow(campaignStats: CampaignStats) {
   let markup = ``;
 
-  campaignStats.critical.reverse().forEach((criticals) => {
-    markup += _getItemListTitle(criticals.dateDisplay);
+  campaignStats.nat20.reverse().forEach((nat20s) => {
+    markup += _getItemListTitle(nat20s.dateDisplay);
 
-    criticals.data.forEach((diceTrack: DiceTrack) => {
+    nat20s.data.forEach((diceTrack: DiceTrack) => {
       markup += `
       <li class="item flexrow campaign-row">
         <div class="item-name">${diceTrack.actorName}</div>

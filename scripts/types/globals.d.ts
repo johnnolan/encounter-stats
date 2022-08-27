@@ -2,14 +2,14 @@ import { ChatMessageType } from "../enums";
 
 declare global {
   interface CampaignStats {
-    fumble: [
+    nat1: [
       {
         id: string;
         dateDisplay: string;
         data: Array<DiceTrack>;
       }
     ];
-    critical: [
+    nat20: [
       {
         id: string;
         dateDisplay: string;

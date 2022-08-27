@@ -44,7 +44,7 @@ class EncounterJournal {
         name: "Campaign Data - Do Not Delete",
         type: "text",
         text: {
-          content: `{"kills": [], "fumble": [], "critical": [], "heals": []}`,
+          content: `{"kills": [], "nat1": [], "nat20": [], "heals": []}`,
           format: CONST.JOURNAL_ENTRY_PAGE_FORMATS.HTML,
         },
         "flags.encounter-stats.campaignstats": "data",
