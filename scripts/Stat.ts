@@ -1,5 +1,5 @@
 import StatManager from "./StatManager";
-import { ChatMessageType, CombatantType } from "./enums";
+import { ChatMessageType, CombatantType, ValidAttacks, ValidHeals } from "./enums";
 
 export default class Stat {
   _encounter: Encounter;
@@ -189,15 +189,11 @@ export default class Stat {
   }
 
   IsValidAttack(attackType: string) {
-    const validTypes = ["mwak", "rwak", "msak", "rsak", "save"];
-
-    return validTypes.indexOf(attackType) > -1;
+    return Object.values(ValidAttacks).includes(attackType);
   }
 
   IsHealingSpell(attackType: string) {
-    const validTypes = ["heal"];
-
-    return validTypes.indexOf(attackType) > -1;
+    return Object.values(ValidHeals).includes(attackType);
   }
 
   IsValidCombatant(type: string): boolean {
