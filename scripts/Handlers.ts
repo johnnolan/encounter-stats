@@ -1,8 +1,10 @@
 import EncounterJournal from "./EncounterJournal";
 import StatManager from "./StatManager";
 import Stat from "./Stat";
+import MidiQolStat from "./MidiQolStat";
+import DND5eStat from "./DND5eStat";
 import CampaignStat from "./CampaignStat";
-import { RoleType } from "./enums";
+import { ChatType, RoleType } from "./enums";
 
 export async function OnTrackDiceRoll(
   rolls: Array<Roll>,
@@ -70,11 +72,20 @@ export async function OnTrackDice(diceTrackParsed: DiceTrackParse) {
 }
 
 export async function OnEncounterWorkflowComplete(
-  workflow: EncounterWorkflow | undefined
+  workflow: EncounterWorkflow | undefined,
+  chatType: ChatType
 ): Promise<void> {
   if (!StatManager.IsInCombat()) return;
   if (!workflow) return;
-  const stat = new Stat();
+  let stat: DND5eStat | MidiQolStat;
+  if (chatType === ChatType.DND5e) {
+    stat = new DND5eStat();
+  } else if (chatType === ChatType.MidiQol) {
+    stat = new MidiQolStat();
+  } else {
+    return;
+  }
+
   stat.AddAttack(workflow);
   stat.Save();
 
