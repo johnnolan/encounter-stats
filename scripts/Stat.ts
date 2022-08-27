@@ -1,5 +1,10 @@
 import StatManager from "./StatManager";
-import { ChatMessageType, CombatantType, ValidAttacks, ValidHeals } from "./enums";
+import {
+  ChatMessageType,
+  CombatantType,
+  ValidAttacks,
+  ValidHeals,
+} from "./enums";
 
 export default class Stat {
   _encounter: Encounter;
