@@ -1,4 +1,3 @@
-import { EncounterWorkflow } from "../types/globals";
 import DND5e from "./DND5e";
 import { chatActor } from "../mockdata/chatActor";
 

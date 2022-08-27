@@ -1,5 +1,3 @@
-import { EncounterWorkflow, EnemyHit } from "../types/globals";
-
 export default class DND5e {
   static async ParseChatMessage(
     chatMessage: ChatMessage
