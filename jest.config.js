@@ -1,8 +1,10 @@
 /* exported config */
 
 export default {
+  preset: "ts-jest",
   globals: {
     "ts-jest": {
+      isolatedModules: true,
       diagnostics: {
         exclude: ["**"],
       },

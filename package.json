@@ -10,9 +10,9 @@
     "build:dev": "node ./build.js && yarn run sass && node ./build-copy.js",
     "sass": "sass --style=compressed scss/module.scss styles/module.css",
     "jshint": "jshint scripts/",
-    "test": "jest",
-    "test:coverage": "jest --ci --runInBand",
-    "test:watch": "jest --watch",
+    "test": "jest --maxWorkers=1",
+    "test:coverage": "jest --ci --runInBand --maxWorkers=1",
+    "test:watch": "jest --watch --maxWorkers=1",
     "lint:check": "eslint --ignore-path .gitignore .",
     "lint:report": "eslint --ignore-path .gitignore --output-file eslint_report.json --format json .",
     "lint:fix": "eslint --fix --ignore-path .gitignore ."
