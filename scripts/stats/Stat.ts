@@ -5,6 +5,7 @@ import {
   ValidHeals,
   ValidRollEvent,
 } from "../enums";
+import Logger from "../Logger";
 
 export default class Stat {
   _encounter: Encounter;
@@ -48,7 +49,14 @@ export default class Stat {
     const killData = <CombatantKills>{};
 
     const combatantStat = this.GetCombatantStatsByTokenId(tokenId);
-    if (!combatantStat) return;
+    if (!combatantStat) {
+      Logger.warn(
+        `No combatant statistics for TokenID ${tokenId}`,
+        "stat.AddKill",
+        tokenId
+      );
+      return;
+    }
 
     killData.round = this.currentRound;
     killData.tokenName = targetName;
@@ -58,10 +66,20 @@ export default class Stat {
 
   UpdateHealth(actor: Actor) {
     const healthData = <CombatantHealthData>{};
+    if (!actor.id) {
+      Logger.warn(`No Actor ID passed`, "stat.UpdateHealth", actor);
+      return;
+    }
 
     const combatantStat = this.GetCombatantStats(actor.id);
-    if (!combatantStat) return;
-
+    if (!combatantStat) {
+      Logger.warn(
+        `No combatant statistics for TokenID ${actor.id}`,
+        "stat.UpdateHealth",
+        actor
+      );
+      return;
+    }
     healthData.round = this.currentRound;
     healthData.actorId = actor?.id ?? "";
     healthData.max = actor.system.attributes.hp.max;
@@ -85,7 +103,19 @@ export default class Stat {
   }
 
   AddCombatant(actor: Actor, tokenId: string) {
-    const tokenImage = canvas.tokens.get(tokenId)?.img;
+    const tokenImage = canvas?.tokens?.get(tokenId)?.img;
+    if (!tokenImage) {
+      Logger.warn(
+        `No tokenImage for TokenID ${tokenId}`,
+        "stat.AddCombatant",
+        tokenId
+      );
+    }
+    if (!actor || !actor.id || !actor.name) {
+      Logger.warn(`No valid actor passes ${actor}`, "stat.AddCombatant", actor);
+      return;
+    }
+
     if (!this.IsValidCombatant(actor?.type)) return;
 
     if (this.IsNPC(actor?.type)) return;

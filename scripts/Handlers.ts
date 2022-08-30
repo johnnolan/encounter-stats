@@ -92,14 +92,18 @@ export async function OnEncounterWorkflowComplete(
   stat.AddAttack(workflow);
   stat.Save();
 
-  if (stat.IsHealingSpell(workflow.actionType)) {
+  if (
+    workflow.actionType &&
+    workflow.item &&
+    stat.IsHealingSpell(workflow.actionType)
+  ) {
     const combatantStat = stat.GetCombatantStats(workflow.actor.id);
     if (combatantStat) {
       CampaignStat.AddHeal(
         combatantStat.name,
         workflow.item.link,
         workflow.item.name,
-        workflow.damageTotal
+        workflow.damageTotal ?? 0
       );
     }
   }

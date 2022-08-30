@@ -1,9 +1,11 @@
 import { ChatMessageType } from "../enums";
+import Logger from "../Logger";
 import Stat from "./Stat";
 
 export default class DND5eStat extends Stat {
   AddAttack(workflow: EncounterWorkflow) {
     if (!workflow?.actor?.id) {
+      Logger.error(`No Actor ID in encounter`, "dnd5estat.AddAttack", workflow);
       return;
     }
     const combatantStat: EncounterCombatant | undefined =

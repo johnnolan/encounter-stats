@@ -103,27 +103,30 @@ export async function SetupHooks() {
     );
   } else {
     window.Hooks.on("updateActor", async function (data, diff) {
-      game.socket.emit(SOCKET_NAME, {
+      game.socket?.emit(SOCKET_NAME, {
         event: "updateActor",
         data: { data: data, diff: diff },
       });
     });
     window.Hooks.on("updateToken", async function (data, diff) {
-      game.socket.emit(SOCKET_NAME, {
+      game.socket?.emit(SOCKET_NAME, {
         event: "updateToken",
         data: { data: data, diff: diff },
       });
     });
     if (game.modules.get("midi-qol")?.active) {
-      window.Hooks.on("midi-qol.RollComplete", async function (workflow) {
-        game.socket.emit(SOCKET_NAME, {
-          event: "midi-qol.RollComplete",
-          data: {
-            workflow: MidiQol.ParseWorkflow(workflow),
-            rollCheck: await MidiQol.RollCheck(workflow),
-          },
-        });
-      });
+      window.Hooks.on(
+        "midi-qol.RollComplete",
+        async function (workflow: MidiQolWorkflow) {
+          game.socket?.emit(SOCKET_NAME, {
+            event: "midi-qol.RollComplete",
+            data: {
+              workflow: MidiQol.ParseWorkflow(workflow),
+              rollCheck: await MidiQol.RollCheck(workflow),
+            },
+          });
+        }
+      );
     }
   }
 }

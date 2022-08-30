@@ -104,7 +104,7 @@ export default class CampaignStat {
   }
 
   static async Get(): Promise<CampaignStats> {
-    return await EncounterJournal.GetCampaignJournal();
+    return EncounterJournal.GetCampaignJournal();
   }
 
   static async Save(campaignStats: CampaignStats) {
