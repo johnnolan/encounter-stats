@@ -64,8 +64,11 @@ export async function OnDeleteCombat(): Promise<void> {
   stat.Delete();
 }
 
-export async function OnTrackDice(diceTrackParsed: DiceTrackParse) {
-  if (diceTrackParsed.isCritical || diceTrackParsed.isFumble) {
+export async function OnTrackDice(diceTrackParsed: DiceTrackParse | undefined) {
+  if (
+    diceTrackParsed &&
+    (diceTrackParsed.isCritical || diceTrackParsed.isFumble)
+  ) {
     CampaignStat.AddRole(
       diceTrackParsed.isCritical ? RoleType.Critial : RoleType.Fumble,
       diceTrackParsed.name,

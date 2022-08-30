@@ -78,7 +78,7 @@ export async function SetupHooks() {
             MidiQol.ParseWorkflow(workflow),
             ChatType.MidiQol
           );
-          OnTrackDice(await MidiQol.RollCheck(workflow));
+          OnTrackDice(MidiQol.RollCheck(workflow));
         }
       );
     }
@@ -122,7 +122,7 @@ export async function SetupHooks() {
             event: "midi-qol.RollComplete",
             data: {
               workflow: MidiQol.ParseWorkflow(workflow),
-              rollCheck: await MidiQol.RollCheck(workflow),
+              rollCheck: MidiQol.RollCheck(workflow),
             },
           });
         }

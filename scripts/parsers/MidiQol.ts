@@ -1,4 +1,5 @@
 import { ChatMessageType } from "../enums";
+import Logger from "../Logger";
 
 class MidiQol {
   static ParseWorkflow(workflow: MidiQolWorkflow): EncounterWorkflow {
@@ -44,20 +45,28 @@ class MidiQol {
     };
   }
 
-  static async RollCheck(workflow: MidiQolWorkflow): Promise<DiceTrackParse> {
+  static RollCheck(workflow: MidiQolWorkflow): DiceTrackParse | undefined {
     const actorId = workflow.actor.id;
-    let actor;
 
     if (actorId) {
-      actor = await game.actors.get(actorId);
-    }
+      const actor = game.actors?.get(actorId);
 
-    return <DiceTrackParse>{
-      isCritical: workflow.isCritical,
-      isFumble: workflow.isFumble,
-      flavor: workflow.item.name,
-      name: actor.name,
-    };
+      if (!actor) {
+        Logger.log(
+          `No actor found for actorId ${actorId}`,
+          "midiqol.RollCheck",
+          workflow
+        );
+        return;
+      }
+
+      return <DiceTrackParse>{
+        isCritical: workflow.isCritical,
+        isFumble: workflow.isFumble,
+        flavor: workflow.item.name,
+        name: actor.name,
+      };
+    }
   }
 }
 
