@@ -5,6 +5,7 @@ import MidiQolStat from "./stats/MidiQolStat";
 import DND5eStat from "./stats/DND5eStat";
 import CampaignStat from "./CampaignStat";
 import { ChatType, RoleType } from "./enums";
+import Logger from "./Logger";
 
 export async function OnTrackDiceRoll(
   rolls: Array<Roll>,
@@ -26,16 +27,31 @@ export async function OnTrackDiceRoll(
 }
 
 export async function OnUpdateCombat(currentRound: number): Promise<void> {
-  if (!currentRound) return;
+  if (!currentRound) {
+    Logger.error(
+      `Cannot update round`,
+      "handlers.OnUpdateCombat",
+      currentRound
+    );
+    return;
+  }
   const stat = new Stat();
 
   stat.UpdateRound(currentRound);
 
   await stat.Save();
+  Logger.debug(`Start of round ${currentRound}`, "handlers.OnUpdateCombat");
 }
 
 export async function OnRenderCombatTracker(data: any): Promise<void> {
-  if (!data.hasCombat) return;
+  if (!data.hasCombat) {
+    Logger.error(
+      `Combat Tracker Even has no combat active`,
+      "handlers.OnRenderCombatTracker",
+      data
+    );
+    return;
+  }
   const stat = new Stat();
 
   const combatantsList = data.combat.combatants;
@@ -48,20 +64,26 @@ export async function OnRenderCombatTracker(data: any): Promise<void> {
     }
   }
   await stat.Save();
+  Logger.debug(`Combatants Added`, "handlers.OnRenderCombatTracker");
 }
 
 export async function OnCreateCombat(combat: Combat): Promise<void> {
   const encounterId = combat.id;
-  if (!encounterId) return;
+  if (!encounterId) {
+    Logger.error(`Missing encounterId`, "handlers.OnCreateCombat", combat);
+    return;
+  }
   const stat = new Stat(encounterId);
 
   EncounterJournal.CreateJournalEntryPage(encounterId);
   await stat.Save();
+  Logger.debug(`Combat Started`, "handlers.OnCreateCombat");
 }
 
 export async function OnDeleteCombat(): Promise<void> {
   const stat = new Stat();
   stat.Delete();
+  Logger.debug(`Combat Ended`, "handlers.OnDeleteCombat");
 }
 
 export async function OnTrackDice(diceTrackParsed: DiceTrackParse | undefined) {
@@ -107,6 +129,12 @@ export async function OnEncounterWorkflowComplete(
         workflow.item.link,
         workflow.item.name,
         workflow.damageTotal ?? 0
+      );
+    } else {
+      Logger.warn(
+        `Missing Combatant for Heal`,
+        "handlers.OnEncounterWorkflowComplete",
+        workflow
       );
     }
   }
