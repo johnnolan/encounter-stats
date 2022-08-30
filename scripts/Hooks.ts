@@ -17,7 +17,7 @@ import { ChatType } from "./enums";
 const SOCKET_NAME = "module.encounter-stats";
 
 function _setupSockerListeners() {
-  game.socket.on(SOCKET_NAME, async function (payload) {
+  game.socket?.on(SOCKET_NAME, async function (payload) {
     switch (payload.event) {
       case "updateActor":
       case "updateToken":
@@ -33,7 +33,11 @@ function _setupSockerListeners() {
 
 function updateActorToken(data, diff) {
   if (StatManager.IsInCombat()) {
-    if (!data.hasPlayerOwner && diff.system?.attributes?.hp?.value === 0) {
+    if (
+      !data.hasPlayerOwner &&
+      diff.system?.attributes?.hp?.value === 0 &&
+      game.combat?.current?.tokenId
+    ) {
       OnTrackKill(data.name, game.combat.current.tokenId);
     }
   }
@@ -43,7 +47,7 @@ function updateActorToken(data, diff) {
 }
 
 export async function SetupHooks() {
-  if (game.user.isGM) {
+  if (game.user?.isGM) {
     _setupSockerListeners();
     window.Hooks.on("renderCombatTracker", async function (arg1, arg2, data) {
       OnRenderCombatTracker(data);

@@ -42,7 +42,10 @@ export async function OnRenderCombatTracker(data: any): Promise<void> {
   for (const element of combatantsList) {
     const actorId = element.actorId;
     const tokenId = element.tokenId;
-    stat.AddCombatant(game.actors.get(actorId), tokenId);
+    const actor = game.actors?.get(actorId);
+    if (actor) {
+      stat.AddCombatant(actor, tokenId);
+    }
   }
   await stat.Save();
 }
