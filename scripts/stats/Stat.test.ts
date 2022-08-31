@@ -536,6 +536,7 @@ describe("Stat", () => {
             round: 1,
             attackTotal: 0,
             damageTotal: 0,
+            actionType: "mwak",
           });
         });
 
@@ -565,6 +566,7 @@ describe("Stat", () => {
             advantage: true,
             disadvantage: false,
             damageTotal: 0,
+            actionType: "mwak",
           });
         });
 
@@ -595,6 +597,7 @@ describe("Stat", () => {
             advantage: true,
             disadvantage: false,
             damageTotal: 41,
+            actionType: "mwak",
           });
         });
       });
