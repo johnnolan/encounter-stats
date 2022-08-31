@@ -112,7 +112,7 @@ export default class Stat {
       );
     }
     if (!actor || !actor.id || !actor.name) {
-      Logger.warn(`No valid actor passes ${actor}`, "stat.AddCombatant", actor);
+      Logger.warn(`No valid actor passed ${actor}`, "stat.AddCombatant", actor);
       return;
     }
 
