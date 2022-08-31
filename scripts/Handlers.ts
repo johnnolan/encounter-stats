@@ -28,11 +28,7 @@ export async function OnTrackDiceRoll(
 
 export async function OnUpdateCombat(currentRound: number): Promise<void> {
   if (!currentRound) {
-    Logger.error(
-      `Cannot update round`,
-      "handlers.OnUpdateCombat",
-      currentRound
-    );
+    Logger.log(`No new round`, "handlers.OnUpdateCombat", currentRound);
     return;
   }
   const stat = new Stat();

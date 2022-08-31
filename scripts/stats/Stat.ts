@@ -118,7 +118,7 @@ export default class Stat {
 
     if (!this.IsValidCombatant(actor?.type)) return;
 
-    if (this.IsNPC(actor?.type)) return;
+    if (Stat.IsNPC(actor?.type)) return;
 
     const newCombatant: EncounterCombatant = {
       name: actor.name,
@@ -165,7 +165,7 @@ export default class Stat {
     return type === CombatantType.Character || type === CombatantType.NPC;
   }
 
-  private IsNPC(type: string): boolean {
+  static IsNPC(type: string): boolean {
     return type === CombatantType.NPC;
   }
 

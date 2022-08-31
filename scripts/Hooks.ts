@@ -13,16 +13,13 @@ import StatManager from "./StatManager";
 import DND5e from "./parsers/DND5e";
 import MidiQol from "./parsers/MidiQol";
 import { ChatType } from "./enums";
+import Stat from "./stats/Stat";
 
 const SOCKET_NAME = "module.encounter-stats";
 
 function _setupSockerListeners() {
   game.socket?.on(SOCKET_NAME, async function (payload) {
     switch (payload.event) {
-      case "updateActor":
-      case "updateToken":
-        updateActorToken(payload.data.data, payload.data.diff);
-        break;
       case "midi-qol.RollComplete":
         OnEncounterWorkflowComplete(payload.data.workflow, ChatType.MidiQol);
         OnTrackDice(payload.data.rollCheck);
@@ -42,7 +39,7 @@ function updateActorToken(actor: Actor, diff: unknown) {
       OnTrackKill(actor.name, game.combat.current.tokenId);
     }
   }
-  if (diff.system?.attributes?.hp) {
+  if (diff.system?.attributes?.hp && actor.id && !Stat.IsNPC(actor?.type)) {
     OnUpdateHealth(actor);
   }
 }

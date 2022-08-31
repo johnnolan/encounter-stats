@@ -250,10 +250,10 @@ describe("Stat", () => {
       });
 
       test("it returns true to correct IsNPC", () => {
-        expect(stat.IsNPC("npc")).toBeTruthy();
+        expect(Stat.IsNPC("npc")).toBeTruthy();
       });
       test("it returns false to correct IsNPC", () => {
-        expect(stat.IsNPC("character")).toBeFalsy();
+        expect(Stat.IsNPC("character")).toBeFalsy();
       });
     });
   });
