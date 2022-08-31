@@ -1,6 +1,25 @@
 import { ChatMessageType } from "../enums";
 
 declare global {
+  interface LenientGlobalVariableTypes {
+    game: never; // the type doesn't matter
+  }
+  interface Window {
+    Hooks: typeof Hooks;
+  }
+  interface HookRenderCombatTrackerData {
+    user: User;
+    combats: Array<Combat>;
+    combatCount: number;
+    hasCombat: boolean;
+    combat: Combat;
+  }
+
+  interface HookUpdateCombatRound {
+    round: number;
+    turn: number;
+  }
+
   interface CampaignStats {
     nat1: [
       {

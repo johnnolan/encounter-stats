@@ -9,5 +9,5 @@
     "rules": {
         "prettier/prettier": ["error"]
     },
-    "ignorePatterns": ["scripts/mocks/**/*", "scripts/mockdata/**/*", "scripts/panels/**/*.ts"]
+    "ignorePatterns": ["scripts/**/*.test.ts", "__mocks__/**/*", "scripts/mocks/**/*", "scripts/mockdata/**/*", "scripts/panels/**/*.ts"]
 }

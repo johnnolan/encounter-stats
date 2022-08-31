@@ -1,5 +1,7 @@
 //import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration";
 
+import Logger from "./Logger";
+
 class EncounterJournal {
   static readonly JOURNAL_TITLE = "Encounter Statistics";
 
@@ -19,9 +21,17 @@ class EncounterJournal {
       title = `${SimpleCalendarIntegration.GetCurrentDateToString()} (${encounterId})`;
     }*/
 
-    const journalEntry = game.journal.find(
+    const journalEntry = game.journal?.find(
       (e: JournalEntry) => e.name === this.JOURNAL_TITLE
     );
+
+    if (!journalEntry) {
+      Logger.error(
+        `No Journal found with name ${this.JOURNAL_TITLE}`,
+        "encounterjournal.CreateJournalEntryPage"
+      );
+      return;
+    }
     journalEntry.createEmbeddedDocuments("JournalEntryPage", [
       {
         name: title,
@@ -36,9 +46,17 @@ class EncounterJournal {
   }
 
   static async CreateCampaignJournalEntryPage() {
-    const journalEntry = game.journal.find(
+    const journalEntry = game.journal?.find(
       (e: JournalEntry) => e.name === this.JOURNAL_TITLE
     );
+
+    if (!journalEntry) {
+      Logger.error(
+        `No Journal found with name ${this.JOURNAL_TITLE}`,
+        "encounterjournal.CreateCampaignJournalEntryPage"
+      );
+      return;
+    }
     journalEntry.createEmbeddedDocuments("JournalEntryPage", [
       {
         name: "Campaign Data - Do Not Delete",
@@ -65,11 +83,19 @@ class EncounterJournal {
 
   static async UpdateJournal(html: string, encounterId: string) {
     const journalEntryPage = game.journal
-      .find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
+      ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
       ?.pages.find(
         (e: JournalEntryPage) =>
           e.getFlag("encounter-stats", "encounterId") === encounterId
       );
+
+    if (!journalEntryPage) {
+      Logger.error(
+        `No Journal found with name ${this.JOURNAL_TITLE} and encounterId ${encounterId}`,
+        "encounterjournal.UpdateJournal"
+      );
+      return;
+    }
 
     await journalEntryPage?.update({
       text: {
@@ -80,11 +106,18 @@ class EncounterJournal {
 
   static async UpdateCampaignDataJournal(jsonData: string) {
     const journalEntryPage = game.journal
-      .find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
+      ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
       ?.pages.find(
         (e: JournalEntryPage) =>
           e.getFlag("encounter-stats", "campaignstats") === "data"
       );
+    if (!journalEntryPage) {
+      Logger.error(
+        `No Journal found with name ${this.JOURNAL_TITLE} and campaignstats data`,
+        "encounterjournal.UpdateCampaignDataJournal"
+      );
+      return;
+    }
 
     await journalEntryPage?.update({
       text: {
@@ -95,11 +128,19 @@ class EncounterJournal {
 
   static async UpdateCampaignJournal(html: string) {
     const journalEntryPage = game.journal
-      .find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
+      ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
       ?.pages.find(
         (e: JournalEntryPage) =>
           e.getFlag("encounter-stats", "campaignstats") === "view"
       );
+
+    if (!journalEntryPage) {
+      Logger.error(
+        `No Journal found with name ${this.JOURNAL_TITLE} and campaignstats view`,
+        "encounterjournal.UpdateCampaignJournal"
+      );
+      return;
+    }
 
     await journalEntryPage?.update({
       text: {
@@ -108,12 +149,20 @@ class EncounterJournal {
     });
   }
 
-  static async GetCampaignJournal(): Promise<CampaignStats> {
+  static async GetCampaignJournal(): Promise<CampaignStats | undefined> {
     const journalEntryPage = game.journal
-      .find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
+      ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
       ?.pages.find((e: JournalEntryPage) =>
         e.getFlag("encounter-stats", "campaignstats")
       );
+
+    if (!journalEntryPage) {
+      Logger.error(
+        `No Journal found with name ${this.JOURNAL_TITLE} and campaignstats flag`,
+        "encounterjournal.GetCampaignJournal"
+      );
+      return;
+    }
 
     return <CampaignStats>(
       JSON.parse(
@@ -124,14 +173,14 @@ class EncounterJournal {
 
   static IsJournalSetup(): boolean {
     return (
-      game.journal.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE) !==
+      game.journal?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE) !==
       undefined
     );
   }
 
   static async IsCampaignJournalSetup(): Promise<boolean> {
-    return await game.journal
-      .find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
+    return game.journal
+      ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
       ?.pages.find(
         (e) => e.getFlag("encounter-stats", "campaignstats") === "data"
       );

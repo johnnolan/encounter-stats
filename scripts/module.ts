@@ -2,9 +2,12 @@ import { MODULE_ID, OPT_ENABLE } from "./Settings";
 import { SetupHooks } from "./Hooks";
 import ModuleSettings from "./ModuleSettings";
 import EncounterJournal from "./EncounterJournal";
+import Logger from "./Logger";
 
 Hooks.once("init", async function () {
   ModuleSettings.Register();
+
+  Logger.log(`Settings Registered`, "module.init");
 });
 
 Hooks.once("ready", async function () {
@@ -12,7 +15,7 @@ Hooks.once("ready", async function () {
     return;
   }
 
-  if (game.user.isGM) {
+  if (game.user?.isGM) {
     if (!EncounterJournal.IsJournalSetup()) {
       EncounterJournal.CreateJournal();
     }
@@ -21,4 +24,6 @@ Hooks.once("ready", async function () {
     }
   }
   SetupHooks();
+
+  Logger.log(`Module Ready`, "module.ready");
 });

@@ -4,7 +4,7 @@ export default class DND5e {
   static async ParseChatMessage(
     chatMessage: ChatMessage
   ): Promise<EncounterWorkflow | undefined> {
-    const enemiesHit: Array<EnemyHit> = chatMessage.user.targets.map(
+    const enemiesHit: Array<EnemyHit> = chatMessage.user?.targets.map(
       (m) =>
         <EnemyHit>{
           tokenId: m.id,
@@ -13,7 +13,7 @@ export default class DND5e {
     );
 
     let type = ChatMessageType.None;
-    const actor = game.actors.get(chatMessage.speaker.actor);
+    const actor = game.actors?.get(chatMessage.speaker.actor);
     if (!actor) {
       return;
     }
@@ -40,7 +40,16 @@ export default class DND5e {
     }
 
     const actorItems = actor.items;
-    const item = actorItems.find((f) => f.id === itemId);
+    const item = actorItems.find((f) => f.id === itemId) ?? {
+      id: "Not Found",
+      name: "Not Found",
+      link: "",
+      img: "",
+      type: "Not Found",
+      system: {
+        actionType: "Not Found",
+      },
+    };
 
     if (type === ChatMessageType.Damage) {
       return <EncounterWorkflow>{
@@ -87,7 +96,6 @@ export default class DND5e {
           id: actor.id,
         },
         item: {
-          //data-item-id
           id: item.id,
           name: item.name,
           link: item.link,

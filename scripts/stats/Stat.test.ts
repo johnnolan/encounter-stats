@@ -1,11 +1,17 @@
 import Stat from "./Stat";
 import DND5eStat from "./DND5eStat";
 import MidiQolStat from "./MidiQolStat";
+import Logger from "../Logger";
 jest.mock("../StatManager");
 import StatManager from "../StatManager";
 import { actor } from "../mockdata/actor";
 import { chatActor } from "../mockdata/chatActor";
 import { ChatMessageType } from "../enums";
+
+const mockLoggerLog = jest.fn();
+const mockLoggerWarn = jest.fn();
+Logger.log = mockLoggerLog;
+Logger.warn = mockLoggerWarn;
 
 const encounter: Encounter = {
   encounterId: "t98gppsau45ypm3t",
@@ -244,10 +250,10 @@ describe("Stat", () => {
       });
 
       test("it returns true to correct IsNPC", () => {
-        expect(stat.IsNPC("npc")).toBeTruthy();
+        expect(Stat.IsNPC("npc")).toBeTruthy();
       });
       test("it returns false to correct IsNPC", () => {
-        expect(stat.IsNPC("character")).toBeFalsy();
+        expect(Stat.IsNPC("character")).toBeFalsy();
       });
     });
   });
@@ -321,19 +327,30 @@ describe("Stat", () => {
           midiQolStat.AddCombatant(actor, "tokenId");
           midiQolStat.Save();
           expect(midiQolStat.encounter.combatants.length).toBe(1);
-          const combatantResult = midiQolStat.GetCombatantStats("eMyoELkOwFNPGEK8");
+          const combatantResult =
+            midiQolStat.GetCombatantStats("eMyoELkOwFNPGEK8");
 
           expect(midiQolStat.encounter.combatants.length).toBe(1);
           expect(combatantResult?.events.length).toBe(0);
 
           expect(midiQolStat.encounter.top.maxDamage).toBe("None<br />0");
-          expect(midiQolStat.encounter.top.mostDamageInOneTurn).toBe("None<br />0");
-          expect(midiQolStat.encounter.top.highestAvgDamage).toBe("None<br />0");
-          expect(midiQolStat.encounter.top.highestMaxDamage).toBe("None<br />0");
+          expect(midiQolStat.encounter.top.mostDamageInOneTurn).toBe(
+            "None<br />0"
+          );
+          expect(midiQolStat.encounter.top.highestAvgDamage).toBe(
+            "None<br />0"
+          );
+          expect(midiQolStat.encounter.top.highestMaxDamage).toBe(
+            "None<br />0"
+          );
           expect(midiQolStat.encounter.top.mostKills).toBe("None<br />0");
           expect(midiQolStat.encounter.top.mostHealing).toBe("None<br />0");
-          expect(midiQolStat.encounter.top.mostSupportActions).toBe("None<br />0");
-          expect(midiQolStat.encounter.top.mostBattlefieldActions).toBe("None<br />0");
+          expect(midiQolStat.encounter.top.mostSupportActions).toBe(
+            "None<br />0"
+          );
+          expect(midiQolStat.encounter.top.mostBattlefieldActions).toBe(
+            "None<br />0"
+          );
 
           expect(combatantResult?.summaryList).toStrictEqual(<
             CombatantEventSummaryList
@@ -352,11 +369,14 @@ describe("Stat", () => {
           midiQolStat.AddKill("Acolyte", "tokenId");
           midiQolStat.Save();
           expect(midiQolStat.encounter.combatants.length).toBe(1);
-          const combatantResult = midiQolStat.GetCombatantStats("eMyoELkOwFNPGEK8");
+          const combatantResult =
+            midiQolStat.GetCombatantStats("eMyoELkOwFNPGEK8");
           expect(midiQolStat.encounter.combatants.length).toBe(1);
           expect(combatantResult?.events.length).toBe(3);
 
-          expect(midiQolStat.encounter.top.maxDamage).toBe("Graa S'oua<br />35");
+          expect(midiQolStat.encounter.top.maxDamage).toBe(
+            "Graa S'oua<br />35"
+          );
           expect(midiQolStat.encounter.top.mostDamageInOneTurn).toBe(
             "Graa S'oua<br />35"
           );
@@ -367,7 +387,9 @@ describe("Stat", () => {
             "Graa S'oua<br />20"
           );
           expect(midiQolStat.encounter.top.mostKills).toBe("Graa S'oua<br />1");
-          expect(midiQolStat.encounter.top.mostHealing).toBe("Graa S'oua<br />1");
+          expect(midiQolStat.encounter.top.mostHealing).toBe(
+            "Graa S'oua<br />1"
+          );
           expect(midiQolStat.encounter.top.mostSupportActions).toBe(
             "Graa S'oua<br />1"
           );
@@ -397,9 +419,20 @@ describe("Stat", () => {
           midiQolStat.AddKill("Acolyte", "tokenId");
           midiQolStat.Save();
           expect(midiQolStat.encounter.combatants.length).toBe(1);
-          expect(midiQolStat.GetCombatantStats("eMyoELkOwFNPGEK8")?.kills.length).toBe(
-            1
-          );
+          expect(
+            midiQolStat.GetCombatantStats("eMyoELkOwFNPGEK8")?.kills.length
+          ).toBe(1);
+        });
+
+        test("you can see a Log message if not valid", () => {
+          midiQolStat.AddCombatant(actor, "tokenId");
+          midiQolStat.AddKill("Acolyte", "tokenIdError");
+          midiQolStat.Save();
+          expect(mockLoggerWarn).toBeCalled();
+          expect(midiQolStat.encounter.combatants.length).toBe(1);
+          expect(
+            midiQolStat.GetCombatantStats("eMyoELkOwFNPGEK8")?.kills.length
+          ).toBe(0);
         });
       });
 
@@ -419,12 +452,54 @@ describe("Stat", () => {
           });
           midiQolStat.Save();
           expect(midiQolStat.encounter.combatants.length).toBe(1);
-          const combatantResult = midiQolStat.GetCombatantStats("eMyoELkOwFNPGEK8");
+          const combatantResult =
+            midiQolStat.GetCombatantStats("eMyoELkOwFNPGEK8");
           expect(combatantResult?.health.length).toBe(1);
           expect(combatantResult?.health[0].current).toBe(60);
           expect(combatantResult?.health[0].previous).toBe(80);
         });
+
+        test("you can a log message when no actor passes", () => {
+          midiQolStat.AddCombatant(actor, "tokenId");
+          midiQolStat.UpdateHealth({
+            system: {
+              attributes: {
+                hp: {
+                  value: 60,
+                  max: 100,
+                },
+              },
+            },
+          });
+          midiQolStat.Save();
+          expect(mockLoggerWarn).toBeCalled();
+          expect(midiQolStat.encounter.combatants.length).toBe(1);
+          const combatantResult =
+            midiQolStat.GetCombatantStats("eMyoELkOwFNPGEK8");
+          expect(combatantResult?.health.length).toBe(0);
+        });
       });
+      test("you can a log message when no actor can be found", () => {
+        midiQolStat.AddCombatant(actor, "tokenId");
+        midiQolStat.UpdateHealth({
+          id: "eMyoELkOwFNPGEK9",
+          system: {
+            attributes: {
+              hp: {
+                value: 60,
+                max: 100,
+              },
+            },
+          },
+        });
+        midiQolStat.Save();
+        expect(mockLoggerWarn).toBeCalled();
+        expect(midiQolStat.encounter.combatants.length).toBe(1);
+        const combatantResult =
+          midiQolStat.GetCombatantStats("eMyoELkOwFNPGEK8");
+        expect(combatantResult?.health.length).toBe(0);
+      });
+    });
     });
     describe("Default", () => {
       let dnd5eStat: DND5eStat;
@@ -445,7 +520,8 @@ describe("Stat", () => {
           dnd5eStat.AddAttack(encounterDefaultWorkflowItemCard);
           dnd5eStat.Save();
           expect(dnd5eStat.encounter.combatants.length).toBe(1);
-          const combatantResult = dnd5eStat.GetCombatantStats("5H4YnyD6zf9vcJ3P");
+          const combatantResult =
+            dnd5eStat.GetCombatantStats("5H4YnyD6zf9vcJ3P");
           expect(combatantResult?.events.length).toBe(1);
           expect(combatantResult?.events[0]).toStrictEqual({
             id: "C3c6l9SPMCqMiceV5H4YnyD6zf9vcJ3P",
@@ -469,7 +545,8 @@ describe("Stat", () => {
           dnd5eStat.AddAttack(encounterDefaultWorkflowAttack);
           dnd5eStat.Save();
           expect(dnd5eStat.encounter.combatants.length).toBe(1);
-          const combatantResult = dnd5eStat.GetCombatantStats("5H4YnyD6zf9vcJ3P");
+          const combatantResult =
+            dnd5eStat.GetCombatantStats("5H4YnyD6zf9vcJ3P");
           expect(combatantResult?.events.length).toBe(1);
           expect(combatantResult?.events[0]).toStrictEqual({
             id: "C3c6l9SPMCqMiceV5H4YnyD6zf9vcJ3P",
@@ -498,7 +575,8 @@ describe("Stat", () => {
           dnd5eStat.AddAttack(encounterDefaultWorkflowDamage);
           dnd5eStat.Save();
           expect(dnd5eStat.encounter.combatants.length).toBe(1);
-          const combatantResult = dnd5eStat.GetCombatantStats("5H4YnyD6zf9vcJ3P");
+          const combatantResult =
+            dnd5eStat.GetCombatantStats("5H4YnyD6zf9vcJ3P");
           expect(combatantResult?.events.length).toBe(1);
           expect(combatantResult?.events[0]).toStrictEqual({
             id: "C3c6l9SPMCqMiceV5H4YnyD6zf9vcJ3P",

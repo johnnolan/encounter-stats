@@ -1,13 +1,28 @@
+import Logger from "../Logger";
 import Stat from "./Stat";
 
 export default class MidiQolStat extends Stat {
   AddAttack(workflow: EncounterWorkflow) {
     if (!workflow?.actor?.id) {
+      Logger.error(
+        `No Actor ID in encounter`,
+        "midiqolstat.AddAttack",
+        workflow
+      );
       return;
     }
 
     const combatantStat: EncounterCombatant | undefined =
       this.GetCombatantStats(workflow.actor.id);
+
+    if (!combatantStat) {
+      Logger.error(
+        `No combatant found for Actor ID ${workflow.actor.id}`,
+        "midiqolstat.AddAttack",
+        workflow
+      );
+      return;
+    }
 
     const newCombatantEvent = <CombatantEvent>{
       id: workflow.id,

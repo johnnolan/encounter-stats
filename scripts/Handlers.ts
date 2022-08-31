@@ -5,6 +5,7 @@ import MidiQolStat from "./stats/MidiQolStat";
 import DND5eStat from "./stats/DND5eStat";
 import CampaignStat from "./CampaignStat";
 import { ChatType, RoleType } from "./enums";
+import Logger from "./Logger";
 
 export async function OnTrackDiceRoll(
   rolls: Array<Roll>,
@@ -26,43 +27,68 @@ export async function OnTrackDiceRoll(
 }
 
 export async function OnUpdateCombat(currentRound: number): Promise<void> {
-  if (!currentRound) return;
+  if (!currentRound) {
+    Logger.log(`No new round`, "handlers.OnUpdateCombat", currentRound);
+    return;
+  }
   const stat = new Stat();
 
   stat.UpdateRound(currentRound);
 
   await stat.Save();
+  Logger.debug(`Start of round ${currentRound}`, "handlers.OnUpdateCombat");
 }
 
-export async function OnRenderCombatTracker(data: any): Promise<void> {
-  if (!data.hasCombat) return;
+export async function OnRenderCombatTracker(
+  combatData: HookRenderCombatTrackerData
+): Promise<void> {
+  if (!combatData.hasCombat) {
+    Logger.log(
+      `Combat Tracker Even has no combat active`,
+      "handlers.OnRenderCombatTracker",
+      combatData
+    );
+    return;
+  }
   const stat = new Stat();
 
-  const combatantsList = data.combat.combatants;
-  for (const element of combatantsList) {
-    const actorId = element.actorId;
-    const tokenId = element.tokenId;
-    stat.AddCombatant(game.actors.get(actorId), tokenId);
+  const combatantsList = combatData.combat.combatants;
+  for (const combatant of combatantsList) {
+    const actorId = combatant.actorId;
+    const tokenId = combatant.tokenId;
+    const actor = game.actors?.get(actorId);
+    if (actor) {
+      stat.AddCombatant(actor, tokenId);
+    }
   }
   await stat.Save();
+  Logger.debug(`Combatants Added`, "handlers.OnRenderCombatTracker");
 }
 
 export async function OnCreateCombat(combat: Combat): Promise<void> {
   const encounterId = combat.id;
-  if (!encounterId) return;
+  if (!encounterId) {
+    Logger.error(`Missing encounterId`, "handlers.OnCreateCombat", combat);
+    return;
+  }
   const stat = new Stat(encounterId);
 
   EncounterJournal.CreateJournalEntryPage(encounterId);
   await stat.Save();
+  Logger.debug(`Combat Started`, "handlers.OnCreateCombat");
 }
 
 export async function OnDeleteCombat(): Promise<void> {
   const stat = new Stat();
   stat.Delete();
+  Logger.debug(`Combat Ended`, "handlers.OnDeleteCombat");
 }
 
-export async function OnTrackDice(diceTrackParsed: DiceTrackParse) {
-  if (diceTrackParsed.isCritical || diceTrackParsed.isFumble) {
+export async function OnTrackDice(diceTrackParsed: DiceTrackParse | undefined) {
+  if (
+    diceTrackParsed &&
+    (diceTrackParsed.isCritical || diceTrackParsed.isFumble)
+  ) {
     CampaignStat.AddRole(
       diceTrackParsed.isCritical ? RoleType.Critial : RoleType.Fumble,
       diceTrackParsed.name,
@@ -89,14 +115,24 @@ export async function OnEncounterWorkflowComplete(
   stat.AddAttack(workflow);
   stat.Save();
 
-  if (stat.IsHealingSpell(workflow.actionType)) {
+  if (
+    workflow.actionType &&
+    workflow.item &&
+    stat.IsHealingSpell(workflow.actionType)
+  ) {
     const combatantStat = stat.GetCombatantStats(workflow.actor.id);
     if (combatantStat) {
       CampaignStat.AddHeal(
         combatantStat.name,
         workflow.item.link,
         workflow.item.name,
-        workflow.damageTotal
+        workflow.damageTotal ?? 0
+      );
+    } else {
+      Logger.warn(
+        `Missing Combatant for Heal`,
+        "handlers.OnEncounterWorkflowComplete",
+        workflow
       );
     }
   }

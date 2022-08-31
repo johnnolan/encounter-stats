@@ -5,13 +5,14 @@ import {
   TruncateLocalStorage,
   IsSet,
 } from "./LocalStorage";
+import Logger from "./Logger";
 import { STORAGE_NAME } from "./Settings";
 import { Generate } from "./Template";
 
 class StatManager {
   static IsInCombat() {
     const isLocalStorageSet = IsSet(STORAGE_NAME);
-    if (!game.combat.active && isLocalStorageSet) {
+    if (!game.combat?.active && isLocalStorageSet) {
       this.RemoveStat();
       return false;
     }
@@ -23,6 +24,10 @@ class StatManager {
   }
 
   static async SaveStat(encounter: Encounter) {
+    if (!encounter?.encounterId) {
+      Logger.error(`No encounterId to save stat`, "statmanager.SaveStat");
+      return;
+    }
     SaveToLocalStorageStat(STORAGE_NAME, encounter);
 
     const markup = Generate(encounter);
