@@ -13,7 +13,7 @@ export default class DND5e {
     );
 
     let type = ChatMessageType.None;
-    const actor = game.actors.get(chatMessage.speaker.actor);
+    const actor = game.actors?.get(chatMessage.speaker.actor);
     if (!actor) {
       return;
     }
