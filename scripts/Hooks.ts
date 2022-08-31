@@ -31,44 +31,61 @@ function _setupSockerListeners() {
   });
 }
 
-function updateActorToken(data, diff) {
+function updateActorToken(actor: Actor, diff: unknown) {
   if (StatManager.IsInCombat()) {
     if (
-      !data.hasPlayerOwner &&
+      actor.name &&
+      !actor.hasPlayerOwner &&
       diff.system?.attributes?.hp?.value === 0 &&
       game.combat?.current?.tokenId
     ) {
-      OnTrackKill(data.name, game.combat.current.tokenId);
+      OnTrackKill(actor.name, game.combat.current.tokenId);
     }
   }
   if (diff.system?.attributes?.hp) {
-    OnUpdateHealth(data);
+    OnUpdateHealth(actor);
   }
 }
 
 export async function SetupHooks() {
   if (game.user?.isGM) {
     _setupSockerListeners();
-    window.Hooks.on("renderCombatTracker", async function (arg1, arg2, data) {
-      OnRenderCombatTracker(data);
-    });
-    window.Hooks.on("createCombat", async function (data, arg2, arg3) {
+    window.Hooks.on(
+      "renderCombatTracker",
+      async function (
+        _combatTracker: CombatTracker,
+        _element: string,
+        combatData: HookRenderCombatTrackerData
+      ) {
+        OnRenderCombatTracker(combatData);
+      }
+    );
+    window.Hooks.on("createCombat", async function (data: Combat) {
       OnCreateCombat(data);
     });
-    window.Hooks.on("deleteCombat", async function (data, arg2, arg3) {
+    window.Hooks.on("deleteCombat", async function () {
       OnDeleteCombat();
     });
-    window.Hooks.on("updateCombat", async function (arg1, data, arg3) {
-      OnUpdateCombat(data.round);
-    });
+    window.Hooks.on(
+      "updateCombat",
+      async function (_combat: Combat, data: HookUpdateCombatRound) {
+        OnUpdateCombat(data.round);
+      }
+    );
 
-    window.Hooks.on("updateActor", async function (data, diff) {
-      updateActorToken(data, diff);
-    });
+    window.Hooks.on(
+      "updateActor",
+      async function (actor: Actor, diff: unknown) {
+        updateActorToken(actor, diff);
+      }
+    );
 
-    window.Hooks.on("updateToken", async function (data, diff) {
-      updateActorToken(data, diff);
-    });
+    window.Hooks.on(
+      "updateToken",
+      async function (actor: Actor, diff: unknown) {
+        updateActorToken(actor, diff);
+      }
+    );
 
     if (game.modules.get("midi-qol")?.active) {
       window.Hooks.on(
@@ -85,7 +102,7 @@ export async function SetupHooks() {
 
     window.Hooks.on(
       "createChatMessage",
-      async function (chatMessage: ChatMessage, options, user) {
+      async function (chatMessage: ChatMessage) {
         if (!chatMessage?.user?.isGM) {
           if (!game.modules.get("midi-qol")?.active) {
             OnEncounterWorkflowComplete(
@@ -102,18 +119,24 @@ export async function SetupHooks() {
       }
     );
   } else {
-    window.Hooks.on("updateActor", async function (data, diff) {
-      game.socket?.emit(SOCKET_NAME, {
-        event: "updateActor",
-        data: { data: data, diff: diff },
-      });
-    });
-    window.Hooks.on("updateToken", async function (data, diff) {
-      game.socket?.emit(SOCKET_NAME, {
-        event: "updateToken",
-        data: { data: data, diff: diff },
-      });
-    });
+    window.Hooks.on(
+      "updateActor",
+      async function (actor: Actor, diff: unknown) {
+        game.socket?.emit(SOCKET_NAME, {
+          event: "updateActor",
+          data: { data: actor, diff: diff },
+        });
+      }
+    );
+    window.Hooks.on(
+      "updateToken",
+      async function (actor: Actor, diff: unknown) {
+        game.socket?.emit(SOCKET_NAME, {
+          event: "updateToken",
+          data: { data: actor, diff: diff },
+        });
+      }
+    );
     if (game.modules.get("midi-qol")?.active) {
       window.Hooks.on(
         "midi-qol.RollComplete",

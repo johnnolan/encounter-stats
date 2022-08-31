@@ -43,21 +43,23 @@ export async function OnUpdateCombat(currentRound: number): Promise<void> {
   Logger.debug(`Start of round ${currentRound}`, "handlers.OnUpdateCombat");
 }
 
-export async function OnRenderCombatTracker(data: any): Promise<void> {
-  if (!data.hasCombat) {
-    Logger.error(
+export async function OnRenderCombatTracker(
+  combatData: HookRenderCombatTrackerData
+): Promise<void> {
+  if (!combatData.hasCombat) {
+    Logger.log(
       `Combat Tracker Even has no combat active`,
       "handlers.OnRenderCombatTracker",
-      data
+      combatData
     );
     return;
   }
   const stat = new Stat();
 
-  const combatantsList = data.combat.combatants;
-  for (const element of combatantsList) {
-    const actorId = element.actorId;
-    const tokenId = element.tokenId;
+  const combatantsList = combatData.combat.combatants;
+  for (const combatant of combatantsList) {
+    const actorId = combatant.actorId;
+    const tokenId = combatant.tokenId;
     const actor = game.actors?.get(actorId);
     if (actor) {
       stat.AddCombatant(actor, tokenId);

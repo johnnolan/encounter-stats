@@ -7,6 +7,19 @@ declare global {
   interface Window {
     Hooks: typeof Hooks;
   }
+  interface HookRenderCombatTrackerData {
+    user: User;
+    combats: Array<Combat>;
+    combatCount: number;
+    hasCombat: boolean;
+    combat: Combat;
+  }
+
+  interface HookUpdateCombatRound {
+    round: number;
+    turn: number;
+  }
+
   interface CampaignStats {
     nat1: [
       {
