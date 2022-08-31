@@ -41,6 +41,7 @@ export default class DND5eStat extends Stat {
           round: this.currentRound,
           attackTotal: 0,
           damageTotal: 0,
+          actionType: workflow.actionType,
         };
         combatantStat.events.push(newCombatantEvent);
       }
