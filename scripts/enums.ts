@@ -3,6 +3,7 @@ export enum ChatMessageType {
   Attack = "attack",
   ItemCard = "itemCard",
   MidiQol = "midiqol",
+  PF1 = "pf1",
   None = "none",
 }
 
@@ -40,4 +41,5 @@ export enum ValidRollEvent {
 export enum ChatType {
   DND5e = 1,
   MidiQol = 2,
+  PF1 = 3,
 }

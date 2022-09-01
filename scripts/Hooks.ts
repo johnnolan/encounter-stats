@@ -14,6 +14,7 @@ import DND5e from "./parsers/DND5e";
 import MidiQol from "./parsers/MidiQol";
 import { ChatType } from "./enums";
 import Stat from "./stats/Stat";
+import PF1 from "./parsers/PF1";
 
 const SOCKET_NAME = "module.encounter-stats";
 
@@ -100,12 +101,22 @@ export async function SetupHooks() {
     window.Hooks.on(
       "createChatMessage",
       async function (chatMessage: ChatMessage) {
-        if (!chatMessage?.user?.isGM) {
+        if (chatMessage?.user?.isGM) {
           if (!game.modules.get("midi-qol")?.active) {
-            OnEncounterWorkflowComplete(
-              await DND5e.ParseChatMessage(chatMessage),
-              ChatType.DND5e
-            );
+            switch (game.system.name) {
+              case "dnd5e":
+                OnEncounterWorkflowComplete(
+                  await DND5e.ParseChatMessage(chatMessage),
+                  ChatType.DND5e
+                );
+                break;
+              case "pf1":
+                OnEncounterWorkflowComplete(
+                  await PF1.ParseChatMessage(chatMessage),
+                  ChatType.PF1
+                );
+                break;
+            }
           }
           OnTrackDiceRoll(
             chatMessage.rolls,
