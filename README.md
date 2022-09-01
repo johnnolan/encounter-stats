@@ -13,6 +13,7 @@
 * Works with standard roles, `midi-qol` and `dnd5e`
 * Enemies must be targetted in order for kills to be registered
 * Uses the new V10 Journal
+* Optional Simple Calendar Integration for nicer Journal Entry names
 
 #### Encounter Tracking
 
@@ -46,7 +47,7 @@
 
 ## Simple Calendar Integration
 
-TBC - Awaiting newer V10 version
+If SImple Calendar module is enabled, the title of the Journal Entries will use the current day returned from it instead of the curent real world time.
 
 ## Dependencies
 
