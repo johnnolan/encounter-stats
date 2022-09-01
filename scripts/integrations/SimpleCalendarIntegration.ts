@@ -3,7 +3,7 @@ export default class SimpleCalendarIntegration {
     return window.SimpleCalendar !== undefined;
   }
 
-  static GetCurrentDate() {
+  private static GetCurrentDate() {
     return {
       day: window.SimpleCalendar.api.getCurrentDay().name,
       month: window.SimpleCalendar.api.getCurrentMonth().name,

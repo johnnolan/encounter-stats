@@ -6,6 +6,20 @@ declare global {
   }
   interface Window {
     Hooks: typeof Hooks;
+    SimpleCalendar: {
+      api: {
+        getCurrentDay: () => {
+          name: string;
+        };
+        getCurrentMonth: () => {
+          name: string;
+        };
+        getCurrentYear: () => {
+          numericRepresentation: number;
+          postfix: string;
+        };
+      };
+    };
   }
   interface HookRenderCombatTrackerData {
     user: User;

@@ -1,4 +1,4 @@
-//import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration";
+import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration";
 
 import Logger from "./Logger";
 
@@ -15,11 +15,11 @@ class EncounterJournal {
   }
 
   static async CreateJournalEntryPage(encounterId: string) {
-    const title = `${new Date().toISOString()}`;
+    let title = `${new Date().toISOString()}`;
 
-    /*if (SimpleCalendarIntegration.IsEnabled()) {
+    if (SimpleCalendarIntegration.IsEnabled()) {
       title = `${SimpleCalendarIntegration.GetCurrentDateToString()} (${encounterId})`;
-    }*/
+    }
 
     const journalEntry = game.journal?.find(
       (e: JournalEntry) => e.name === this.JOURNAL_TITLE
