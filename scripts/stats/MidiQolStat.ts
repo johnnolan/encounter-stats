@@ -35,16 +35,19 @@ export default class MidiQolStat extends Stat {
       enemyHit: workflow.enemyHit,
       attackTotal: 0,
       damageTotal: 0,
+      damageMultipleEnemiesTotal: 0,
       isCritical: false,
     };
 
     if (this.IsValidAttack(newCombatantEvent.actionType)) {
-      if (workflow.attackRoll) {
+      if (workflow.attackTotal) {
         newCombatantEvent.attackTotal = workflow.attackTotal;
       }
     }
     if (this.IsValidRollEvent(newCombatantEvent.actionType)) {
-      if (workflow.damageRoll) {
+      if (workflow.damageTotal) {
+        newCombatantEvent.damageMultipleEnemiesTotal =
+          workflow.damageMultipleEnemiesTotal;
         newCombatantEvent.damageTotal = workflow.damageTotal;
         newCombatantEvent.isCritical = workflow.isCritical;
       }

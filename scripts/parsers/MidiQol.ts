@@ -3,17 +3,13 @@ import Logger from "../Logger";
 
 class MidiQol {
   static ParseWorkflow(workflow: MidiQolWorkflow): EncounterWorkflow {
-    const enemiesHit: Array<EnemyHit> = workflow.applicationTargets
-      .filter(
-        (f) => workflow.attackTotal >= f.sheet.actor.system.attributes.ac.value
-      )
-      .map(
-        (m) =>
-          <EnemyHit>{
-            tokenId: m.id,
-            name: m.sheet.actor.name,
-          }
-      );
+    const enemiesHit: Array<EnemyHit> = workflow.targets.map(
+      (m) =>
+        <EnemyHit>{
+          tokenId: m.id,
+          name: m.sheet.actor.name,
+        }
+    );
 
     return <EncounterWorkflow>{
       id: workflow.id,
@@ -28,10 +24,10 @@ class MidiQol {
         img: workflow.item.img,
       },
       actionType: workflow.item.system.actionType,
-      attackRoll: workflow.attackRoll?.total ?? 0,
-      damageRoll: workflow.damageRoll ?? 0,
       damageTotal: workflow.damageTotal ?? 0,
-      damageMultipleEnemiesTotal: workflow.damageTotal ?? 0 * enemiesHit.length,
+      damageMultipleEnemiesTotal: workflow.damageTotal
+        ? workflow.damageTotal * Array.from(enemiesHit).length
+        : 0,
       attackTotal: workflow.attackTotal ?? 0,
       workflowType: workflow.workflowType,
       advantage:

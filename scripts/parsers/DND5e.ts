@@ -57,10 +57,10 @@ export default class DND5e {
         actor: {
           id: actor.id,
         },
-        damageRoll: chatMessage.rolls[0]?.dice[0].total ?? 0,
         damageTotal: chatMessage.rolls[0]?.total ?? 0,
-        damageMultipleEnemiesTotal:
-          chatMessage.rolls[0]?.total ?? 0 * enemiesHit.length,
+        damageMultipleEnemiesTotal: chatMessage.rolls[0]?.total
+          ? chatMessage.rolls[0]?.total * Array.from(enemiesHit).length
+          : 0,
         type: type,
       };
     } else if (type === ChatMessageType.Attack) {
@@ -81,7 +81,6 @@ export default class DND5e {
         actor: {
           id: actor.id,
         },
-        attackRoll: chatMessage.rolls[0]?.dice[0]?.total ?? 0,
         attackTotal: chatMessage.rolls[0]?.total ?? 0,
         isCritical: isCritical,
         isFumble: isFumble,

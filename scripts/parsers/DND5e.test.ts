@@ -88,6 +88,45 @@ const chatMessageItemDamage: ChatMessage = {
   ],
 };
 
+const chatMessageItemDamageMultiple: ChatMessage = {
+  speaker: {
+    actor: "5H4YnyD6zf9vcJ3P",
+  },
+  user: {
+    targets: [
+      {
+        id: "tokenId",
+        name: "Actolyte",
+      },
+      {
+        id: "tokenId2",
+        name: "Troll",
+      },
+    ],
+  },
+  flags: {
+    dnd5e: {
+      roll: {
+        itemId: "C3c6l9SPMCqMiceV",
+        type: "damage",
+      },
+    },
+  },
+  rolls: [
+    {
+      total: 41,
+      dice: [
+        {
+          options: {
+            critical: true,
+          },
+          total: 41,
+        },
+      ],
+    },
+  ],
+};
+
 describe("Default", () => {
   describe("ParseChatMessage", () => {
     describe("If it is a standard role", () => {
@@ -140,7 +179,6 @@ describe("Default", () => {
             id: "5H4YnyD6zf9vcJ3P",
           },
           attackTotal: 19,
-          attackRoll: 18,
           advantage: true,
           disadvantage: false,
           isCritical: false,
@@ -165,9 +203,21 @@ describe("Default", () => {
           actor: {
             id: "5H4YnyD6zf9vcJ3P",
           },
-          damageRoll: 41,
           damageTotal: 41,
           damageMultipleEnemiesTotal: 41,
+          type: ChatMessageType.Damage,
+        });
+      });
+    });
+      test("it returns the correct EncounterWorkflow for multiple damagers", async () => {
+        const result = await DND5e.ParseChatMessage(chatMessageItemDamageMultiple);
+        expect(result).toStrictEqual(<EncounterWorkflow>{
+          id: `C3c6l9SPMCqMiceV${chatMessageItemDamageMultiple.speaker.actor}`,
+          actor: {
+            id: "5H4YnyD6zf9vcJ3P",
+          },
+          damageTotal: 41,
+          damageMultipleEnemiesTotal: 82,
           type: ChatMessageType.Damage,
         });
       });

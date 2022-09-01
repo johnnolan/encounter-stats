@@ -9,15 +9,14 @@ const midiWorkflow: MidiQolWorkflow = {
   isCritical: false,
   isFumble: false,
   attackRoll: {
-    total: 0,
+    total: 18,
     options: {
       advantageMode: 1,
     },
   },
-  damageRoll: 0,
   workflowType: "test",
   attackTotal: 12,
-  damageTotal: 0,
+  damageTotal: 21,
   item: {
     id: "itemId",
     name: "Flame Tongue Greatsword",
@@ -28,7 +27,7 @@ const midiWorkflow: MidiQolWorkflow = {
       actionType: "mwak",
     },
   },
-  applicationTargets: [
+  targets: [
     {
       id: "tokenId",
       sheet: {
@@ -38,6 +37,21 @@ const midiWorkflow: MidiQolWorkflow = {
             attributes: {
               ac: {
                 value: 10,
+              },
+            },
+          },
+        },
+      },
+    },
+    {
+      id: "tokenId2",
+      sheet: {
+        actor: {
+          name: "Troll",
+          system: {
+            attributes: {
+              ac: {
+                value: 8,
               },
             },
           },
@@ -54,7 +68,6 @@ const midiWorkflowNoDiceRoll: MidiQolWorkflow = {
   },
   isCritical: false,
   isFumble: false,
-  damageRoll: 0,
   workflowType: "test",
   item: {
     id: "itemId",
@@ -66,7 +79,7 @@ const midiWorkflowNoDiceRoll: MidiQolWorkflow = {
       actionType: "mwak",
     },
   },
-  applicationTargets: [
+  targets: [
     {
       id: "tokenId",
       sheet: {
@@ -100,12 +113,10 @@ describe("MidiQol", () => {
           isCritical: false,
           isFumble: false,
           disadvantage: false,
-          attackRoll: 0,
-          damageRoll: 0,
-          damageMultipleEnemiesTotal: 0,
+          damageMultipleEnemiesTotal: 42,
           workflowType: "test",
           attackTotal: 12,
-          damageTotal: 0,
+          damageTotal: 21,
           item: {
             id: "itemId",
             name: "Flame Tongue Greatsword",
@@ -117,6 +128,10 @@ describe("MidiQol", () => {
             {
               name: "Acolyte",
               tokenId: "tokenId",
+            },
+            {
+              name: "Troll",
+              tokenId: "tokenId2",
             },
           ],
           type: ChatMessageType.MidiQol,
@@ -139,8 +154,6 @@ describe("MidiQol", () => {
           isCritical: false,
           isFumble: false,
           disadvantage: false,
-          attackRoll: 0,
-          damageRoll: 0,
           damageMultipleEnemiesTotal: 0,
           workflowType: "test",
           attackTotal: 0,
@@ -152,7 +165,12 @@ describe("MidiQol", () => {
             type: "sword",
             img: "itemImageUrl",
           },
-          enemyHit: [],
+          enemyHit: [
+            {
+              name: "Acolyte",
+              tokenId: "tokenId",
+            },
+          ],
           type: ChatMessageType.MidiQol,
         });
       });
