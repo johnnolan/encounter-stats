@@ -12,6 +12,7 @@
 
 * Works with standard roles, `midi-qol` and `dnd5e`
 * Enemies must be targetted in order for kills to be registered
+    * Multiple targets will show roll damage and roll damage x targets
 * Uses the new V10 Journal
 * Optional Simple Calendar Integration for nicer Journal Entry names
 
@@ -47,7 +48,7 @@
 
 ## Simple Calendar Integration
 
-If SImple Calendar module is enabled, the title of the Journal Entries will use the current day returned from it instead of the curent real world time.
+If Simple Calendar module is enabled, the title of the Journal Entries will use the current day returned from it instead of the curent real world time.
 
 ## Dependencies
 

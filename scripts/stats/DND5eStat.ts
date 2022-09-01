@@ -25,6 +25,8 @@ export default class DND5eStat extends Stat {
 
       if (workflow.type === ChatMessageType.Damage) {
         newCombatantEvent.damageTotal = workflow.damageTotal;
+        newCombatantEvent.damageMultipleEnemiesTotal =
+          workflow.damageMultipleEnemiesTotal;
       } else if (workflow.type === ChatMessageType.Attack) {
         newCombatantEvent.attackTotal = workflow.attackTotal;
         newCombatantEvent.isCritical = workflow.isCritical;

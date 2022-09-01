@@ -104,29 +104,26 @@ declare global {
       };
       total: number;
     };
-    damageRoll: number;
     damageTotal: number;
     attackTotal: number;
     workflowType: string;
     isCritical: boolean;
     isFumble: boolean;
-    applicationTargets: [
-      {
-        id: string;
-        sheet: {
-          actor: {
-            name: string;
-            system: {
-              attributes: {
-                ac: {
-                  value: number;
-                };
+    targets: Array<{
+      id: string;
+      sheet: {
+        actor: {
+          name: string;
+          system: {
+            attributes: {
+              ac: {
+                value: number;
               };
             };
           };
         };
-      }
-    ];
+      };
+    }>;
   }
 
   interface MidiQolEventItem {
@@ -146,8 +143,6 @@ declare global {
       id: string;
     };
     item?: EventItem;
-    attackRoll?: number;
-    damageRoll?: number;
     damageTotal?: number;
     damageMultipleEnemiesTotal?: number;
     attackTotal?: number;
@@ -191,6 +186,7 @@ declare global {
     actorId: string;
     isCritical?: boolean;
     isFumble?: boolean;
+    damageMultipleEnemiesTotal?: number;
     item?: EventItem;
     round: number;
     enemyHit?: Array<EnemyHit>;

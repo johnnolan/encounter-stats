@@ -248,6 +248,9 @@ function GenerateRoundHtml(
               <div class="item-name">${Trans.Get("template.rolltype")}</div>
               <div class="item-name">${Trans.Get("template.attack_total")}</div>
               <div class="item-name">${Trans.Get("template.damage_total")}</div>
+              <div class="item-name">${Trans.Get(
+                "template.damageMultipleEnemiesTotal"
+              )}</div>
             </li>
             <ol class="item-list">
               ${combatant.events
@@ -292,6 +295,9 @@ function GenerateAttackRow(combatantEvent: CombatantEvent) {
   }</div>
     <div class="item-name ${getHealOrDamageClass(combatantEvent.actionType)}">${
     combatantEvent.damageTotal
+  }</div>
+  <div class="item-name ${getHealOrDamageClass(combatantEvent.actionType)}">${
+    combatantEvent.damageMultipleEnemiesTotal ?? combatantEvent.damageTotal
   }</div>
   </li>`;
 }

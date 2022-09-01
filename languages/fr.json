@@ -37,6 +37,7 @@
     "EncounterStats.template.health": "Santé",
     "EncounterStats.template.rolltype": "Type de jet",
     "EncounterStats.template.type": "Type",
+    "EncounterStats.template.damageMultipleEnemiesTotal": "Total des dommages ciblés",
     "EncounterStats.actiontypes.heal": "Soin",
     "EncounterStats.actiontypes.msak": "Attaque au CàC avec un Sort",
     "EncounterStats.actiontypes.rsak": "Attaque à distance avec un Sort",

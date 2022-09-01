@@ -35,6 +35,7 @@
     "EncounterStats.template.health": "Health",
     "EncounterStats.template.rolltype": "Roll Type",
     "EncounterStats.template.type": "Type",
+    "EncounterStats.template.damageMultipleEnemiesTotal": "Total Targeted Damage",
     "EncounterStats.actiontypes.heal": "Heal",
     "EncounterStats.actiontypes.msak": "Melee Spell Attack",
     "EncounterStats.actiontypes.rsak": "Ranged Spell Attack",
