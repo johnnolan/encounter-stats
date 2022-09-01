@@ -1,9 +1,11 @@
 import { ChatMessageType } from "../enums";
+import Logger from "../Logger";
 
 export default class PF1 {
   static async ParseChatMessage(
     chatMessage: ChatMessage
   ): Promise<EncounterWorkflow | undefined> {
+    Logger.debug("chatMessage", "chatMessage", chatMessage)
     const enemiesHit: Array<EnemyHit> = chatMessage.user?.targets.map(
       (m) =>
         <EnemyHit>{
@@ -23,7 +25,7 @@ export default class PF1 {
 
     if (itemMatch !== null && itemMatch !== undefined) {
       itemId = itemMatch[1];
-    } else if (chatMessage.flags?.pf1.metadata.item) {
+    } else if (chatMessage.flags?.pf1?.metadata?.item) {
       itemId = chatMessage.flags.pf1.metadata.item;
     } else {
       return;

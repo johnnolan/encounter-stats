@@ -6,6 +6,7 @@ import DND5eStat from "./stats/DND5eStat";
 import CampaignStat from "./CampaignStat";
 import { ChatType, RoleType } from "./enums";
 import Logger from "./Logger";
+import PF1Stat from "./stats/PF1Stat";
 
 export async function OnTrackDiceRoll(
   rolls: Array<Roll>,
@@ -108,6 +109,8 @@ export async function OnEncounterWorkflowComplete(
     stat = new DND5eStat();
   } else if (chatType === ChatType.MidiQol) {
     stat = new MidiQolStat();
+  } else if (chatType === ChatType.PF1) {
+    stat = new PF1Stat();
   } else {
     return;
   }

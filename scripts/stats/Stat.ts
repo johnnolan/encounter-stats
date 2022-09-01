@@ -120,6 +120,13 @@ export default class Stat {
 
     if (Stat.IsNPC(actor?.type)) return;
 
+    let ac = 0;
+    if (game.system.name === "dnd5e") {
+      ac = actor.system.attributes.ac.value;
+    } else if (game.system.name === "pf1") {
+      ac = actor.system.attributes.ac.normal.total;
+    }
+
     const newCombatant: EncounterCombatant = {
       name: actor.name,
       id: actor.id,
@@ -128,7 +135,7 @@ export default class Stat {
       type: actor.type,
       hp: actor.system.attributes.hp.value,
       max: actor.system.attributes.hp.max,
-      ac: actor.system.attributes.ac.value,
+      ac: ac,
       events: [],
       health: [],
       kills: [],

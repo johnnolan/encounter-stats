@@ -7,6 +7,7 @@ export default class PF1Stat extends Stat {
       Logger.error(`No Actor ID in encounter`, "pf1stat.AddAttack", workflow);
       return;
     }
+    Logger.debug("Debug workflow", "pf1stat.AddAttack", workflow);
     const combatantStat: EncounterCombatant | undefined =
       this.GetCombatantStats(workflow.actor.id);
     if (!combatantStat) return;
