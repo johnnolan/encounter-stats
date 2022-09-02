@@ -5921,35 +5921,35 @@ ts-jest@^28.0.8:
     semver "7.x"
     yargs-parser "^21.0.1"
 
-ts-migrate-plugins@^0.1.32:
-  version "0.1.32"
-  resolved "https://registry.yarnpkg.com/ts-migrate-plugins/-/ts-migrate-plugins-0.1.32.tgz#b4b8a64f0c457eeea50d51b9ca541a449ad94443"
-  integrity sha512-B9Cdd040lKDJfGxQN8CFXr8bbutfhScByeYGlXGUQJfxAQt0ouJPnB7P4DeIUqQcZBbeT8VcgJDAhuDjWI7Rxw==
+ts-migrate-plugins@^0.1.33:
+  version "0.1.33"
+  resolved "https://registry.yarnpkg.com/ts-migrate-plugins/-/ts-migrate-plugins-0.1.33.tgz#49c9d7e6144ee31adc8ed6bb4b58935934ab33e9"
+  integrity sha512-/Zj2XUxJWadqXDpEmeR1nI8TJPDnLTI3BdrgHj5s23q4eagtNIpO+bDMByvxzafstHMWxetzrX0bx81DSMj0gA==
   dependencies:
     eslint "^7.14.0"
     jscodeshift "^0.13.0"
     json-schema "^0.4.0"
-    ts-migrate-server "^0.1.31"
+    ts-migrate-server "^0.1.33"
 
-ts-migrate-server@^0.1.31:
-  version "0.1.31"
-  resolved "https://registry.yarnpkg.com/ts-migrate-server/-/ts-migrate-server-0.1.31.tgz#4eb09201852ed4c83b4f9fa15a7b40095ebb9924"
-  integrity sha512-LYfxgV+Rx4UuDYZHxHU/YxgGr2iAljoRQBxuFI1BlDou6LZY8UslrqNq9/Bu1nXymEpmFjU4NPZJwgWNcTI1Sg==
+ts-migrate-server@^0.1.33:
+  version "0.1.33"
+  resolved "https://registry.yarnpkg.com/ts-migrate-server/-/ts-migrate-server-0.1.33.tgz#7fc38ac9ce6642399dbfbcb8e46a26e45caea8c4"
+  integrity sha512-MYHy10yzL2fkb2FHFQ9f54gqc5KkaVthTjtpwS4bTroYCONDelp1hbz5nxKWaP3q2oc3kBVeGuAR91RNI+yK+g==
   dependencies:
     "@ts-morph/bootstrap" "^0.16.0"
     pretty-ms "^7.0.1"
     updatable-log "^0.2.0"
 
-ts-migrate@^0.1.32:
-  version "0.1.32"
-  resolved "https://registry.yarnpkg.com/ts-migrate/-/ts-migrate-0.1.32.tgz#700aaf176272e509d5438433d1019e11b2265174"
-  integrity sha512-RYj2Rr4FlulhgT0soNvs6xCbXD9R+WmkxOsz70cN9W5e/crE5oOceotGEVTVF5Oo+mdD5zoe9rbA1KBig3VIFw==
+ts-migrate@^0.1.33:
+  version "0.1.33"
+  resolved "https://registry.yarnpkg.com/ts-migrate/-/ts-migrate-0.1.33.tgz#2d56aea43f383398a77d4b5d3b7fe9e0c2f2e4ae"
+  integrity sha512-kE3FwF1KJS7D1AYW9tSWkBJUwRZWU9OqjJ4bYEjZIKnx+QaMEbXopjFwkhaPUi8/B3rikSL3GMzeCIXQ1DQi3A==
   dependencies:
     create-jest-runner "^0.5.3"
     json5 "^2.1.1"
     json5-writer "^0.1.8"
-    ts-migrate-plugins "^0.1.32"
-    ts-migrate-server "^0.1.31"
+    ts-migrate-plugins "^0.1.33"
+    ts-migrate-server "^0.1.33"
     updatable-log "^0.2.0"
     yargs "^15.0.2"
 
