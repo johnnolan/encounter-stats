@@ -97,19 +97,11 @@ export async function SetupHooks() {
       );
     }
 
-    // Hooks https://github.com/foundryvtt/dnd5e/wiki/Hooks
-    // dnd5e.rollAbilityTest
-    // dnd5e.rollAbilitySave
-    // dnd5e.rollSkill
-    // dnd5e.useItem
-    // dnd5e.rollAttack
-    // dnd5e.rollDamage
-    // dnd5e.rollFormula
-
     window.Hooks.on(
       "dnd5e.rollAbilityTest",
       async function (actor: Actor, roll: Roll, abilityId: string) {
         console.debug("dnd5e.rollAbilityTest", actor, roll, abilityId);
+        OnTrackDiceRoll(roll, actor.name, roll.options.flavor);
       }
     );
 
@@ -117,6 +109,7 @@ export async function SetupHooks() {
       "dnd5e.rollAbilitySave",
       async function (actor: Actor, roll: Roll, abilityId: string) {
         console.debug("dnd5e.rollAbilitySave", actor, roll, abilityId);
+        OnTrackDiceRoll(roll, actor.name, roll.options.flavor);
       }
     );
 
@@ -124,6 +117,7 @@ export async function SetupHooks() {
       "dnd5e.rollSkill",
       async function (actor: Actor, roll: Roll, skillId: string) {
         console.debug("dnd5e.rollSkill", actor, roll, skillId);
+        OnTrackDiceRoll(roll, actor.name, roll.options.flavor);
       }
     );
 
@@ -174,32 +168,6 @@ export async function SetupHooks() {
         );
       }
     );
-
-    window.Hooks.on(
-      "dnd5e.rollFormula",
-      async function (item: Item5e, roll: Roll) {
-        console.debug("dnd5e.rollFormula", item, roll);
-      }
-    );
-
-    /*window.Hooks.on(
-      "createChatMessage",
-      async function (chatMessage: ChatMessage) {
-        if (!chatMessage?.user?.isGM) {
-          if (!game.modules.get("midi-qol")?.active) {
-            OnEncounterWorkflowComplete(
-              await DND5e.ParseChatMessage(chatMessage),
-              ChatType.DND5e
-            );
-          }
-          OnTrackDiceRoll(
-            chatMessage.rolls,
-            chatMessage.speaker.alias,
-            chatMessage.flavor
-          );
-        }
-      }
-    );*/
   } else {
     window.Hooks.on(
       "updateActor",

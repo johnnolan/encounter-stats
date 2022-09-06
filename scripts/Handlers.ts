@@ -8,21 +8,21 @@ import { ChatType, RoleType } from "./enums";
 import Logger from "./Logger";
 
 export async function OnTrackDiceRoll(
-  rolls: Array<Roll>,
+  roll: Roll,
   alias: string,
   flavor: string
 ): Promise<void> {
-  if (rolls.length !== 1) return;
+  const rollValue = roll?.terms[0]?.results?.find(
+    (f) => f.active === true
+  ).result;
+  if (!rollValue) return;
 
-  const dice: DiceTerm = rolls[0].dice[0];
-  if (dice.faces === 20) {
-    if (dice.total === 1) {
-      CampaignStat.AddRole(RoleType.Fumble, alias, flavor);
-    }
+  if (rollValue === 1) {
+    CampaignStat.AddRole(RoleType.Fumble, alias, flavor);
+  }
 
-    if (dice.total === 20) {
-      CampaignStat.AddRole(RoleType.Critial, alias, flavor);
-    }
+  if (rollValue === 20) {
+    CampaignStat.AddRole(RoleType.Critial, alias, flavor);
   }
 }
 
