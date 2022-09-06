@@ -3519,6 +3519,11 @@ file-entry-cache@^6.0.1:
   dependencies:
     flat-cache "^3.0.4"
 
+file-saver@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-2.0.5.tgz#d61cfe2ce059f414d899e9dd6d4107ee25670c38"
+  integrity sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==
+
 fill-range@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/fill-range/-/fill-range-4.0.0.tgz#d544811d428f98eb06a63dc402d2403c328c38f7"
@@ -3590,6 +3595,13 @@ for-in@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
   integrity sha512-7EwmXrOjyL+ChxMhmG5lnW9MPt1aIeZEwKhQzoBUdTV0N3zuwWDZYVJatDvZ2OyzPUvdIAZDsCetk3coyMfcnQ==
+
+foundryvtt-simple-calendar@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/foundryvtt-simple-calendar/-/foundryvtt-simple-calendar-2.1.4.tgz#9cc767ec381b261dc01c10de368568adb029517f"
+  integrity sha512-YLfIvdrEGvQwHY+zPS5xktq4BtP8HP3QMuhDZI4csg7Mj6WlUC/OPkNH6rUWH3Z80nMIQl/Aw+GORTcVDoTT1w==
+  dependencies:
+    file-saver "^2.0.5"
 
 fragment-cache@^0.2.1:
   version "0.2.1"
