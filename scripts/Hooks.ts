@@ -100,7 +100,7 @@ export async function SetupHooks() {
     window.Hooks.on(
       "dnd5e.rollAbilityTest",
       async function (actor: Actor, roll: Roll, abilityId: string) {
-        console.debug("dnd5e.rollAbilityTest", actor, roll, abilityId);
+        //console.debug("dnd5e.rollAbilityTest", actor, roll, abilityId);
         OnTrackDiceRoll(roll, actor.name, roll.options.flavor);
       }
     );
@@ -108,7 +108,7 @@ export async function SetupHooks() {
     window.Hooks.on(
       "dnd5e.rollAbilitySave",
       async function (actor: Actor, roll: Roll, abilityId: string) {
-        console.debug("dnd5e.rollAbilitySave", actor, roll, abilityId);
+        //console.debug("dnd5e.rollAbilitySave", actor, roll, abilityId);
         OnTrackDiceRoll(roll, actor.name, roll.options.flavor);
       }
     );
@@ -116,7 +116,7 @@ export async function SetupHooks() {
     window.Hooks.on(
       "dnd5e.rollSkill",
       async function (actor: Actor, roll: Roll, skillId: string) {
-        console.debug("dnd5e.rollSkill", actor, roll, skillId);
+        //console.debug("dnd5e.rollSkill", actor, roll, skillId);
         OnTrackDiceRoll(roll, actor.name, roll.options.flavor);
       }
     );
@@ -124,7 +124,7 @@ export async function SetupHooks() {
     window.Hooks.on(
       "dnd5e.useItem",
       async function (item: Item, config: unknown, option: unknown) {
-        console.debug("dnd5e.useItem", item, config, option);
+        //console.debug("dnd5e.useItem", item, config, option);
         OnEncounterWorkflowComplete(
           await DND5e.ParseHook(
             item,
@@ -140,7 +140,7 @@ export async function SetupHooks() {
     window.Hooks.on(
       "dnd5e.rollAttack",
       async function (item: Item5e, roll: Roll) {
-        console.debug("dnd5e.rollAttack", item, roll);
+        //console.debug("dnd5e.rollAttack", item, roll);
         OnEncounterWorkflowComplete(
           await DND5e.ParseHook(
             item,
@@ -156,7 +156,7 @@ export async function SetupHooks() {
     window.Hooks.on(
       "dnd5e.rollDamage",
       async function (item: Item5e, roll: Roll) {
-        console.debug("dnd5e.rollDamage", item, roll);
+        //console.debug("dnd5e.rollDamage", item, roll);
         OnEncounterWorkflowComplete(
           await DND5e.ParseHook(
             item,
