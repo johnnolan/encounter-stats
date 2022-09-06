@@ -1,7 +1,7 @@
 import { CombatDetailType } from "../enums";
 
 export default class DND5e {
-  static async ParseChatMessage(
+  static async ParseHook(
     item: Item,
     actor: Actor,
     type: CombatDetailType,

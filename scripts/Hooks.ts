@@ -126,7 +126,7 @@ export async function SetupHooks() {
       async function (item: Item, config: unknown, option: unknown) {
         console.debug("dnd5e.useItem", item, config, option);
         OnEncounterWorkflowComplete(
-          await DND5e.ParseChatMessage(
+          await DND5e.ParseHook(
             item,
             item.actor,
             CombatDetailType.ItemCard,
@@ -142,7 +142,7 @@ export async function SetupHooks() {
       async function (item: Item5e, roll: Roll) {
         console.debug("dnd5e.rollAttack", item, roll);
         OnEncounterWorkflowComplete(
-          await DND5e.ParseChatMessage(
+          await DND5e.ParseHook(
             item,
             item.actor,
             CombatDetailType.Attack,
@@ -158,7 +158,7 @@ export async function SetupHooks() {
       async function (item: Item5e, roll: Roll) {
         console.debug("dnd5e.rollDamage", item, roll);
         OnEncounterWorkflowComplete(
-          await DND5e.ParseChatMessage(
+          await DND5e.ParseHook(
             item,
             item.actor,
             CombatDetailType.Damage,

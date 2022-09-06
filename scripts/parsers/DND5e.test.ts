@@ -10,7 +10,7 @@ describe("Default", () => {
   describe("ParseChatMessage", () => {
     describe("If it is a standard role", () => {
       test("it returns the correct EncounterWorkflow", async () => {
-        const result = await DND5e.ParseChatMessage(
+        const result = await DND5e.ParseHook(
           HookDND5eUseItem,
           HookDND5eUseItem.actor,
           CombatDetailType.ItemCard,
@@ -43,7 +43,7 @@ describe("Default", () => {
 
     describe("If it is a attack role", () => {
       test("it returns the correct EncounterWorkflow", async () => {
-        const result = await DND5e.ParseChatMessage(
+        const result = await DND5e.ParseHook(
           HookDND5e_rollAttack_item,
           HookDND5e_rollAttack_item.actor,
           CombatDetailType.Attack,
@@ -65,7 +65,7 @@ describe("Default", () => {
 
     describe("If it is a damage role", () => {
       test("it returns the correct EncounterWorkflow", async () => {
-        const result = await DND5e.ParseChatMessage(
+        const result = await DND5e.ParseHook(
           HookDND5e_rollDamage_item,
           HookDND5e_rollDamage_item.actor,
           CombatDetailType.Damage,
@@ -84,15 +84,15 @@ describe("Default", () => {
       });
     });
     /*test("it returns the correct EncounterWorkflow for multiple damagers", async () => {
-        const result = await DND5e.ParseChatMessage(chatMessageItemDamageMultiple);
+        const result = await DND5e.ParseHook(chatMessageItemDamageMultiple);
         expect(result).toStrictEqual(<EncounterWorkflow>{
-          id: `C3c6l9SPMCqMiceV${chatMessageItemDamageMultiple.speaker.actor}`,
+          id: `${HookDND5eUseItem.id}${HookDND5e_rollDamage_item.actor.id}`,
           actor: {
-            id: "5H4YnyD6zf9vcJ3P",
+            id: HookDND5e_rollDamage_item.actor.id,
           },
-          damageTotal: 41,
-          damageMultipleEnemiesTotal: 82,
-          type: ChatMessageType.Damage,
+          damageTotal: 33,
+          damageMultipleEnemiesTotal: 66,
+          type: CombatDetailType.Damage,
         });
       });
     });*/
