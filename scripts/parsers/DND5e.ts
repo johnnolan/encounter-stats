@@ -1,96 +1,53 @@
-import { ChatMessageType } from "../enums";
+import { CombatDetailType } from "../enums";
 
 export default class DND5e {
   static async ParseChatMessage(
-    chatMessage: ChatMessage
+    item: Item,
+    actor: Actor,
+    type: CombatDetailType,
+    roll: Roll | undefined
   ): Promise<EncounterWorkflow | undefined> {
-    const enemiesHit: Array<EnemyHit> = chatMessage.user?.targets.map(
+    /*const enemiesHit: Array<EnemyHit> = chatMessage.user?.targets.map(
       (m) =>
         <EnemyHit>{
           tokenId: m.id,
           name: m.name,
         }
-    );
+    );*/
 
-    let type = ChatMessageType.None;
-    const actor = game.actors?.get(chatMessage.speaker.actor);
-    if (!actor) {
-      return;
-    }
-    const itemMatch = chatMessage.content?.match(
-      /data-item-id="([a-zA-Z0-9]+)"/
-    );
-    let itemId: string;
+    const enemiesHit: Array<EnemyHit> = [];
+    const numberOfEnemiesHit =
+      Array.from(enemiesHit).length > 0 ? Array.from(enemiesHit).length : 1;
 
-    if (itemMatch !== null && itemMatch !== undefined) {
-      itemId = itemMatch[1];
-      type = ChatMessageType.ItemCard;
-    } else if (chatMessage.flags?.dnd5e?.roll?.type) {
-      itemId = chatMessage.flags.dnd5e.roll.itemId;
-      type =
-        chatMessage.flags.dnd5e.roll.type === "attack"
-          ? ChatMessageType.Attack
-          : ChatMessageType.Damage;
-    } else {
-      return;
-    }
-
-    if ((type as ChatMessageType) === ChatMessageType.None) {
-      return;
-    }
-
-    const actorItems = actor.items;
-    const item = actorItems.find((f) => f.id === itemId) ?? {
-      id: "Not Found",
-      name: "Not Found",
-      link: "",
-      img: "",
-      type: "Not Found",
-      system: {
-        actionType: "Not Found",
-      },
-    };
-
-    if (type === ChatMessageType.Damage) {
+    if (type === CombatDetailType.Damage) {
       return <EncounterWorkflow>{
-        id: itemId + actor.id,
+        id: item.id + actor.id,
         actor: {
           id: actor.id,
         },
-        damageTotal: chatMessage.rolls[0]?.total ?? 0,
-        damageMultipleEnemiesTotal: chatMessage.rolls[0]?.total
-          ? chatMessage.rolls[0]?.total * Array.from(enemiesHit).length
+        damageTotal: roll?.total ?? 0,
+        damageMultipleEnemiesTotal: roll?.total
+          ? roll.total * numberOfEnemiesHit
           : 0,
+        isCritical: roll?.options.critical ?? false,
         type: type,
       };
-    } else if (type === ChatMessageType.Attack) {
-      let isCritical = false;
-      let isFumble = false;
-      const dice: Die = chatMessage.rolls[0]?.dice[0];
-      if (dice?.faces === 20) {
-        if (dice.total === 1) {
-          isFumble = true;
-        }
-
-        if (dice.total === 20) {
-          isCritical = true;
-        }
-      }
+    } else if (type === CombatDetailType.Attack) {
       return <EncounterWorkflow>{
-        id: itemId + actor.id,
+        id: item.id + actor.id,
         actor: {
           id: actor.id,
         },
-        attackTotal: chatMessage.rolls[0]?.total ?? 0,
-        isCritical: isCritical,
-        isFumble: isFumble,
-        advantage: chatMessage.rolls[0]?.hasAdvantage,
-        disadvantage: chatMessage.rolls[0]?.hasDisadvantage,
+        attackTotal: roll?.total ?? 0,
+        isFumble:
+          roll?.terms[0]?.results?.find((f) => f.active === true).result === 1,
+        advantage: roll?.options.advantageMode === 1 ? true : false,
+        disadvantage: roll?.options.advantageMode === -1 ? true : false,
         type: type,
       };
-    } else if (type === ChatMessageType.ItemCard) {
+    } else if (type === CombatDetailType.ItemCard) {
       return <EncounterWorkflow>{
-        id: itemId + actor.id,
+        id: item.id + actor.id,
         actor: {
           id: actor.id,
         },

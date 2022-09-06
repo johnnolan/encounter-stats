@@ -1,0 +1,74 @@
+{
+    "class": "D20Roll",
+    "options": {
+        "flavor": "Strength Saving Throw",
+        "advantageMode": 1,
+        "defaultRollMode": "publicroll",
+        "rollMode": "publicroll",
+        "critical": 20,
+        "fumble": 1,
+        "halflingLucky": false,
+        "configured": true
+    },
+    "dice": [],
+    "formula": "2d20kh + 2 +  + 2",
+    "terms": [
+        {
+            "class": "Die",
+            "options": {
+                "critical": 20,
+                "fumble": 1,
+                "advantage": true
+            },
+            "evaluated": true,
+            "number": 2,
+            "faces": 20,
+            "modifiers": [
+                "kh"
+            ],
+            "results": [
+                {
+                    "result": 20,
+                    "active": false,
+                    "discarded": true
+                },
+                {
+                    "result": 20,
+                    "active": true
+                }
+            ]
+        },
+        {
+            "class": "OperatorTerm",
+            "options": {},
+            "evaluated": true,
+            "operator": "+"
+        },
+        {
+            "class": "NumericTerm",
+            "options": {},
+            "evaluated": true,
+            "number": 2
+        },
+        {
+            "class": "OperatorTerm",
+            "options": {},
+            "evaluated": true,
+            "operator": "+"
+        },
+        {
+            "class": "OperatorTerm",
+            "options": {},
+            "evaluated": true,
+            "operator": "+"
+        },
+        {
+            "class": "NumericTerm",
+            "options": {},
+            "evaluated": true,
+            "number": 2
+        }
+    ],
+    "total": 24,
+    "evaluated": true
+}

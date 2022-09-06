@@ -1,215 +1,89 @@
 import DND5e from "./DND5e";
-import { chatActor } from "../mockdata/chatActor";
-import { ChatMessageType } from "../enums";
-
-const chatMessageItem: ChatMessage = {
-  content: '<div data-item-id="C3c6l9SPMCqMiceV"></div>',
-  speaker: {
-    actor: "5H4YnyD6zf9vcJ3P",
-  },
-  user: {
-    targets: [
-      {
-        id: "tokenId",
-        name: "Acolyte",
-      },
-    ],
-  },
-  flags: {},
-};
-
-const chatMessageItemAttack: ChatMessage = {
-  speaker: {
-    actor: "5H4YnyD6zf9vcJ3P",
-  },
-  user: {
-    targets: [
-      {
-        id: "tokenId",
-        name: "Actolyte",
-      },
-    ],
-  },
-  flags: {
-    dnd5e: {
-      roll: {
-        itemId: "C3c6l9SPMCqMiceV",
-        type: "attack",
-      },
-    },
-  },
-  rolls: [
-    {
-      hasAdvantage: true,
-      hasDisadvantage: false,
-      total: 19,
-      dice: [
-        {
-          faces: 20,
-          total: 18,
-        },
-      ],
-    },
-  ],
-};
-
-const chatMessageItemDamage: ChatMessage = {
-  speaker: {
-    actor: "5H4YnyD6zf9vcJ3P",
-  },
-  user: {
-    targets: [
-      {
-        id: "tokenId",
-        name: "Actolyte",
-      },
-    ],
-  },
-  flags: {
-    dnd5e: {
-      roll: {
-        itemId: "C3c6l9SPMCqMiceV",
-        type: "damage",
-      },
-    },
-  },
-  rolls: [
-    {
-      total: 41,
-      dice: [
-        {
-          options: {
-            critical: true,
-          },
-          total: 41,
-        },
-      ],
-    },
-  ],
-};
-
-const chatMessageItemDamageMultiple: ChatMessage = {
-  speaker: {
-    actor: "5H4YnyD6zf9vcJ3P",
-  },
-  user: {
-    targets: [
-      {
-        id: "tokenId",
-        name: "Actolyte",
-      },
-      {
-        id: "tokenId2",
-        name: "Troll",
-      },
-    ],
-  },
-  flags: {
-    dnd5e: {
-      roll: {
-        itemId: "C3c6l9SPMCqMiceV",
-        type: "damage",
-      },
-    },
-  },
-  rolls: [
-    {
-      total: 41,
-      dice: [
-        {
-          options: {
-            critical: true,
-          },
-          total: 41,
-        },
-      ],
-    },
-  ],
-};
+import { CombatDetailType } from "../enums";
+import { HookDND5eUseItem } from "../mockdata/hooks/attack/dnd5e.useItem";
+import { HookDND5e_rollAttack_item } from "../mockdata/hooks/attack/dnd5e.rollAttack.item";
+import { HookDND5e_rollAttack_d20roll } from "../mockdata/hooks/attack/dnd5e.rollAttack.d20roll";
+import { HookDND5e_rollDamage_item } from "../mockdata/hooks/attack/dnd5e.rollDamage.item";
+import { HookDND5e_rollDamage_damageroll } from "../mockdata/hooks/attack/dnd5e.rollDamage.damagerole";
 
 describe("Default", () => {
   describe("ParseChatMessage", () => {
     describe("If it is a standard role", () => {
-      beforeEach(() => {
-        (global as any).game = {
-          actors: {
-            get: jest.fn().mockReturnValue(chatActor),
-          },
-        };
-      });
       test("it returns the correct EncounterWorkflow", async () => {
-        const result = await DND5e.ParseChatMessage(chatMessageItem);
+        const result = await DND5e.ParseChatMessage(
+          HookDND5eUseItem,
+          HookDND5eUseItem.actor,
+          CombatDetailType.ItemCard,
+          undefined
+        );
         expect(result).toStrictEqual(<EncounterWorkflow>{
-          id: `C3c6l9SPMCqMiceV${chatMessageItem.speaker.actor}`,
-          actionType: "mwak",
+          id: `${HookDND5eUseItem.id}${HookDND5eUseItem.actor.id}`,
+          actionType: "rsak",
           actor: {
-            id: "5H4YnyD6zf9vcJ3P",
+            id: HookDND5eUseItem.actor.id,
           },
           item: {
-            id: "C3c6l9SPMCqMiceV",
-            name: "Flame Tongue Greatsword",
-            link: "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
-            type: "sword",
-            img: "itemImageUrl",
+            id: HookDND5eUseItem.id,
+            name: "Fire Bolt",
+            link: "@UUID[Actor.7KWt35CYuQyQMnsh.Item.C3c6l9SPMCqMiceV]{Fire Bolt}",
+            type: "spell",
+            img: "systems/dnd5e/icons/spells/beam-orange-2.jpg",
           },
-          enemyHit: [
+          enemyHit: [],
+          /*enemyHit: [
             {
               name: "Acolyte",
               tokenId: "tokenId",
             },
-          ],
-          type: ChatMessageType.ItemCard,
+          ],*/
+          type: CombatDetailType.ItemCard,
         });
       });
     });
 
     describe("If it is a attack role", () => {
-      beforeEach(() => {
-        (global as any).game = {
-          actors: {
-            get: jest.fn().mockReturnValue(chatActor),
-          },
-        };
-      });
       test("it returns the correct EncounterWorkflow", async () => {
-        const result = await DND5e.ParseChatMessage(chatMessageItemAttack);
+        const result = await DND5e.ParseChatMessage(
+          HookDND5e_rollAttack_item,
+          HookDND5e_rollAttack_item.actor,
+          CombatDetailType.Attack,
+          HookDND5e_rollAttack_d20roll
+        );
         expect(result).toStrictEqual(<EncounterWorkflow>{
-          id: `C3c6l9SPMCqMiceV${chatMessageItemAttack.speaker.actor}`,
+          id: `${HookDND5eUseItem.id}${HookDND5e_rollAttack_item.actor.id}`,
           actor: {
-            id: "5H4YnyD6zf9vcJ3P",
+            id: HookDND5e_rollAttack_item.actor.id,
           },
-          attackTotal: 19,
+          attackTotal: 20,
           advantage: true,
           disadvantage: false,
-          isCritical: false,
           isFumble: false,
-          type: ChatMessageType.Attack,
+          type: CombatDetailType.Attack,
         });
       });
     });
 
     describe("If it is a damage role", () => {
-      beforeEach(() => {
-        (global as any).game = {
-          actors: {
-            get: jest.fn().mockReturnValue(chatActor),
-          },
-        };
-      });
       test("it returns the correct EncounterWorkflow", async () => {
-        const result = await DND5e.ParseChatMessage(chatMessageItemDamage);
+        const result = await DND5e.ParseChatMessage(
+          HookDND5e_rollDamage_item,
+          HookDND5e_rollDamage_item.actor,
+          CombatDetailType.Damage,
+          HookDND5e_rollDamage_damageroll
+        );
         expect(result).toStrictEqual(<EncounterWorkflow>{
-          id: `C3c6l9SPMCqMiceV${chatMessageItemDamage.speaker.actor}`,
+          id: `${HookDND5eUseItem.id}${HookDND5e_rollDamage_item.actor.id}`,
           actor: {
-            id: "5H4YnyD6zf9vcJ3P",
+            id: HookDND5e_rollDamage_item.actor.id,
           },
-          damageTotal: 41,
-          damageMultipleEnemiesTotal: 41,
-          type: ChatMessageType.Damage,
+          damageTotal: 33,
+          damageMultipleEnemiesTotal: 33,
+          isCritical: true,
+          type: CombatDetailType.Damage,
         });
       });
     });
-      test("it returns the correct EncounterWorkflow for multiple damagers", async () => {
+    /*test("it returns the correct EncounterWorkflow for multiple damagers", async () => {
         const result = await DND5e.ParseChatMessage(chatMessageItemDamageMultiple);
         expect(result).toStrictEqual(<EncounterWorkflow>{
           id: `C3c6l9SPMCqMiceV${chatMessageItemDamageMultiple.speaker.actor}`,
@@ -221,6 +95,6 @@ describe("Default", () => {
           type: ChatMessageType.Damage,
         });
       });
-    });
+    });*/
   });
 });

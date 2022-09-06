@@ -12,7 +12,7 @@ import {
 import StatManager from "./StatManager";
 import DND5e from "./parsers/DND5e";
 import MidiQol from "./parsers/MidiQol";
-import { ChatType } from "./enums";
+import { CombatDetailType, ChatType } from "./enums";
 import Stat from "./stats/Stat";
 
 const SOCKET_NAME = "module.encounter-stats";
@@ -107,6 +107,82 @@ export async function SetupHooks() {
     // dnd5e.rollFormula
 
     window.Hooks.on(
+      "dnd5e.rollAbilityTest",
+      async function (actor: Actor, roll: Roll, abilityId: string) {
+        console.debug("dnd5e.rollAbilityTest", actor, roll, abilityId);
+      }
+    );
+
+    window.Hooks.on(
+      "dnd5e.rollAbilitySave",
+      async function (actor: Actor, roll: Roll, abilityId: string) {
+        console.debug("dnd5e.rollAbilitySave", actor, roll, abilityId);
+      }
+    );
+
+    window.Hooks.on(
+      "dnd5e.rollSkill",
+      async function (actor: Actor, roll: Roll, skillId: string) {
+        console.debug("dnd5e.rollSkill", actor, roll, skillId);
+      }
+    );
+
+    window.Hooks.on(
+      "dnd5e.useItem",
+      async function (item: Item, config: unknown, option: unknown) {
+        console.debug("dnd5e.useItem", item, config, option);
+        OnEncounterWorkflowComplete(
+          await DND5e.ParseChatMessage(
+            item,
+            item.actor,
+            CombatDetailType.ItemCard,
+            undefined
+          ),
+          ChatType.DND5e
+        );
+      }
+    );
+
+    window.Hooks.on(
+      "dnd5e.rollAttack",
+      async function (item: Item5e, roll: Roll) {
+        console.debug("dnd5e.rollAttack", item, roll);
+        OnEncounterWorkflowComplete(
+          await DND5e.ParseChatMessage(
+            item,
+            item.actor,
+            CombatDetailType.Attack,
+            roll
+          ),
+          ChatType.DND5e
+        );
+      }
+    );
+
+    window.Hooks.on(
+      "dnd5e.rollDamage",
+      async function (item: Item5e, roll: Roll) {
+        console.debug("dnd5e.rollDamage", item, roll);
+        OnEncounterWorkflowComplete(
+          await DND5e.ParseChatMessage(
+            item,
+            item.actor,
+            CombatDetailType.Damage,
+            roll
+          ),
+          ChatType.DND5e
+        );
+      }
+    );
+
+    window.Hooks.on(
+      "dnd5e.rollFormula",
+      async function (item: Item5e, roll: Roll) {
+        console.debug("dnd5e.rollFormula", item, roll);
+      }
+    );
+
+    /*window.Hooks.on(
       "createChatMessage",
       async function (chatMessage: ChatMessage) {
         if (!chatMessage?.user?.isGM) {
@@ -123,7 +199,7 @@ export async function SetupHooks() {
           );
         }
       }
-    );
+    );*/
   } else {
     window.Hooks.on(
       "updateActor",

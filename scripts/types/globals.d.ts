@@ -1,4 +1,4 @@
-import { ChatMessageType } from "../enums";
+import { CombatDetailType } from "../enums";
 
 declare global {
   interface LenientGlobalVariableTypes {
@@ -153,7 +153,7 @@ declare global {
     isFumble?: boolean;
     actionType?: string;
     enemyHit?: Array<EnemyHit>;
-    type: ChatMessageType;
+    type: CombatDetailType;
   }
 
   type Encounter = {

@@ -1,4 +1,4 @@
-import { ChatMessageType } from "../enums";
+import { CombatDetailType } from "../enums";
 import MidiQol from "./MidiQol";
 
 const midiWorkflow: MidiQolWorkflow = {
@@ -134,7 +134,7 @@ describe("MidiQol", () => {
               tokenId: "tokenId2",
             },
           ],
-          type: ChatMessageType.MidiQol,
+          type: CombatDetailType.MidiQol,
         });
       });
     });
@@ -171,7 +171,7 @@ describe("MidiQol", () => {
               tokenId: "tokenId",
             },
           ],
-          type: ChatMessageType.MidiQol,
+          type: CombatDetailType.MidiQol,
         });
       });
     });

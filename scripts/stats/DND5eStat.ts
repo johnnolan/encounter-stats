@@ -1,4 +1,4 @@
-import { ChatMessageType } from "../enums";
+import { CombatDetailType } from "../enums";
 import Logger from "../Logger";
 import Stat from "./Stat";
 
@@ -18,16 +18,16 @@ export default class DND5eStat extends Stat {
         (f) => f.id === workflow.id && f.round === this.currentRound
       ) !== undefined;
 
-    if (isExistingEvent && workflow.type !== ChatMessageType.ItemCard) {
+    if (isExistingEvent && workflow.type !== CombatDetailType.ItemCard) {
       const newCombatantEvent = combatantStat.events
         .filter((f) => f.id === workflow.id)
         .reverse()[0];
 
-      if (workflow.type === ChatMessageType.Damage) {
+      if (workflow.type === CombatDetailType.Damage) {
         newCombatantEvent.damageTotal = workflow.damageTotal;
         newCombatantEvent.damageMultipleEnemiesTotal =
           workflow.damageMultipleEnemiesTotal;
-      } else if (workflow.type === ChatMessageType.Attack) {
+      } else if (workflow.type === CombatDetailType.Attack) {
         newCombatantEvent.attackTotal = workflow.attackTotal;
         newCombatantEvent.isCritical = workflow.isCritical;
         newCombatantEvent.isFumble = workflow.isFumble;
@@ -35,7 +35,7 @@ export default class DND5eStat extends Stat {
         newCombatantEvent.disadvantage = workflow.disadvantage;
       }
     } else {
-      if (workflow.type === ChatMessageType.ItemCard) {
+      if (workflow.type === CombatDetailType.ItemCard) {
         const newCombatantEvent = <CombatantEvent>{
           id: workflow.id,
           actorId: workflow.actor.id,
