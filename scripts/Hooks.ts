@@ -97,6 +97,15 @@ export async function SetupHooks() {
       );
     }
 
+    // Hooks https://github.com/foundryvtt/dnd5e/wiki/Hooks
+    // dnd5e.rollAbilityTest
+    // dnd5e.rollAbilitySave
+    // dnd5e.rollSkill
+    // dnd5e.useItem
+    // dnd5e.rollAttack
+    // dnd5e.rollDamage
+    // dnd5e.rollFormula
+
     window.Hooks.on(
       "createChatMessage",
       async function (chatMessage: ChatMessage) {
