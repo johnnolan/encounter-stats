@@ -1,0 +1,73 @@
+{
+    "class": "D20Roll",
+    "options": {
+        "flavor": "Medicine Skill Check (Wisdom)",
+        "advantageMode": 0,
+        "defaultRollMode": "publicroll",
+        "rollMode": "publicroll",
+        "critical": 20,
+        "fumble": 1,
+        "halflingLucky": false,
+        "reliableTalent": false,
+        "configured": true
+    },
+    "dice": [],
+    "formula": "1d20 + 0 + 0 + 0",
+    "terms": [
+        {
+            "class": "Die",
+            "options": {
+                "critical": 20,
+                "fumble": 1
+            },
+            "evaluated": true,
+            "number": 1,
+            "faces": 20,
+            "modifiers": [],
+            "results": [
+                {
+                    "result": 14,
+                    "active": true
+                }
+            ]
+        },
+        {
+            "class": "OperatorTerm",
+            "options": {},
+            "evaluated": true,
+            "operator": "+"
+        },
+        {
+            "class": "NumericTerm",
+            "options": {},
+            "evaluated": true,
+            "number": 0
+        },
+        {
+            "class": "OperatorTerm",
+            "options": {},
+            "evaluated": true,
+            "operator": "+"
+        },
+        {
+            "class": "NumericTerm",
+            "options": {},
+            "evaluated": true,
+            "number": 0
+        },
+        {
+            "class": "OperatorTerm",
+            "options": {},
+            "evaluated": true,
+            "operator": "+"
+        },
+        {
+            "class": "NumericTerm",
+            "options": {},
+            "evaluated": true,
+            "number": 0
+        }
+    ],
+    "total": 14,
+    "evaluated": true
+}

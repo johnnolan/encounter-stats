@@ -1,4 +1,4 @@
-import { ChatMessageType } from "../enums";
+import { CombatDetailType } from "../enums";
 import Logger from "../Logger";
 
 class MidiQol {
@@ -37,7 +37,7 @@ class MidiQol {
       isCritical: workflow.isCritical,
       isFumble: workflow.isFumble,
       enemyHit: enemiesHit,
-      type: ChatMessageType.MidiQol,
+      type: CombatDetailType.MidiQol,
     };
   }
 

@@ -1,4 +1,4 @@
-export enum ChatMessageType {
+export enum CombatDetailType {
   Damage = "damage",
   Attack = "attack",
   ItemCard = "itemCard",

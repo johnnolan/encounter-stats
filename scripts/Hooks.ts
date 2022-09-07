@@ -12,7 +12,7 @@ import {
 import StatManager from "./StatManager";
 import DND5e from "./parsers/DND5e";
 import MidiQol from "./parsers/MidiQol";
-import { ChatType } from "./enums";
+import { CombatDetailType, ChatType } from "./enums";
 import Stat from "./stats/Stat";
 
 const SOCKET_NAME = "module.encounter-stats";
@@ -23,6 +23,23 @@ function _setupSockerListeners() {
       case "midi-qol.RollComplete":
         OnEncounterWorkflowComplete(payload.data.workflow, ChatType.MidiQol);
         OnTrackDice(payload.data.rollCheck);
+        break;
+      case "dnd5e.useItem":
+      case "dnd5e.rollAttack":
+      case "dnd5e.rollDamage":
+        OnEncounterWorkflowComplete(
+          payload.data.EncounterWorkflow,
+          payload.data.ChatType
+        );
+        break;
+      case "dnd5e.rollAbilityTest":
+      case "dnd5e.rollAbilitySave":
+      case "dnd5e.rollSkill":
+        OnTrackDiceRoll(
+          payload.data.result,
+          payload.data.alias,
+          payload.data.flavor
+        );
         break;
     }
   });
@@ -96,25 +113,6 @@ export async function SetupHooks() {
         }
       );
     }
-
-    window.Hooks.on(
-      "createChatMessage",
-      async function (chatMessage: ChatMessage) {
-        if (!chatMessage?.user?.isGM) {
-          if (!game.modules.get("midi-qol")?.active) {
-            OnEncounterWorkflowComplete(
-              await DND5e.ParseChatMessage(chatMessage),
-              ChatType.DND5e
-            );
-          }
-          OnTrackDiceRoll(
-            chatMessage.rolls,
-            chatMessage.speaker.alias,
-            chatMessage.flavor
-          );
-        }
-      }
-    );
   } else {
     window.Hooks.on(
       "updateActor",
@@ -148,5 +146,110 @@ export async function SetupHooks() {
         }
       );
     }
+
+    window.Hooks.on("dnd5e.useItem", async function (item: Item) {
+      if (!game.modules.get("midi-qol")?.active) {
+        game.socket?.emit(SOCKET_NAME, {
+          event: "dnd5e.useItem",
+          data: {
+            EncounterWorkflow: await DND5e.ParseHook(
+              item,
+              item.actor,
+              CombatDetailType.ItemCard,
+              undefined
+            ),
+            ChatType: ChatType.DND5e,
+          },
+        });
+      }
+    });
+
+    window.Hooks.on(
+      "dnd5e.rollAttack",
+      async function (item: Item5e, roll: Roll) {
+        if (!game.modules.get("midi-qol")?.active) {
+          game.socket?.emit(SOCKET_NAME, {
+            event: "dnd5e.rollAttack",
+            data: {
+              EncounterWorkflow: await DND5e.ParseHook(
+                item,
+                item.actor,
+                CombatDetailType.Attack,
+                roll
+              ),
+              ChatType: ChatType.DND5e,
+            },
+          });
+        }
+      }
+    );
+
+    window.Hooks.on(
+      "dnd5e.rollDamage",
+      async function (item: Item5e, roll: Roll) {
+        if (!game.modules.get("midi-qol")?.active) {
+          game.socket?.emit(SOCKET_NAME, {
+            event: "dnd5e.rollDamage",
+            data: {
+              EncounterWorkflow: await DND5e.ParseHook(
+                item,
+                item.actor,
+                CombatDetailType.Damage,
+                roll
+              ),
+              ChatType: ChatType.DND5e,
+            },
+          });
+        }
+      }
+    );
+
+    window.Hooks.on(
+      "dnd5e.rollAbilityTest",
+      async function (actor: Actor, roll: Roll) {
+        game.socket?.emit(SOCKET_NAME, {
+          event: "dnd5e.rollAbilityTest",
+          data: {
+            result:
+              roll?.terms[0]?.results?.find((f) => f.active === true).result ??
+              0,
+            alias: actor.name,
+            flavor: roll.options.flavor,
+          },
+        });
+      }
+    );
+
+    window.Hooks.on(
+      "dnd5e.rollAbilitySave",
+      async function (actor: Actor, roll: Roll) {
+        game.socket?.emit(SOCKET_NAME, {
+          event: "dnd5e.rollAbilitySave",
+          data: {
+            result:
+              roll?.terms[0]?.results?.find((f) => f.active === true).result ??
+              0,
+            alias: actor.name,
+            flavor: roll.options.flavor,
+          },
+        });
+      }
+    );
+
+    window.Hooks.on(
+      "dnd5e.rollSkill",
+      async function (actor: Actor, roll: Roll) {
+        game.socket?.emit(SOCKET_NAME, {
+          event: "dnd5e.rollSkill",
+          data: {
+            result:
+              roll?.terms[0]?.results?.find((f) => f.active === true).result ??
+              0,
+            alias: actor.name,
+            flavor: roll.options.flavor,
+          },
+        });
+      }
+    );
   }
 }

@@ -6,7 +6,7 @@ jest.mock("../StatManager");
 import StatManager from "../StatManager";
 import { actor } from "../mockdata/actor";
 import { chatActor } from "../mockdata/chatActor";
-import { ChatMessageType } from "../enums";
+import { CombatDetailType } from "../enums";
 
 const mockLoggerLog = jest.fn();
 const mockLoggerWarn = jest.fn();
@@ -57,7 +57,7 @@ const encounterMidiWorkflow: EncounterWorkflow = {
       tokenId: "tokenId",
     },
   ],
-  type: ChatMessageType.MidiQol,
+  type: CombatDetailType.MidiQol,
 };
 
 const encounterMidiWorkflow2: EncounterWorkflow = {
@@ -87,7 +87,7 @@ const encounterMidiWorkflow2: EncounterWorkflow = {
       tokenId: "tokenId",
     },
   ],
-  type: ChatMessageType.MidiQol,
+  type: CombatDetailType.MidiQol,
 };
 
 const encounterMidiWorkflowHeal: EncounterWorkflow = {
@@ -111,7 +111,7 @@ const encounterMidiWorkflowHeal: EncounterWorkflow = {
     type: "sword",
     img: "itemImageUrl",
   },
-  type: ChatMessageType.MidiQol,
+  type: CombatDetailType.MidiQol,
 };
 
 const encounterDefaultWorkflowItemCard: EncounterWorkflow = {
@@ -133,7 +133,7 @@ const encounterDefaultWorkflowItemCard: EncounterWorkflow = {
       tokenId: "tokenId",
     },
   ],
-  type: ChatMessageType.ItemCard,
+  type: CombatDetailType.ItemCard,
 };
 
 const encounterDefaultWorkflowAttack: EncounterWorkflow = {
@@ -156,7 +156,7 @@ const encounterDefaultWorkflowDamage: EncounterWorkflow = {
   },
   damageTotal: 41,
   damageMultipleEnemiesTotal: 41,
-  type: ChatMessageType.Damage,
+  type: CombatDetailType.Damage,
 };
 
 describe("Stat", () => {

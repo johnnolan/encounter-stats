@@ -39,6 +39,7 @@
       "@jest/globals",
       "@types/node",
       "@league-of-foundry-developers/foundry-vtt-types",
+      "@league-of-foundry-developers/foundry-vtt-dnd5e-types",
       "foundryvtt-simple-calendar"
     ] /* Specify type package names to be included without being referenced in a source file. */,
     // "allowUmdGlobalAccess": true,                     /* Allow accessing UMD globals from modules. */
