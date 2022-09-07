@@ -1,56 +1,66 @@
 {
-  "name": "encounter-stats",
-  "title": "Encounter Statistics",
-  "description": "Capture your Players attacks and damage in an Encounter and store the results into a Journal Entry with a summary of their stats for each after you end the Encounter.",
-  "version": "This is auto replaced",
-  "library": "false",
-  "manifestPlusVersion": "1.0.0",
-  "minimumCoreVersion": "10",
-  "compatibleCoreVersion": "10",
-  "compatibility": {
-    "minimum": "10.275",
-    "verified": "10"
-  },
-  "authors": [
-    {
-      "name": "John Nolan",
-      "url": "https://github.com/johnnolan"
-    }
-  ],
-  "dependencies": [
-    {
-      "name": "dnd5e",
-      "type": "system"
-    }
-  ],
-  "conflicts": [],
-  "esmodules": [
-    "/dist/module.js"
-  ],
-  "scripts": [],
-  "styles": [
-    "/styles/module.css"
-  ],
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "languages/en.json"
-    },
-    {
-      "lang": "fr",
-      "name": "Francais",
-      "path": "languages/fr.json"
-    }
-  ],
-  "socket": true,
-  "url": "This is auto replaced",
-  "manifest": "This is auto replaced",
-  "download": "This is auto replaced",
-  "media": [
-    {
-      "type": "icon",
-      "url": "https://avatars2.githubusercontent.com/u/71292812?s=400&u=ccdb4eeb7abf551ca8f314e5a9bfd0479a4d3d41&v=4"
-    }
-  ]
+	"name": "encounter-stats",
+	"title": "Encounter Statistics",
+	"description": "Capture your Players attacks and damage in an Encounter and store the results into a Journal Entry with a summary of their stats for each after you end the Encounter.",
+	"version": "This is auto replaced",
+	"library": "false",
+	"manifestPlusVersion": "1.0.0",
+	"minimumCoreVersion": "10",
+	"compatibleCoreVersion": "10",
+	"compatibility": {
+		"minimum": "10.275",
+		"verified": "10"
+	},
+	"authors": [
+		{
+			"name": "John Nolan",
+			"url": "https://github.com/johnnolan"
+		}
+	],
+	"dependencies": [
+		{
+			"name": "dnd5e",
+			"type": "system"
+		}
+	],
+	"conflicts": [],
+	"esmodules": [
+		"/dist/module.js"
+	],
+	"scripts": [],
+	"styles": [
+		"/styles/module.css"
+	],
+	"languages": [
+		{
+			"lang": "en",
+			"name": "English",
+			"path": "languages/en.json"
+		},
+		{
+			"lang": "fr",
+			"name": "Francais",
+			"path": "languages/fr.json"
+		},
+		{
+			"lang": "es",
+			"name": "Español",
+			"path": "languages/es.json"
+		},
+		{
+			"lang": "de",
+			"name": "Deutsch",
+			"path": "languages/de.json"
+		}
+	],
+	"socket": true,
+	"url": "This is auto replaced",
+	"manifest": "This is auto replaced",
+	"download": "This is auto replaced",
+	"media": [
+		{
+			"type": "icon",
+			"url": "https://avatars2.githubusercontent.com/u/71292812?s=400&u=ccdb4eeb7abf551ca8f314e5a9bfd0479a4d3d41&v=4"
+		}
+	]
 }
