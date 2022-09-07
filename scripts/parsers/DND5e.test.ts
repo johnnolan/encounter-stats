@@ -8,6 +8,21 @@ import { HookDND5e_rollDamage_damageroll } from "../mockdata/hooks/attack/dnd5e.
 
 describe("Default", () => {
   describe("ParseChatMessage", () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+      jest.resetAllMocks();
+      (global as any).game = {
+        user: {
+          targets: [
+            {
+              id: "id1",
+              name: "Acolyte",
+            },
+          ],
+        },
+      };
+    });
+
     describe("If it is a standard role", () => {
       test("it returns the correct EncounterWorkflow", async () => {
         const result = await DND5e.ParseHook(
@@ -29,13 +44,12 @@ describe("Default", () => {
             type: "spell",
             img: "systems/dnd5e/icons/spells/beam-orange-2.jpg",
           },
-          enemyHit: [],
-          /*enemyHit: [
+          enemyHit: [
             {
               name: "Acolyte",
-              tokenId: "tokenId",
+              tokenId: "id1",
             },
-          ],*/
+          ],
           type: CombatDetailType.ItemCard,
         });
       });
@@ -83,18 +97,38 @@ describe("Default", () => {
         });
       });
     });
-    /*test("it returns the correct EncounterWorkflow for multiple damagers", async () => {
-        const result = await DND5e.ParseHook(chatMessageItemDamageMultiple);
-        expect(result).toStrictEqual(<EncounterWorkflow>{
-          id: `${HookDND5eUseItem.id}${HookDND5e_rollDamage_item.actor.id}`,
-          actor: {
-            id: HookDND5e_rollDamage_item.actor.id,
-          },
-          damageTotal: 33,
-          damageMultipleEnemiesTotal: 66,
-          type: CombatDetailType.Damage,
-        });
+    test("it returns the correct EncounterWorkflow for multiple damagers", async () => {
+      (global as any).game = {
+        user: {
+          targets: [
+            {
+              id: "id1",
+              name: "Acolyte",
+            },
+            {
+              id: "id2",
+              name: "Ancient Red Dragon",
+            },
+          ],
+        },
+      };
+
+      const result = await DND5e.ParseHook(
+        HookDND5e_rollDamage_item,
+        HookDND5e_rollDamage_item.actor,
+        CombatDetailType.Damage,
+        HookDND5e_rollDamage_damageroll
+      );
+      expect(result).toStrictEqual(<EncounterWorkflow>{
+        id: `${HookDND5eUseItem.id}${HookDND5e_rollDamage_item.actor.id}`,
+        actor: {
+          id: HookDND5e_rollDamage_item.actor.id,
+        },
+        damageTotal: 33,
+        damageMultipleEnemiesTotal: 66,
+        isCritical: true,
+        type: CombatDetailType.Damage,
       });
-    });*/
+    });
   });
 });

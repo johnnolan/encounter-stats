@@ -7,15 +7,14 @@ export default class DND5e {
     type: CombatDetailType,
     roll: Roll | undefined
   ): Promise<EncounterWorkflow | undefined> {
-    /*const enemiesHit: Array<EnemyHit> = chatMessage.user?.targets.map(
+    const enemiesHit: Array<EnemyHit> = game.user?.targets.map(
       (m) =>
         <EnemyHit>{
           tokenId: m.id,
           name: m.name,
         }
-    );*/
+    );
 
-    const enemiesHit: Array<EnemyHit> = [];
     const numberOfEnemiesHit =
       Array.from(enemiesHit).length > 0 ? Array.from(enemiesHit).length : 1;
 
