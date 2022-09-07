@@ -173,7 +173,7 @@ export default class Stat {
     return Object.values(ValidRollEvent).includes(attackType);
   }
 
-  UpdateRound(currentRound: number) {
+  public UpdateRound(currentRound: number) {
     if (this._encounter.round !== currentRound) {
       this._encounter.round = currentRound;
     }

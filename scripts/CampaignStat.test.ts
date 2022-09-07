@@ -37,6 +37,7 @@ describe("CampaignStat", () => {
 
     test("it adds the kill correctly", async () => {
       await CampaignStat.AddKill("Lorena Aldabra", "Acolyte");
+      await CampaignStat.AddKill("Lorena Aldabra", "Ancient Red Dragon");
       expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalled();
       expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalledWith(
         JSON.stringify({
@@ -48,6 +49,11 @@ describe("CampaignStat", () => {
                 {
                   actorName: "Lorena Aldabra",
                   tokenName: "Acolyte",
+                  date: "2020-01-01T00:00:00.000Z",
+                },
+                {
+                  actorName: "Lorena Aldabra",
+                  tokenName: "Ancient Red Dragon",
                   date: "2020-01-01T00:00:00.000Z",
                 },
               ],
@@ -79,6 +85,12 @@ describe("CampaignStat", () => {
         "Heal Wounds",
         20
       );
+      await CampaignStat.AddHeal(
+        "Lorena Aldabra",
+        undefined,
+        "Heal Wounds",
+        10
+      );
       expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalled();
       expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalledWith(
         JSON.stringify({
@@ -93,6 +105,13 @@ describe("CampaignStat", () => {
                   itemLink: "@Item Link",
                   spellName: "Heal Wounds",
                   total: 20,
+                  date: "2020-01-01T00:00:00.000Z",
+                },
+                {
+                  actorName: "Lorena Aldabra",
+                  itemLink: undefined,
+                  spellName: "Heal Wounds",
+                  total: 10,
                   date: "2020-01-01T00:00:00.000Z",
                 },
               ],
@@ -122,6 +141,11 @@ describe("CampaignStat", () => {
         "Lorena Aldabra",
         "Wisdom Check"
       );
+      await CampaignStat.AddRole(
+        RoleType.Fumble,
+        "Lorena Aldabra",
+        "Wisdom Check"
+      );
       expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalled();
       expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalledWith(
         JSON.stringify({
@@ -133,6 +157,11 @@ describe("CampaignStat", () => {
               id: "20200101",
               dateDisplay: "2020-01-01",
               data: [
+                {
+                  actorName: "Lorena Aldabra",
+                  flavor: "Wisdom Check",
+                  date: "2020-01-01T00:00:00.000Z",
+                },
                 {
                   actorName: "Lorena Aldabra",
                   flavor: "Wisdom Check",
@@ -163,6 +192,11 @@ describe("CampaignStat", () => {
         "Lorena Aldabra",
         "Insight Check"
       );
+      await CampaignStat.AddRole(
+        RoleType.Critial,
+        "Lorena Aldabra",
+        "Insight Check"
+      );
       expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalled();
       expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalledWith(
         JSON.stringify({
@@ -173,6 +207,11 @@ describe("CampaignStat", () => {
               id: "20200101",
               dateDisplay: "2020-01-01",
               data: [
+                {
+                  actorName: "Lorena Aldabra",
+                  flavor: "Insight Check",
+                  date: "2020-01-01T00:00:00.000Z",
+                },
                 {
                   actorName: "Lorena Aldabra",
                   flavor: "Insight Check",

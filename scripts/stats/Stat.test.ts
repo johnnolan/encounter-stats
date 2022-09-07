@@ -1,11 +1,8 @@
 import Stat from "./Stat";
-import DND5eStat from "./DND5eStat";
-import MidiQolStat from "./MidiQolStat";
 import Logger from "../Logger";
 jest.mock("../StatManager");
 import StatManager from "../StatManager";
 import { actor } from "../mockdata/actor";
-import { chatActor } from "../mockdata/chatActor";
 import { CombatDetailType } from "../enums";
 
 const mockLoggerLog = jest.fn();
@@ -112,51 +109,6 @@ const encounterMidiWorkflowHeal: EncounterWorkflow = {
     img: "itemImageUrl",
   },
   type: CombatDetailType.MidiQol,
-};
-
-const encounterDefaultWorkflowItemCard: EncounterWorkflow = {
-  id: `C3c6l9SPMCqMiceV5H4YnyD6zf9vcJ3P`,
-  actionType: "mwak",
-  actor: {
-    id: "5H4YnyD6zf9vcJ3P",
-  },
-  item: {
-    id: "C3c6l9SPMCqMiceV",
-    name: "Flame Tongue Greatsword",
-    link: "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
-    type: "sword",
-    img: "itemImageUrl",
-  },
-  enemyHit: [
-    {
-      name: "Acolyte",
-      tokenId: "tokenId",
-    },
-  ],
-  type: CombatDetailType.ItemCard,
-};
-
-const encounterDefaultWorkflowAttack: EncounterWorkflow = {
-  id: `C3c6l9SPMCqMiceV5H4YnyD6zf9vcJ3P`,
-  actor: {
-    id: "5H4YnyD6zf9vcJ3P",
-  },
-  attackTotal: 19,
-  advantage: true,
-  disadvantage: false,
-  isCritical: false,
-  isFumble: false,
-  type: "attack",
-};
-
-const encounterDefaultWorkflowDamage: EncounterWorkflow = {
-  id: `C3c6l9SPMCqMiceV5H4YnyD6zf9vcJ3P`,
-  actor: {
-    id: "5H4YnyD6zf9vcJ3P",
-  },
-  damageTotal: 41,
-  damageMultipleEnemiesTotal: 41,
-  type: CombatDetailType.Damage,
 };
 
 describe("Stat", () => {
@@ -300,181 +252,50 @@ describe("Stat", () => {
         "eMyoELkOwFNPGEK8"
       );
     });
+  });
 
-    describe("MidiQol", () => {
-      let midiQolStat: MidiQolStat;
-      const encounterId = "encounterId";
-      beforeEach(() => {
-        (global as any).canvas = {
-          tokens: {
-            get: jest.fn().mockReturnValue({
-              img: "testImageUrl",
-            }),
-          },
-        };
-        midiQolStat = new MidiQolStat(encounterId);
-      });
-      describe("If you add a new Attack", () => {
-        test("the initial midiQolStats all return 0", () => {
-          midiQolStat.AddCombatant(actor, "tokenId");
-          midiQolStat.Save();
-          expect(midiQolStat.encounter.combatants.length).toBe(1);
-          const combatantResult =
-            midiQolStat.GetCombatantStats("eMyoELkOwFNPGEK8");
+  describe("If you use the helper functions", () => {
+    let stat: Stat;
+    const encounterId = "encounterId";
+    beforeEach(() => {
+      (global as any).canvas = {
+        tokens: {
+          get: jest.fn().mockReturnValue({
+            img: "testImageUrl",
+          }),
+        },
+      };
+      stat = new Stat(encounterId);
+    });
 
-          expect(midiQolStat.encounter.combatants.length).toBe(1);
-          expect(combatantResult?.events.length).toBe(0);
-
-          expect(midiQolStat.encounter.top.maxDamage).toBe("None<br />0");
-          expect(midiQolStat.encounter.top.mostDamageInOneTurn).toBe(
-            "None<br />0"
-          );
-          expect(midiQolStat.encounter.top.highestAvgDamage).toBe(
-            "None<br />0"
-          );
-          expect(midiQolStat.encounter.top.highestMaxDamage).toBe(
-            "None<br />0"
-          );
-          expect(midiQolStat.encounter.top.mostKills).toBe("None<br />0");
-          expect(midiQolStat.encounter.top.mostHealing).toBe("None<br />0");
-          expect(midiQolStat.encounter.top.mostSupportActions).toBe(
-            "None<br />0"
-          );
-          expect(midiQolStat.encounter.top.mostBattlefieldActions).toBe(
-            "None<br />0"
-          );
-
-          expect(combatantResult?.summaryList).toStrictEqual(<
-            CombatantEventSummaryList
-          >{ min: 0, max: 0, avg: 0, total: 0 });
-          expect(combatantResult?.roundSummary).toStrictEqual(<
-            EncounterRoundSummary
-          >{
-            totals: [],
-          });
-        });
-        test("you can get the combatant by actor id", () => {
-          midiQolStat.AddCombatant(actor, "tokenId");
-          midiQolStat.AddAttack(encounterMidiWorkflow);
-          midiQolStat.AddAttack(encounterMidiWorkflow2);
-          midiQolStat.AddAttack(encounterMidiWorkflowHeal);
-          midiQolStat.AddKill("Acolyte", "tokenId");
-          midiQolStat.Save();
-          expect(midiQolStat.encounter.combatants.length).toBe(1);
-          const combatantResult =
-            midiQolStat.GetCombatantStats("eMyoELkOwFNPGEK8");
-          expect(midiQolStat.encounter.combatants.length).toBe(1);
-          expect(combatantResult?.events.length).toBe(3);
-
-          expect(midiQolStat.encounter.top.maxDamage).toBe(
-            "Graa S'oua<br />35"
-          );
-          expect(midiQolStat.encounter.top.mostDamageInOneTurn).toBe(
-            "Graa S'oua<br />35"
-          );
-          expect(midiQolStat.encounter.top.highestAvgDamage).toBe(
-            "Graa S'oua<br />18"
-          );
-          expect(midiQolStat.encounter.top.highestMaxDamage).toBe(
-            "Graa S'oua<br />20"
-          );
-          expect(midiQolStat.encounter.top.mostKills).toBe("Graa S'oua<br />1");
-          expect(midiQolStat.encounter.top.mostHealing).toBe(
-            "Graa S'oua<br />1"
-          );
-          expect(midiQolStat.encounter.top.mostSupportActions).toBe(
-            "Graa S'oua<br />1"
-          );
-          expect(midiQolStat.encounter.top.mostBattlefieldActions).toBe(
-            "Graa S'oua<br />0"
-          );
-
-          expect(combatantResult?.summaryList).toStrictEqual(<
-            CombatantEventSummaryList
-          >{ min: 15, max: 20, avg: 18, total: 35 });
-          expect(combatantResult?.roundSummary).toStrictEqual(<
-            EncounterRoundSummary
-          >{
-            totals: [
-              {
-                round: 1,
-                damageTotal: 35,
-              },
-            ],
-          });
-        });
+    describe("If you add a new Kill", () => {
+      test("you can see the kill added", () => {
+        stat.AddCombatant(actor, "tokenId");
+        stat.AddKill("Acolyte", "tokenId");
+        stat.Save();
+        expect(stat.encounter.combatants.length).toBe(1);
+        expect(
+          stat.GetCombatantStats("eMyoELkOwFNPGEK8")?.kills.length
+        ).toBe(1);
       });
 
-      describe("If you add a new Kill", () => {
-        test("you can see the kill added", () => {
-          midiQolStat.AddCombatant(actor, "tokenId");
-          midiQolStat.AddKill("Acolyte", "tokenId");
-          midiQolStat.Save();
-          expect(midiQolStat.encounter.combatants.length).toBe(1);
-          expect(
-            midiQolStat.GetCombatantStats("eMyoELkOwFNPGEK8")?.kills.length
-          ).toBe(1);
-        });
-
-        test("you can see a Log message if not valid", () => {
-          midiQolStat.AddCombatant(actor, "tokenId");
-          midiQolStat.AddKill("Acolyte", "tokenIdError");
-          midiQolStat.Save();
-          expect(mockLoggerWarn).toBeCalled();
-          expect(midiQolStat.encounter.combatants.length).toBe(1);
-          expect(
-            midiQolStat.GetCombatantStats("eMyoELkOwFNPGEK8")?.kills.length
-          ).toBe(0);
-        });
+      test("you can see a Log message if not valid", () => {
+        stat.AddCombatant(actor, "tokenId");
+        stat.AddKill("Acolyte", "tokenIdError");
+        stat.Save();
+        expect(mockLoggerWarn).toBeCalled();
+        expect(stat.encounter.combatants.length).toBe(1);
+        expect(
+          stat.GetCombatantStats("eMyoELkOwFNPGEK8")?.kills.length
+        ).toBe(0);
       });
+    });
 
-      describe("If you update Health", () => {
-        test("you can see healing done", () => {
-          midiQolStat.AddCombatant(actor, "tokenId");
-          midiQolStat.UpdateHealth({
-            id: "eMyoELkOwFNPGEK8",
-            system: {
-              attributes: {
-                hp: {
-                  value: 60,
-                  max: 100,
-                },
-              },
-            },
-          });
-          midiQolStat.Save();
-          expect(midiQolStat.encounter.combatants.length).toBe(1);
-          const combatantResult =
-            midiQolStat.GetCombatantStats("eMyoELkOwFNPGEK8");
-          expect(combatantResult?.health.length).toBe(1);
-          expect(combatantResult?.health[0].current).toBe(60);
-          expect(combatantResult?.health[0].previous).toBe(80);
-        });
-
-        test("you can a log message when no actor passes", () => {
-          midiQolStat.AddCombatant(actor, "tokenId");
-          midiQolStat.UpdateHealth({
-            system: {
-              attributes: {
-                hp: {
-                  value: 60,
-                  max: 100,
-                },
-              },
-            },
-          });
-          midiQolStat.Save();
-          expect(mockLoggerWarn).toBeCalled();
-          expect(midiQolStat.encounter.combatants.length).toBe(1);
-          const combatantResult =
-            midiQolStat.GetCombatantStats("eMyoELkOwFNPGEK8");
-          expect(combatantResult?.health.length).toBe(0);
-        });
-      });
-      test("you can a log message when no actor can be found", () => {
-        midiQolStat.AddCombatant(actor, "tokenId");
-        midiQolStat.UpdateHealth({
-          id: "eMyoELkOwFNPGEK9",
+    describe("If you update Health", () => {
+      test("you can see healing done", () => {
+        stat.AddCombatant(actor, "tokenId");
+        stat.UpdateHealth({
+          id: "eMyoELkOwFNPGEK8",
           system: {
             attributes: {
               hp: {
@@ -484,116 +305,54 @@ describe("Stat", () => {
             },
           },
         });
-        midiQolStat.Save();
-        expect(mockLoggerWarn).toBeCalled();
-        expect(midiQolStat.encounter.combatants.length).toBe(1);
+        stat.Save();
+        expect(stat.encounter.combatants.length).toBe(1);
         const combatantResult =
-          midiQolStat.GetCombatantStats("eMyoELkOwFNPGEK8");
+          stat.GetCombatantStats("eMyoELkOwFNPGEK8");
+        expect(combatantResult?.health.length).toBe(1);
+        expect(combatantResult?.health[0].current).toBe(60);
+        expect(combatantResult?.health[0].previous).toBe(80);
+      });
+
+      test("you can a log message when no actor passes", () => {
+        stat.AddCombatant(actor, "tokenId");
+        stat.UpdateHealth({
+          system: {
+            attributes: {
+              hp: {
+                value: 60,
+                max: 100,
+              },
+            },
+          },
+        });
+        stat.Save();
+        expect(mockLoggerWarn).toBeCalled();
+        expect(stat.encounter.combatants.length).toBe(1);
+        const combatantResult =
+          stat.GetCombatantStats("eMyoELkOwFNPGEK8");
         expect(combatantResult?.health.length).toBe(0);
       });
     });
-    });
-    describe("Default", () => {
-      let dnd5eStat: DND5eStat;
-      const encounterId = "encounterId";
-      beforeEach(() => {
-        (global as any).canvas = {
-          tokens: {
-            get: jest.fn().mockReturnValue({
-              img: "testImageUrl",
-            }),
+
+    test("you can a log message when no actor can be found", () => {
+      stat.AddCombatant(actor, "tokenId");
+      stat.UpdateHealth({
+        id: "eMyoELkOwFNPGEK9",
+        system: {
+          attributes: {
+            hp: {
+              value: 60,
+              max: 100,
+            },
           },
-        };
-        dnd5eStat = new DND5eStat(encounterId);
+        },
       });
-      describe("If you add a new Attack", () => {
-        test("The basic Item Card is added", () => {
-          dnd5eStat.AddCombatant(chatActor, "tokenId");
-          dnd5eStat.AddAttack(encounterDefaultWorkflowItemCard);
-          dnd5eStat.Save();
-          expect(dnd5eStat.encounter.combatants.length).toBe(1);
-          const combatantResult =
-            dnd5eStat.GetCombatantStats("5H4YnyD6zf9vcJ3P");
-          expect(combatantResult?.events.length).toBe(1);
-          expect(combatantResult?.events[0]).toStrictEqual({
-            id: "C3c6l9SPMCqMiceV5H4YnyD6zf9vcJ3P",
-            actorId: "5H4YnyD6zf9vcJ3P",
-            item: {
-              id: "C3c6l9SPMCqMiceV",
-              name: "Flame Tongue Greatsword",
-              link: "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
-              type: "sword",
-              img: "itemImageUrl",
-            },
-            round: 1,
-            attackTotal: 0,
-            damageTotal: 0,
-            actionType: "mwak",
-          });
-        });
-
-        test("The Attack is added to the same item card", async () => {
-          dnd5eStat.AddCombatant(chatActor, "tokenId");
-          dnd5eStat.AddAttack(encounterDefaultWorkflowItemCard);
-          dnd5eStat.AddAttack(encounterDefaultWorkflowAttack);
-          dnd5eStat.Save();
-          expect(dnd5eStat.encounter.combatants.length).toBe(1);
-          const combatantResult =
-            dnd5eStat.GetCombatantStats("5H4YnyD6zf9vcJ3P");
-          expect(combatantResult?.events.length).toBe(1);
-          expect(combatantResult?.events[0]).toStrictEqual({
-            id: "C3c6l9SPMCqMiceV5H4YnyD6zf9vcJ3P",
-            actorId: "5H4YnyD6zf9vcJ3P",
-            item: {
-              id: "C3c6l9SPMCqMiceV",
-              name: "Flame Tongue Greatsword",
-              link: "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
-              type: "sword",
-              img: "itemImageUrl",
-            },
-            round: 1,
-            attackTotal: 19,
-            isCritical: false,
-            isFumble: false,
-            advantage: true,
-            disadvantage: false,
-            damageTotal: 0,
-            actionType: "mwak",
-          });
-        });
-
-        test("The Damage is added to the same item card", async () => {
-          dnd5eStat.AddCombatant(chatActor, "tokenId");
-          dnd5eStat.AddAttack(encounterDefaultWorkflowItemCard);
-          dnd5eStat.AddAttack(encounterDefaultWorkflowAttack);
-          dnd5eStat.AddAttack(encounterDefaultWorkflowDamage);
-          dnd5eStat.Save();
-          expect(dnd5eStat.encounter.combatants.length).toBe(1);
-          const combatantResult =
-            dnd5eStat.GetCombatantStats("5H4YnyD6zf9vcJ3P");
-          expect(combatantResult?.events.length).toBe(1);
-          expect(combatantResult?.events[0]).toStrictEqual({
-            id: "C3c6l9SPMCqMiceV5H4YnyD6zf9vcJ3P",
-            actorId: "5H4YnyD6zf9vcJ3P",
-            item: {
-              id: "C3c6l9SPMCqMiceV",
-              name: "Flame Tongue Greatsword",
-              link: "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
-              type: "sword",
-              img: "itemImageUrl",
-            },
-            round: 1,
-            attackTotal: 19,
-            isCritical: false,
-            isFumble: false,
-            advantage: true,
-            disadvantage: false,
-            damageMultipleEnemiesTotal: 41,
-            damageTotal: 41,
-            actionType: "mwak",
-          });
-        });
-      });
+      stat.Save();
+      expect(mockLoggerWarn).toBeCalled();
+      expect(stat.encounter.combatants.length).toBe(1);
+      const combatantResult = stat.GetCombatantStats("eMyoELkOwFNPGEK8");
+      expect(combatantResult?.health.length).toBe(0);
     });
   });
 });

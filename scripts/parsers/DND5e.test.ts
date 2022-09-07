@@ -5,6 +5,8 @@ import { HookDND5e_rollAttack_item } from "../mockdata/hooks/attack/dnd5e.rollAt
 import { HookDND5e_rollAttack_d20roll } from "../mockdata/hooks/attack/dnd5e.rollAttack.d20roll";
 import { HookDND5e_rollDamage_item } from "../mockdata/hooks/attack/dnd5e.rollDamage.item";
 import { HookDND5e_rollDamage_damageroll } from "../mockdata/hooks/attack/dnd5e.rollDamage.damagerole";
+import { HookDND5e_rollDamage_damageroll_nulls } from "../mockdata/hooks/attack/dnd5e.rollDamage.damageroll.nulls";
+import { HookDND5e_rollAttack_d20roll_nulls } from "../mockdata/hooks/attack/dnd5e.rollAttack.d20roll.nulls";
 
 describe("Default", () => {
   describe("ParseChatMessage", () => {
@@ -75,6 +77,26 @@ describe("Default", () => {
           type: CombatDetailType.Attack,
         });
       });
+
+      test("it returns the correct EncounterWorkflow with elements undefined", async () => {
+        const result = await DND5e.ParseHook(
+          HookDND5e_rollAttack_item,
+          HookDND5e_rollAttack_item.actor,
+          CombatDetailType.Attack,
+          HookDND5e_rollAttack_d20roll_nulls
+        );
+        expect(result).toStrictEqual(<EncounterWorkflow>{
+          id: `${HookDND5eUseItem.id}${HookDND5e_rollAttack_item.actor.id}`,
+          actor: {
+            id: HookDND5e_rollAttack_item.actor.id,
+          },
+          attackTotal: 0,
+          advantage: false,
+          disadvantage: true,
+          isFumble: false,
+          type: CombatDetailType.Attack,
+        });
+      });
     });
 
     describe("If it is a damage role", () => {
@@ -93,6 +115,31 @@ describe("Default", () => {
           damageTotal: 33,
           damageMultipleEnemiesTotal: 33,
           isCritical: true,
+          type: CombatDetailType.Damage,
+        });
+      });
+
+      test("it returns the correct EncounterWorkflow with elements undefined", async () => {
+        (global as any).game = {
+          user: {
+            targets: [],
+          },
+        };
+        
+        const result = await DND5e.ParseHook(
+          HookDND5e_rollDamage_item,
+          HookDND5e_rollDamage_item.actor,
+          CombatDetailType.Damage,
+          HookDND5e_rollDamage_damageroll_nulls
+        );
+        expect(result).toStrictEqual(<EncounterWorkflow>{
+          id: `${HookDND5eUseItem.id}${HookDND5e_rollDamage_item.actor.id}`,
+          actor: {
+            id: HookDND5e_rollDamage_item.actor.id,
+          },
+          damageTotal: 0,
+          damageMultipleEnemiesTotal: 0,
+          isCritical: false,
           type: CombatDetailType.Damage,
         });
       });
