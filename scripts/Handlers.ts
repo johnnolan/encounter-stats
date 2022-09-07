@@ -41,7 +41,7 @@ export async function OnRenderCombatTracker(
 ): Promise<void> {
   if (!combatData.hasCombat) {
     Logger.log(
-      `Combat Tracker Even has no combat active`,
+      `Combat Tracker Event has no combat active`,
       "handlers.OnRenderCombatTracker",
       combatData
     );
