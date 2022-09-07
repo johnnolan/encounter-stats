@@ -1,17 +1,12 @@
 import EncounterJournal from "./EncounterJournal";
-import {
-  GetItemFromLocalStorage,
-  SaveToLocalStorageStat,
-  TruncateLocalStorage,
-  IsSet,
-} from "./LocalStorage";
+import LocalStorage from "./LocalStorage";
 import Logger from "./Logger";
 import { STORAGE_NAME } from "./Settings";
-import { Generate } from "./Template";
+import Template from "./Template";
 
 class StatManager {
   static IsInCombat() {
-    const isLocalStorageSet = IsSet(STORAGE_NAME);
+    const isLocalStorageSet = LocalStorage.IsSet(STORAGE_NAME);
     if (!game.combat?.active && isLocalStorageSet) {
       this.RemoveStat();
       return false;
@@ -20,7 +15,7 @@ class StatManager {
   }
 
   static GetStat() {
-    return <Encounter>GetItemFromLocalStorage(STORAGE_NAME);
+    return <Encounter>LocalStorage.GetItemFromLocalStorage(STORAGE_NAME);
   }
 
   static async SaveStat(encounter: Encounter) {
@@ -28,15 +23,15 @@ class StatManager {
       Logger.error(`No encounterId to save stat`, "statmanager.SaveStat");
       return;
     }
-    SaveToLocalStorageStat(STORAGE_NAME, encounter);
+    LocalStorage.SaveToLocalStorageStat(STORAGE_NAME, encounter);
 
-    const markup = Generate(encounter);
+    const markup = Template.Generate(encounter);
 
     await EncounterJournal.UpdateJournal(markup, encounter.encounterId);
   }
 
   static RemoveStat() {
-    TruncateLocalStorage();
+    LocalStorage.TruncateLocalStorage();
   }
 }
 

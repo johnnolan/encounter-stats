@@ -1,8 +1,9 @@
 import Stat from "./stats/Stat";
 import Trans from "./Trans";
 
-export function Generate(encounter: Encounter) {
-  return `
+export default class Template {
+  static Generate(encounter: Encounter) {
+    return `
   <div class="fvtt-enc-stats">
     <hr />
     <div class="fvtt-enc-stats_top">
@@ -82,17 +83,17 @@ export function Generate(encounter: Encounter) {
     <div>${encounter.combatants
       .filter((f) => f.type === "character")
       .map(function (combatant) {
-        return GenerateCombatant(combatant, encounter.round);
+        return Template.GenerateCombatant(combatant, encounter.round);
       })
       .join("")}</div></div></div>
   `;
-}
+  }
 
-function GenerateCombatant(
-  combatant: EncounterCombatant,
-  numberOfRounds: number
-) {
-  return `
+  private static GenerateCombatant(
+    combatant: EncounterCombatant,
+    numberOfRounds: number
+  ) {
+    return `
   <div class="fvtt-enc-stats_combatant" data-fvtt-id="${combatant.id}">
     <div class="fvtt-enc-stats_combatants_overview">
       <header class="fvtt-enc-stats_combatants_actor flexrow">
@@ -108,8 +109,8 @@ function GenerateCombatant(
               )}</div>
               <div class="fvtt-enc-stats_actor_stat-value">
                 <span>${combatant.hp}</span><span class="sep">/</span><span>${
-    combatant.max
-  }</span></div>
+      combatant.max
+    }</span></div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
               <div class="fvtt-enc-stats_actor_stat-key">${Trans.Get(
@@ -121,8 +122,8 @@ function GenerateCombatant(
                     ? combatant.health[combatant.health.length - 1].current
                     : combatant.hp
                 }</span><span class="sep">/</span><span>${
-    combatant.max
-  }</span></div>
+      combatant.max
+    }</span></div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
               <div class="fvtt-enc-stats_actor_stat-key">${Trans.Get(
@@ -167,21 +168,21 @@ function GenerateCombatant(
           </div>
         </div>
       </header>
-      ${GenerateRoundHtml(combatant, numberOfRounds)}      
+      ${Template.GenerateRoundHtml(combatant, numberOfRounds)}      
     </div>
   </div>
   `;
-}
-function GenerateRoundHtml(
-  combatant: EncounterCombatant,
-  numberOfRounds: number
-) {
-  let markup = ``;
-  for (let index = 0; index < numberOfRounds; index++) {
-    const round = index + 1;
-    markup =
-      markup +
-      `
+  }
+  private static GenerateRoundHtml(
+    combatant: EncounterCombatant,
+    numberOfRounds: number
+  ) {
+    let markup = ``;
+    for (let index = 0; index < numberOfRounds; index++) {
+      const round = index + 1;
+      markup =
+        markup +
+        `
     <div class="fvtt-enc-stats_title3">${Trans.Get(
       "template.round"
     )} ${round}</div>
@@ -198,7 +199,7 @@ function GenerateRoundHtml(
                   return f.round === round;
                 })
                 .map(function (kill) {
-                  return GenerateKillRow(kill);
+                  return Template.GenerateKillRow(kill);
                 })
                 .join("")}
                     
@@ -214,7 +215,7 @@ function GenerateRoundHtml(
                   return f.round === round;
                 })
                 .map(function (event) {
-                  return GenerateRoundRow(event);
+                  return Template.GenerateRoundRow(event);
                 })
                 .join("")}
             </ol>
@@ -229,7 +230,7 @@ function GenerateRoundHtml(
                   return f.round === round;
                 })
                 .map(function (event) {
-                  return GenerateHealtRow(event);
+                  return Template.GenerateHealtRow(event);
                 })
                 .join("")}
                     
@@ -258,7 +259,7 @@ function GenerateRoundHtml(
                   return f.round === round;
                 })
                 .map(function (event) {
-                  return GenerateAttackRow(event);
+                  return Template.GenerateAttackRow(event);
                 })
                 .join("")}
                     
@@ -267,20 +268,20 @@ function GenerateRoundHtml(
         </div>
       </section>
     </section>`;
+    }
+
+    return markup;
   }
 
-  return markup;
-}
-
-function GenerateAttackRow(combatantEvent: CombatantEvent) {
-  return `
+  private static GenerateAttackRow(combatantEvent: CombatantEvent) {
+    return `
   <li class="item flexrow">
     <div class="item-name item-weapon">${
       combatantEvent.item.link
         ? combatantEvent.item.link
         : combatantEvent.item.name
     }</div>
-    <div class="item-name">${getAttackTypeFAIcon(
+    <div class="item-name">${Template.getAttackTypeFAIcon(
       combatantEvent.actionType
     )}</div>
     <div class="item-name">${
@@ -291,75 +292,78 @@ function GenerateAttackRow(combatantEvent: CombatantEvent) {
         : "normal"
     }</div>
     <div class="item-name">${combatantEvent.attackTotal} ${
-    combatantEvent.isCritical ? " (c)" : ""
-  }</div>
-    <div class="item-name ${getHealOrDamageClass(combatantEvent.actionType)}">${
-    combatantEvent.damageTotal
-  }</div>
-  <div class="item-name ${getHealOrDamageClass(combatantEvent.actionType)}">${
-    combatantEvent.damageMultipleEnemiesTotal ?? combatantEvent.damageTotal
-  }</div>
+      combatantEvent.isCritical ? " (c)" : ""
+    }</div>
+    <div class="item-name ${Template.getHealOrDamageClass(
+      combatantEvent.actionType
+    )}">${combatantEvent.damageTotal}</div>
+  <div class="item-name ${Template.getHealOrDamageClass(
+    combatantEvent.actionType
+  )}">${
+      combatantEvent.damageMultipleEnemiesTotal ?? combatantEvent.damageTotal
+    }</div>
   </li>`;
-}
-
-function getHealOrDamageClass(attackType: string) {
-  const stat = new Stat();
-  if (stat.IsHealingSpell(attackType)) return "blue";
-  if (stat.IsValidAttack(attackType)) return "red";
-}
-
-function getAttackTypeFAIcon(attackType: string) {
-  let iconName = "dice-d20";
-  let iconDescription = Trans.Get("actiontypes.other");
-  switch (attackType) {
-    case "heal":
-      iconName = "heart";
-      iconDescription = Trans.Get("actiontypes.heal");
-      break;
-    case "msak":
-      iconName = "scroll";
-      iconDescription = Trans.Get("actiontypes.msak");
-      break;
-    case "rsak":
-      iconName = "scroll";
-      iconDescription = Trans.Get("actiontypes.rsak");
-      break;
-    case "mwak":
-      iconName = "fist-raised";
-      iconDescription = Trans.Get("actiontypes.mwak");
-      break;
-    case "rwak":
-      iconName = "fist-raised";
-      iconDescription = Trans.Get("actiontypes.rwak");
-      break;
-    case "save":
-      iconName = "shield-alt";
-      iconDescription = Trans.Get("actiontypes.save");
-      break;
   }
 
-  return `<i title="${iconDescription}" class="fas fa-${iconName}"></i>`;
-}
+  private static getHealOrDamageClass(attackType: string) {
+    const stat = new Stat();
+    if (stat.IsHealingSpell(attackType)) return "blue";
+    if (stat.IsValidAttack(attackType)) return "red";
+  }
 
-function GenerateKillRow(kill: CombatantKills) {
-  return `
+  private static getAttackTypeFAIcon(attackType: string) {
+    let iconName = "dice-d20";
+    let iconDescription = Trans.Get("actiontypes.other");
+    switch (attackType) {
+      case "heal":
+        iconName = "heart";
+        iconDescription = Trans.Get("actiontypes.heal");
+        break;
+      case "msak":
+        iconName = "scroll";
+        iconDescription = Trans.Get("actiontypes.msak");
+        break;
+      case "rsak":
+        iconName = "scroll";
+        iconDescription = Trans.Get("actiontypes.rsak");
+        break;
+      case "mwak":
+        iconName = "fist-raised";
+        iconDescription = Trans.Get("actiontypes.mwak");
+        break;
+      case "rwak":
+        iconName = "fist-raised";
+        iconDescription = Trans.Get("actiontypes.rwak");
+        break;
+      case "save":
+        iconName = "shield-alt";
+        iconDescription = Trans.Get("actiontypes.save");
+        break;
+    }
+
+    return `<i title="${iconDescription}" class="fas fa-${iconName}"></i>`;
+  }
+
+  private static GenerateKillRow(kill: CombatantKills) {
+    return `
   <li class="item flexrow">
     <div class="item-name">${kill.tokenName}</div>
   </li>`;
-}
+  }
 
-function GenerateHealtRow(event: CombatantHealthData) {
-  return `
+  private static GenerateHealtRow(event: CombatantHealthData) {
+    return `
   <li class="item flexrow">
     <div class="item-name">${event.current} (${event.isheal ? "+" : "-"}${
-    event.diff
-  })</div>
+      event.diff
+    })</div>
   </li>`;
-}
+  }
 
-function GenerateRoundRow(combatantEvent: CombatantEvent) {
-  return `
+  private static GenerateRoundRow(combatantEvent: CombatantEvent) {
+    return `
   <li class="item flexrow">
     <div class="item-name">${combatantEvent.damageTotal}</div>
   </li>`;
+  }
 }
