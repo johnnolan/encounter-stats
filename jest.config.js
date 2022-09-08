@@ -15,7 +15,7 @@ export default {
   reporters: ["default", "jest-junit"],
   coverageThreshold: {
     global: {
-      lines: 50,
+      lines: 80,
     },
   },
   collectCoverage: true,
@@ -30,6 +30,8 @@ export default {
     "!scripts/scss.ts",
     "!scripts/Settings.ts",
     "!scripts/Template.ts",
+    "!scripts/SetupHooks.ts",
+    "!scripts/EncounterJournal.ts",
     "!scripts/**/*.test.ts",
     "!scripts/types/*.ts",
     "!scripts/ModuleSettings.ts",
