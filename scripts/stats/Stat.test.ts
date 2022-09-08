@@ -10,6 +10,11 @@ const mockLoggerWarn = jest.fn();
 Logger.log = mockLoggerLog;
 Logger.warn = mockLoggerWarn;
 
+beforeEach(() => {
+  mockLoggerWarn.mockClear();
+  mockLoggerLog.mockClear();
+});
+
 const encounter: Encounter = {
   encounterId: "t98gppsau45ypm3t",
   round: 1,
@@ -187,17 +192,10 @@ describe("Stat", () => {
       });
 
       test("it returns true to correct IsValidCombatant", () => {
-        expect(stat.IsValidCombatant("character")).toBeTruthy();
+        expect(Stat.IsValidCombatant("character")).toBeTruthy();
       });
       test("it returns false to correct IsValidCombatant", () => {
-        expect(stat.IsValidCombatant("characters")).toBeFalsy();
-      });
-
-      test("it returns true to correct IsNPC", () => {
-        expect(Stat.IsNPC("npc")).toBeTruthy();
-      });
-      test("it returns false to correct IsNPC", () => {
-        expect(Stat.IsNPC("character")).toBeFalsy();
+        expect(Stat.IsValidCombatant("npc")).toBeFalsy();
       });
     });
   });
@@ -274,9 +272,9 @@ describe("Stat", () => {
         stat.AddKill("Acolyte", "tokenId");
         stat.Save();
         expect(stat.encounter.combatants.length).toBe(1);
-        expect(
-          stat.GetCombatantStats("eMyoELkOwFNPGEK8")?.kills.length
-        ).toBe(1);
+        expect(stat.GetCombatantStats("eMyoELkOwFNPGEK8")?.kills.length).toBe(
+          1
+        );
       });
 
       test("you can see a Log message if not valid", () => {
@@ -285,9 +283,9 @@ describe("Stat", () => {
         stat.Save();
         expect(mockLoggerWarn).toBeCalled();
         expect(stat.encounter.combatants.length).toBe(1);
-        expect(
-          stat.GetCombatantStats("eMyoELkOwFNPGEK8")?.kills.length
-        ).toBe(0);
+        expect(stat.GetCombatantStats("eMyoELkOwFNPGEK8")?.kills.length).toBe(
+          0
+        );
       });
     });
 
@@ -305,11 +303,32 @@ describe("Stat", () => {
             },
           },
         });
+        stat.UpdateHealth({
+          id: "eMyoELkOwFNPGEK8",
+          system: {
+            attributes: {
+              hp: {
+                value: 40,
+                max: 100,
+              },
+            },
+          },
+        });
+        stat.UpdateHealth({
+          id: "eMyoELkOwFNPGEK8",
+          system: {
+            attributes: {
+              hp: {
+                value: 50,
+                max: 100,
+              },
+            },
+          },
+        });
         stat.Save();
         expect(stat.encounter.combatants.length).toBe(1);
-        const combatantResult =
-          stat.GetCombatantStats("eMyoELkOwFNPGEK8");
-        expect(combatantResult?.health.length).toBe(1);
+        const combatantResult = stat.GetCombatantStats("eMyoELkOwFNPGEK8");
+        expect(combatantResult?.health.length).toBe(3);
         expect(combatantResult?.health[0].current).toBe(60);
         expect(combatantResult?.health[0].previous).toBe(80);
       });
@@ -329,8 +348,7 @@ describe("Stat", () => {
         stat.Save();
         expect(mockLoggerWarn).toBeCalled();
         expect(stat.encounter.combatants.length).toBe(1);
-        const combatantResult =
-          stat.GetCombatantStats("eMyoELkOwFNPGEK8");
+        const combatantResult = stat.GetCombatantStats("eMyoELkOwFNPGEK8");
         expect(combatantResult?.health.length).toBe(0);
       });
     });
@@ -353,6 +371,50 @@ describe("Stat", () => {
       expect(stat.encounter.combatants.length).toBe(1);
       const combatantResult = stat.GetCombatantStats("eMyoELkOwFNPGEK8");
       expect(combatantResult?.health.length).toBe(0);
+    });
+
+    test("do not add the same actor twice", () => {
+      stat.AddCombatant(actor, "tokenId");
+      stat.AddCombatant(actor, "tokenId");
+
+      expect(stat.encounter.combatants.length).toBe(1);
+    });
+
+    test("you can a log message when errored actor is passed", () => {
+      stat.AddCombatant({}, "tokenId");
+      expect(mockLoggerWarn).toBeCalledWith(
+        "No valid actor passed [object Object]",
+        "stat.AddCombatant",
+        {}
+      );
+    });
+
+    describe("you can a log message when errored actor is passed", () => {
+      beforeEach(() => {
+        (global as any).canvas = {
+          tokens: {
+            get: jest.fn().mockReturnValue({
+              img: undefined,
+            }),
+          },
+        };
+      });
+      test("you can a log message when errored actor is passed", () => {
+        stat.AddCombatant(actor, "tokenIdError");
+        expect(mockLoggerWarn).toBeCalledWith(
+          "No tokenImage for TokenID tokenIdError",
+          "stat.AddCombatant",
+          "tokenIdError"
+        );
+      });
+    });
+
+    test("you return if the actor is not a character", () => {
+      const newActor = actor;
+      newActor.type = "npc";
+      stat.AddCombatant(newActor, "tokenId");
+
+      expect(stat.encounter.combatants.length).toBe(0);
     });
   });
 });

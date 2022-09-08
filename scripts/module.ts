@@ -1,5 +1,5 @@
 import { MODULE_ID, OPT_ENABLE } from "./Settings";
-import { SetupHooks } from "./Hooks";
+import SetupHooks from "./SetupHooks";
 import ModuleSettings from "./ModuleSettings";
 import EncounterJournal from "./EncounterJournal";
 import Logger from "./Logger";
@@ -23,7 +23,7 @@ Hooks.once("ready", async function () {
       EncounterJournal.CreateCampaignJournalEntryPage();
     }
   }
-  SetupHooks();
+  SetupHooks.Setup();
 
   Logger.log(`Module Ready`, "module.ready");
 });

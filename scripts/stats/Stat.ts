@@ -81,7 +81,7 @@ export default class Stat {
       return;
     }
     healthData.round = this.currentRound;
-    healthData.actorId = actor?.id ?? "";
+    healthData.actorId = actor?.id;
     healthData.max = actor.system.attributes.hp.max;
     healthData.current = actor.system.attributes.hp.value;
 
@@ -116,9 +116,7 @@ export default class Stat {
       return;
     }
 
-    if (!this.IsValidCombatant(actor?.type)) return;
-
-    if (Stat.IsNPC(actor?.type)) return;
+    if (!Stat.IsValidCombatant(actor?.type)) return;
 
     const newCombatant: EncounterCombatant = {
       name: actor.name,
@@ -161,12 +159,8 @@ export default class Stat {
     return Object.values(ValidHeals).includes(attackType);
   }
 
-  private IsValidCombatant(type: string): boolean {
-    return type === CombatantType.Character || type === CombatantType.NPC;
-  }
-
-  static IsNPC(type: string): boolean {
-    return type === CombatantType.NPC;
+  static IsValidCombatant(type: string): boolean {
+    return type === CombatantType.Character;
   }
 
   protected IsValidRollEvent(attackType: string) {
