@@ -1,5 +1,5 @@
+import dayjs from "dayjs";
 import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration";
-
 import Logger from "./Logger";
 
 class EncounterJournal {
@@ -15,7 +15,8 @@ class EncounterJournal {
   }
 
   static async CreateJournalEntryPage(encounterId: string) {
-    let title = `${new Date().toISOString()}`;
+    const currentDate = dayjs().format("DD MMMM YYYY HH:mm");
+    let title = `${currentDate}`;
 
     if (SimpleCalendarIntegration.IsEnabled()) {
       title = `${SimpleCalendarIntegration.GetCurrentDateToString()} (${encounterId})`;
@@ -32,7 +33,7 @@ class EncounterJournal {
       );
       return;
     }
-    journalEntry.createEmbeddedDocuments("JournalEntryPage", [
+    await journalEntry.createEmbeddedDocuments("JournalEntryPage", [
       {
         name: title,
         type: "text",

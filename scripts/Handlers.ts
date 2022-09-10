@@ -70,7 +70,7 @@ export async function OnCreateCombat(combat: Combat): Promise<void> {
   }
   const stat = new Stat(encounterId);
 
-  EncounterJournal.CreateJournalEntryPage(encounterId);
+  await EncounterJournal.CreateJournalEntryPage(encounterId);
   await stat.Save();
   Logger.debug(`Combat Started`, "handlers.OnCreateCombat");
 }
