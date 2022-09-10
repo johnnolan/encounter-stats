@@ -1,13 +1,15 @@
+import dayjs from "dayjs";
 import { Generate } from "./CampaignTemplate";
 import EncounterJournal from "./EncounterJournal";
 import { RoleType } from "./enums";
 
 export default class CampaignStat {
   private static Date() {
-    const date = new Date().toISOString();
+    const currentDate = dayjs();
     return {
-      id: date.replace(/[-]/g, "").substring(0, 8),
-      dateDisplay: date.substring(0, 10),
+      id: currentDate.toISOString().replace(/[-]/g, "").substring(0, 8),
+      dateTimeDisplay: currentDate.format("DD MMMM YYYY HH:mm"),
+      dateDisplay: currentDate.format("DD MMMM YYYY"),
     };
   }
 
@@ -18,7 +20,7 @@ export default class CampaignStat {
     const kill = <KillTrack>{
       actorName: actorName,
       tokenName: tokenName,
-      date: new Date().toISOString(),
+      date: date.dateTimeDisplay,
     };
 
     const dateEntry = campaignStats.kills.find((f) => f.id === date.id);
@@ -49,7 +51,7 @@ export default class CampaignStat {
       itemLink: itemLink,
       spellName: spellName,
       total: total,
-      date: new Date().toISOString(),
+      date: date.dateTimeDisplay,
     };
 
     const dateEntry = campaignStats.heals.find((f) => f.id === date.id);
@@ -73,7 +75,7 @@ export default class CampaignStat {
     const dice = <DiceTrack>{
       actorName: actorName,
       flavor: flavor,
-      date: new Date().toISOString(),
+      date: date.dateTimeDisplay,
     };
 
     if (type === RoleType.Fumble) {
