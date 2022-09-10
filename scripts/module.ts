@@ -17,10 +17,10 @@ Hooks.once("ready", async function () {
 
   if (game.user?.isGM) {
     if (!EncounterJournal.IsJournalSetup()) {
-      EncounterJournal.CreateJournal();
+      await EncounterJournal.CreateJournal();
     }
     if (!(await EncounterJournal.IsCampaignJournalSetup())) {
-      EncounterJournal.CreateCampaignJournalEntryPage();
+      await EncounterJournal.CreateCampaignJournalEntryPage();
     }
   }
   SetupHooks.Setup();

@@ -33,7 +33,7 @@ class EncounterJournal {
       );
       return;
     }
-    journalEntry.createEmbeddedDocuments("JournalEntryPage", [
+    await journalEntry.createEmbeddedDocuments("JournalEntryPage", [
       {
         name: title,
         type: "text",
