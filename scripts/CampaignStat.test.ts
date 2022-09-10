@@ -21,7 +21,7 @@ beforeEach(() => {
 
 describe("CampaignStat", () => {
   beforeAll(() => {
-    jest.useFakeTimers().setSystemTime(new Date("2020-01-01"));
+    jest.useFakeTimers().setSystemTime(new Date("01 January 2020"));
   });
 
   describe("If I add a new Kill", () => {
@@ -44,17 +44,17 @@ describe("CampaignStat", () => {
           kills: [
             {
               id: "20200101",
-              dateDisplay: "2020-01-01",
+              dateDisplay: "01 January 2020",
               data: [
                 {
                   actorName: "Lorena Aldabra",
                   tokenName: "Acolyte",
-                  date: "2020-01-01T00:00:00.000Z",
+                  date: "01 January 2020 00:00",
                 },
                 {
                   actorName: "Lorena Aldabra",
                   tokenName: "Ancient Red Dragon",
-                  date: "2020-01-01T00:00:00.000Z",
+                  date: "01 January 2020 00:00",
                 },
               ],
             },
@@ -98,21 +98,21 @@ describe("CampaignStat", () => {
           heals: [
             {
               id: "20200101",
-              dateDisplay: "2020-01-01",
+              dateDisplay: "01 January 2020",
               data: [
                 {
                   actorName: "Lorena Aldabra",
                   itemLink: "@Item Link",
                   spellName: "Heal Wounds",
                   total: 20,
-                  date: "2020-01-01T00:00:00.000Z",
+                  date: "01 January 2020 00:00",
                 },
                 {
                   actorName: "Lorena Aldabra",
                   itemLink: undefined,
                   spellName: "Heal Wounds",
                   total: 10,
-                  date: "2020-01-01T00:00:00.000Z",
+                  date: "01 January 2020 00:00",
                 },
               ],
             },
@@ -155,17 +155,17 @@ describe("CampaignStat", () => {
           nat1: [
             {
               id: "20200101",
-              dateDisplay: "2020-01-01",
+              dateDisplay: "01 January 2020",
               data: [
                 {
                   actorName: "Lorena Aldabra",
                   flavor: "Wisdom Check",
-                  date: "2020-01-01T00:00:00.000Z",
+                  date: "01 January 2020 00:00",
                 },
                 {
                   actorName: "Lorena Aldabra",
                   flavor: "Wisdom Check",
-                  date: "2020-01-01T00:00:00.000Z",
+                  date: "01 January 2020 00:00",
                 },
               ],
             },
@@ -205,17 +205,17 @@ describe("CampaignStat", () => {
           nat20: [
             {
               id: "20200101",
-              dateDisplay: "2020-01-01",
+              dateDisplay: "01 January 2020",
               data: [
                 {
                   actorName: "Lorena Aldabra",
                   flavor: "Insight Check",
-                  date: "2020-01-01T00:00:00.000Z",
+                  date: "01 January 2020 00:00",
                 },
                 {
                   actorName: "Lorena Aldabra",
                   flavor: "Insight Check",
-                  date: "2020-01-01T00:00:00.000Z",
+                  date: "01 January 2020 00:00",
                 },
               ],
             },
