@@ -101,7 +101,15 @@ export default class CampaignStat {
   }
 
   static async Save(campaignStats: CampaignStats) {
-    EncounterJournal.UpdateCampaignDataJournal(JSON.stringify(campaignStats));
-    EncounterJournal.UpdateCampaignJournal(Generate(campaignStats));
+    EncounterJournal.UpdateJournalData(
+      JSON.stringify(campaignStats),
+      "campaignstats",
+      "data"
+    );
+    EncounterJournal.UpdateJournalData(
+      Generate(campaignStats),
+      "campaignstats",
+      "view"
+    );
   }
 }

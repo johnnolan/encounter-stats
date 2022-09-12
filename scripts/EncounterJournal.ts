@@ -81,70 +81,25 @@ class EncounterJournal {
     ]);
   }
 
-  static async UpdateJournal(html: string, encounterId: string) {
+  static async UpdateJournalData(data: string, flagName: string, flagValue: string) {
     const journalEntryPage = game.journal
       ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
       ?.pages.find(
         (e: JournalEntryPage) =>
-          e.getFlag("encounter-stats", "encounterId") === encounterId
+          e.getFlag("encounter-stats", flagName) === flagValue
       );
 
     if (!journalEntryPage) {
       Logger.error(
-        `No Journal found with name ${this.JOURNAL_TITLE} and encounterId ${encounterId}`,
-        "encounterjournal.UpdateJournal"
+        `No Journal found with name ${this.JOURNAL_TITLE} and ${flagName} ${flagValue}`,
+        "encounterjournal.UpdateJournalData"
       );
       return;
     }
 
     await journalEntryPage?.update({
       text: {
-        content: html,
-      },
-    });
-  }
-
-  static async UpdateCampaignDataJournal(jsonData: string) {
-    const journalEntryPage = game.journal
-      ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
-      ?.pages.find(
-        (e: JournalEntryPage) =>
-          e.getFlag("encounter-stats", "campaignstats") === "data"
-      );
-    if (!journalEntryPage) {
-      Logger.error(
-        `No Journal found with name ${this.JOURNAL_TITLE} and campaignstats data`,
-        "encounterjournal.UpdateCampaignDataJournal"
-      );
-      return;
-    }
-
-    await journalEntryPage?.update({
-      text: {
-        content: jsonData,
-      },
-    });
-  }
-
-  static async UpdateCampaignJournal(html: string) {
-    const journalEntryPage = game.journal
-      ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
-      ?.pages.find(
-        (e: JournalEntryPage) =>
-          e.getFlag("encounter-stats", "campaignstats") === "view"
-      );
-
-    if (!journalEntryPage) {
-      Logger.error(
-        `No Journal found with name ${this.JOURNAL_TITLE} and campaignstats view`,
-        "encounterjournal.UpdateCampaignJournal"
-      );
-      return;
-    }
-
-    await journalEntryPage?.update({
-      text: {
-        content: html,
+        content: data,
       },
     });
   }

@@ -27,7 +27,11 @@ class StatManager {
 
     const markup = Template.Generate(encounter);
 
-    await EncounterJournal.UpdateJournal(markup, encounter.encounterId);
+    await EncounterJournal.UpdateJournalData(
+      markup,
+      "encounterId",
+      encounter.encounterId
+    );
   }
 
   static RemoveStat() {
