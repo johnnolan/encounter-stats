@@ -5,6 +5,21 @@ import Dates from "./Helpers/Dates";
 class EncounterJournal {
   static readonly JOURNAL_TITLE = "Encounter Statistics";
 
+  static get IsJournalSetup(): boolean {
+    return (
+      game.journal?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE) !==
+      undefined
+    );
+  }
+
+  static get IsCampaignJournalSetup(): boolean {
+    return game.journal
+      ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
+      ?.pages.find(
+        (e) => e.getFlag("encounter-stats", "campaignstats") === "data"
+      );
+  }
+
   static async CreateJournal() {
     await JournalEntry.create(
       {
@@ -81,7 +96,11 @@ class EncounterJournal {
     ]);
   }
 
-  static async UpdateJournalData(data: string, flagName: string, flagValue: string) {
+  static async UpdateJournalData(
+    data: string,
+    flagName: string,
+    flagValue: string
+  ) {
     const journalEntryPage = game.journal
       ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
       ?.pages.find(
@@ -124,21 +143,6 @@ class EncounterJournal {
         journalEntryPage.text.content.replace("<p>", "").replace("</p>", "")
       )
     );
-  }
-
-  static IsJournalSetup(): boolean {
-    return (
-      game.journal?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE) !==
-      undefined
-    );
-  }
-
-  static async IsCampaignJournalSetup(): Promise<boolean> {
-    return game.journal
-      ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
-      ?.pages.find(
-        (e) => e.getFlag("encounter-stats", "campaignstats") === "data"
-      );
   }
 }
 
