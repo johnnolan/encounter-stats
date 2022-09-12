@@ -1,6 +1,6 @@
 import EncounterJournal from "./EncounterJournal";
 import LocalStorage from "./LocalStorage";
-import Logger from "./Logger";
+import Logger from "./Helpers/Logger";
 import { STORAGE_NAME } from "./Settings";
 import Template from "./Template";
 

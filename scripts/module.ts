@@ -2,7 +2,7 @@ import { MODULE_ID, OPT_ENABLE } from "./Settings";
 import SetupHooks from "./SetupHooks";
 import ModuleSettings from "./ModuleSettings";
 import EncounterJournal from "./EncounterJournal";
-import Logger from "./Logger";
+import Logger from "./Helpers/Logger";
 
 Hooks.once("init", async function () {
   ModuleSettings.Register();

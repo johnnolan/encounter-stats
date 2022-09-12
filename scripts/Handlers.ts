@@ -5,7 +5,7 @@ import MidiQolStat from "./stats/MidiQolStat";
 import DND5eStat from "./stats/DND5eStat";
 import CampaignStat from "./CampaignStat";
 import { ChatType, RoleType } from "./enums";
-import Logger from "./Logger";
+import Logger from "./Helpers/Logger";
 
 export async function OnTrackDiceRoll(
   result: number,

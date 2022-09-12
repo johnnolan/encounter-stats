@@ -5,7 +5,7 @@ import {
   ValidHeals,
   ValidRollEvent,
 } from "../enums";
-import Logger from "../Logger";
+import Logger from "../Helpers/Logger";
 
 export default class Stat {
   _encounter: Encounter;

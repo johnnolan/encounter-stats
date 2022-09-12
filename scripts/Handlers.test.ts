@@ -11,7 +11,7 @@ import {
 } from "./Handlers";
 import CampaignStat from "./CampaignStat";
 import { ChatType, RoleType } from "./enums";
-import Logger from "./Logger";
+import Logger from "./Helpers/Logger";
 import Stat from "./stats/Stat";
 import StatManager from "./StatManager";
 import EncounterJournal from "./EncounterJournal";

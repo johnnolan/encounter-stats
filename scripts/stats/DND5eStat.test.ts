@@ -1,5 +1,5 @@
 import DND5eStat from "./DND5eStat";
-import Logger from "../Logger";
+import Logger from "../Helpers/Logger";
 jest.mock("../StatManager");
 import { chatActor } from "../mockdata/chatActor";
 import { CombatDetailType } from "../enums";

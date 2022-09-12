@@ -1,4 +1,4 @@
-import Logger from "./Logger";
+import Logger from "./Helpers/Logger";
 import { STORAGE_NAME } from "./Settings";
 
 export default class LocalStorage {

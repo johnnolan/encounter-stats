@@ -1,6 +1,6 @@
 import StatManager from "./StatManager";
 import LocalStorage from "./LocalStorage";
-import Logger from "./Logger";
+import Logger from "./Helpers/Logger";
 import EncounterJournal from "./EncounterJournal";
 import Template from "./Template";
 

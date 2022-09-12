@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration";
-import Logger from "./Logger";
+import Logger from "./Helpers/Logger";
 
 class EncounterJournal {
   static readonly JOURNAL_TITLE = "Encounter Statistics";

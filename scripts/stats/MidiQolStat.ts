@@ -1,4 +1,4 @@
-import Logger from "../Logger";
+import Logger from "../Helpers/Logger";
 import Stat from "./Stat";
 
 export default class MidiQolStat extends Stat {
