@@ -41,7 +41,7 @@
     "jest-localstorage-mock": "^2.4.22",
     "prettier": "^2.7.1",
     "sass": "^1.54.9",
-    "ts-jest": "^28.0.8",
+    "ts-jest": "^29.0.0",
     "ts-migrate": "^0.1.33",
     "typescript": "^4.8.3"
   },
