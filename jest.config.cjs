@@ -1,17 +1,19 @@
 /* exported config */
 
-export default {
-  preset: "ts-jest",
-  globals: {
-    "ts-jest": {
-      isolatedModules: true,
-      diagnostics: {
-        exclude: ["**"],
+/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+module.exports = {
+  transform: {
+    "^.+\\.ts?$": [
+      "ts-jest",
+      {
+        isolatedModules: true,
+        diagnostics: {
+          exclude: ["**"],
+        },
       },
-    },
+    ],
   },
   setupFiles: ["jest-localstorage-mock"],
-  transform: { "^.+\\.ts?$": "ts-jest" },
   reporters: ["default", "jest-junit"],
   coverageThreshold: {
     global: {
