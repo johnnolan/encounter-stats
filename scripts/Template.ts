@@ -1,5 +1,5 @@
 import Stat from "./stats/Stat";
-import Trans from "./Trans";
+import Trans from "./Helpers/Trans";
 
 export default class Template {
   static Generate(encounter: Encounter) {
