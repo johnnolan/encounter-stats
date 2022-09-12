@@ -18,7 +18,7 @@ class EncounterJournal {
         ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
         ?.pages.find(
           (e) => e.getFlag("encounter-stats", "campaignstats") === "data"
-        ) !== null
+        ) !== undefined
     );
   }
 
