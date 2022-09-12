@@ -65,6 +65,12 @@ declare global {
     ];
   }
 
+  type DateOptions = {
+    id: string;
+    dateTimeDisplay: string;
+    dateDisplay: string;
+  };
+
   type DiceTrack = {
     actorName: string;
     flavor: string;

@@ -1,6 +1,6 @@
-import dayjs from "dayjs";
 import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration";
 import Logger from "./Helpers/Logger";
+import Dates from "./Helpers/Dates";
 
 class EncounterJournal {
   static readonly JOURNAL_TITLE = "Encounter Statistics";
@@ -15,8 +15,7 @@ class EncounterJournal {
   }
 
   static async CreateJournalEntryPage(encounterId: string) {
-    const currentDate = dayjs().format("DD MMMM YYYY HH:mm");
-    let title = `${currentDate}`;
+    let title = `${Dates.now.dateTimeDisplay}`;
 
     if (SimpleCalendarIntegration.IsEnabled()) {
       title = `${SimpleCalendarIntegration.GetCurrentDateToString()} (${encounterId})`;
