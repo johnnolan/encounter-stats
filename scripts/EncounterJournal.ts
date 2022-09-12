@@ -13,11 +13,13 @@ class EncounterJournal {
   }
 
   static get IsCampaignJournalSetup(): boolean {
-    return game.journal
-      ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
-      ?.pages.find(
-        (e) => e.getFlag("encounter-stats", "campaignstats") === "data"
-      );
+    return (
+      game.journal
+        ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
+        ?.pages.find(
+          (e) => e.getFlag("encounter-stats", "campaignstats") === "data"
+        ) !== null
+    );
   }
 
   static async CreateJournal() {
