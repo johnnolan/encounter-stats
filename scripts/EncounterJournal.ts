@@ -1,9 +1,26 @@
-import dayjs from "dayjs";
 import SimpleCalendarIntegration from "./integrations/SimpleCalendarIntegration";
-import Logger from "./Logger";
+import Logger from "./Helpers/Logger";
+import Dates from "./Helpers/Dates";
 
 class EncounterJournal {
   static readonly JOURNAL_TITLE = "Encounter Statistics";
+
+  static get IsJournalSetup(): boolean {
+    return (
+      game.journal?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE) !==
+      undefined
+    );
+  }
+
+  static get IsCampaignJournalSetup(): boolean {
+    return (
+      game.journal
+        ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
+        ?.pages.find(
+          (e) => e.getFlag("encounter-stats", "campaignstats") === "data"
+        ) !== undefined
+    );
+  }
 
   static async CreateJournal() {
     await JournalEntry.create(
@@ -15,8 +32,7 @@ class EncounterJournal {
   }
 
   static async CreateJournalEntryPage(encounterId: string) {
-    const currentDate = dayjs().format("DD MMMM YYYY HH:mm");
-    let title = `${currentDate}`;
+    let title = `${Dates.now.dateTimeDisplay}`;
 
     if (SimpleCalendarIntegration.IsEnabled()) {
       title = `${SimpleCalendarIntegration.GetCurrentDateToString()} (${encounterId})`;
@@ -82,70 +98,29 @@ class EncounterJournal {
     ]);
   }
 
-  static async UpdateJournal(html: string, encounterId: string) {
+  static async UpdateJournalData(
+    data: string,
+    flagName: string,
+    flagValue: string
+  ) {
     const journalEntryPage = game.journal
       ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
       ?.pages.find(
         (e: JournalEntryPage) =>
-          e.getFlag("encounter-stats", "encounterId") === encounterId
+          e.getFlag("encounter-stats", flagName) === flagValue
       );
 
     if (!journalEntryPage) {
       Logger.error(
-        `No Journal found with name ${this.JOURNAL_TITLE} and encounterId ${encounterId}`,
-        "encounterjournal.UpdateJournal"
+        `No Journal found with name ${this.JOURNAL_TITLE} and ${flagName} ${flagValue}`,
+        "encounterjournal.UpdateJournalData"
       );
       return;
     }
 
     await journalEntryPage?.update({
       text: {
-        content: html,
-      },
-    });
-  }
-
-  static async UpdateCampaignDataJournal(jsonData: string) {
-    const journalEntryPage = game.journal
-      ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
-      ?.pages.find(
-        (e: JournalEntryPage) =>
-          e.getFlag("encounter-stats", "campaignstats") === "data"
-      );
-    if (!journalEntryPage) {
-      Logger.error(
-        `No Journal found with name ${this.JOURNAL_TITLE} and campaignstats data`,
-        "encounterjournal.UpdateCampaignDataJournal"
-      );
-      return;
-    }
-
-    await journalEntryPage?.update({
-      text: {
-        content: jsonData,
-      },
-    });
-  }
-
-  static async UpdateCampaignJournal(html: string) {
-    const journalEntryPage = game.journal
-      ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
-      ?.pages.find(
-        (e: JournalEntryPage) =>
-          e.getFlag("encounter-stats", "campaignstats") === "view"
-      );
-
-    if (!journalEntryPage) {
-      Logger.error(
-        `No Journal found with name ${this.JOURNAL_TITLE} and campaignstats view`,
-        "encounterjournal.UpdateCampaignJournal"
-      );
-      return;
-    }
-
-    await journalEntryPage?.update({
-      text: {
-        content: html,
+        content: data,
       },
     });
   }
@@ -170,21 +145,6 @@ class EncounterJournal {
         journalEntryPage.text.content.replace("<p>", "").replace("</p>", "")
       )
     );
-  }
-
-  static IsJournalSetup(): boolean {
-    return (
-      game.journal?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE) !==
-      undefined
-    );
-  }
-
-  static async IsCampaignJournalSetup(): Promise<boolean> {
-    return game.journal
-      ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
-      ?.pages.find(
-        (e) => e.getFlag("encounter-stats", "campaignstats") === "data"
-      );
   }
 }
 

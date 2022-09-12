@@ -1,6 +1,6 @@
 import EncounterJournal from "./EncounterJournal";
 import LocalStorage from "./LocalStorage";
-import Logger from "./Logger";
+import Logger from "./Helpers/Logger";
 import { STORAGE_NAME } from "./Settings";
 import Template from "./Template";
 
@@ -27,7 +27,11 @@ class StatManager {
 
     const markup = Template.Generate(encounter);
 
-    await EncounterJournal.UpdateJournal(markup, encounter.encounterId);
+    await EncounterJournal.UpdateJournalData(
+      markup,
+      "encounterId",
+      encounter.encounterId
+    );
   }
 
   static RemoveStat() {

@@ -5,18 +5,12 @@ import { RoleType } from "./enums";
 const mockEncounterJournalGetCampaignJournal = jest.fn();
 EncounterJournal.GetCampaignJournal = mockEncounterJournalGetCampaignJournal;
 
-const mockEncounterJournalUpdateCampaignDataJournal = jest.fn();
-EncounterJournal.UpdateCampaignDataJournal =
-  mockEncounterJournalUpdateCampaignDataJournal;
-
-const mockEncounterJournalUpdateCampaignJournal = jest.fn();
-EncounterJournal.UpdateCampaignJournal =
-  mockEncounterJournalUpdateCampaignJournal;
+const mockEncounterJournalUpdateJournalData = jest.fn();
+EncounterJournal.UpdateJournalData = mockEncounterJournalUpdateJournalData;
 
 beforeEach(() => {
   mockEncounterJournalGetCampaignJournal.mockClear();
-  mockEncounterJournalUpdateCampaignDataJournal.mockClear();
-  mockEncounterJournalUpdateCampaignJournal.mockClear();
+  mockEncounterJournalUpdateJournalData.mockClear();
 });
 
 describe("CampaignStat", () => {
@@ -38,8 +32,8 @@ describe("CampaignStat", () => {
     test("it adds the kill correctly", async () => {
       await CampaignStat.AddKill("Lorena Aldabra", "Acolyte");
       await CampaignStat.AddKill("Lorena Aldabra", "Ancient Red Dragon");
-      expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalled();
-      expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalledWith(
+      expect(mockEncounterJournalUpdateJournalData).toBeCalled();
+      expect(mockEncounterJournalUpdateJournalData).toBeCalledWith(
         JSON.stringify({
           kills: [
             {
@@ -62,7 +56,9 @@ describe("CampaignStat", () => {
           heals: [],
           nat20: [],
           nat1: [],
-        })
+        }),
+        "campaignstats",
+        "data"
       );
     });
   });
@@ -91,8 +87,8 @@ describe("CampaignStat", () => {
         "Heal Wounds",
         10
       );
-      expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalled();
-      expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalledWith(
+      expect(mockEncounterJournalUpdateJournalData).toBeCalled();
+      expect(mockEncounterJournalUpdateJournalData).toBeCalledWith(
         JSON.stringify({
           kills: [],
           heals: [
@@ -119,7 +115,9 @@ describe("CampaignStat", () => {
           ],
           nat20: [],
           nat1: [],
-        })
+        }),
+        "campaignstats",
+        "data"
       );
     });
   });
@@ -146,8 +144,8 @@ describe("CampaignStat", () => {
         "Lorena Aldabra",
         "Wisdom Check"
       );
-      expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalled();
-      expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalledWith(
+      expect(mockEncounterJournalUpdateJournalData).toBeCalled();
+      expect(mockEncounterJournalUpdateJournalData).toBeCalledWith(
         JSON.stringify({
           kills: [],
           heals: [],
@@ -170,7 +168,9 @@ describe("CampaignStat", () => {
               ],
             },
           ],
-        })
+        }),
+        "campaignstats",
+        "data"
       );
     });
   });
@@ -197,8 +197,8 @@ describe("CampaignStat", () => {
         "Lorena Aldabra",
         "Insight Check"
       );
-      expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalled();
-      expect(mockEncounterJournalUpdateCampaignDataJournal).toBeCalledWith(
+      expect(mockEncounterJournalUpdateJournalData).toBeCalled();
+      expect(mockEncounterJournalUpdateJournalData).toBeCalledWith(
         JSON.stringify({
           kills: [],
           heals: [],
@@ -221,7 +221,9 @@ describe("CampaignStat", () => {
             },
           ],
           nat1: [],
-        })
+        }),
+        "campaignstats",
+        "data"
       );
     });
   });

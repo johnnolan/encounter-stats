@@ -1,21 +1,12 @@
-import dayjs from "dayjs";
 import { Generate } from "./CampaignTemplate";
 import EncounterJournal from "./EncounterJournal";
 import { RoleType } from "./enums";
+import Dates from "./Helpers/Dates";
 
 export default class CampaignStat {
-  private static Date() {
-    const currentDate = dayjs();
-    return {
-      id: currentDate.toISOString().replace(/[-]/g, "").substring(0, 8),
-      dateTimeDisplay: currentDate.format("DD MMMM YYYY HH:mm"),
-      dateDisplay: currentDate.format("DD MMMM YYYY"),
-    };
-  }
-
   static async AddKill(actorName: string, tokenName: string) {
     const campaignStats = await this.Get();
-    const date = this.Date();
+    const date = Dates.now;
 
     const kill = <KillTrack>{
       actorName: actorName,
@@ -44,7 +35,7 @@ export default class CampaignStat {
     total: number
   ) {
     const campaignStats = await this.Get();
-    const date = this.Date();
+    const date = Dates.now;
 
     const heal = <HealTrack>{
       actorName: actorName,
@@ -70,7 +61,7 @@ export default class CampaignStat {
 
   static async AddRole(type: RoleType, actorName: string, flavor: string) {
     const campaignStats = await this.Get();
-    const date = this.Date();
+    const date = Dates.now;
 
     const dice = <DiceTrack>{
       actorName: actorName,
@@ -110,7 +101,15 @@ export default class CampaignStat {
   }
 
   static async Save(campaignStats: CampaignStats) {
-    EncounterJournal.UpdateCampaignDataJournal(JSON.stringify(campaignStats));
-    EncounterJournal.UpdateCampaignJournal(Generate(campaignStats));
+    EncounterJournal.UpdateJournalData(
+      JSON.stringify(campaignStats),
+      "campaignstats",
+      "data"
+    );
+    EncounterJournal.UpdateJournalData(
+      Generate(campaignStats),
+      "campaignstats",
+      "view"
+    );
   }
 }

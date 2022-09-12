@@ -1,5 +1,5 @@
 import { MODULE_ID, OPT_ENABLE } from "./Settings";
-import Trans from "./Trans";
+import Trans from "./Helpers/Trans";
 
 class ModuleSettings {
   /**

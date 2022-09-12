@@ -1,5 +1,5 @@
 import Stat from "./Stat";
-import Logger from "../Logger";
+import Logger from "../Helpers/Logger";
 jest.mock("../StatManager");
 import StatManager from "../StatManager";
 import { actor } from "../mockdata/actor";

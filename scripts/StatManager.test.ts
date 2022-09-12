@@ -1,6 +1,6 @@
 import StatManager from "./StatManager";
 import LocalStorage from "./LocalStorage";
-import Logger from "./Logger";
+import Logger from "./Helpers/Logger";
 import EncounterJournal from "./EncounterJournal";
 import Template from "./Template";
 
@@ -13,8 +13,8 @@ LocalStorage.TruncateLocalStorage = mockLocalStorageTruncateLocalStorage;
 LocalStorage.GetItemFromLocalStorage = mockLocalStorageGetItemFromLocalStorage;
 LocalStorage.SaveToLocalStorageStat = mockLocalStorageSaveToLocalStorageStat;
 
-const mockEncounterJournalUpdateJournal = jest.fn();
-EncounterJournal.UpdateJournal = mockEncounterJournalUpdateJournal;
+const mockEncounterJournalUpdateJournalData = jest.fn();
+EncounterJournal.UpdateJournalData = mockEncounterJournalUpdateJournalData;
 
 const mockTemplateGenerate = jest.fn();
 Template.Generate = mockTemplateGenerate;
@@ -27,7 +27,7 @@ beforeEach(() => {
   mockLocalStorageTruncateLocalStorage.mockClear();
   mockLocalStorageGetItemFromLocalStorage.mockClear();
   mockLocalStorageSaveToLocalStorageStat.mockClear();
-  mockEncounterJournalUpdateJournal.mockClear();
+  mockEncounterJournalUpdateJournalData.mockClear();
   mockLoggerError.mockClear();
 });
 
@@ -105,8 +105,9 @@ describe("StatManager", () => {
       expect(mockTemplateGenerate).toBeCalledWith(
         { encounterId: "encounterId" }
       );
-      expect(mockEncounterJournalUpdateJournal).toBeCalledWith(
+      expect(mockEncounterJournalUpdateJournalData).toBeCalledWith(
         "<p>test</p>",
+        "encounterId",
         "encounterId"
       );
     });

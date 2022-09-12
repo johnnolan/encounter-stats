@@ -1,5 +1,5 @@
 import MidiQolStat from "./MidiQolStat";
-import Logger from "../Logger";
+import Logger from "../Helpers/Logger";
 jest.mock("../StatManager");
 import { actor } from "../mockdata/actor";
 import { CombatDetailType } from "../enums";

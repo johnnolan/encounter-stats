@@ -2,7 +2,7 @@ import { MODULE_ID, OPT_ENABLE } from "./Settings";
 import SetupHooks from "./SetupHooks";
 import ModuleSettings from "./ModuleSettings";
 import EncounterJournal from "./EncounterJournal";
-import Logger from "./Logger";
+import Logger from "./Helpers/Logger";
 
 Hooks.once("init", async function () {
   ModuleSettings.Register();
@@ -16,10 +16,10 @@ Hooks.once("ready", async function () {
   }
 
   if (game.user?.isGM) {
-    if (!EncounterJournal.IsJournalSetup()) {
+    if (!EncounterJournal.IsJournalSetup) {
       await EncounterJournal.CreateJournal();
     }
-    if (!(await EncounterJournal.IsCampaignJournalSetup())) {
+    if (!EncounterJournal.IsCampaignJournalSetup) {
       await EncounterJournal.CreateCampaignJournalEntryPage();
     }
   }

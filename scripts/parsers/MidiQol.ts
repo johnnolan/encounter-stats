@@ -1,5 +1,5 @@
 import { CombatDetailType } from "../enums";
-import Logger from "../Logger";
+import Logger from "../Helpers/Logger";
 
 class MidiQol {
   static ParseWorkflow(workflow: MidiQolWorkflow): EncounterWorkflow {

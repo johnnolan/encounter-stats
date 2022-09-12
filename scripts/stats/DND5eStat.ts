@@ -1,5 +1,5 @@
 import { CombatDetailType } from "../enums";
-import Logger from "../Logger";
+import Logger from "../Helpers/Logger";
 import Stat from "./Stat";
 
 export default class DND5eStat extends Stat {
