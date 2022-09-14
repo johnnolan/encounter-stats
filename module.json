@@ -1,15 +1,14 @@
 {
-	"name": "encounter-stats",
+	"id": "encounter-stats",
 	"title": "Encounter Statistics",
 	"description": "Capture your Players attacks and damage in an Encounter and store the results into a Journal Entry with a summary of their stats for each after you end the Encounter.",
 	"version": "This is auto replaced",
 	"library": "false",
 	"manifestPlusVersion": "1.0.0",
-	"minimumCoreVersion": "10",
-	"compatibleCoreVersion": "10",
 	"compatibility": {
-		"minimum": "10",
-		"verified": "10"
+		"minimum": 10,
+		"verified": "10.285",
+		"maximum": 10
 	},
 	"authors": [
 		{
@@ -19,12 +18,19 @@
 			"website": "https://www.johnnolan.dev"
 		}
 	],
-	"dependencies": [
-		{
-			"name": "dnd5e",
-			"type": "system"
-		}
-	],
+	"relationships": {
+		"systems": [
+			{
+				"id": "dnd5e",
+				"type": "system",
+				"manifest": "https://raw.githubusercontent.com/foundryvtt/dnd5e/master/system.json",
+				"compatibility": {
+					"minimum": "2.0.2",
+					"verified": "2.0.2"
+				}
+			}
+		]
+	},
 	"conflicts": [],
 	"esmodules": [
 		"/dist/module.js"
