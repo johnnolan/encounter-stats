@@ -28,6 +28,7 @@ export async function OnUpdateCombat(currentRound: number): Promise<void> {
     Logger.log(`No new round`, "handlers.OnUpdateCombat", currentRound);
     return;
   }
+  if (!StatManager.IsInCombat()) return;
   const stat = new Stat();
 
   stat.UpdateRound(currentRound);
@@ -47,6 +48,7 @@ export async function OnRenderCombatTracker(
     );
     return;
   }
+  if (!StatManager.IsInCombat()) return;
   const stat = new Stat();
 
   const combatantsList = combatData.combat.combatants;
