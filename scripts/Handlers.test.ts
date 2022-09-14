@@ -128,6 +128,7 @@ describe("Handlers", () => {
     });
 
     test("it returns if no round set", async () => {
+      mockStatManagerIsInCombat.mockReturnValue(true);
       await OnUpdateCombat(1);
       expect(mockLoggerLog).not.toBeCalled();
       expect(mockStatUpdateRound).toBeCalledWith(1);

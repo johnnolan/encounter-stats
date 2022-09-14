@@ -6,11 +6,11 @@ export default class LocalStorage {
     return localStorage.getItem(item) !== null;
   }
 
-  static GetItemFromLocalStorage(item: string): string | undefined {
+  static GetItemFromLocalStorage(item: string): Encounter | undefined {
     const storageValue = localStorage.getItem(item);
     if (!storageValue) {
-      Logger.error(
-        `${item} does not exist in Local Storage.`,
+      Logger.warn(
+        `${item} does not exist in Local Storage. Combat is active before module was active. Restarting combat will fix this warning.`,
         "localstorage.GetItemFromLocalStorage"
       );
       return;

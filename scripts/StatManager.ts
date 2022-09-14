@@ -14,8 +14,8 @@ class StatManager {
     return isLocalStorageSet;
   }
 
-  static GetStat() {
-    return <Encounter>LocalStorage.GetItemFromLocalStorage(STORAGE_NAME);
+  static GetStat(): Encounter | undefined {
+    return LocalStorage.GetItemFromLocalStorage(STORAGE_NAME);
   }
 
   static async SaveStat(encounter: Encounter) {
