@@ -18,6 +18,8 @@ jobs:
     name: Publish Unit Tests
     needs: ['lint', 'test']
     uses: ./.github/workflows/publish_unit_tests_job.yml
+    secrets:
+      SONARCLOUD_SECRET: ${{ secrets.SONARCLOUD_TOKEN }}
 
   sonar_cloud:
     name: Sonar Cloud
