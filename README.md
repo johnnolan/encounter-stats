@@ -1,8 +1,8 @@
 ![](https://img.shields.io/badge/Foundry-v0.10.0-informational)
 ![Latest Release Download Count](https://img.shields.io/github/downloads/johnnolan/encounter-stats/latest/module.zip)
 ![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fencounter-stats&colorB=4aa94a)
-[![Foundry Hub Endorsements](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fencounter-stats%2Fshield%2Fendorsements)](https://www.foundryvtt-hub.com/package/encounter-stats/)
-[![Foundry Hub Comments](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fencounter-stats%2Fshield%2Fcomments)](https://www.foundryvtt-hub.com/package/encounter-stats/)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=johnnolan_encounter-stats&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=johnnolan_encounter-stats)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=johnnolan_encounter-stats&metric=coverage)](https://sonarcloud.io/summary/new_code?id=johnnolan_encounter-stats)
 
 [![Translation status](https://weblate.foundryvtt-hub.com/widgets/encounter-stats/-/287x66-black.png)](https://weblate.foundryvtt-hub.com/engage/encounter-stats/)
 
