@@ -17,6 +17,7 @@
     * Multiple targets will show roll damage and roll damage x targets
 * Uses the new V10 Journal
 * Optional Simple Calendar Integration for nicer Journal Entry names
+* Can track multiple active combats at one time
 
 #### Encounter Tracking
 
