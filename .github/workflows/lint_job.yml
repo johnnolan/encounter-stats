@@ -30,10 +30,6 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Run JSHint
-        run: yarn run jshint
-        continue-on-error: true
-
       - name: Run ESLint
         run: yarn run lint:report
         continue-on-error: true
