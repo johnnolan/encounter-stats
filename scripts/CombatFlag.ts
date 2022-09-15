@@ -26,7 +26,7 @@ export default class CombatFlag {
 
   static async Save(flagName: string, data: Encounter) {
     await game.combats
-      .find((f) => f.active)
+      .find((f) => f.id === data.encounterId)
       .setFlag("encounter-stats", flagName, data);
   }
 
