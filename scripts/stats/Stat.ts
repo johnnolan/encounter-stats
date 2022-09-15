@@ -28,9 +28,11 @@ export default class Stat {
         },
         templateHealthCheck: [],
       };
-    } else {
-      this._encounter = StatManager.GetStat();
     }
+  }
+
+  set encounter(encounter) {
+    this._encounter = encounter;
   }
 
   get encounter(): Encounter {

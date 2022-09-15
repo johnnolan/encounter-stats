@@ -200,11 +200,12 @@ describe("Stat", () => {
     });
   });
 
-  describe("If it pulls from localstorage", () => {
+  describe("If it pulls from the combat flag", () => {
     let stat: Stat;
-    beforeAll(() => {
-      StatManager.GetStat.mockImplementation(() => encounter);
+    beforeAll(async () => {
       stat = new Stat();
+      StatManager.GetStat.mockResolvedValue(encounter)
+      stat.encounter = await StatManager.GetStat();
     });
 
     test("it returns true to hasEncounter", () => {

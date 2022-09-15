@@ -1,5 +1,6 @@
 import Stat from "./stats/Stat";
 import Trans from "./Helpers/Trans";
+import StatManager from "./StatManager";
 
 export default class Template {
   static Generate(encounter: Encounter) {
@@ -305,8 +306,9 @@ export default class Template {
   </li>`;
   }
 
-  private static getHealOrDamageClass(attackType: string) {
+  private static async getHealOrDamageClass(attackType: string) {
     const stat = new Stat();
+    stat.encounter = await StatManager.GetStat();
     if (stat.IsHealingSpell(attackType)) return "blue";
     if (stat.IsValidAttack(attackType)) return "red";
   }

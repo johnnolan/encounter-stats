@@ -17,6 +17,7 @@ import StatManager from "./StatManager";
 import EncounterJournal from "./EncounterJournal";
 import DND5eStat from "./stats/DND5eStat";
 import MidiQolStat from "./stats/MidiQolStat";
+import CombatFlag from "./CombatFlag";
 
 const mockCampaignStatAddRole = jest.fn();
 const mockCampaignStatAddKill = jest.fn();
@@ -59,6 +60,13 @@ Logger.debug = mockLoggerDebug;
 Logger.error = mockLoggerError;
 Logger.warn = mockLoggerWarn;
 
+const mockCombatFlagIsSet = jest.fn();
+const mockCombatFlagGet = jest.fn();
+const mockCombatFlagSave = jest.fn();
+CombatFlag.IsSet = mockCombatFlagIsSet;
+CombatFlag.Get = mockCombatFlagGet;
+CombatFlag.Save = mockCombatFlagSave;
+
 beforeEach(() => {
   mockCampaignStatAddRole.mockClear();
   mockCampaignStatAddHeal.mockClear();
@@ -81,6 +89,15 @@ beforeEach(() => {
 });
 
 describe("Handlers", () => {
+  beforeAll(() => {
+    (global as any).game = {
+      combats: [{
+        active: true,
+        getFlag: jest.fn().mockResolvedValue({})
+      }],
+    };
+  });
+
   describe("OnTrackDiceRoll", () => {
     test("it adds a Fumble", async () => {
       OnTrackDiceRoll(1, "Lorena Aldabra", "Intelligence Check");
@@ -142,6 +159,16 @@ describe("Handlers", () => {
 
   describe("OnRenderCombatTracker", () => {
     test("it should return if Combat Tracker Event has no combat active", async () => {
+      (global as any).game = {
+        combat: {
+          active: jest.fn().mockReturnValue(false),
+        },
+        combats: [{
+          active: false,
+          getFlag: jest.fn().mockResolvedValue({})
+        }],
+      };
+      mockCombatFlagIsSet.mockReturnValueOnce(true);
       await OnRenderCombatTracker({ hasCombat: false });
       expect(mockLoggerLog).toBeCalled();
       expect(mockLoggerLog).toBeCalledWith(
@@ -160,6 +187,8 @@ describe("Handlers", () => {
           get: jest.fn().mockReturnValue({ name: "Actor Name" }),
         },
       };
+      mockStatManagerIsInCombat.mockResolvedValue(true);
+      mockCombatFlagIsSet.mockReturnValueOnce(true);
       await OnRenderCombatTracker({
         hasCombat: true,
         combat: {
@@ -207,17 +236,6 @@ describe("Handlers", () => {
       expect(mockLoggerDebug).toBeCalledWith(
         "Combat Started",
         "handlers.OnCreateCombat"
-      );
-    });
-  });
-
-  describe("OnDeleteCombat", () => {
-    test("it should Delete the stat", async () => {
-      await OnDeleteCombat();
-      expect(mockStatDelete).toBeCalled();
-      expect(mockLoggerDebug).toBeCalledWith(
-        "Combat Ended",
-        "handlers.OnDeleteCombat"
       );
     });
   });
@@ -279,25 +297,44 @@ describe("Handlers", () => {
     });
 
     test("it should not enter the workflow if chattype is wrong", async () => {
-      mockStatManagerIsInCombat.mockReturnValueOnce(true);
+      mockStatManagerIsInCombat.mockResolvedValue(true);
+      mockCombatFlagIsSet.mockReturnValueOnce(true);
       await OnEncounterWorkflowComplete({}, "asd");
       expect(mockDND5eStatAddAttack).not.toBeCalled();
       expect(mockStatSave).not.toBeCalled();
     });
 
     test("it should Add a DND5e Attack if that type", async () => {
-      mockStatManagerIsInCombat.mockReturnValueOnce(true);
-      await OnEncounterWorkflowComplete({}, ChatType.DND5e);
-      expect(mockDND5eStatAddAttack).toBeCalledWith({});
+      mockStatManagerIsInCombat.mockResolvedValue(true);
+      mockCombatFlagIsSet.mockReturnValueOnce(true);
+      await OnEncounterWorkflowComplete({
+        actor: {
+          id: "test"
+        }
+      }, ChatType.DND5e);
+      expect(mockDND5eStatAddAttack).toBeCalledWith({
+        actor: {
+          id: "test"
+        }
+      });
       expect(mockMidiQolStatAddAttack).not.toBeCalled();
       expect(mockStatSave).toBeCalled();
     });
 
     test("it should Add a Midi Attack if that type", async () => {
-      mockStatManagerIsInCombat.mockReturnValueOnce(true);
-      await OnEncounterWorkflowComplete({}, ChatType.MidiQol);
+      mockStatManagerIsInCombat.mockResolvedValue(true);
+      mockCombatFlagIsSet.mockReturnValueOnce(true);
+      await OnEncounterWorkflowComplete({
+        actor: {
+          id: "test"
+        }
+      }, ChatType.MidiQol);
       expect(mockDND5eStatAddAttack).not.toBeCalled();
-      expect(mockMidiQolStatAddAttack).toBeCalledWith({});
+      expect(mockMidiQolStatAddAttack).toBeCalledWith({
+        actor: {
+          id: "test"
+        }
+      });
       expect(mockStatSave).toBeCalled();
     });
 
