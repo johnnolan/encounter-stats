@@ -1,1 +1,25 @@
-{}
+{
+	"EncounterStats.opt_compendium_link_system_name": "Prefijo de Compendio",
+	"EncounterStats.template.damage_total": "Total",
+	"EncounterStats.template.isCritical": "Crítico",
+	"EncounterStats.template.max_damage": "Daño Máximo",
+	"EncounterStats.template.avg_damage": "Daño Promedio",
+	"EncounterStats.template.round": "Ronda",
+	"EncounterStats.template.weapon_spell_name": "Nombre del Arma/Conjuro",
+	"EncounterStats.template.advantage": "Ventaja",
+	"EncounterStats.template.disadvantage": "Desventaja",
+	"EncounterStats.template.attack_total": "Ataque Total",
+	"EncounterStats.template.attacks": "Ataques",
+	"EncounterStats.template.type": "Tipo",
+	"EncounterStats.actiontypes.heal": "Sanar",
+	"EncounterStats.actiontypes.rsak": "Ataque de Conjuro de Alcance",
+	"EncounterStats.actiontypes.mwak": "Ataque de Arma Cuerpo a Cuerpo",
+	"EncounterStats.actiontypes.rwak": "Ataque de Arma de Alcance",
+	"EncounterStats.actiontypes.save": "Salvación",
+	"EncounterStats.actiontypes.other": "Otro",
+	"EncounterStats.template.ac": "CA",
+	"EncounterStats.template.min_damage": "Daño Mínimo",
+	"EncounterStats.actiontypes.msak": "Ataque de Conjuro Cuerpo a Cuerpo",
+	"EncounterStats.opt_compendium_link_enable_name": "Habilitar el enlace de Compendios",
+	"EncounterStats.opt_compendium_link_enable_hint": "Reemplaza los nombres de los conjuros/armas con un enlace a la entrada del objeto en el Compendio. Desactiva esto si se te están presentando ataques indefinidos en tus estadísticas de ataque."
+}
