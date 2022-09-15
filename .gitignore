@@ -4,4 +4,5 @@ styles/
 dist/
 test-results/
 .vscode/
+eslint_report.json
 build-copy.js

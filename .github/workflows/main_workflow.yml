@@ -19,6 +19,11 @@ jobs:
     needs: ['lint', 'test']
     uses: ./.github/workflows/publish_unit_tests_job.yml
 
+  sonar_cloud:
+    name: Sonar Cloud
+    needs: ['lint', 'test']
+    uses: ./.github/workflows/sonar_cloud_job.yml
+
   create_tag_publish:
     name: Bump, Tag and Publish Pre-release
     runs-on: ubuntu-latest
