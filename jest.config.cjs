@@ -13,7 +13,7 @@ module.exports = {
       },
     ],
   },
-  setupFiles: ["jest-localstorage-mock"],
+  setupFiles: [],
   reporters: ["default", "jest-junit"],
   coverageThreshold: {
     global: {
@@ -28,7 +28,6 @@ module.exports = {
     "!scripts/mockdata/**/*.ts",
     "!scripts/mocks/*.ts",
     "!scripts/panels/*.ts",
-    "!scripts/LocalStorage.ts",
     "!scripts/scss.ts",
     "!scripts/Settings.ts",
     "!scripts/Template.ts",

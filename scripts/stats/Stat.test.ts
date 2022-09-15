@@ -200,7 +200,7 @@ describe("Stat", () => {
     });
   });
 
-  describe("If it pulls from localstorage", () => {
+  describe("If it pulls from the combat flag", () => {
     let stat: Stat;
     beforeAll(async () => {
       stat = new Stat();

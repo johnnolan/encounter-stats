@@ -1,16 +1,18 @@
 export default class CombatFlag {
   static async IsSet(item: string): boolean {
-    return (
-      (await game.combats
-        .find((f) => f.active)
-        .getFlag("encounter-stats", item)) !== undefined
-    );
+    const combat = await game.combats.find((f) => f.active);
+
+    if (!combat) return false;
+
+    return combat.getFlag("encounter-stats", item) !== undefined;
   }
 
   static async Get(
     item: string,
     actorId?: string
   ): Promise<Encounter | undefined> {
+    if (!(await CombatFlag.IsSet(item))) return;
+
     let flagValue = await game.combats
       .find((f) => f.active)
       .getFlag("encounter-stats", item);
@@ -20,20 +22,20 @@ export default class CombatFlag {
       // Check current encounter has them
       if (!flagValue.combatants.find((h) => h.id === actorId)) {
         // If not, search the first encounter that has them
-        flagValue = await game.combats
-          .find((f) =>
-            f
-              .getFlag("encounter-stats", item)
-              .combatants.find((h) => h.id === actorId)
-          )
-          .getFlag("encounter-stats", item);
+        const flagValueSearchAcrossCombats = await game.combats.find((f) =>
+          f
+            .getFlag("encounter-stats", item)
+            .combatants.find((h) => h.id === actorId)
+        );
+        if (!flagValueSearchAcrossCombats) return;
+
+        flagValue = flagValueSearchAcrossCombats.getFlag(
+          "encounter-stats",
+          item
+        );
         // If not undefined, return that combat
       }
     }
-
-    console.debug("blah", flagValue, game.combats.find((f) => f.active).id);
-    console.debug("blah", flagValue, game.combats.find((f) => f.active).flags);
-    console.debug("blah", flagValue);
 
     return flagValue;
   }
