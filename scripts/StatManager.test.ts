@@ -4,14 +4,12 @@ import Logger from "./Helpers/Logger";
 import EncounterJournal from "./EncounterJournal";
 import Template from "./Template";
 
-const mockLocalStorageIsSet = jest.fn();
-const mockLocalStorageTruncateLocalStorage = jest.fn();
-const mockLocalStorageGetItemFromLocalStorage = jest.fn();
-const mockLocalStorageSaveToLocalStorageStat = jest.fn();
-CombatFlag.IsSet = mockLocalStorageIsSet;
-CombatFlag.Remove = mockLocalStorageTruncateLocalStorage;
-CombatFlag.Get = mockLocalStorageGetItemFromLocalStorage;
-CombatFlag.Save = mockLocalStorageSaveToLocalStorageStat;
+const mockCombatFlagIsSet = jest.fn();
+const mockCombatFlagGet = jest.fn();
+const mockCombatFlagSave = jest.fn();
+CombatFlag.IsSet = mockCombatFlagIsSet;
+CombatFlag.Get = mockCombatFlagGet;
+CombatFlag.Save = mockCombatFlagSave;
 
 const mockEncounterJournalUpdateJournalData = jest.fn();
 EncounterJournal.UpdateJournalData = mockEncounterJournalUpdateJournalData;
@@ -23,10 +21,9 @@ const mockLoggerError = jest.fn();
 Logger.error = mockLoggerError;
 
 beforeEach(() => {
-  mockLocalStorageIsSet.mockClear();
-  mockLocalStorageTruncateLocalStorage.mockClear();
-  mockLocalStorageGetItemFromLocalStorage.mockClear();
-  mockLocalStorageSaveToLocalStorageStat.mockClear();
+  mockCombatFlagIsSet.mockClear();
+  mockCombatFlagGet.mockClear();
+  mockCombatFlagSave.mockClear();
   mockEncounterJournalUpdateJournalData.mockClear();
   mockLoggerError.mockClear();
 });
@@ -39,10 +36,9 @@ describe("StatManager", () => {
           active: false,
         },
       };
-      mockLocalStorageIsSet.mockReturnValueOnce(true);
-      const isInCombat = StatManager.IsInCombat();
-      expect(mockLocalStorageTruncateLocalStorage).toBeCalled();
-      expect(mockLocalStorageIsSet).toBeCalledWith("encounter-stats-data");
+      mockCombatFlagIsSet.mockReturnValueOnce(true);
+      const isInCombat = await StatManager.IsInCombat();
+      expect(mockCombatFlagIsSet).toBeCalledWith("encounter-stats-data");
       expect(isInCombat).toBeFalsy();
     });
 
@@ -52,10 +48,9 @@ describe("StatManager", () => {
           active: false,
         },
       };
-      mockLocalStorageIsSet.mockReturnValueOnce(false);
-      const isInCombat = StatManager.IsInCombat();
-      expect(mockLocalStorageTruncateLocalStorage).not.toBeCalled();
-      expect(mockLocalStorageIsSet).toBeCalledWith("encounter-stats-data");
+      mockCombatFlagIsSet.mockReturnValueOnce(false);
+      const isInCombat = await StatManager.IsInCombat();
+      expect(mockCombatFlagIsSet).toBeCalledWith("encounter-stats-data");
       expect(isInCombat).toBeFalsy();
     });
 
@@ -65,22 +60,22 @@ describe("StatManager", () => {
           active: true,
         },
       };
-      mockLocalStorageIsSet.mockReturnValueOnce(true);
-      const isInCombat = StatManager.IsInCombat();
-      expect(mockLocalStorageTruncateLocalStorage).not.toBeCalled();
-      expect(mockLocalStorageIsSet).toBeCalledWith("encounter-stats-data");
+      mockCombatFlagIsSet.mockReturnValueOnce(true);
+      const isInCombat = await StatManager.IsInCombat();
+      expect(mockCombatFlagIsSet).toBeCalledWith("encounter-stats-data");
       expect(isInCombat).toBeTruthy();
     });
   });
 
   describe("GetStat", () => {
     test("it returns value from local storage", async () => {
-      mockLocalStorageGetItemFromLocalStorage.mockReturnValueOnce({
+      mockCombatFlagGet.mockReturnValueOnce({
         encounterId: "1",
       });
-      const result = StatManager.GetStat();
-      expect(mockLocalStorageGetItemFromLocalStorage).toBeCalledWith(
-        "encounter-stats-data"
+      const result = await StatManager.GetStat();
+      expect(mockCombatFlagGet).toBeCalledWith(
+        "encounter-stats-data",
+        undefined
       );
       expect(result).toStrictEqual({ encounterId: "1" });
     });
@@ -98,7 +93,7 @@ describe("StatManager", () => {
     test("it generates the journal entry and saves the json data", async () => {
       mockTemplateGenerate.mockReturnValueOnce("<p>test</p>");
       await StatManager.SaveStat({ encounterId: "encounterId" });
-      expect(mockLocalStorageSaveToLocalStorageStat).toBeCalledWith(
+      expect(mockCombatFlagSave).toBeCalledWith(
         "encounter-stats-data",
         { encounterId: "encounterId" }
       );
@@ -110,13 +105,6 @@ describe("StatManager", () => {
         "encounterId",
         "encounterId"
       );
-    });
-  });
-
-  describe("RemoveStat", () => {
-    test("it removes value from local storage", async () => {
-      StatManager.RemoveStat();
-      expect(mockLocalStorageTruncateLocalStorage).toBeCalled();
     });
   });
 });

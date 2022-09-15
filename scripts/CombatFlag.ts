@@ -1,5 +1,3 @@
-import Logger from "./Helpers/Logger";
-
 export default class CombatFlag {
   static async IsSet(item: string): boolean {
     return (
@@ -44,9 +42,5 @@ export default class CombatFlag {
     await game.combats
       .find((f) => f.id === data.encounterId)
       .setFlag("encounter-stats", flagName, data);
-  }
-
-  static Remove() {
-    //localStorage.removeItem(STORAGE_NAME);
   }
 }
