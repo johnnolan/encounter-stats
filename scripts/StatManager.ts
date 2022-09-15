@@ -1,21 +1,20 @@
 import EncounterJournal from "./EncounterJournal";
-import LocalStorage from "./LocalStorage";
+import CombatFlag from "./CombatFlag";
 import Logger from "./Helpers/Logger";
 import { STORAGE_NAME } from "./Settings";
 import Template from "./Template";
 
 class StatManager {
-  static IsInCombat() {
-    const isLocalStorageSet = LocalStorage.IsSet(STORAGE_NAME);
-    if (!game.combat?.active && isLocalStorageSet) {
-      this.RemoveStat();
+  static async IsInCombat() {
+    const isFlagSet = await CombatFlag.IsSet(STORAGE_NAME);
+    if (!game.combat?.active && isFlagSet) {
       return false;
     }
-    return isLocalStorageSet;
+    return isFlagSet;
   }
 
-  static GetStat(): Encounter | undefined {
-    return LocalStorage.GetItemFromLocalStorage(STORAGE_NAME);
+  static async GetStat(): Promise<Encounter | undefined> {
+    return await CombatFlag.Get(STORAGE_NAME);
   }
 
   static async SaveStat(encounter: Encounter) {
@@ -23,7 +22,7 @@ class StatManager {
       Logger.error(`No encounterId to save stat`, "statmanager.SaveStat");
       return;
     }
-    LocalStorage.SaveToLocalStorageStat(STORAGE_NAME, encounter);
+    await CombatFlag.Save(STORAGE_NAME, encounter);
 
     const markup = Template.Generate(encounter);
 
@@ -35,7 +34,7 @@ class StatManager {
   }
 
   static RemoveStat() {
-    LocalStorage.TruncateLocalStorage();
+    CombatFlag.Remove();
   }
 }
 

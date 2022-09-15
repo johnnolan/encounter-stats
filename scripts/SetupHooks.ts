@@ -47,14 +47,14 @@ export default class SetupHooks {
       window.Hooks.on(
         "updateActor",
         async function (actor: Actor, diff: unknown) {
-          SetupHooks.updateActorToken(actor, diff);
+          await SetupHooks.updateActorToken(actor, diff);
         }
       );
 
       window.Hooks.on(
         "updateToken",
         async function (actor: Actor, diff: unknown) {
-          SetupHooks.updateActorToken(actor, diff);
+          await SetupHooks.updateActorToken(actor, diff);
         }
       );
 
@@ -239,8 +239,8 @@ export default class SetupHooks {
     });
   }
 
-  static updateActorToken(actor: Actor, diff: unknown) {
-    if (StatManager.IsInCombat()) {
+  static async updateActorToken(actor: Actor, diff: unknown) {
+    if (await StatManager.IsInCombat()) {
       if (
         actor.name &&
         !actor.hasPlayerOwner &&

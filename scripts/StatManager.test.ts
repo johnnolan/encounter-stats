@@ -1,5 +1,5 @@
 import StatManager from "./StatManager";
-import LocalStorage from "./LocalStorage";
+import CombatFlag from "./CombatFlag";
 import Logger from "./Helpers/Logger";
 import EncounterJournal from "./EncounterJournal";
 import Template from "./Template";
@@ -8,10 +8,10 @@ const mockLocalStorageIsSet = jest.fn();
 const mockLocalStorageTruncateLocalStorage = jest.fn();
 const mockLocalStorageGetItemFromLocalStorage = jest.fn();
 const mockLocalStorageSaveToLocalStorageStat = jest.fn();
-LocalStorage.IsSet = mockLocalStorageIsSet;
-LocalStorage.TruncateLocalStorage = mockLocalStorageTruncateLocalStorage;
-LocalStorage.GetItemFromLocalStorage = mockLocalStorageGetItemFromLocalStorage;
-LocalStorage.SaveToLocalStorageStat = mockLocalStorageSaveToLocalStorageStat;
+CombatFlag.IsSet = mockLocalStorageIsSet;
+CombatFlag.Remove = mockLocalStorageTruncateLocalStorage;
+CombatFlag.Get = mockLocalStorageGetItemFromLocalStorage;
+CombatFlag.Save = mockLocalStorageSaveToLocalStorageStat;
 
 const mockEncounterJournalUpdateJournalData = jest.fn();
 EncounterJournal.UpdateJournalData = mockEncounterJournalUpdateJournalData;

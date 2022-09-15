@@ -28,8 +28,9 @@ export async function OnUpdateCombat(currentRound: number): Promise<void> {
     Logger.log(`No new round`, "handlers.OnUpdateCombat", currentRound);
     return;
   }
-  if (!StatManager.IsInCombat()) return;
+  if (!await StatManager.IsInCombat()) return;
   const stat = new Stat();
+  stat.encounter = await StatManager.GetStat();
 
   stat.UpdateRound(currentRound);
 
@@ -48,8 +49,9 @@ export async function OnRenderCombatTracker(
     );
     return;
   }
-  if (!StatManager.IsInCombat()) return;
+  if (!await StatManager.IsInCombat()) return;
   const stat = new Stat();
+  stat.encounter = await StatManager.GetStat();
 
   const combatantsList = combatData.combat.combatants;
   for (const combatant of combatantsList) {
@@ -79,6 +81,7 @@ export async function OnCreateCombat(combat: Combat): Promise<void> {
 
 export async function OnDeleteCombat(): Promise<void> {
   const stat = new Stat();
+  stat.encounter = await StatManager.GetStat();
   stat.Delete();
   Logger.debug(`Combat Ended`, "handlers.OnDeleteCombat");
 }
@@ -100,7 +103,7 @@ export async function OnEncounterWorkflowComplete(
   workflow: EncounterWorkflow | undefined,
   chatType: ChatType
 ): Promise<void> {
-  if (!StatManager.IsInCombat()) return;
+  if (!await StatManager.IsInCombat()) return;
   if (!workflow) return;
   let stat: DND5eStat | MidiQolStat;
   if (chatType === ChatType.DND5e) {
@@ -111,6 +114,7 @@ export async function OnEncounterWorkflowComplete(
     return;
   }
 
+  stat.encounter = await StatManager.GetStat();
   stat.AddAttack(workflow);
   stat.Save();
 
@@ -138,8 +142,9 @@ export async function OnEncounterWorkflowComplete(
 }
 
 export async function OnUpdateHealth(actor: Actor): Promise<void> {
-  if (!StatManager.IsInCombat()) return;
+  if (!await StatManager.IsInCombat()) return;
   const stat = new Stat();
+  stat.encounter = await StatManager.GetStat();
   stat.UpdateHealth(actor);
   stat.Save();
 }
@@ -148,8 +153,9 @@ export async function OnTrackKill(
   targetName: string,
   tokenId: string
 ): Promise<void> {
-  if (!StatManager.IsInCombat()) return;
+  if (!await StatManager.IsInCombat()) return;
   const stat = new Stat();
+  stat.encounter = await StatManager.GetStat();
   stat.AddKill(targetName, tokenId);
   stat.Save();
   const combatantStat = stat.GetCombatantStatsByTokenId(tokenId);
