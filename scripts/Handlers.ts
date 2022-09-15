@@ -28,7 +28,7 @@ export async function OnUpdateCombat(currentRound: number): Promise<void> {
     Logger.log(`No new round`, "handlers.OnUpdateCombat", currentRound);
     return;
   }
-  if (!await StatManager.IsInCombat()) return;
+  if (!(await StatManager.IsInCombat())) return;
   const stat = new Stat();
   stat.encounter = await StatManager.GetStat();
 
@@ -49,7 +49,7 @@ export async function OnRenderCombatTracker(
     );
     return;
   }
-  if (!await StatManager.IsInCombat()) return;
+  if (!(await StatManager.IsInCombat())) return;
   const stat = new Stat();
   stat.encounter = await StatManager.GetStat();
 
@@ -79,13 +79,6 @@ export async function OnCreateCombat(combat: Combat): Promise<void> {
   Logger.debug(`Combat Started`, "handlers.OnCreateCombat");
 }
 
-export async function OnDeleteCombat(): Promise<void> {
-  const stat = new Stat();
-  stat.encounter = await StatManager.GetStat();
-  stat.Delete();
-  Logger.debug(`Combat Ended`, "handlers.OnDeleteCombat");
-}
-
 export async function OnTrackDice(diceTrackParsed: DiceTrackParse | undefined) {
   if (
     diceTrackParsed &&
@@ -103,7 +96,7 @@ export async function OnEncounterWorkflowComplete(
   workflow: EncounterWorkflow | undefined,
   chatType: ChatType
 ): Promise<void> {
-  if (!await StatManager.IsInCombat()) return;
+  if (!(await StatManager.IsInCombat())) return;
   if (!workflow) return;
   let stat: DND5eStat | MidiQolStat;
   if (chatType === ChatType.DND5e) {
@@ -114,7 +107,7 @@ export async function OnEncounterWorkflowComplete(
     return;
   }
 
-  stat.encounter = await StatManager.GetStat();
+  stat.encounter = await StatManager.GetStat(workflow.actor.id);
   stat.AddAttack(workflow);
   stat.Save();
 
@@ -142,9 +135,9 @@ export async function OnEncounterWorkflowComplete(
 }
 
 export async function OnUpdateHealth(actor: Actor): Promise<void> {
-  if (!await StatManager.IsInCombat()) return;
+  if (!(await StatManager.IsInCombat())) return;
   const stat = new Stat();
-  stat.encounter = await StatManager.GetStat();
+  stat.encounter = await StatManager.GetStat(actor.id);
   stat.UpdateHealth(actor);
   stat.Save();
 }
@@ -153,7 +146,7 @@ export async function OnTrackKill(
   targetName: string,
   tokenId: string
 ): Promise<void> {
-  if (!await StatManager.IsInCombat()) return;
+  if (!(await StatManager.IsInCombat())) return;
   const stat = new Stat();
   stat.encounter = await StatManager.GetStat();
   stat.AddKill(targetName, tokenId);

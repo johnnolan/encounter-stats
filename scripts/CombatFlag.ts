@@ -9,18 +9,34 @@ export default class CombatFlag {
     );
   }
 
-  static async Get(item: string): Promise<Encounter | undefined> {
-    const flagValue = await game.combats
+  static async Get(
+    item: string,
+    actorId?: string
+  ): Promise<Encounter | undefined> {
+    let flagValue = await game.combats
       .find((f) => f.active)
       .getFlag("encounter-stats", item);
-    Logger.debug(
-      "FLag Value",
-      "localstorage.GetItemFromLocalStorage",
-      flagValue
-    );
+
+    // if actorId is passed
+    if (actorId) {
+      // Check current encounter has them
+      if (!flagValue.combatants.find((h) => h.id === actorId)) {
+        // If not, search the first encounter that has them
+        flagValue = await game.combats
+          .find((f) =>
+            f
+              .getFlag("encounter-stats", item)
+              .combatants.find((h) => h.id === actorId)
+          )
+          .getFlag("encounter-stats", item);
+        // If not undefined, return that combat
+      }
+    }
+
     console.debug("blah", flagValue, game.combats.find((f) => f.active).id);
     console.debug("blah", flagValue, game.combats.find((f) => f.active).flags);
     console.debug("blah", flagValue);
+
     return flagValue;
   }
 

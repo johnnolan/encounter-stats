@@ -1,7 +1,6 @@
 import {
   OnRenderCombatTracker,
   OnCreateCombat,
-  OnDeleteCombat,
   OnUpdateCombat,
   OnEncounterWorkflowComplete,
   OnUpdateHealth,
@@ -33,9 +32,6 @@ export default class SetupHooks {
       );
       window.Hooks.on("createCombat", async function (data: Combat) {
         OnCreateCombat(data);
-      });
-      window.Hooks.on("deleteCombat", async function () {
-        OnDeleteCombat();
       });
       window.Hooks.on(
         "updateCombat",

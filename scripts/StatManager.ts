@@ -13,8 +13,8 @@ class StatManager {
     return isFlagSet;
   }
 
-  static async GetStat(): Promise<Encounter | undefined> {
-    return await CombatFlag.Get(STORAGE_NAME);
+  static async GetStat(actorId?: string): Promise<Encounter | undefined> {
+    return await CombatFlag.Get(STORAGE_NAME, actorId);
   }
 
   static async SaveStat(encounter: Encounter) {
