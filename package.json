@@ -22,7 +22,7 @@
     "@babel/preset-env": "^7.19.1",
     "@jest/types": "^29.0.3",
     "@league-of-foundry-developers/foundry-vtt-types": "^9.280.0",
-    "@types/jest": "^29.0.2",
+    "@types/jest": "^29.0.3",
     "@types/node": "^18.7.18",
     "@typescript-eslint/eslint-plugin": "^5.37.0",
     "@typescript-eslint/parser": "^5.37.0",
