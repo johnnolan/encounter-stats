@@ -1,6 +1,7 @@
 import Stat from "./stats/Stat";
 import Trans from "./Helpers/Trans";
 import StatManager from "./StatManager";
+import { MODULE_ID, OPT_ENABLE_EXPORT_JSON } from "./Settings";
 
 export default class Template {
   static Generate(encounter: Encounter) {
@@ -93,6 +94,9 @@ export default class Template {
   }
 
   private static GenerateRawData(encounter: Encounter) {
+    if (!game.settings.get(`${MODULE_ID}`, `${OPT_ENABLE_EXPORT_JSON}`)) {
+      return "";
+    }
     return `
     <section>
       <code>

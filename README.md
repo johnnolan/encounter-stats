@@ -18,7 +18,7 @@
 * Uses the new V10 Journal
 * Optional Simple Calendar Integration for nicer Journal Entry names
 * Can track multiple active combats at one time
-* Saves raw data output as JSON to the journal entry so you can export and manipulate the data as you want
+* Optionally saves raw data output as JSON to the journal entry so you can export and manipulate the data as you want
 
 #### Encounter Tracking
 
