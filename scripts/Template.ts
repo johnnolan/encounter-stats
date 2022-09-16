@@ -86,8 +86,19 @@ export default class Template {
       .map(function (combatant) {
         return Template.GenerateCombatant(combatant, encounter.round);
       })
-      .join("")}</div></div></div>
+      .join("")}</div></div>
+      </div>
+      ${Template.GenerateRawData(encounter)}
   `;
+  }
+
+  private static GenerateRawData(encounter: Encounter) {
+    return `
+    <section>
+      <code>
+        ${JSON.stringify(encounter)}
+      </code>
+    </section`;
   }
 
   private static GenerateCombatant(
