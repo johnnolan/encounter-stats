@@ -1,6 +1,8 @@
 {
     "EncounterStats.opt_enable_name": "Enable Encounter Statistics",
     "EncounterStats.opt_enable_hint": "Enables Encounter Statistics module",
+    "EncounterStats.opt_enable_export_json_name": "Enable Export of Raw data to journal",
+    "EncounterStats.opt_enable_export_json_hint": "Export the raw JSON data to the Journal entry to be exported and used externally.",
     "EncounterStats.opt_compendium_link_enable_name": "Enable Compendium linking",
     "EncounterStats.opt_compendium_link_enable_hint": "Replaces spell/weapon names with a link to the Compendium entry of that item. Disable this if you are getting undefined in your attack stats.",
     "EncounterStats.opt_compendium_link_system_name": "Compendium prefix",

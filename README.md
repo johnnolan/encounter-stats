@@ -18,6 +18,7 @@
 * Uses the new V10 Journal
 * Optional Simple Calendar Integration for nicer Journal Entry names
 * Can track multiple active combats at one time
+* Optionally saves raw data output as JSON to the journal entry so you can export and manipulate the data as you want
 
 #### Encounter Tracking
 
@@ -31,6 +32,7 @@
 - Support Actions
 - Battlefield Actions
 
+[![Example](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example.jpg)](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example.jpg)
 #### Campaign Stats
 
 **Do not delete the 2 journal entries for this, you will lose your data!**
@@ -40,14 +42,9 @@
 - Kills
 - Heals
 
-
-**Note: Due to time and life I will not be adding other systems except midi-qol**
-
-
-[![Example](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example.jpg)](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example.jpg)
-
 [![Example Campaign](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example-campaign.jpg)](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example-campaign.jpg)
 
+**Note: Due to time and life I will not be adding other systems except midi-qol**
 
 ## Simple Calendar Integration
 

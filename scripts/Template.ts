@@ -1,6 +1,7 @@
 import Stat from "./stats/Stat";
 import Trans from "./Helpers/Trans";
 import StatManager from "./StatManager";
+import { MODULE_ID, OPT_ENABLE_EXPORT_JSON } from "./Settings";
 
 export default class Template {
   static Generate(encounter: Encounter) {
@@ -86,8 +87,22 @@ export default class Template {
       .map(function (combatant) {
         return Template.GenerateCombatant(combatant, encounter.round);
       })
-      .join("")}</div></div></div>
+      .join("")}</div></div>
+      </div>
+      ${Template.GenerateRawData(encounter)}
   `;
+  }
+
+  private static GenerateRawData(encounter: Encounter) {
+    if (!game.settings.get(`${MODULE_ID}`, `${OPT_ENABLE_EXPORT_JSON}`)) {
+      return "";
+    }
+    return `
+    <section>
+      <code>
+        ${JSON.stringify(encounter)}
+      </code>
+    </section`;
   }
 
   private static GenerateCombatant(
