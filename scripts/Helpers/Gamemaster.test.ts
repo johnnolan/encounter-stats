@@ -121,4 +121,35 @@ describe("Gamemaster", () => {
       });
     });
   });
+
+  describe("DeleteStats", () => {
+    describe("given there is a Gamemaster present", () => {
+      beforeEach(() => {
+        (global as any).game = {
+          users: [
+            {
+              name: "Gamemaster",
+              isGM: true,
+              flags: [],
+                setFlag: mockSetFlag,
+                getFlag: mockGetFlag.mockReturnValue({
+                  kills: [{
+                    id: "id",
+                    dateDisplay: "dateDisplay",
+                    data: "data",
+                  }],
+                  nat1: [],
+                  nat20: [],
+                  heals: [],
+                }),
+            },
+          ],
+        };
+      });
+      test("it deletes and resets the data", async () => {
+        const result = Gamemaster.DeleteStats();
+        expect(mockSetFlag).toBeCalledWith("encounter-stats", "campaign-stats", Gamemaster.DEFAULT_DATA);
+      });
+    });
+  });
 });

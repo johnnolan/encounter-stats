@@ -1,5 +1,6 @@
 import { MODULE_ID, OPT_ENABLE, OPT_ENABLE_EXPORT_JSON } from "./Settings";
 import Trans from "./Helpers/Trans";
+import { CampaignStatsPanel } from "./panels";
 
 class ModuleSettings {
   /**
@@ -24,6 +25,15 @@ class ModuleSettings {
       config: true,
       default: true,
       type: Boolean,
+    });
+
+    game.settings.registerMenu(`${MODULE_ID}`, `CampaignStatsPanel`, {
+      name: "Statistics Management",
+      label: "Configure",
+      icon: "fas fa-cog",
+      scope: "world",
+      type: CampaignStatsPanel,
+      restricted: true,
     });
   }
 }
