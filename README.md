@@ -19,6 +19,9 @@
 * Optional Simple Calendar Integration for nicer Journal Entry names
 * Can track multiple active combats at one time
 * Optionally saves raw data output as JSON to the journal entry so you can export and manipulate the data as you want
+* Import/Export campaign stats as JSON from the Settings menu.
+    * **All campaign stats are saved against the Gamemaster. If you delete the Gamemaster user you will lose your data.**
+    * Use this functionality to make backups before major changes to version upgrades and the Gamemaster user.
 
 #### Encounter Tracking
 
@@ -42,7 +45,7 @@
 
 [![Example Campaign](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example-campaign.jpg)](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example-campaign.jpg)
 
-**Note: Due to time and life I will not be adding other systems except midi-qol**
+**Note: Due to time and life I will not be adding other systems or modules except midi-qol at this time**
 
 ## Simple Calendar Integration
 
