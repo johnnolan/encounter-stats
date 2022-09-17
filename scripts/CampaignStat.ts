@@ -2,6 +2,7 @@ import { Generate } from "./CampaignTemplate";
 import EncounterJournal from "./EncounterJournal";
 import { RoleType } from "./enums";
 import Dates from "./Helpers/Dates";
+import Gamemaster from "./Helpers/Gamemaster";
 
 export default class CampaignStat {
   static async AddKill(actorName: string, tokenName: string) {
@@ -97,15 +98,11 @@ export default class CampaignStat {
   }
 
   static async Get(): Promise<CampaignStats> {
-    return EncounterJournal.GetCampaignJournal();
+    return Gamemaster.GetStats;
   }
 
   static async Save(campaignStats: CampaignStats) {
-    EncounterJournal.UpdateJournalData(
-      JSON.stringify(campaignStats),
-      "campaignstats",
-      "data"
-    );
+    Gamemaster.SetStats(campaignStats);
     EncounterJournal.UpdateJournalData(
       Generate(campaignStats),
       "campaignstats",

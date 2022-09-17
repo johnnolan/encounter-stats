@@ -3,6 +3,7 @@ import SetupHooks from "./SetupHooks";
 import ModuleSettings from "./ModuleSettings";
 import EncounterJournal from "./EncounterJournal";
 import Logger from "./Helpers/Logger";
+import Gamemaster from "./Helpers/Gamemaster";
 
 Hooks.once("init", async function () {
   ModuleSettings.Register();
@@ -19,8 +20,12 @@ Hooks.once("ready", async function () {
     if (!EncounterJournal.IsJournalSetup) {
       await EncounterJournal.CreateJournal();
     }
-    if (!EncounterJournal.IsCampaignJournalSetup) {
-      await EncounterJournal.CreateCampaignJournalEntryPage();
+
+    // Temporary for migration from Journal
+    const campaignJournal = await EncounterJournal.GetCampaignJournal();
+    if (campaignJournal) {
+      Gamemaster.SetStats(campaignJournal);
+      EncounterJournal.DeleteCampaignJournalEntryPageData();
     }
   }
   SetupHooks.Setup();

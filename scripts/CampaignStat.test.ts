@@ -1,15 +1,18 @@
 import CampaignStat from "./CampaignStat";
 import EncounterJournal from "./EncounterJournal";
 import { RoleType } from "./enums";
+import Gamemaster from "./Helpers/Gamemaster";
 
-const mockEncounterJournalGetCampaignJournal = jest.fn();
-EncounterJournal.GetCampaignJournal = mockEncounterJournalGetCampaignJournal;
+const mockGamemasterGetStats = jest.spyOn(Gamemaster, "GetStats", "get");
+const mockGamemasterSetStats = jest.fn();
+Gamemaster.SetStats = mockGamemasterSetStats;
 
 const mockEncounterJournalUpdateJournalData = jest.fn();
 EncounterJournal.UpdateJournalData = mockEncounterJournalUpdateJournalData;
 
 beforeEach(() => {
-  mockEncounterJournalGetCampaignJournal.mockClear();
+  mockGamemasterGetStats.mockClear();
+  mockGamemasterSetStats.mockClear();
   mockEncounterJournalUpdateJournalData.mockClear();
 });
 
@@ -20,7 +23,7 @@ describe("CampaignStat", () => {
 
   describe("If I add a new Kill", () => {
     beforeEach(() => {
-      mockEncounterJournalGetCampaignJournal.mockReturnValue({
+      mockGamemasterGetStats.mockReturnValue({
         kills: [],
         heals: [],
         nat20: [],
@@ -33,39 +36,36 @@ describe("CampaignStat", () => {
       await CampaignStat.AddKill("Lorena Aldabra", "Acolyte");
       await CampaignStat.AddKill("Lorena Aldabra", "Ancient Red Dragon");
       expect(mockEncounterJournalUpdateJournalData).toBeCalled();
-      expect(mockEncounterJournalUpdateJournalData).toBeCalledWith(
-        JSON.stringify({
-          kills: [
-            {
-              id: "20200101",
-              dateDisplay: "01 January 2020",
-              data: [
-                {
-                  actorName: "Lorena Aldabra",
-                  tokenName: "Acolyte",
-                  date: "01 January 2020 00:00",
-                },
-                {
-                  actorName: "Lorena Aldabra",
-                  tokenName: "Ancient Red Dragon",
-                  date: "01 January 2020 00:00",
-                },
-              ],
-            },
-          ],
-          heals: [],
-          nat20: [],
-          nat1: [],
-        }),
-        "campaignstats",
-        "data"
-      );
+      expect(mockGamemasterSetStats).toBeCalled();
+      expect(mockGamemasterSetStats).toBeCalledWith({
+        kills: [
+          {
+            id: "20200101",
+            dateDisplay: "01 January 2020",
+            data: [
+              {
+                actorName: "Lorena Aldabra",
+                tokenName: "Acolyte",
+                date: "01 January 2020 00:00",
+              },
+              {
+                actorName: "Lorena Aldabra",
+                tokenName: "Ancient Red Dragon",
+                date: "01 January 2020 00:00",
+              },
+            ],
+          },
+        ],
+        heals: [],
+        nat20: [],
+        nat1: [],
+      });
     });
   });
 
   describe("If I add a new heal", () => {
     beforeEach(() => {
-      mockEncounterJournalGetCampaignJournal.mockReturnValue({
+      mockGamemasterGetStats.mockReturnValue({
         kills: [],
         heals: [],
         nat20: [],
@@ -88,43 +88,40 @@ describe("CampaignStat", () => {
         10
       );
       expect(mockEncounterJournalUpdateJournalData).toBeCalled();
-      expect(mockEncounterJournalUpdateJournalData).toBeCalledWith(
-        JSON.stringify({
-          kills: [],
-          heals: [
-            {
-              id: "20200101",
-              dateDisplay: "01 January 2020",
-              data: [
-                {
-                  actorName: "Lorena Aldabra",
-                  itemLink: "@Item Link",
-                  spellName: "Heal Wounds",
-                  total: 20,
-                  date: "01 January 2020 00:00",
-                },
-                {
-                  actorName: "Lorena Aldabra",
-                  itemLink: undefined,
-                  spellName: "Heal Wounds",
-                  total: 10,
-                  date: "01 January 2020 00:00",
-                },
-              ],
-            },
-          ],
-          nat20: [],
-          nat1: [],
-        }),
-        "campaignstats",
-        "data"
-      );
+      expect(mockGamemasterSetStats).toBeCalled();
+      expect(mockGamemasterSetStats).toBeCalledWith({
+        kills: [],
+        heals: [
+          {
+            id: "20200101",
+            dateDisplay: "01 January 2020",
+            data: [
+              {
+                actorName: "Lorena Aldabra",
+                itemLink: "@Item Link",
+                spellName: "Heal Wounds",
+                total: 20,
+                date: "01 January 2020 00:00",
+              },
+              {
+                actorName: "Lorena Aldabra",
+                itemLink: undefined,
+                spellName: "Heal Wounds",
+                total: 10,
+                date: "01 January 2020 00:00",
+              },
+            ],
+          },
+        ],
+        nat20: [],
+        nat1: [],
+      });
     });
   });
 
   describe("If I add a new fumble", () => {
     beforeEach(() => {
-      mockEncounterJournalGetCampaignJournal.mockReturnValue({
+      mockGamemasterGetStats.mockReturnValue({
         kills: [],
         heals: [],
         nat20: [],
@@ -145,39 +142,36 @@ describe("CampaignStat", () => {
         "Wisdom Check"
       );
       expect(mockEncounterJournalUpdateJournalData).toBeCalled();
-      expect(mockEncounterJournalUpdateJournalData).toBeCalledWith(
-        JSON.stringify({
-          kills: [],
-          heals: [],
-          nat20: [],
-          nat1: [
-            {
-              id: "20200101",
-              dateDisplay: "01 January 2020",
-              data: [
-                {
-                  actorName: "Lorena Aldabra",
-                  flavor: "Wisdom Check",
-                  date: "01 January 2020 00:00",
-                },
-                {
-                  actorName: "Lorena Aldabra",
-                  flavor: "Wisdom Check",
-                  date: "01 January 2020 00:00",
-                },
-              ],
-            },
-          ],
-        }),
-        "campaignstats",
-        "data"
-      );
+      expect(mockGamemasterSetStats).toBeCalled();
+      expect(mockGamemasterSetStats).toBeCalledWith({
+        kills: [],
+        heals: [],
+        nat20: [],
+        nat1: [
+          {
+            id: "20200101",
+            dateDisplay: "01 January 2020",
+            data: [
+              {
+                actorName: "Lorena Aldabra",
+                flavor: "Wisdom Check",
+                date: "01 January 2020 00:00",
+              },
+              {
+                actorName: "Lorena Aldabra",
+                flavor: "Wisdom Check",
+                date: "01 January 2020 00:00",
+              },
+            ],
+          },
+        ],
+      });
     });
   });
 
   describe("If I add a new critical", () => {
     beforeEach(() => {
-      mockEncounterJournalGetCampaignJournal.mockReturnValue({
+      mockGamemasterGetStats.mockReturnValue({
         kills: [],
         heals: [],
         nat20: [],
@@ -198,33 +192,30 @@ describe("CampaignStat", () => {
         "Insight Check"
       );
       expect(mockEncounterJournalUpdateJournalData).toBeCalled();
-      expect(mockEncounterJournalUpdateJournalData).toBeCalledWith(
-        JSON.stringify({
-          kills: [],
-          heals: [],
-          nat20: [
-            {
-              id: "20200101",
-              dateDisplay: "01 January 2020",
-              data: [
-                {
-                  actorName: "Lorena Aldabra",
-                  flavor: "Insight Check",
-                  date: "01 January 2020 00:00",
-                },
-                {
-                  actorName: "Lorena Aldabra",
-                  flavor: "Insight Check",
-                  date: "01 January 2020 00:00",
-                },
-              ],
-            },
-          ],
-          nat1: [],
-        }),
-        "campaignstats",
-        "data"
-      );
+      expect(mockGamemasterSetStats).toBeCalled();
+      expect(mockGamemasterSetStats).toBeCalledWith({
+        kills: [],
+        heals: [],
+        nat20: [
+          {
+            id: "20200101",
+            dateDisplay: "01 January 2020",
+            data: [
+              {
+                actorName: "Lorena Aldabra",
+                flavor: "Insight Check",
+                date: "01 January 2020 00:00",
+              },
+              {
+                actorName: "Lorena Aldabra",
+                flavor: "Insight Check",
+                date: "01 January 2020 00:00",
+              },
+            ],
+          },
+        ],
+        nat1: [],
+      });
     });
   });
 });

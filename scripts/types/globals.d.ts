@@ -34,35 +34,17 @@ declare global {
     turn: number;
   }
 
+  interface CampaignStat {
+    id: string;
+    dateDisplay: string;
+    data: Array<DiceTrack>;
+  }
+
   interface CampaignStats {
-    nat1: [
-      {
-        id: string;
-        dateDisplay: string;
-        data: Array<DiceTrack>;
-      }
-    ];
-    nat20: [
-      {
-        id: string;
-        dateDisplay: string;
-        data: Array<DiceTrack>;
-      }
-    ];
-    heals: [
-      {
-        id: string;
-        dateDisplay: string;
-        data: Array<HealTrack>;
-      }
-    ];
-    kills: [
-      {
-        id: string;
-        dateDisplay: string;
-        data: Array<KillTrack>;
-      }
-    ];
+    nat1: Array<CampaignStat>;
+    nat20: Array<CampaignStat>;
+    heals: Array<CampaignStat>;
+    kills: Array<CampaignStat>;
   }
 
   type DateOptions = {
