@@ -35,8 +35,6 @@
 [![Example](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example.jpg)](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example.jpg)
 #### Campaign Stats
 
-**Do not delete the 2 journal entries for this, you will lose your data!**
-
 - Natural 1s
 - Natural 20s
 - Kills
