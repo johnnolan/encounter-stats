@@ -122,15 +122,12 @@ class EncounterJournal {
   static async GetCampaignJournal(): Promise<CampaignStats | undefined> {
     const journalEntryPage = game.journal
       ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
-      ?.pages.find((e: JournalEntryPage) =>
-        e.getFlag("encounter-stats", "campaignstats")
+      ?.pages.find(
+        (e: JournalEntryPage) =>
+          e.getFlag("encounter-stats", "campaignstats") === "data"
       );
 
     if (!journalEntryPage) {
-      Logger.error(
-        `No Journal found with name ${this.JOURNAL_TITLE} and campaignstats flag`,
-        "encounterjournal.GetCampaignJournal"
-      );
       return;
     }
 
