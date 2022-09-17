@@ -1,10 +1,11 @@
 import Gamemaster from "../Helpers/Gamemaster";
+import Trans from "../Helpers/Trans";
 import { MODULE_NAME } from "../Settings";
 
 export class CampaignStatsPanel extends FormApplication {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      title: "Chat Settings",
+      title: Trans.Get("Settings.StatisticsManagement"),
       template: "modules/encounter-stats/templates/settings.html",
       id: `${MODULE_NAME}-chat-settings`,
       width: 520,
@@ -61,18 +62,18 @@ export class CampaignStatsPanel extends FormApplication {
     let dialog = new Promise((resolve, reject) => {
       new Dialog(
         {
-          title: `Import Encounter Stats Campaign Stats`,
+          title: Trans.Get("Settings.ImportCampaignStatistics"),
           content: content,
           buttons: {
             import: {
               icon: '<i class="fas fa-file-import"></i>',
-              label: "Import",
+              label: Trans.Get("Settings.Import"),
               callback: (html) => {
                 //@ts-ignore
                 const form = html.find("form")[0];
                 if (!form.data.files.length)
                   return ui.notifications?.error(
-                    "You did not upload a data file!"
+                    Trans.Get("Settings.FileUploadError")
                   );
                 readTextFromFile(form.data.files[0]).then((json) => {
                   this.importSettingsFromJSON(json);
@@ -82,7 +83,7 @@ export class CampaignStatsPanel extends FormApplication {
             },
             no: {
               icon: '<i class="fas fa-times"></i>',
-              label: "Cancel",
+              label: Trans.Get("Settings.Cancel"),
               callback: (html) => resolve(false),
             },
           },

@@ -28,8 +28,8 @@ class ModuleSettings {
     });
 
     game.settings.registerMenu(`${MODULE_ID}`, `CampaignStatsPanel`, {
-      name: "Statistics Management",
-      label: "Configure",
+      name: Trans.Get("Settings.StatisticsManagement"),
+      label: Trans.Get("Settings.Configure"),
       icon: "fas fa-cog",
       scope: "world",
       type: CampaignStatsPanel,
