@@ -99,16 +99,10 @@ export default class CampaignStat {
 
   static async Get(): Promise<CampaignStats> {
     return Gamemaster.GetStats;
-    //return EncounterJournal.GetCampaignJournal();
   }
 
   static async Save(campaignStats: CampaignStats) {
     Gamemaster.SetStats(campaignStats);
-    /*EncounterJournal.UpdateJournalData(
-      JSON.stringify(campaignStats),
-      "campaignstats",
-      "data"
-    );*/
     EncounterJournal.UpdateJournalData(
       Generate(campaignStats),
       "campaignstats",

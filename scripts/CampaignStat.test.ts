@@ -1,4 +1,5 @@
 import CampaignStat from "./CampaignStat";
+import EncounterJournal from "./EncounterJournal";
 import { RoleType } from "./enums";
 import Gamemaster from "./Helpers/Gamemaster";
 
@@ -6,9 +7,13 @@ const mockGamemasterGetStats = jest.spyOn(Gamemaster, "GetStats", "get");
 const mockGamemasterSetStats = jest.fn();
 Gamemaster.SetStats = mockGamemasterSetStats;
 
+const mockEncounterJournalUpdateJournalData = jest.fn();
+EncounterJournal.UpdateJournalData = mockEncounterJournalUpdateJournalData;
+
 beforeEach(() => {
   mockGamemasterGetStats.mockClear();
   mockGamemasterSetStats.mockClear();
+  mockEncounterJournalUpdateJournalData.mockClear();
 });
 
 describe("CampaignStat", () => {
@@ -30,6 +35,7 @@ describe("CampaignStat", () => {
     test("it adds the kill correctly", async () => {
       await CampaignStat.AddKill("Lorena Aldabra", "Acolyte");
       await CampaignStat.AddKill("Lorena Aldabra", "Ancient Red Dragon");
+      expect(mockEncounterJournalUpdateJournalData).toBeCalled();
       expect(mockGamemasterSetStats).toBeCalled();
       expect(mockGamemasterSetStats).toBeCalledWith({
         kills: [
@@ -81,6 +87,7 @@ describe("CampaignStat", () => {
         "Heal Wounds",
         10
       );
+      expect(mockEncounterJournalUpdateJournalData).toBeCalled();
       expect(mockGamemasterSetStats).toBeCalled();
       expect(mockGamemasterSetStats).toBeCalledWith({
         kills: [],
@@ -134,6 +141,7 @@ describe("CampaignStat", () => {
         "Lorena Aldabra",
         "Wisdom Check"
       );
+      expect(mockEncounterJournalUpdateJournalData).toBeCalled();
       expect(mockGamemasterSetStats).toBeCalled();
       expect(mockGamemasterSetStats).toBeCalledWith({
         kills: [],
@@ -183,6 +191,7 @@ describe("CampaignStat", () => {
         "Lorena Aldabra",
         "Insight Check"
       );
+      expect(mockEncounterJournalUpdateJournalData).toBeCalled();
       expect(mockGamemasterSetStats).toBeCalled();
       expect(mockGamemasterSetStats).toBeCalledWith({
         kills: [],

@@ -54,6 +54,18 @@ class EncounterJournal {
     ]);
   }
 
+  // Temporary for migration from Journal
+  static async DeleteCampaignJournalEntryPageData() {
+    const journalEntryPage = game.journal
+      ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
+      ?.pages.find(
+        (e: JournalEntryPage) =>
+          e.getFlag("encounter-stats", "campaignstats") === "data"
+      );
+
+    journalEntryPage.delete();
+  }
+
   static async CreateCampaignJournalEntryPage() {
     const journalEntry = game.journal?.find(
       (e: JournalEntry) => e.name === this.JOURNAL_TITLE
@@ -104,6 +116,29 @@ class EncounterJournal {
         content: data,
       },
     });
+  }
+
+  // Temporary for migration from Journal
+  static async GetCampaignJournal(): Promise<CampaignStats | undefined> {
+    const journalEntryPage = game.journal
+      ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
+      ?.pages.find((e: JournalEntryPage) =>
+        e.getFlag("encounter-stats", "campaignstats")
+      );
+
+    if (!journalEntryPage) {
+      Logger.error(
+        `No Journal found with name ${this.JOURNAL_TITLE} and campaignstats flag`,
+        "encounterjournal.GetCampaignJournal"
+      );
+      return;
+    }
+
+    return <CampaignStats>(
+      JSON.parse(
+        journalEntryPage.text.content.replace("<p>", "").replace("</p>", "")
+      )
+    );
   }
 }
 
