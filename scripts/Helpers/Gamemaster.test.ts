@@ -147,7 +147,7 @@ describe("Gamemaster", () => {
         };
       });
       test("it deletes and resets the data", async () => {
-        const result = Gamemaster.DeleteStats();
+        Gamemaster.DeleteStats();
         expect(mockSetFlag).toBeCalledWith("encounter-stats", "campaign-stats", Gamemaster.DEFAULT_DATA);
       });
     });
