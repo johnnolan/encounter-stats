@@ -12,16 +12,6 @@ class EncounterJournal {
     );
   }
 
-  static get IsCampaignJournalSetup(): boolean {
-    return (
-      game.journal
-        ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
-        ?.pages.find(
-          (e) => e.getFlag("encounter-stats", "campaignstats") === "data"
-        ) !== undefined
-    );
-  }
-
   static async CreateJournal() {
     await JournalEntry.create(
       {
@@ -29,6 +19,8 @@ class EncounterJournal {
       },
       { renderSheet: false, activate: false }
     );
+
+    await EncounterJournal.CreateCampaignJournalEntryPage();
   }
 
   static async CreateJournalEntryPage(encounterId: string) {
@@ -76,17 +68,6 @@ class EncounterJournal {
     }
     journalEntry.createEmbeddedDocuments("JournalEntryPage", [
       {
-        name: "Campaign Data - Do Not Delete",
-        type: "text",
-        text: {
-          content: `{"kills": [], "nat1": [], "nat20": [], "heals": []}`,
-          format: CONST.JOURNAL_ENTRY_PAGE_FORMATS.HTML,
-        },
-        "flags.encounter-stats.campaignstats": "data",
-      },
-    ]);
-    journalEntry.createEmbeddedDocuments("JournalEntryPage", [
-      {
         name: "Campaign Statistics",
         type: "text",
         text: {
@@ -123,28 +104,6 @@ class EncounterJournal {
         content: data,
       },
     });
-  }
-
-  static async GetCampaignJournal(): Promise<CampaignStats | undefined> {
-    const journalEntryPage = game.journal
-      ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
-      ?.pages.find((e: JournalEntryPage) =>
-        e.getFlag("encounter-stats", "campaignstats")
-      );
-
-    if (!journalEntryPage) {
-      Logger.error(
-        `No Journal found with name ${this.JOURNAL_TITLE} and campaignstats flag`,
-        "encounterjournal.GetCampaignJournal"
-      );
-      return;
-    }
-
-    return <CampaignStats>(
-      JSON.parse(
-        journalEntryPage.text.content.replace("<p>", "").replace("</p>", "")
-      )
-    );
   }
 }
 
