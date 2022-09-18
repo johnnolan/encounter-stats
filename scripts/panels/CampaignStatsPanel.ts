@@ -1,3 +1,4 @@
+import CampaignStat from "../CampaignStat";
 import Gamemaster from "../Helpers/Gamemaster";
 import Trans from "../Helpers/Trans";
 import { MODULE_NAME } from "../Settings";
@@ -51,7 +52,7 @@ export class CampaignStatsPanel extends FormApplication {
     if (typeof json === "string") {
       json = JSON.parse(json);
     }
-    Gamemaster.SetStats(json);
+    CampaignStat.Save(json);
   }
 
   async importFromJSONDialog() {
