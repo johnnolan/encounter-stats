@@ -116,6 +116,37 @@ class EncounterJournal {
         content: data,
       },
     });
+
+    this.SortJournalData();
+  }
+
+  private static async SortJournalData() {
+    const journalEntry = game.journal?.find(
+      (e) => e.name === "Encounter Statistics"
+    );
+
+    let sortValue = 2000;
+
+    const sortedJournalsByName = new Map(
+      [...journalEntry.pages.entries()].sort((a, b) =>
+        a.name > b.name ? 1 : -1
+      )
+    );
+
+    sortedJournalsByName.forEach((journalEntryPage) => {
+      if (
+        journalEntryPage.getFlag("encounter-stats", "campaignstats") === "view"
+      ) {
+        journalEntryPage.update({
+          sort: 1000,
+        });
+      } else {
+        journalEntryPage.update({
+          sort: sortValue,
+        });
+        sortValue = sortValue + 1000;
+      }
+    });
   }
 
   // Temporary for migration from Journal
