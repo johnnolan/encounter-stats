@@ -3,7 +3,7 @@
 
 $font-modesto-condensed: "Modesto Condensed", "Palatino Linotype", serif;
 $border-style-groove: 2px groove #eeede0;
-$border-style-solid:  1px solid #c9c7b8;
+$border-style-solid: 1px solid #c9c7b8;
 $color-1: #7a7971;
 $color-2: #191813;
 $color-3: #4b4a44;
@@ -15,6 +15,10 @@ li.item.flexrow.campaign-row {
 }
 
 .fvtt-enc-stats {
+  &_campaign_ol {
+    padding: 0;
+  }
+
   &_enemies {
     font-family: $font-modesto-condensed;
     border: none;
@@ -94,7 +98,7 @@ li.item.flexrow.campaign-row {
             font-size: 12px;
             color: $color-1;
             text-align: center;
-            border-right:$border-style-solid;
+            border-right: $border-style-solid;
           }
           .item-round {
             flex: 0 0 40px;
@@ -141,7 +145,7 @@ li.item.flexrow.campaign-row {
       text-align: center;
       font-size: 18px;
       color: $color-3;
-      border-bottom:$border-style-solid;
+      border-bottom: $border-style-solid;
     }
     &_stat-value {
       @include title-content-center();
