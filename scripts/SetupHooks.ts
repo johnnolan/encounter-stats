@@ -231,7 +231,7 @@ export default class SetupHooks {
     game.socket?.on(SetupHooks.SOCKET_NAME, async function (payload: unknown) {
       switch (payload.event) {
         case "encounter-stats.customEvent":
-          OnCustomEvent(<CustomHookEvent>customEvent);
+          OnCustomEvent(payload.data.customEvent);
           break;
         case "midi-qol.RollComplete":
           OnEncounterWorkflowComplete(payload.data.workflow, ChatType.MidiQol);
