@@ -121,6 +121,14 @@ export default class Template {
           <div class="fvtt-enc-stats_actor_statlist flexrow">
             <div class="fvtt-enc-stats_actor_stat">
               <div class="fvtt-enc-stats_actor_stat-key">${Trans.Get(
+                "template.initiative"
+              )}</div>
+              <div class="fvtt-enc-stats_actor_stat-value">
+                <span>${combatant.initiative}</span>
+              </div>
+            </div>
+            <div class="fvtt-enc-stats_actor_stat">
+              <div class="fvtt-enc-stats_actor_stat-key">${Trans.Get(
                 "template.startinghp"
               )}</div>
               <div class="fvtt-enc-stats_actor_stat-value">

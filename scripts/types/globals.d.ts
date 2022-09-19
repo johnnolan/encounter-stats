@@ -188,7 +188,8 @@ declare global {
     type: string;
     hp: number;
     max: number;
-    ac: nuber;
+    ac: number;
+    initiative: number | null;
     events: Array<CombatantEvent>;
     health: Array<CombatantHealthData>;
     kills: Array<CombatantKills>;

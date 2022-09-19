@@ -104,7 +104,7 @@ export default class Stat {
     combatantStat.health.push(healthData);
   }
 
-  AddCombatant(actor: Actor, tokenId: string) {
+  AddCombatant(actor: Actor, tokenId: string, initiative: number | null) {
     const tokenImage = canvas?.tokens?.get(tokenId)?.img;
     if (!tokenImage) {
       Logger.warn(
@@ -129,6 +129,7 @@ export default class Stat {
       hp: actor.system.attributes.hp.value,
       max: actor.system.attributes.hp.max,
       ac: actor.system.attributes.ac.value,
+      initiative: initiative,
       events: [],
       health: [],
       kills: [],
@@ -148,8 +149,24 @@ export default class Stat {
       },
     };
 
-    if (!this._encounter.combatants.find((f) => f.id === newCombatant.id)) {
+    let currentCombatant = this._encounter.combatants.find(
+      (f) => f.id === newCombatant.id
+    );
+
+    if (!currentCombatant) {
       this._encounter.combatants.push(newCombatant);
+      if (currentCombatant?.initiative) {
+        this._encounter.combatants.sort((a, b) =>
+          (a.initiative ?? 0) > (b.initiative ?? 0) ? 1 : -1
+        );
+      }
+    }
+
+    if (!currentCombatant?.initiative && newCombatant.initiative) {
+      currentCombatant.initiative = newCombatant.initiative;
+      this._encounter.combatants.sort((a, b) =>
+        (a.initiative ?? 0) < (b.initiative ?? 0) ? 1 : -1
+      );
     }
   }
 

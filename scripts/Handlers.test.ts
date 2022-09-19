@@ -196,6 +196,7 @@ describe("Handlers", () => {
             {
               actorId: "actorId",
               tokenId: "tokenId",
+              initiative: 19,
             },
           ],
         },
@@ -203,7 +204,8 @@ describe("Handlers", () => {
       expect(mockLoggerLog).not.toBeCalled();
       expect(mockStatAddCombatant).toBeCalledWith(
         { name: "Actor Name" },
-        "tokenId"
+        "tokenId",
+        19
       );
       expect(mockStatSave).toBeCalled();
       expect(mockLoggerDebug).toBeCalledWith(
