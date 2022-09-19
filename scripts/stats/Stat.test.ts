@@ -2,7 +2,7 @@ import Stat from "./Stat";
 import Logger from "../Helpers/Logger";
 jest.mock("../StatManager");
 import StatManager from "../StatManager";
-import { actor } from "../mockdata/actor";
+import { actor, actorTwo, actorThree } from "../mockdata/actors";
 import { CombatDetailType } from "../enums";
 
 const mockLoggerLog = jest.fn();
@@ -232,12 +232,12 @@ describe("Stat", () => {
     });
 
     test("it shows the Encounter has one combatant", () => {
-      stat.AddCombatant(actor, "tokenId");
+      stat.AddCombatant(actor, "tokenId", null);
       expect(stat.encounter.combatants.length).toBe(1);
     });
 
     test("you can get the combatant by actor id", () => {
-      stat.AddCombatant(actor, "tokenId");
+      stat.AddCombatant(actor, "tokenId", null);
       expect(stat.encounter.combatants.length).toBe(1);
       expect(stat.GetCombatantStats("eMyoELkOwFNPGEK8")?.id).toBe(
         "eMyoELkOwFNPGEK8"
@@ -245,7 +245,7 @@ describe("Stat", () => {
     });
 
     test("you can get the combatant by actor id", () => {
-      stat.AddCombatant(actor, "tokenId");
+      stat.AddCombatant(actor, "tokenId", null);
       expect(stat.encounter.combatants.length).toBe(1);
       expect(stat.GetCombatantStatsByTokenId("tokenId")?.id).toBe(
         "eMyoELkOwFNPGEK8"
@@ -269,7 +269,7 @@ describe("Stat", () => {
 
     describe("If you add a new Kill", () => {
       test("you can see the kill added", () => {
-        stat.AddCombatant(actor, "tokenId");
+        stat.AddCombatant(actor, "tokenId", null);
         stat.AddKill("Acolyte", "tokenId");
         stat.Save();
         expect(stat.encounter.combatants.length).toBe(1);
@@ -279,7 +279,7 @@ describe("Stat", () => {
       });
 
       test("you can see a Log message if not valid", () => {
-        stat.AddCombatant(actor, "tokenId");
+        stat.AddCombatant(actor, "tokenId", null);
         stat.AddKill("Acolyte", "tokenIdError");
         stat.Save();
         expect(mockLoggerWarn).toBeCalled();
@@ -292,7 +292,7 @@ describe("Stat", () => {
 
     describe("If you update Health", () => {
       test("you can see healing done", () => {
-        stat.AddCombatant(actor, "tokenId");
+        stat.AddCombatant(actor, "tokenId", null);
         stat.UpdateHealth({
           id: "eMyoELkOwFNPGEK8",
           system: {
@@ -335,7 +335,7 @@ describe("Stat", () => {
       });
 
       test("you can a log message when no actor passes", () => {
-        stat.AddCombatant(actor, "tokenId");
+        stat.AddCombatant(actor, "tokenId", null);
         stat.UpdateHealth({
           system: {
             attributes: {
@@ -355,7 +355,7 @@ describe("Stat", () => {
     });
 
     test("you can a log message when no actor can be found", () => {
-      stat.AddCombatant(actor, "tokenId");
+      stat.AddCombatant(actor, "tokenId", null);
       stat.UpdateHealth({
         id: "eMyoELkOwFNPGEK9",
         system: {
@@ -375,14 +375,14 @@ describe("Stat", () => {
     });
 
     test("do not add the same actor twice", () => {
-      stat.AddCombatant(actor, "tokenId");
-      stat.AddCombatant(actor, "tokenId");
+      stat.AddCombatant(actor, "tokenId", null);
+      stat.AddCombatant(actor, "tokenId", null);
 
       expect(stat.encounter.combatants.length).toBe(1);
     });
 
     test("you can a log message when errored actor is passed", () => {
-      stat.AddCombatant({}, "tokenId");
+      stat.AddCombatant({}, "tokenId", null);
       expect(mockLoggerWarn).toBeCalledWith(
         "No valid actor passed [object Object]",
         "stat.AddCombatant",
@@ -401,7 +401,7 @@ describe("Stat", () => {
         };
       });
       test("you can a log message when errored actor is passed", () => {
-        stat.AddCombatant(actor, "tokenIdError");
+        stat.AddCombatant(actor, "tokenIdError", null);
         expect(mockLoggerWarn).toBeCalledWith(
           "No tokenImage for TokenID tokenIdError",
           "stat.AddCombatant",
@@ -410,10 +410,32 @@ describe("Stat", () => {
       });
     });
 
+    test("initiative gets updated correctly", async () => {
+      stat.AddCombatant(actor, "tokenId", null);
+      expect(stat.encounter.combatants.length).toBe(1);
+      expect(stat.encounter.combatants[0].initiative).toBeNull();
+      stat.AddCombatant(actor, "tokenId", 19);
+      expect(stat.encounter.combatants[0].initiative).toBe(19);
+    });
+
+    test("initiative order is correct", async () => {
+      stat.AddCombatant(actor, "tokenId", null);
+      stat.AddCombatant(actorTwo, "tokenId", null);
+      stat.AddCombatant(actorThree, "tokenId", null);
+      expect(stat.encounter.combatants.length).toBe(3);
+      expect(stat.encounter.combatants[0].initiative).toBeNull();
+      stat.AddCombatant(actor, "tokenId", 9);
+      stat.AddCombatant(actorTwo, "tokenId", 18);
+      stat.AddCombatant(actorThree, "tokenId", 21);
+      expect(stat.encounter.combatants[0].initiative).toBe(21);
+      expect(stat.encounter.combatants[1].initiative).toBe(18);
+      expect(stat.encounter.combatants[2].initiative).toBe(9);
+    });
+
     test("you return if the actor is not a character", () => {
       const newActor = actor;
       newActor.type = "npc";
-      stat.AddCombatant(newActor, "tokenId");
+      stat.AddCombatant(newActor, "tokenId", null);
 
       expect(stat.encounter.combatants.length).toBe(0);
     });
