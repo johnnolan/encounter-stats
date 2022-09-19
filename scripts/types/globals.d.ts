@@ -29,11 +29,17 @@ declare global {
     combat: Combat;
   }
 
-  interface CustomEvent {
-    EventId: string;
-    DataValue: string | number;
+  interface CustomHookEvent {
+    EventName: string;
     FlavorText: string;
     actorId?: string;
+  }
+
+  interface CustomDataEvent {
+    EventName: string;
+    FlavorText: string;
+    actorName?: string;
+    date: string;
   }
 
   interface HookUpdateCombatRound {
@@ -44,7 +50,7 @@ declare global {
   interface CampaignStat {
     id: string;
     dateDisplay: string;
-    data: Array<DiceTrack>;
+    data: Array<DiceTrack> | Array<CustomDataEvent>;
   }
 
   interface CampaignStats {
@@ -52,6 +58,7 @@ declare global {
     nat20: Array<CampaignStat>;
     heals: Array<CampaignStat>;
     kills: Array<CampaignStat>;
+    custom: Array<CampaignStat>;
   }
 
   type DateOptions = {

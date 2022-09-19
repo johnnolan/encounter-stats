@@ -97,6 +97,39 @@ export default class CampaignStat {
     await this.Save(campaignStats);
   }
 
+  static async AddCustomEvent(customEvent: CustomHookEvent) {
+    const campaignStats = await this.Get();
+    if (!campaignStats.custom) {
+      campaignStats.custom = [];
+    }
+    const date = Dates.now;
+    let actorName = "";
+
+    if (customEvent.actorId) {
+      actorName = game.actors?.get(customEvent.actorId).name;
+    }
+
+    const customDataEvent = <CustomDataEvent>{
+      EventName: customEvent.EventName,
+      actorName: actorName,
+      FlavorText: customEvent.FlavorText,
+      date: date.dateTimeDisplay,
+    };
+
+    const dateEntry = campaignStats.custom.find((f) => f.id === date.id);
+    if (dateEntry) {
+      dateEntry.data.push(customDataEvent);
+    } else {
+      campaignStats.custom.push({
+        id: date.id,
+        dateDisplay: date.dateDisplay,
+        data: [customDataEvent],
+      });
+    }
+
+    await this.Save(campaignStats);
+  }
+
   static async Get(): Promise<CampaignStats> {
     return Gamemaster.GetStats;
   }

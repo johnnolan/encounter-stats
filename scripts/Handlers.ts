@@ -7,6 +7,10 @@ import CampaignStat from "./CampaignStat";
 import { ChatType, RoleType } from "./enums";
 import Logger from "./Helpers/Logger";
 
+export function OnCustomEvent(customEvent: CustomHookEvent): void {
+  CampaignStat.AddCustomEvent(customEvent);
+}
+
 export async function OnTrackDiceRoll(
   result: number,
   alias: string,

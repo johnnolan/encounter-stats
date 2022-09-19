@@ -54,8 +54,56 @@ export function Generate(campaignStats: CampaignStats) {
     <div>
         ${GenerateKillRow(campaignStats)}
     </div>
+
+    ${GenerateCustomEventRows(campaignStats)}
   </div>
   `;
+}
+
+function GenerateCustomEventRows(campaignStats: CampaignStats) {
+  let markup = ``;
+  let statList = campaignStats.custom;
+
+  // Get unique EventIds
+  const eventIds = [].concat
+    .apply(
+      [],
+      statList?.reduce((m) =>
+        m.data.map((im) => {
+          return im.EventName;
+        })
+      )
+    )
+    .reduce(
+      (unique, item) => (unique.includes(item) ? unique : [...unique, item]),
+      []
+    );
+
+  markup += `<hr />`;
+  // Foreach eventid
+  eventIds.forEach((eventName, index) => {
+    markup += `<h2 class="fvtt-enc-stats_enemies">${eventName}</h2>`;
+    statList.forEach((statItem, index2) => {
+      // filter statList
+      const dateStatList = statItem.data.filter(
+        (f) => f.EventName === eventName
+      );
+      markup += `<div>`;
+      markup += _getItemListTitle(statItem.dateDisplay);
+      dateStatList.forEach((statEntry, index3) => {
+        // Generate row
+        markup += `
+        <li class="item flexrow campaign-row">
+          <div class="item-name">${statEntry.actorName ?? ""}</div>
+          <div class="item-name">${statEntry.FlavorText}</div>
+          <div class="item-name">${statEntry.date}</div>
+        </li>`;
+      });
+      markup += `</ol></div>`;
+    });
+  });
+
+  return markup;
 }
 
 function GenerateKillRow(campaignStats: CampaignStats) {
