@@ -29,6 +29,13 @@ declare global {
     combat: Combat;
   }
 
+  interface CustomEvent {
+    EventId: string;
+    DataValue: string | number;
+    FlavorText: string;
+    actorId?: string;
+  }
+
   interface HookUpdateCombatRound {
     round: number;
     turn: number;
