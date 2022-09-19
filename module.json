@@ -31,6 +31,15 @@
 			}
 		]
 	},
+	"packs": [
+		{
+			"name": "encounter-statistics",
+			"label": "Encounter Statistics Example Macros",
+			"path": "packs/encounter-statistics.db",
+			"module": "encounter-statistics",
+			"entity": "Macro"
+		}
+	],
 	"conflicts": [],
 	"esmodules": [
 		"/dist/module.js"
