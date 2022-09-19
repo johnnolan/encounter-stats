@@ -98,7 +98,7 @@ function GenerateCustomEventRows(campaignStats: CampaignStats) {
         markup += `
         <li class="item flexrow campaign-row">
           <div class="item-name">${statEntry.actorName ?? ""}</div>
-          <div class="item-name">${statEntry.FlavorText}</div>
+          <div class="item-name">${statEntry.FlavorText ?? ""}</div>
           <div class="item-name">${statEntry.date}</div>
         </li>`;
       });
