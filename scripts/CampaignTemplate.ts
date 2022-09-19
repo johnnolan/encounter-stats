@@ -64,13 +64,13 @@ function GenerateCustomEventRows(campaignStats: CampaignStats) {
   let markup = ``;
   let statList = campaignStats.custom;
 
-  if (campaignStats.custom.length === 0) return;
+  if (statList.length === 0) return;
 
   // Get unique EventIds
   const eventIds = [].concat
     .apply(
       [],
-      statList?.reduce((m) =>
+      statList?.map((m) =>
         m.data.map((im) => {
           return im.EventName;
         })
