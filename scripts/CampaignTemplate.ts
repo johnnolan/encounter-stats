@@ -1,26 +1,56 @@
+import Trans from "./Helpers/Trans";
+
 export function Generate(campaignStats: CampaignStats) {
   return `
+  <div class="fvtt-enc-stats_top fvtt-enc-stats_campaign_top">
+    <div class="flexrow">
+      <div class="fvtt-enc-stats_actor_stat">
+        <h2 class="fvtt-enc-stats_enemies">${Trans.Get(
+          "template.MostNatural20s"
+        )}</h2>
+        ${GenerateSummaryRow(campaignStats, "nat20")}
+      </div>
+      <div class="fvtt-enc-stats_actor_stat">
+        <h2 class="fvtt-enc-stats_enemies">${Trans.Get(
+          "template.MostNatural1s"
+        )}</h2>
+        ${GenerateSummaryRow(campaignStats, "nat1")}
+      </div>
+      <div class="fvtt-enc-stats_actor_stat">
+        <h2 class="fvtt-enc-stats_enemies">${Trans.Get(
+          "template.most_healing"
+        )}</h2>
+        ${GenerateSummaryRow(campaignStats, "heals")}
+      </div>
+      <div class="fvtt-enc-stats_actor_stat">
+        <h2 class="fvtt-enc-stats_enemies">${Trans.Get(
+          "template.most_kills"
+        )}</h2>
+        ${GenerateSummaryRow(campaignStats, "kills")}
+      </div>
+    </div>
+  </div>
   <div class="fvtt-enc-stats">
     <hr />
-    <h2 class="fvtt-enc-stats_enemies">Natural 20s</h2>
+    <h2 class="fvtt-enc-stats_enemies">${Trans.Get("template.Natural20s")}</h2>
     <div>
         ${GenerateCritialRow(campaignStats)}
     </div>
 
     <hr />
-    <h2 class="fvtt-enc-stats_enemies">Natural 1s</h2>
+    <h2 class="fvtt-enc-stats_enemies">${Trans.Get("template.Natural1s")}</h2>
     <div>
         ${GenerateFumbleRow(campaignStats)}
     </div>
 
     <hr />
-    <h2 class="fvtt-enc-stats_enemies">Heals</h2>
+    <h2 class="fvtt-enc-stats_enemies">${Trans.Get("template.Healing")}</h2>
     <div>
         ${GenerateHealRow(campaignStats)}
     </div>
 
     <hr />
-    <h2 class="fvtt-enc-stats_enemies">Kills</h2>
+    <h2 class="fvtt-enc-stats_enemies">${Trans.Get("template.kills")}</h2>
     <div>
         ${GenerateKillRow(campaignStats)}
     </div>
@@ -66,6 +96,63 @@ function GenerateFumbleRow(campaignStats: CampaignStats) {
 
     markup += `</ol>`;
   });
+
+  return markup;
+}
+
+function GenerateSummaryRow(campaignStats: CampaignStats, type: string) {
+  let markup = ``;
+
+  let statList;
+
+  switch (type) {
+    case "nat20":
+      statList = campaignStats.nat20;
+      break;
+    case "nat1":
+      statList = campaignStats.nat1;
+      break;
+    case "heals":
+      statList = campaignStats.heals;
+      break;
+    case "kills":
+      statList = campaignStats.kills;
+      break;
+  }
+
+  const flattenedResults = [].concat
+    .apply(
+      [],
+      statList?.map((m) =>
+        m.data.map((im) => {
+          return im.actorName;
+        })
+      )
+    )
+    .reduce(function (prev, cur) {
+      prev[cur] = (prev[cur] || 0) + 1;
+      return prev;
+    }, {});
+
+  const result = [];
+  Object.entries(flattenedResults).forEach(([key, value]) => {
+    result.push({
+      name: key,
+      value: value,
+    });
+  });
+
+  markup += `<ol class="fvtt-enc-stats_campaign_ol">`;
+
+  result.forEach((entry) => {
+    markup += `
+      <li class="item flexrow campaign-row">
+        <div class="item-name">${entry.name}</div>
+        <div class="item-name">${entry.value}</div>
+      </li>`;
+  });
+
+  markup += `</ol>`;
 
   return markup;
 }

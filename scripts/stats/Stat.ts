@@ -149,7 +149,7 @@ export default class Stat {
       },
     };
 
-    let currentCombatant = this._encounter.combatants.find(
+    const currentCombatant = this._encounter.combatants.find(
       (f) => f.id === newCombatant.id
     );
 

@@ -14,6 +14,11 @@ beforeEach(() => {
   mockGamemasterGetStats.mockClear();
   mockGamemasterSetStats.mockClear();
   mockEncounterJournalUpdateJournalData.mockClear();
+  (global as any).game = {
+    i18n: {
+      format: jest.fn().mockReturnValue("TestKeyValue"),
+    },
+  };
 });
 
 describe("CampaignStat", () => {
