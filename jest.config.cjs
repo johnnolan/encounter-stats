@@ -26,6 +26,7 @@ module.exports = {
     "scripts/**/*.ts",
     "!scripts/integrations/*.ts",
     "!scripts/mockdata/**/*.ts",
+    "!scripts/macros/**/*.js",
     "!scripts/mocks/*.ts",
     "!scripts/panels/*.ts",
     "!scripts/scss.ts",
