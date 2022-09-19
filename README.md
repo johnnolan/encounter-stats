@@ -10,7 +10,9 @@
 
 # Encounter Statistics
 
-### Current features are
+Capture your Players attacks, damage, healing, dice rolls, custom events and more. Store the results into a Journal for individual encounters and the entire campaign.
+
+## Current features are
 
 * Works with standard roles, `midi-qol` and `dnd5e`
 * [Track your own custom campaign events via Macros](#track-your-own-custom-campaign-events)
