@@ -106,7 +106,7 @@ export default class CampaignStat {
     let actorName = "";
 
     if (customEvent.actorId) {
-      actorName = game.actors?.get(customEvent.actorId).name;
+      actorName = game.actors?.get(customEvent.actorId)?.name ?? "";
     }
 
     const customDataEvent = <CustomDataEvent>{

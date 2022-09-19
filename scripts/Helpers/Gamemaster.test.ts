@@ -77,6 +77,7 @@ describe("Gamemaster", () => {
             nat1: [],
             nat20: [],
             heals: [],
+            custom: [],
           });
         });
       });
@@ -98,6 +99,7 @@ describe("Gamemaster", () => {
                   nat1: [],
                   nat20: [],
                   heals: [],
+                  custom: [],
                 }),
               },
             ],
@@ -116,6 +118,7 @@ describe("Gamemaster", () => {
             nat1: [],
             nat20: [],
             heals: [],
+            custom: [],
           });
         });
       });
@@ -141,6 +144,7 @@ describe("Gamemaster", () => {
                   nat1: [],
                   nat20: [],
                   heals: [],
+                  custom: [],
                 }),
             },
           ],

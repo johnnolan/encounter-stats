@@ -64,6 +64,8 @@ function GenerateCustomEventRows(campaignStats: CampaignStats) {
   let markup = ``;
   let statList = campaignStats.custom;
 
+  if (campaignStats.custom.length === 0) return;
+
   // Get unique EventIds
   const eventIds = [].concat
     .apply(
