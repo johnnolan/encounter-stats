@@ -88,6 +88,7 @@ function GenerateCustomEventRows(campaignStats: CampaignStats) {
       const dateStatList = statItem.data.filter(
         (f) => f.EventName === eventName
       );
+      if (dateStatList?.length === 0) return;
       markup += `<div>`;
       markup += _getItemListTitle(statItem.dateDisplay);
       dateStatList.forEach((statEntry, index3) => {
