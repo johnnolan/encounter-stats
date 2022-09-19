@@ -6,6 +6,7 @@ class Gamemaster {
     nat1: [],
     nat20: [],
     heals: [],
+    custom: [],
   };
 
   static get GetActor(): Actor {

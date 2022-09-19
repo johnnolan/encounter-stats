@@ -18,6 +18,11 @@ beforeEach(() => {
     i18n: {
       format: jest.fn().mockReturnValue("TestKeyValue"),
     },
+    actors: {
+      get: jest.fn().mockReturnValueOnce({
+        name: "Graa S'oua",
+      }),
+    },
   };
 });
 
@@ -33,6 +38,7 @@ describe("CampaignStat", () => {
         heals: [],
         nat20: [],
         nat1: [],
+        custom: [],
       });
       jest.spyOn(CampaignStat, "Save");
     });
@@ -64,6 +70,7 @@ describe("CampaignStat", () => {
         heals: [],
         nat20: [],
         nat1: [],
+        custom: [],
       });
     });
   });
@@ -75,6 +82,7 @@ describe("CampaignStat", () => {
         heals: [],
         nat20: [],
         nat1: [],
+        custom: [],
       });
       jest.spyOn(CampaignStat, "Save");
     });
@@ -120,6 +128,7 @@ describe("CampaignStat", () => {
         ],
         nat20: [],
         nat1: [],
+        custom: [],
       });
     });
   });
@@ -131,6 +140,7 @@ describe("CampaignStat", () => {
         heals: [],
         nat20: [],
         nat1: [],
+        custom: [],
       });
       jest.spyOn(CampaignStat, "Save");
     });
@@ -170,6 +180,7 @@ describe("CampaignStat", () => {
             ],
           },
         ],
+        custom: [],
       });
     });
   });
@@ -181,6 +192,7 @@ describe("CampaignStat", () => {
         heals: [],
         nat20: [],
         nat1: [],
+        custom: [],
       });
       jest.spyOn(CampaignStat, "Save");
     });
@@ -220,6 +232,48 @@ describe("CampaignStat", () => {
           },
         ],
         nat1: [],
+        custom: [],
+      });
+    });
+
+    test("it adds a custom event", async () => {
+      await CampaignStat.AddCustomEvent({
+        EventName: "WMS2",
+        actorId: "actorId",
+        FlavorText: "Wild Magic Surge",
+      });
+      await CampaignStat.AddCustomEvent({
+        EventName: "WMS",
+        actorId: "actorId",
+        FlavorText: "Wild Magic Surge",
+      });
+      expect(mockEncounterJournalUpdateJournalData).toBeCalled();
+      expect(mockGamemasterSetStats).toBeCalled();
+      expect(mockGamemasterSetStats).toBeCalledWith({
+        kills: [],
+        heals: [],
+        nat20: [],
+        nat1: [],
+        custom: [
+          {
+            id: "20200101",
+            dateDisplay: "01 January 2020",
+            data: [
+              {
+                EventName: "WMS2",
+                actorName: "Graa S'oua",
+                FlavorText: "Wild Magic Surge",
+                date: "01 January 2020 00:00",
+              },
+              {
+                EventName: "WMS",
+                actorName: "",
+                FlavorText: "Wild Magic Surge",
+                date: "01 January 2020 00:00",
+              },
+            ],
+          },
+        ],
       });
     });
   });

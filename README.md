@@ -10,12 +10,14 @@
 
 # Encounter Statistics
 
-### Current features are
+Capture your Players attacks, damage, healing, dice rolls, custom events and more. Store the results into a Journal for individual encounters and the entire campaign.
+
+## Current features are
 
 * Works with standard roles, `midi-qol` and `dnd5e`
+* [Track your own custom campaign events via Macros](#track-your-own-custom-campaign-events)
 * Enemies must be targetted in order for kills to be registered
     * Multiple targets will show roll damage and roll damage x targets
-* Uses the new V10 Journal
 * Optional Simple Calendar Integration for nicer Journal Entry names
 * Can track multiple active combats at one time
 * Optionally saves raw data output as JSON to the journal entry so you can export and manipulate the data as you want
@@ -42,6 +44,7 @@
 - Natural 20s
 - Kills
 - Heals
+- Your own custom events!
 
 [![Example Campaign](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example-campaign.jpg)](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example-campaign.jpg)
 
@@ -50,6 +53,33 @@
 ## Simple Calendar Integration
 
 If Simple Calendar module is enabled, the title of the Journal Entries will use the current day returned from it instead of the curent real world time.
+
+## Track your own custom Campaign Events
+
+You can create your own events in the campaign journal to remember certain points in time. These can be created by Macros run by the GM/Player or other module developers can add them from their modules.
+
+Example macros are included in the `Compendium Macros` section called `Encounter Statistics`. These include...
+
+- HDYWTDT (Select token before running to assign the event to that actor)
+- Swear Word at the table (Select token before running to assign the event to that actor)
+- Every time food at the table consumed
+- Every time the GM says "You can certainly try"
+
+### How to call the Hook
+
+You can call the hook using the following example code.
+
+``` javascript
+Hooks.callAll(`encounter-stats.customEvent`, {
+    EventName: "Expletive", // Unique name that all events triggered will be grouped by
+    actorId: token.actor.id, // Optional actorId to assign the event to an individual Player
+    FlavorText: formDataObject.expletive, // Whatever custom text you want to display
+});
+```
+
+In the campaign report, the results look like so
+
+[![Example Custom Campaign Report](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/custom-events.jpg)](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/custom-events.jpg)
 
 ## Dependencies
 

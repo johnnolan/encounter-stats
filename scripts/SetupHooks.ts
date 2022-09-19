@@ -7,6 +7,7 @@ import {
   OnTrackKill,
   OnTrackDice,
   OnTrackDiceRoll,
+  OnCustomEvent,
 } from "./Handlers";
 import StatManager from "./StatManager";
 import DND5e from "./parsers/DND5e";
@@ -66,6 +67,13 @@ export default class SetupHooks {
           }
         );
       }
+
+      Hooks.on(
+        "encounter-stats.customEvent",
+        async function (customEvent: CustomHookEvent) {
+          OnCustomEvent(customEvent);
+        }
+      );
     } else {
       window.Hooks.on(
         "updateActor",
@@ -204,12 +212,27 @@ export default class SetupHooks {
           });
         }
       );
+
+      window.Hooks.on(
+        "encounter-stats.customEvent",
+        async function (customEvent: CustomHookEvent) {
+          game.socket?.emit(SetupHooks.SOCKET_NAME, {
+            event: "encounter-stats.customEvent",
+            data: {
+              customEvent: customEvent,
+            },
+          });
+        }
+      );
     }
   }
 
   static _setupSockerListeners() {
     game.socket?.on(SetupHooks.SOCKET_NAME, async function (payload: unknown) {
       switch (payload.event) {
+        case "encounter-stats.customEvent":
+          OnCustomEvent(payload.data.customEvent);
+          break;
         case "midi-qol.RollComplete":
           OnEncounterWorkflowComplete(payload.data.workflow, ChatType.MidiQol);
           OnTrackDice(payload.data.rollCheck);

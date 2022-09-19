@@ -1,7 +1,7 @@
 {
 	"id": "encounter-stats",
 	"title": "Encounter Statistics",
-	"description": "Capture your Players attacks and damage in an Encounter and store the results into a Journal Entry with a summary of their stats for each after you end the Encounter.",
+	"description": "Capture your Players attacks, damage, healing, dice rolls, custom events and more. Store the results into a Journal for individual encounters and the entire campaign.",
 	"version": "This is auto replaced",
 	"library": "false",
 	"manifestPlusVersion": "1.0.0",
@@ -31,6 +31,15 @@
 			}
 		]
 	},
+	"packs": [
+		{
+			"name": "encounter-statistics",
+			"label": "Encounter Statistics Example Macros",
+			"path": "packs/encounter-statistics.db",
+			"module": "encounter-statistics",
+			"entity": "Macro"
+		}
+	],
 	"conflicts": [],
 	"esmodules": [
 		"/dist/module.js"
