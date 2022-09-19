@@ -120,20 +120,19 @@ function GenerateSummaryRow(campaignStats: CampaignStats, type: string) {
       break;
   }
 
-  // eslint-disable-next-line prefer-spread
-  const flattenedResults = [].concat.apply(
-    [],
-    statList
-      ?.map((m) =>
+  const flattenedResults = [].concat
+    .apply(
+      [],
+      statList?.map((m) =>
         m.data.map((im) => {
           return im.actorName;
         })
       )
-      .reduce(function (prev, cur) {
-        prev[cur] = (prev[cur] || 0) + 1;
-        return prev;
-      }, {})
-  );
+    )
+    .reduce(function (prev, cur) {
+      prev[cur] = (prev[cur] || 0) + 1;
+      return prev;
+    }, {});
 
   const result = [];
   Object.entries(flattenedResults).forEach(([key, value]) => {
