@@ -1,6 +1,17 @@
 export const combatantStats = {
     "encounterId": "RwzeJBOvutLp3eeL",
     "round": 1,
+    "overview": {
+        "start": "16 September 2022 07:23",
+        "end": "16 September 2022 08:56",
+        "gameDate": "16 September 2022 07:23",
+        "numberOfMonsters": 4,
+        "totalRounds": 1,
+        "scene": {
+            "name": "Dungeon One",
+            "thumb": "/images/test.webp",
+        }
+    },
     "combatants": [
         {
             "name": "Lorena Aldabra",
@@ -8,6 +19,14 @@ export const combatantStats = {
             "tokenId": "hoTFHXIbChPmVzQq",
             "img": "tokens/pcs/lorena/lorena_topdown_resting.png",
             "type": "character",
+            "abilities": {
+                "cha": 19,
+                "con": 19,
+                "dex": 19,
+                "int": 19,
+                "str": 19,
+                "wis": 19,
+            },
             "hp": 71,
             "max": 76,
             "ac": 16,

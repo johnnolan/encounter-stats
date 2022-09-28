@@ -134,6 +134,17 @@ describe("Stat", () => {
       expect(stat.encounter).toStrictEqual(<Encounter>{
         encounterId: encounterId,
         round: 1,
+        overview: {
+          start: "16 September 2022 07:23",
+          end: "",
+          gameDate: "16 September 2022 07:23",
+          numberOfMonsters: 0,
+          totalRounds: 1,
+          scene: {
+            name: "Dungeon One",
+            thumb: "/images/test.webp",
+          },
+        },
         combatants: [],
         top: {
           maxDamage: "",
@@ -204,7 +215,7 @@ describe("Stat", () => {
     let stat: Stat;
     beforeAll(async () => {
       stat = new Stat();
-      StatManager.GetStat.mockResolvedValue(encounter)
+      StatManager.GetStat.mockResolvedValue(encounter);
       stat.encounter = await StatManager.GetStat();
     });
 
