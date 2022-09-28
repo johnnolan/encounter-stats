@@ -43,6 +43,7 @@
     "EncounterStats.template.Natural20s": "Natural 20s",
     "EncounterStats.template.Natural1s": "Natural 1s",
     "EncounterStats.template.Healing": "Healing",
+    "EncounterStats.template.initiative": "Initiative",
     "EncounterStats.actiontypes.heal": "Heal",
     "EncounterStats.actiontypes.msak": "Melee Spell Attack",
     "EncounterStats.actiontypes.rsak": "Ranged Spell Attack",
