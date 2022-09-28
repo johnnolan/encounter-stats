@@ -11,6 +11,7 @@
 	"EncounterStats.template.attack_total": "Ataque Total",
 	"EncounterStats.template.attacks": "Ataques",
 	"EncounterStats.template.type": "Tipo",
+    "EncounterStats.template.initiative": "Iniciativa",
 	"EncounterStats.actiontypes.heal": "Sanar",
 	"EncounterStats.actiontypes.rsak": "Ataque de Conjuro de Alcance",
 	"EncounterStats.actiontypes.mwak": "Ataque de Arma Cuerpo a Cuerpo",
