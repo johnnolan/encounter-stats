@@ -158,8 +158,21 @@ declare global {
     type: CombatDetailType;
   }
 
+  type EncounterOverview = {
+    start: string;
+    end: string;
+    gameDate: string;
+    numberOfMonsters: number;
+    totalRounds: number;
+    scene: {
+      name: string;
+      thumb: string;
+    };
+  };
+
   type Encounter = {
     encounterId?: string;
+    overview: EncounterOverview;
     round: number;
     combatants: Array<EncounterCombatant>;
     top: EncounterTop;
@@ -204,11 +217,21 @@ declare global {
     max: number;
     ac: number;
     initiative: number | null;
+    abilities: CombatantAbilities;
     events: Array<CombatantEvent>;
     health: Array<CombatantHealthData>;
     kills: Array<CombatantKills>;
     summaryList: CombatantEventSummaryList;
     roundSummary: EncounterRoundSummary;
+  }
+
+  interface CombatantAbilities {
+    cha: number;
+    con: number;
+    dex: number;
+    int: number;
+    str: number;
+    wis: number;
   }
 
   interface EncounterRoundSummary {
