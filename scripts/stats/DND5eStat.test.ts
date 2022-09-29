@@ -69,7 +69,7 @@ describe("DND5eStat", () => {
   });
   describe("If you add a new Attack", () => {
     test("it returns without adding if no actorid present", () => {
-      dnd5eStat.AddCombatant(chatActor, "tokenId");
+      dnd5eStat.AddCombatant(chatActor, "tokenId", 13);
       dnd5eStat.AddAttack({
         actor: {},
       });
@@ -80,7 +80,7 @@ describe("DND5eStat", () => {
     });
 
     test("it returns without adding if actorid does not match combatant", () => {
-      dnd5eStat.AddCombatant(chatActor, "tokenId");
+      dnd5eStat.AddCombatant(chatActor, "tokenId", 13);
       dnd5eStat.AddAttack({
         actor: {
           id: "wrongid",
@@ -93,7 +93,7 @@ describe("DND5eStat", () => {
     });
 
     test("The basic Item Card is added", () => {
-      dnd5eStat.AddCombatant(chatActor, "tokenId");
+      dnd5eStat.AddCombatant(chatActor, "tokenId", 13);
       dnd5eStat.AddAttack(encounterDefaultWorkflowItemCard);
       dnd5eStat.Save();
       expect(dnd5eStat.encounter.combatants.length).toBe(1);
@@ -117,7 +117,7 @@ describe("DND5eStat", () => {
     });
 
     test("The Attack is added to the same item card", async () => {
-      dnd5eStat.AddCombatant(chatActor, "tokenId");
+      dnd5eStat.AddCombatant(chatActor, "tokenId", 13);
       dnd5eStat.AddAttack(encounterDefaultWorkflowItemCard);
       dnd5eStat.AddAttack(encounterDefaultWorkflowAttack);
       dnd5eStat.Save();
@@ -146,7 +146,7 @@ describe("DND5eStat", () => {
     });
 
     test("The Damage is added to the same item card", async () => {
-      dnd5eStat.AddCombatant(chatActor, "tokenId");
+      dnd5eStat.AddCombatant(chatActor, "tokenId", 13);
       dnd5eStat.AddAttack(encounterDefaultWorkflowItemCard);
       dnd5eStat.AddAttack(encounterDefaultWorkflowAttack);
       dnd5eStat.AddAttack(encounterDefaultWorkflowDamage);

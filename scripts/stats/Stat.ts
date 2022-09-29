@@ -61,6 +61,7 @@ export default class Stat {
   }
 
   UpdateEnd() {
+    if (!this._encounter?.overview) return;
     this._encounter.overview.end = Dates.now.dateTimeDisplay;
   }
 
@@ -178,12 +179,15 @@ export default class Stat {
       },
     };
 
-    const currentCombatant = this._encounter.combatants.find(
+    let currentCombatant = this._encounter.combatants.find(
       (f) => f.id === newCombatant.id
     );
 
     if (!currentCombatant) {
       this._encounter.combatants.push(newCombatant);
+      currentCombatant = this._encounter.combatants.find(
+        (f) => f.id === newCombatant.id
+      );
       if (currentCombatant?.initiative) {
         this._encounter.combatants.sort((a, b) =>
           (a.initiative ?? 0) > (b.initiative ?? 0) ? 1 : -1
@@ -216,6 +220,7 @@ export default class Stat {
   }
 
   public UpdateScene(id: string, name: string, thumb: string) {
+    if (!this._encounter?.overview?.scene) return;
     this._encounter.overview.scene.name = name;
     this._encounter.overview.scene.thumb = thumb;
     this._encounter.overview.scene.id = id;
@@ -238,6 +243,7 @@ export default class Stat {
   async Save(): Promise<void> {
     this.GenerateCombatantStats();
     this.GetTopStats();
+    console.log("fvtt saved", this._encounter);
     await StatManager.SaveStat(this._encounter);
   }
 

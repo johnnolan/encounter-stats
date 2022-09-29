@@ -13,6 +13,7 @@ Logger.warn = mockLoggerWarn;
 beforeEach(() => {
   mockLoggerWarn.mockClear();
   mockLoggerLog.mockClear();
+  jest.useFakeTimers().setSystemTime(new Date("01 January 2020"));
 });
 
 const encounter: Encounter = {
@@ -135,13 +136,13 @@ describe("Stat", () => {
         encounterId: encounterId,
         round: 1,
         overview: {
-          start: "16 September 2022 07:23",
+          start: "01 January 2020 00:00",
           end: "",
-          realDate: "16 September 2022 07:23",
+          realDate: "01 January 2020 00:00",
           scene: {
-            id: "hoTFHXIbChPmVz21",
-            name: "Dungeon One",
-            thumb: "/images/test.webp",
+            id: "",
+            name: "",
+            thumb: "",
           },
         },
         enemies: [],

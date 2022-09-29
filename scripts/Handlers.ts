@@ -65,7 +65,7 @@ export async function OnRenderCombatTracker(
   );
 
   let addEnemies = false;
-  if (stat.encounter.enemies.length === 0) {
+  if (stat.encounter?.enemies?.length === 0) {
     addEnemies = true;
   }
 
