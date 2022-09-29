@@ -6,15 +6,28 @@ import {
   ValidRollEvent,
 } from "../enums";
 import Logger from "../Helpers/Logger";
+import Dates from "../Helpers/Dates";
 
 export default class Stat {
   _encounter: Encounter;
 
   constructor(encounterId?: string) {
     if (encounterId) {
+      const date = Dates.now.dateTimeDisplay;
       this._encounter = {
         encounterId: encounterId,
         round: 1,
+        overview: {
+          start: date,
+          end: "",
+          realDate: date,
+          scene: {
+            id: "",
+            name: "",
+            thumb: "",
+          },
+        },
+        enemies: [],
         combatants: [],
         top: {
           maxDamage: "",
@@ -45,6 +58,10 @@ export default class Stat {
 
   get currentRound(): number {
     return this._encounter.round;
+  }
+
+  UpdateEnd() {
+    this._encounter.overview.end = Dates.now.dateTimeDisplay;
   }
 
   AddKill(targetName: string, tokenId: string) {
@@ -104,6 +121,10 @@ export default class Stat {
     combatantStat.health.push(healthData);
   }
 
+  AddEnemy(enemy: Enemies) {
+    this._encounter.enemies.push(enemy);
+  }
+
   AddCombatant(actor: Actor, tokenId: string, initiative: number | null) {
     const tokenImage = canvas?.tokens?.get(tokenId)?.img;
     if (!tokenImage) {
@@ -130,6 +151,14 @@ export default class Stat {
       max: actor.system.attributes.hp.max,
       ac: actor.system.attributes.ac.value,
       initiative: initiative,
+      abilities: {
+        cha: actor.system.abilities.cha.value,
+        con: actor.system.abilities.con.value,
+        dex: actor.system.abilities.dex.value,
+        int: actor.system.abilities.int.value,
+        str: actor.system.abilities.str.value,
+        wis: actor.system.abilities.wis.value,
+      },
       events: [],
       health: [],
       kills: [],
@@ -184,6 +213,12 @@ export default class Stat {
 
   protected IsValidRollEvent(attackType: string) {
     return Object.values(ValidRollEvent).includes(attackType);
+  }
+
+  public UpdateScene(id: string, name: string, thumb: string) {
+    this._encounter.overview.scene.name = name;
+    this._encounter.overview.scene.thumb = thumb;
+    this._encounter.overview.scene.id = id;
   }
 
   public UpdateRound(currentRound: number) {

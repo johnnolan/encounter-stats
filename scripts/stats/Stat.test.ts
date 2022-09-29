@@ -137,14 +137,14 @@ describe("Stat", () => {
         overview: {
           start: "16 September 2022 07:23",
           end: "",
-          gameDate: "16 September 2022 07:23",
-          numberOfMonsters: 0,
-          totalRounds: 1,
+          realDate: "16 September 2022 07:23",
           scene: {
+            id: "hoTFHXIbChPmVz21",
             name: "Dungeon One",
             thumb: "/images/test.webp",
           },
         },
+        enemies: [],
         combatants: [],
         top: {
           maxDamage: "",
@@ -240,6 +240,11 @@ describe("Stat", () => {
         },
       };
       stat = new Stat(encounterId);
+    });
+
+    test("it shows the abilities of the combatant", () => {
+      stat.AddCombatant(actor, "tokenId", null);
+      expect(stat.encounter.combatants[0].abilities.cha).toBe(19);
     });
 
     test("it shows the Encounter has one combatant", () => {

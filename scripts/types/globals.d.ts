@@ -161,19 +161,26 @@ declare global {
   type EncounterOverview = {
     start: string;
     end: string;
-    gameDate: string;
-    numberOfMonsters: number;
-    totalRounds: number;
+    realDate: string;
     scene: {
+      id: string;
       name: string;
       thumb: string;
     };
+  };
+
+  type Enemies = {
+    tokenId: string;
+    name: string;
+    img: string;
+    ac: number;
   };
 
   type Encounter = {
     encounterId?: string;
     overview: EncounterOverview;
     round: number;
+    enemies: Array<Enemies>;
     combatants: Array<EncounterCombatant>;
     top: EncounterTop;
     templateHealthCheck: Array<HealthCheck>;

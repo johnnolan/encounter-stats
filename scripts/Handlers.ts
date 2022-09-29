@@ -37,6 +37,7 @@ export async function OnUpdateCombat(currentRound: number): Promise<void> {
   stat.encounter = await StatManager.GetStat();
 
   stat.UpdateRound(currentRound);
+  stat.UpdateEnd();
 
   await stat.Save();
   Logger.debug(`Start of round ${currentRound}`, "handlers.OnUpdateCombat");
@@ -57,6 +58,17 @@ export async function OnRenderCombatTracker(
   const stat = new Stat();
   stat.encounter = await StatManager.GetStat();
 
+  stat.UpdateScene(
+    combatData.combat.scene?.id ?? "",
+    combatData.combat.scene?.name ?? "",
+    combatData.combat.scene?.thumb ?? ""
+  );
+
+  let addEnemies = false;
+  if (stat.encounter.enemies.length === 0) {
+    addEnemies = true;
+  }
+
   const combatantsList = combatData.combat.combatants;
   for (const combatant of combatantsList) {
     const actorId = combatant.actorId;
@@ -64,7 +76,16 @@ export async function OnRenderCombatTracker(
     const initiative = combatant.initiative;
     const actor = game.actors?.get(actorId);
     if (actor) {
-      stat.AddCombatant(actor, tokenId, initiative);
+      if (addEnemies && combatant.actor?.type === "npc") {
+        stat.AddEnemy(<Enemies>{
+          tokenId: combatant.tokenId,
+          name: combatant.name,
+          img: combatant.actor.img,
+          ac: combatant.actor.system.attributes.ac.value,
+        });
+      } else {
+        stat.AddCombatant(actor, tokenId, initiative);
+      }
     }
   }
   await stat.Save();

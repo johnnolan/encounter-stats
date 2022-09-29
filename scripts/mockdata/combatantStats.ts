@@ -4,14 +4,21 @@ export const combatantStats = {
     "overview": {
         "start": "16 September 2022 07:23",
         "end": "16 September 2022 08:56",
-        "gameDate": "16 September 2022 07:23",
-        "numberOfMonsters": 4,
-        "totalRounds": 1,
+        "realDate": "16 September 2022 07:23",
         "scene": {
+            "id": "hoTFHXIbChPmVz21",
             "name": "Dungeon One",
             "thumb": "/images/test.webp",
         }
     },
+    "enemies": [
+        {
+            "tokenId": "hoTFHXIbChPmVzQ1",
+            "name": "Orc",
+            "img": "/img/orc.webp",
+            "ac": 12,
+        }
+    ],
     "combatants": [
         {
             "name": "Lorena Aldabra",
