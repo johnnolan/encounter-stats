@@ -1196,10 +1196,10 @@
     slash "^3.0.0"
     write-file-atomic "^4.0.1"
 
-"@jest/types@^29.0.3":
-  version "29.0.3"
-  resolved "https://registry.yarnpkg.com/@jest/types/-/types-29.0.3.tgz#0be78fdddb1a35aeb2041074e55b860561c8ef63"
-  integrity sha512-coBJmOQvurXjN1Hh5PzF7cmsod0zLIOXpP8KD161mqNlroMhLcwpODiEzi7ZsRl5Z/AIuxpeNm8DCl43F4kz8A==
+"@jest/types@^29.0.3", "@jest/types@^29.1.0":
+  version "29.1.0"
+  resolved "https://registry.yarnpkg.com/@jest/types/-/types-29.1.0.tgz#db23d727ce0a95500749551d8724fb3526d1e903"
+  integrity sha512-lE30u3z4lbTOqf5D7fDdoco3Qd8H6F/t73nLOswU4x+7VhgDQMX5y007IMqrKjFHdnpslaYymVFhWX+ttXNARQ==
   dependencies:
     "@jest/schemas" "^29.0.0"
     "@types/istanbul-lib-coverage" "^2.0.0"
