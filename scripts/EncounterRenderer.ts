@@ -49,9 +49,8 @@ class EncounterRenderer {
         round.attacks.push(event);
       }
 
-      // Kills
-      for (let j = 0; j < combatant.kills.length; j++) {
-        const kill = combatant.kills[j];
+      // Killsfor (let value of arr) {
+      for (const kill of combatant.kills) {
         if (!combatant.rounds[kill.round - 1]) {
           combatant.rounds[kill.round - 1] = {
             round: kill.round,
@@ -65,8 +64,7 @@ class EncounterRenderer {
       }
 
       // Health
-      for (let j = 0; j < combatant.health.length; j++) {
-        const health = combatant.health[j];
+      for (const health of combatant.health) {
         if (!combatant.rounds[health.round - 1]) {
           combatant.rounds[health.round - 1] = {
             round: health.round,
@@ -85,8 +83,7 @@ class EncounterRenderer {
       }
 
       // Damage
-      for (let j = 0; j < combatant.roundSummary.totals.length; j++) {
-        const total = combatant.roundSummary.totals[j];
+      for (const total of combatant.roundSummary.totals) {
         combatant.rounds.find((f) => f.round === total.round).damageTotal =
           total.damageTotal;
       }
