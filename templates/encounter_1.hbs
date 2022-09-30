@@ -1,5 +1,5 @@
 <div class="fvtt-enc-stats">
-    <h1>Overview</h1>
+    <h1>{{localize "EncounterStats.template.overview"}}</h1>
     <div class="fvtt-enc-stats_top">
         <div class="fvtt-enc-stats_actor_statlist flexrow">
             <div class="fvtt-enc-stats_actor_stat">
@@ -16,7 +16,7 @@
         <div class="fvtt-enc-stats_actor_statlist flexrow">
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>Start</p>
+                    <p>{{localize "EncounterStats.template.Start"}}</p>
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
                     {{overview.start}}
@@ -24,7 +24,7 @@
             </div>
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>Finished</p>
+                    <p>{{localize "EncounterStats.template.Finished"}}</p>
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
                     {{overview.end}}
@@ -32,7 +32,7 @@
             </div>
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>Total Rounds</p>
+                    <p>{{localize "EncounterStats.template.TotalRounds"}}</p>
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
                     {{round}}
@@ -40,7 +40,7 @@
             </div>
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>Number of Enemies</p>
+                    <p>{{localize "EncounterStats.template.NumberofEnemies"}}</p>
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
                     {{enemyNumber}}
@@ -48,12 +48,12 @@
             </div>
         </div>
     </div>
-    <h1>Top Statistics</h1>
+    <h1>{{localize "EncounterStats.template.TopStatistics"}}</h1>
     <div class="fvtt-enc-stats_top">
         <div class="fvtt-enc-stats_actor_statlist flexrow">
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>Most Damage Overall</p>
+                    <p>{{localize "EncounterStats.template.most_damage_overall"}}</p>
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
                     {{{top.maxDamage}}}
@@ -61,7 +61,7 @@
             </div>
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>Most Damage in 1 turn</p>
+                    <p>{{localize "EncounterStats.template.most_damage_per_turn"}}</p>
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
                     {{{top.mostDamageInOneTurn}}}
@@ -69,7 +69,7 @@
             </div>
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>Highest Average Damage</p>
+                    <p>{{localize "EncounterStats.template.highest_average_damage"}}</p>
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
                     {{{top.highestAvgDamage}}}
@@ -77,7 +77,7 @@
             </div>
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>Highest Damage in 1 hit</p>
+                    <p>{{localize "EncounterStats.template.highest_damage_in_1_hit"}}</p>
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
                     {{{top.highestMaxDamage}}}
@@ -90,7 +90,7 @@
         <div class="fvtt-enc-stats_actor_statlist flexrow">
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>Most Kills</p>
+                    <p>{{localize "EncounterStats.template.most_kills"}}</p>
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
                     {{{top.mostKills}}}
@@ -98,7 +98,7 @@
             </div>
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>Most Healing Actions</p>
+                    <p>{{localize "EncounterStats.template.most_healing"}}</p>
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
                     {{{top.mostHealing}}}
@@ -106,7 +106,7 @@
             </div>
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>Most Support Actions</p>
+                    <p>{{localize "EncounterStats.template.most_support_actions"}}</p>
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
                     {{{top.mostSupportActions}}}
@@ -114,7 +114,7 @@
             </div>
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>Most Battlefield Actions</p>
+                    <p>{{localize "EncounterStats.template.battlefield_actions"}}</p>
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
                     {{{top.mostBattlefieldActions}}}
@@ -123,7 +123,7 @@
         </div>
     </div>
 
-    <h1>Combatants</h1>
+    <h1>{{localize "EncounterStats.template.Combatants"}}</h1>
     <div class="fvtt-enc-stats_combatants">
         <div>
             {{#each combatants}}
@@ -134,7 +134,7 @@
                             <img src="{{img}}" alt="{{name}}" />
                             <div class="fvtt-enc-stats_actor_stat">
                                 <div class="fvtt-enc-stats_actor_stat-key">
-                                    <p>Initiative</p>
+                                    <p>{{localize "EncounterStats.template.initiative"}}</p>
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat-value">
                                     <p><span>{{initiative}}</span></p>
@@ -146,7 +146,7 @@
                             <div class="fvtt-enc-stats_actor_statlist flexrow">
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>Starting HP</p>
+                                        <p>{{localize "EncounterStats.template.startinghp"}}</p>
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{hp}}</span><span class="sep">/</span><span>{{max}}</span></p>
@@ -154,7 +154,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>Final HP</p>
+                                        <p>{{localize "EncounterStats.template.finalhp"}}</p>
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{finalhp}}</span><span class="sep">/</span><span>{{max}}</span></p>
@@ -162,7 +162,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>AC</p>
+                                        <p>{{localize "EncounterStats.template.ac"}}</p>
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{ac}}</span></p>
@@ -170,7 +170,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>Total</p>
+                                        <p>{{localize "EncounterStats.template.damage_total"}}</p>
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{summaryList.total}}</span></p>
@@ -178,7 +178,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>Min Damage</p>
+                                        <p>{{localize "EncounterStats.template.min_damage"}}</p>
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{summaryList.min}}</span></p>
@@ -186,7 +186,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>Max Damage</p>
+                                        <p>{{localize "EncounterStats.template.max_damage"}}</p>
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{summaryList.max}}</span></p>
@@ -194,7 +194,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>Avg Damage</p>
+                                        <p>{{localize "EncounterStats.template.avg_damage"}}</p>
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{summaryList.avg}}</span></p>
@@ -204,7 +204,7 @@
                             <div class="fvtt-enc-stats_actor_statlist flexrow">
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>Charisma</p>
+                                        <p>{{localize "EncounterStats.template.Charisma"}}</p>
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{abilities.cha}}</span></p>
@@ -212,7 +212,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>Constitution</p>
+                                        <p>{{localize "EncounterStats.template.Constitution"}}</p>
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{abilities.con}}</span>
@@ -221,7 +221,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>Dexterity</p>
+                                        <p>{{localize "EncounterStats.template.Dexterity"}}</p>
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{abilities.dex}}</span>
@@ -230,7 +230,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>Intelligence</p>
+                                        <p>{{localize "EncounterStats.template.Intelligence"}}</p>
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{abilities.int}}</span></p>
@@ -238,7 +238,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>Strength</p>
+                                        <p>{{localize "EncounterStats.template.Strength"}}</p>
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{abilities.str}}</span></p>
@@ -246,7 +246,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>Wisdom</p>
+                                        <p>{{localize "EncounterStats.template.Wisdom"}}</p>
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{abilities.wis}}</span></p>
@@ -257,7 +257,7 @@
                     </header>
                     {{#each rounds}}
                     <div class="fvtt-enc-stats_title3">
-                        <h3>Round {{round}}</h3>
+                        <h3>{{localize "EncounterStats.template.round"}} {{round}}</h3>
                     </div>
                     <section class="fvtt-enc-stats_combatants_data">
                         <section
@@ -266,7 +266,7 @@
                                 <ol class="items-list flexcol">
                                     <li class="items-header flexrow">
                                         <div class="item-name">
-                                            Kills
+                                            {{localize "EncounterStats.template.kills"}}
                                         </div>
                                     </li>
                                     <ol class="item-list">
@@ -282,7 +282,7 @@
                                 <ol class="items-list flexcol">
                                     <li class="items-header flexrow">
                                         <div class="item-name">
-                                            Round {{round}} DMG
+                                            {{localize "EncounterStats.template.rounddmg"}}
                                         </div>
                                     </li>
                                     <ol class="item-list">
@@ -296,7 +296,7 @@
                                 <ol class="items-list flexcol">
                                     <li class="items-header flexrow">
                                         <div class="item-name">
-                                            Health
+                                            {{localize "EncounterStats.template.health"}}
                                         </div>
                                     </li>
                                     <ol class="item-list">
@@ -317,25 +317,25 @@
                                 <ol class="items-list flexcol">
                                     <li class="items-header flexrow">
                                         <div class="item-name">
-                                            Image
+                                            {{localize "EncounterStats.template.Image"}}
                                         </div>
                                         <div class="item-name">
-                                            Weapon/Spell Name
+                                            {{localize "EncounterStats.template.weapon_spell_name"}}
                                         </div>
                                         <div class="item-name">
-                                            Type
+                                            {{localize "EncounterStats.template.type"}}
                                         </div>
                                         <div class="item-name">
-                                            Roll Type
+                                            {{localize "EncounterStats.template.rolltype"}}
                                         </div>
                                         <div class="item-name">
-                                            Attack Total
+                                            {{localize "EncounterStats.template.attack_total"}}
                                         </div>
                                         <div class="item-name">
-                                            Total
+                                            {{localize "EncounterStats.template.damage_total"}}
                                         </div>
                                         <div class="item-name">
-                                            Total Targeted Damage
+                                            {{localize "EncounterStats.template.damageMultipleEnemiesTotal"}}
                                         </div>
                                     </li>
                                     <ol class="item-list">
@@ -377,7 +377,7 @@
         </div>
     </div>
 
-    <h1>Enemies</h1>
+    <h1>{{localize "EncounterStats.template.enemies"}}</h1>
     <div class="fvtt-enc-stats_combatants">
         <div>
             <div class="fvtt-enc-stats_combatant" data-fvtt-id="{{id}}">
@@ -389,16 +389,16 @@
                                 <ol class="items-list flexcol">
                                     <li class="items-header flexrow">
                                         <div class="item-name">
-                                            Image
+                                            {{localize "EncounterStats.template.Image"}}
                                         </div>
                                         <div class="item-name">
-                                            Name
+                                            {{localize "EncounterStats.template.Name"}}
                                         </div>
                                         <div class="item-name">
-                                            AC
+                                            {{localize "EncounterStats.template.ac"}}
                                         </div>
                                         <div class="item-name">
-                                            Health
+                                            {{localize "EncounterStats.template.health"}}
                                         </div>
                                     </li>
                                     <ol class="item-list">
