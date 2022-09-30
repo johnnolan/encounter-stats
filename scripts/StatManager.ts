@@ -2,7 +2,7 @@ import EncounterJournal from "./EncounterJournal";
 import CombatFlag from "./CombatFlag";
 import Logger from "./Helpers/Logger";
 import { STORAGE_NAME } from "./Settings";
-import Template from "./Template";
+import EncounterRenderer from "./EncounterRenderer";
 
 class StatManager {
   static async IsInCombat() {
@@ -24,10 +24,10 @@ class StatManager {
     }
     await CombatFlag.Save(STORAGE_NAME, encounter);
 
-    const markup = Template.Generate(encounter);
+    const markup = await EncounterRenderer.RenderEncounter(encounter);
 
     await EncounterJournal.UpdateJournalData(
-      markup,
+      markup.html,
       "encounterId",
       encounter.encounterId
     );

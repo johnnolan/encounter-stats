@@ -111,19 +111,19 @@ describe("MidiQol", () => {
   describe("If you add a new Attack", () => {
 
     test("and it has a missing actor id", () => {
-      midiQolStat.AddCombatant(actor, "tokenId");
+      midiQolStat.AddCombatant(actor, "tokenId", 12);
       midiQolStat.AddAttack({ actor: {} });
       midiQolStat.Save();
       expect(mockLoggerError).toHaveBeenCalled();
     });
     test("and actor does not match the combatant", () => {
-      midiQolStat.AddCombatant(actor, "tokenId");
+      midiQolStat.AddCombatant(actor, "tokenId", 13);
       midiQolStat.AddAttack({ actor: { id: "wrongId" } });
       midiQolStat.Save();
       expect(mockLoggerError).toHaveBeenCalled();
     });
     test("the initial midiQolStats all return 0", () => {
-      midiQolStat.AddCombatant(actor, "tokenId");
+      midiQolStat.AddCombatant(actor, "tokenId", 14);
       midiQolStat.Save();
       expect(midiQolStat.encounter.combatants.length).toBe(1);
       const combatantResult = midiQolStat.GetCombatantStats("eMyoELkOwFNPGEK8");

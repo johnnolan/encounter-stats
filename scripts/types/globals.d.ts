@@ -126,6 +126,21 @@ declare global {
         };
       };
     }>;
+    hitTargets: Array<{
+      id: string;
+      sheet: {
+        actor: {
+          name: string;
+          system: {
+            attributes: {
+              ac: {
+                value: number;
+              };
+            };
+          };
+        };
+      };
+    }>;
   }
 
   interface MidiQolEventItem {
@@ -158,9 +173,30 @@ declare global {
     type: CombatDetailType;
   }
 
+  type EncounterOverview = {
+    start: string;
+    end: string;
+    realDate: string;
+    scene: {
+      id: string;
+      name: string;
+      thumb: string;
+    };
+  };
+
+  type Enemies = {
+    tokenId: string;
+    name: string;
+    img: string;
+    ac: number;
+    hp: number;
+  };
+
   type Encounter = {
     encounterId?: string;
+    overview: EncounterOverview;
     round: number;
+    enemies: Array<Enemies>;
     combatants: Array<EncounterCombatant>;
     top: EncounterTop;
     templateHealthCheck: Array<HealthCheck>;
@@ -204,11 +240,21 @@ declare global {
     max: number;
     ac: number;
     initiative: number | null;
+    abilities: CombatantAbilities;
     events: Array<CombatantEvent>;
     health: Array<CombatantHealthData>;
     kills: Array<CombatantKills>;
     summaryList: CombatantEventSummaryList;
     roundSummary: EncounterRoundSummary;
+  }
+
+  interface CombatantAbilities {
+    cha: number;
+    con: number;
+    dex: number;
+    int: number;
+    str: number;
+    wis: number;
   }
 
   interface EncounterRoundSummary {

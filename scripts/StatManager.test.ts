@@ -2,7 +2,7 @@ import StatManager from "./StatManager";
 import CombatFlag from "./CombatFlag";
 import Logger from "./Helpers/Logger";
 import EncounterJournal from "./EncounterJournal";
-import Template from "./Template";
+import EncounterRenderer from "./EncounterRenderer";
 
 const mockCombatFlagIsSet = jest.fn();
 const mockCombatFlagGet = jest.fn();
@@ -14,9 +14,6 @@ CombatFlag.Save = mockCombatFlagSave;
 const mockEncounterJournalUpdateJournalData = jest.fn();
 EncounterJournal.UpdateJournalData = mockEncounterJournalUpdateJournalData;
 
-const mockTemplateGenerate = jest.fn();
-Template.Generate = mockTemplateGenerate;
-
 const mockLoggerError = jest.fn();
 Logger.error = mockLoggerError;
 
@@ -26,6 +23,12 @@ beforeEach(() => {
   mockCombatFlagSave.mockClear();
   mockEncounterJournalUpdateJournalData.mockClear();
   mockLoggerError.mockClear();
+  (global as any).game = {
+    i18n: {
+      format: jest.fn().mockReturnValue("TestKeyValue"),
+    },
+  };
+  (global as any).renderTemplate = jest.fn().mockResolvedValue("<html></html>");
 });
 
 describe("StatManager", () => {
@@ -91,15 +94,13 @@ describe("StatManager", () => {
     });
 
     test("it generates the journal entry and saves the json data", async () => {
-      mockTemplateGenerate.mockReturnValueOnce("<p>test</p>");
+      
+      const mockEncounterRendererRenderEncounter = jest.fn().mockResolvedValueOnce({ html: "<p>test</p>" });
+      EncounterRenderer.RenderEncounter = mockEncounterRendererRenderEncounter;
       await StatManager.SaveStat({ encounterId: "encounterId" });
-      expect(mockCombatFlagSave).toBeCalledWith(
-        "encounter-stats-data",
-        { encounterId: "encounterId" }
-      );
-      expect(mockTemplateGenerate).toBeCalledWith(
-        { encounterId: "encounterId" }
-      );
+      expect(mockCombatFlagSave).toBeCalledWith("encounter-stats-data", {
+        encounterId: "encounterId",
+      });
       expect(mockEncounterJournalUpdateJournalData).toBeCalledWith(
         "<p>test</p>",
         "encounterId",

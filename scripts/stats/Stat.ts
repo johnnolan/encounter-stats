@@ -6,15 +6,28 @@ import {
   ValidRollEvent,
 } from "../enums";
 import Logger from "../Helpers/Logger";
+import Dates from "../Helpers/Dates";
 
 export default class Stat {
   _encounter: Encounter;
 
   constructor(encounterId?: string) {
     if (encounterId) {
+      const date = Dates.now.dateTimeDisplay;
       this._encounter = {
         encounterId: encounterId,
         round: 1,
+        overview: {
+          start: date,
+          end: "",
+          realDate: date,
+          scene: {
+            id: "",
+            name: "",
+            thumb: "",
+          },
+        },
+        enemies: [],
         combatants: [],
         top: {
           maxDamage: "",
@@ -45,6 +58,11 @@ export default class Stat {
 
   get currentRound(): number {
     return this._encounter.round;
+  }
+
+  UpdateEnd() {
+    if (!this._encounter?.overview) return;
+    this._encounter.overview.end = Dates.now.dateTimeDisplay;
   }
 
   AddKill(targetName: string, tokenId: string) {
@@ -104,6 +122,10 @@ export default class Stat {
     combatantStat.health.push(healthData);
   }
 
+  AddEnemy(enemy: Enemies) {
+    this._encounter.enemies.push(enemy);
+  }
+
   AddCombatant(actor: Actor, tokenId: string, initiative: number | null) {
     const tokenImage = canvas?.tokens?.get(tokenId)?.img;
     if (!tokenImage) {
@@ -130,6 +152,14 @@ export default class Stat {
       max: actor.system.attributes.hp.max,
       ac: actor.system.attributes.ac.value,
       initiative: initiative,
+      abilities: {
+        cha: actor.system.abilities.cha.value,
+        con: actor.system.abilities.con.value,
+        dex: actor.system.abilities.dex.value,
+        int: actor.system.abilities.int.value,
+        str: actor.system.abilities.str.value,
+        wis: actor.system.abilities.wis.value,
+      },
       events: [],
       health: [],
       kills: [],
@@ -149,12 +179,15 @@ export default class Stat {
       },
     };
 
-    const currentCombatant = this._encounter.combatants.find(
+    let currentCombatant = this._encounter.combatants.find(
       (f) => f.id === newCombatant.id
     );
 
     if (!currentCombatant) {
       this._encounter.combatants.push(newCombatant);
+      currentCombatant = this._encounter.combatants.find(
+        (f) => f.id === newCombatant.id
+      );
       if (currentCombatant?.initiative) {
         this._encounter.combatants.sort((a, b) =>
           (a.initiative ?? 0) > (b.initiative ?? 0) ? 1 : -1
@@ -186,6 +219,13 @@ export default class Stat {
     return Object.values(ValidRollEvent).includes(attackType);
   }
 
+  public UpdateScene(id: string, name: string, thumb: string) {
+    if (!this._encounter?.overview?.scene) return;
+    this._encounter.overview.scene.name = name;
+    this._encounter.overview.scene.thumb = thumb;
+    this._encounter.overview.scene.id = id;
+  }
+
   public UpdateRound(currentRound: number) {
     if (this._encounter.round !== currentRound) {
       this._encounter.round = currentRound;
@@ -193,7 +233,7 @@ export default class Stat {
   }
 
   GetCombatantStats(actorId: string): EncounterCombatant | undefined {
-    return this._encounter.combatants.find((f) => f.id === actorId);
+    return this._encounter?.combatants?.find((f) => f.id === actorId);
   }
 
   GetCombatantStatsByTokenId(tokenId: string): EncounterCombatant | undefined {
@@ -201,6 +241,7 @@ export default class Stat {
   }
 
   async Save(): Promise<void> {
+    if (!this._encounter?.combatants) return;
     this.GenerateCombatantStats();
     this.GetTopStats();
     await StatManager.SaveStat(this._encounter);

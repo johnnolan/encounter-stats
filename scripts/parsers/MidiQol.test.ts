@@ -27,6 +27,7 @@ const midiWorkflow: MidiQolWorkflow = {
       actionType: "mwak",
     },
   },
+  hitTargets: new Set([{}, {}]),
   targets: [
     {
       id: "tokenId",
@@ -87,6 +88,7 @@ const midiWorkflowDisadvantage: MidiQolWorkflow = {
       actionType: "mwak",
     },
   },
+  hitTargets: new Set([{}, {}]),
   targets: [
     {
       id: "tokenId",
@@ -139,6 +141,7 @@ const midiWorkflowNoDiceRoll: MidiQolWorkflow = {
       actionType: "mwak",
     },
   },
+  hitTargets: new Set([{}, {}]),
   targets: [
     {
       id: "tokenId",

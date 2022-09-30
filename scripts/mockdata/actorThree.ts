@@ -42,6 +42,26 @@ export const actorThree: Actor = {
       ac: {
         value: 16,
       }
+    },
+    abilities: {
+      cha: {
+        value: 19,
+      },
+      con: {
+        value: 16,
+      },
+      dex: {
+        value: 14,
+      },
+      int: {
+        value: 17,
+      },
+      str: {
+        value: 9,
+      },
+      wis: {
+        value: 20,
+      }
     }
   },
   items: [

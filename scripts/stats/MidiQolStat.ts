@@ -16,7 +16,7 @@ export default class MidiQolStat extends Stat {
       this.GetCombatantStats(workflow.actor.id);
 
     if (!combatantStat) {
-      Logger.error(
+      Logger.log(
         `No combatant found for Actor ID ${workflow.actor.id}`,
         "midiqolstat.AddAttack",
         workflow

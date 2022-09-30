@@ -24,7 +24,7 @@ class MidiQol {
         img: workflow.item.img,
       },
       actionType: workflow.item.system.actionType,
-      damageTotal: workflow.damageTotal ?? 0,
+      damageTotal: workflow.hitTargets.size > 0 ? workflow.damageTotal ?? 0 : 0,
       damageMultipleEnemiesTotal: workflow.damageTotal
         ? workflow.damageTotal * Array.from(enemiesHit).length
         : 0,

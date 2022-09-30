@@ -13,6 +13,7 @@ Logger.warn = mockLoggerWarn;
 beforeEach(() => {
   mockLoggerWarn.mockClear();
   mockLoggerLog.mockClear();
+  jest.useFakeTimers().setSystemTime(new Date("01 January 2020"));
 });
 
 const encounter: Encounter = {
@@ -134,6 +135,17 @@ describe("Stat", () => {
       expect(stat.encounter).toStrictEqual(<Encounter>{
         encounterId: encounterId,
         round: 1,
+        overview: {
+          start: "01 January 2020 00:00",
+          end: "",
+          realDate: "01 January 2020 00:00",
+          scene: {
+            id: "",
+            name: "",
+            thumb: "",
+          },
+        },
+        enemies: [],
         combatants: [],
         top: {
           maxDamage: "",
@@ -204,7 +216,7 @@ describe("Stat", () => {
     let stat: Stat;
     beforeAll(async () => {
       stat = new Stat();
-      StatManager.GetStat.mockResolvedValue(encounter)
+      StatManager.GetStat.mockResolvedValue(encounter);
       stat.encounter = await StatManager.GetStat();
     });
 
@@ -229,6 +241,11 @@ describe("Stat", () => {
         },
       };
       stat = new Stat(encounterId);
+    });
+
+    test("it shows the abilities of the combatant", () => {
+      stat.AddCombatant(actor, "tokenId", null);
+      expect(stat.encounter.combatants[0].abilities.cha).toBe(19);
     });
 
     test("it shows the Encounter has one combatant", () => {

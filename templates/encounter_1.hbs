@@ -1,0 +1,430 @@
+<div class="fvtt-enc-stats">
+    <h1>Overview</h1>
+    <div class="fvtt-enc-stats_top">
+        <div class="fvtt-enc-stats_actor_statlist flexrow">
+            <div class="fvtt-enc-stats_actor_stat">
+                <div class="fvtt-enc-stats_actor_stat-key fvtt-enc-stats_title3">
+                    {{overview.scene.name}}
+                </div>
+                <div class="fvtt-enc-stats_actor_stat-value">
+                    <img src="{{overview.scene.thumb}}" alt="{{overview.scene.name}}" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fvtt-enc-stats_top">
+        <div class="fvtt-enc-stats_actor_statlist flexrow">
+            <div class="fvtt-enc-stats_actor_stat">
+                <div class="fvtt-enc-stats_actor_stat-key">
+                    <p>Start</p>
+                </div>
+                <div class="fvtt-enc-stats_actor_stat-value">
+                    {{overview.start}}
+                </div>
+            </div>
+            <div class="fvtt-enc-stats_actor_stat">
+                <div class="fvtt-enc-stats_actor_stat-key">
+                    <p>Finished</p>
+                </div>
+                <div class="fvtt-enc-stats_actor_stat-value">
+                    {{overview.end}}
+                </div>
+            </div>
+            <div class="fvtt-enc-stats_actor_stat">
+                <div class="fvtt-enc-stats_actor_stat-key">
+                    <p>Total Rounds</p>
+                </div>
+                <div class="fvtt-enc-stats_actor_stat-value">
+                    {{round}}
+                </div>
+            </div>
+            <div class="fvtt-enc-stats_actor_stat">
+                <div class="fvtt-enc-stats_actor_stat-key">
+                    <p>Number of Enemies</p>
+                </div>
+                <div class="fvtt-enc-stats_actor_stat-value">
+                    {{enemyNumber}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1>Top Statistics</h1>
+    <div class="fvtt-enc-stats_top">
+        <div class="fvtt-enc-stats_actor_statlist flexrow">
+            <div class="fvtt-enc-stats_actor_stat">
+                <div class="fvtt-enc-stats_actor_stat-key">
+                    <p>Most Damage Overall</p>
+                </div>
+                <div class="fvtt-enc-stats_actor_stat-value">
+                    {{{top.maxDamage}}}
+                </div>
+            </div>
+            <div class="fvtt-enc-stats_actor_stat">
+                <div class="fvtt-enc-stats_actor_stat-key">
+                    <p>Most Damage in 1 turn</p>
+                </div>
+                <div class="fvtt-enc-stats_actor_stat-value">
+                    {{{top.mostDamageInOneTurn}}}
+                </div>
+            </div>
+            <div class="fvtt-enc-stats_actor_stat">
+                <div class="fvtt-enc-stats_actor_stat-key">
+                    <p>Highest Average Damage</p>
+                </div>
+                <div class="fvtt-enc-stats_actor_stat-value">
+                    {{{top.highestAvgDamage}}}
+                </div>
+            </div>
+            <div class="fvtt-enc-stats_actor_stat">
+                <div class="fvtt-enc-stats_actor_stat-key">
+                    <p>Highest Damage in 1 hit</p>
+                </div>
+                <div class="fvtt-enc-stats_actor_stat-value">
+                    {{{top.highestMaxDamage}}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="fvtt-enc-stats_top">
+        <div class="fvtt-enc-stats_actor_statlist flexrow">
+            <div class="fvtt-enc-stats_actor_stat">
+                <div class="fvtt-enc-stats_actor_stat-key">
+                    <p>Most Kills</p>
+                </div>
+                <div class="fvtt-enc-stats_actor_stat-value">
+                    {{{top.mostKills}}}
+                </div>
+            </div>
+            <div class="fvtt-enc-stats_actor_stat">
+                <div class="fvtt-enc-stats_actor_stat-key">
+                    <p>Most Healing Actions</p>
+                </div>
+                <div class="fvtt-enc-stats_actor_stat-value">
+                    {{{top.mostHealing}}}
+                </div>
+            </div>
+            <div class="fvtt-enc-stats_actor_stat">
+                <div class="fvtt-enc-stats_actor_stat-key">
+                    <p>Most Support Actions</p>
+                </div>
+                <div class="fvtt-enc-stats_actor_stat-value">
+                    {{{top.mostSupportActions}}}
+                </div>
+            </div>
+            <div class="fvtt-enc-stats_actor_stat">
+                <div class="fvtt-enc-stats_actor_stat-key">
+                    <p>Most Battlefield Actions</p>
+                </div>
+                <div class="fvtt-enc-stats_actor_stat-value">
+                    {{{top.mostBattlefieldActions}}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h1>Combatants</h1>
+    <div class="fvtt-enc-stats_combatants">
+        <div>
+            {{#each combatants}}
+            <div class="fvtt-enc-stats_combatant" data-fvtt-id="{{id}}">
+                <div class="fvtt-enc-stats_combatants_overview">
+                    <header class="fvtt-enc-stats_combatants_actor flexrow">
+                        <div class="fvtt-enc-stats_combatants_actor_image flexcol">
+                            <img src="{{img}}" alt="{{name}}" />
+                            <div class="fvtt-enc-stats_actor_stat">
+                                <div class="fvtt-enc-stats_actor_stat-key">
+                                    <p>Initiative</p>
+                                </div>
+                                <div class="fvtt-enc-stats_actor_stat-value">
+                                    <p><span>{{initiative}}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fvtt-enc-stats_actor_stats">
+                            <h2 class="fvtt-enc-stats_actor_stats_name">{{name}}</h2>
+                            <div class="fvtt-enc-stats_actor_statlist flexrow">
+                                <div class="fvtt-enc-stats_actor_stat">
+                                    <div class="fvtt-enc-stats_actor_stat-key">
+                                        <p>Starting HP</p>
+                                    </div>
+                                    <div class="fvtt-enc-stats_actor_stat-value">
+                                        <p><span>{{hp}}</span><span class="sep">/</span><span>{{max}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="fvtt-enc-stats_actor_stat">
+                                    <div class="fvtt-enc-stats_actor_stat-key">
+                                        <p>Final HP</p>
+                                    </div>
+                                    <div class="fvtt-enc-stats_actor_stat-value">
+                                        <p><span>{{finalhp}}</span><span class="sep">/</span><span>{{max}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="fvtt-enc-stats_actor_stat">
+                                    <div class="fvtt-enc-stats_actor_stat-key">
+                                        <p>AC</p>
+                                    </div>
+                                    <div class="fvtt-enc-stats_actor_stat-value">
+                                        <p><span>{{ac}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="fvtt-enc-stats_actor_stat">
+                                    <div class="fvtt-enc-stats_actor_stat-key">
+                                        <p>Total</p>
+                                    </div>
+                                    <div class="fvtt-enc-stats_actor_stat-value">
+                                        <p><span>{{summaryList.total}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="fvtt-enc-stats_actor_stat">
+                                    <div class="fvtt-enc-stats_actor_stat-key">
+                                        <p>Min Damage</p>
+                                    </div>
+                                    <div class="fvtt-enc-stats_actor_stat-value">
+                                        <p><span>{{summaryList.min}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="fvtt-enc-stats_actor_stat">
+                                    <div class="fvtt-enc-stats_actor_stat-key">
+                                        <p>Max Damage</p>
+                                    </div>
+                                    <div class="fvtt-enc-stats_actor_stat-value">
+                                        <p><span>{{summaryList.max}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="fvtt-enc-stats_actor_stat">
+                                    <div class="fvtt-enc-stats_actor_stat-key">
+                                        <p>Avg Damage</p>
+                                    </div>
+                                    <div class="fvtt-enc-stats_actor_stat-value">
+                                        <p><span>{{summaryList.avg}}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fvtt-enc-stats_actor_statlist flexrow">
+                                <div class="fvtt-enc-stats_actor_stat">
+                                    <div class="fvtt-enc-stats_actor_stat-key">
+                                        <p>Charisma</p>
+                                    </div>
+                                    <div class="fvtt-enc-stats_actor_stat-value">
+                                        <p><span>{{abilities.cha}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="fvtt-enc-stats_actor_stat">
+                                    <div class="fvtt-enc-stats_actor_stat-key">
+                                        <p>Constitution</p>
+                                    </div>
+                                    <div class="fvtt-enc-stats_actor_stat-value">
+                                        <p><span>{{abilities.con}}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="fvtt-enc-stats_actor_stat">
+                                    <div class="fvtt-enc-stats_actor_stat-key">
+                                        <p>Dexterity</p>
+                                    </div>
+                                    <div class="fvtt-enc-stats_actor_stat-value">
+                                        <p><span>{{abilities.dex}}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="fvtt-enc-stats_actor_stat">
+                                    <div class="fvtt-enc-stats_actor_stat-key">
+                                        <p>Intelligence</p>
+                                    </div>
+                                    <div class="fvtt-enc-stats_actor_stat-value">
+                                        <p><span>{{abilities.int}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="fvtt-enc-stats_actor_stat">
+                                    <div class="fvtt-enc-stats_actor_stat-key">
+                                        <p>Strength</p>
+                                    </div>
+                                    <div class="fvtt-enc-stats_actor_stat-value">
+                                        <p><span>{{abilities.str}}</span></p>
+                                    </div>
+                                </div>
+                                <div class="fvtt-enc-stats_actor_stat">
+                                    <div class="fvtt-enc-stats_actor_stat-key">
+                                        <p>Wisdom</p>
+                                    </div>
+                                    <div class="fvtt-enc-stats_actor_stat-value">
+                                        <p><span>{{abilities.wis}}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                    {{#each rounds}}
+                    <div class="fvtt-enc-stats_title3">
+                        <h3>Round {{round}}</h3>
+                    </div>
+                    <section class="fvtt-enc-stats_combatants_data">
+                        <section
+                            class="fvtt-enc-stats_combatants_data_section fvtt-enc-stats_combatants_data_section-health">
+                            <div class="flexcol">
+                                <ol class="items-list flexcol">
+                                    <li class="items-header flexrow">
+                                        <div class="item-name">
+                                            Kills
+                                        </div>
+                                    </li>
+                                    <ol class="item-list">
+                                        {{#each kills}}
+                                        <li class="item flexrow">
+                                            <div class="item-name">
+                                                {{tokenName}}
+                                            </div>
+                                        </li>
+                                        {{/each}}
+                                    </ol>
+                                </ol>
+                                <ol class="items-list flexcol">
+                                    <li class="items-header flexrow">
+                                        <div class="item-name">
+                                            Round {{round}} DMG
+                                        </div>
+                                    </li>
+                                    <ol class="item-list">
+                                        <li class="item flexrow">
+                                            <div class="item-name">
+                                                {{damageTotal}}
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </ol>
+                                <ol class="items-list flexcol">
+                                    <li class="items-header flexrow">
+                                        <div class="item-name">
+                                            Health
+                                        </div>
+                                    </li>
+                                    <ol class="item-list">
+                                        {{#each health}}
+                                        <li class="item flexrow">
+                                            <div class="item-name">
+                                                {{current}} ({{diff}})
+                                            </div>
+                                        </li>
+                                        {{/each}}
+                                    </ol>
+                                </ol>
+                            </div>
+                        </section>
+                        <section
+                            class="fvtt-enc-stats_combatants_data_section fvtt-enc-stats_combatants_data_section-attacks">
+                            <div class="flexcol">
+                                <ol class="items-list flexcol">
+                                    <li class="items-header flexrow">
+                                        <div class="item-name">
+                                            Image
+                                        </div>
+                                        <div class="item-name">
+                                            Weapon/Spell Name
+                                        </div>
+                                        <div class="item-name">
+                                            Type
+                                        </div>
+                                        <div class="item-name">
+                                            Roll Type
+                                        </div>
+                                        <div class="item-name">
+                                            Attack Total
+                                        </div>
+                                        <div class="item-name">
+                                            Total
+                                        </div>
+                                        <div class="item-name">
+                                            Total Targeted Damage
+                                        </div>
+                                    </li>
+                                    <ol class="item-list">
+                                        {{#each attacks}}
+                                        <li class="item flexrow">
+                                            <div class="item-name">
+                                                <img src="{{item.img}}" alt="{{item.name}}" width="20px"></img>
+                                            </div>
+                                            <div class="item-name">
+                                                {{item.link}}
+                                            </div>
+                                            <div class="item-name">
+                                                {{{actionTypeIcon}}}
+                                            </div>
+                                            <div class="item-name">
+                                                {{rollAdvDis}}
+                                            </div>
+                                            <div class="item-name">
+                                                {{attackTotal}}
+                                            </div>
+                                            <div class="item-name {{damageOrHeal}}">
+                                                {{damageTotal}}
+                                            </div>
+                                            <div class="item-name {{damageOrHeal}}">
+                                                {{damageMultipleEnemiesTotal}}
+                                            </div>
+                                        </li>
+                                        {{/each}}
+                                    </ol>
+                                </ol>
+                            </div>
+                        </section>
+                    </section>
+                    <hr />
+                    {{/each}}
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+
+    <h1>Enemies</h1>
+    <div class="fvtt-enc-stats_combatants">
+        <div>
+            <div class="fvtt-enc-stats_combatant" data-fvtt-id="{{id}}">
+                <div class="fvtt-enc-stats_combatants_overview">
+                    <section class="fvtt-enc-stats_combatants_data">
+                        <section
+                            class="fvtt-enc-stats_combatants_data_section fvtt-enc-stats_combatants_data_section-attacks">
+                            <div class="flexcol">
+                                <ol class="items-list flexcol">
+                                    <li class="items-header flexrow">
+                                        <div class="item-name">
+                                            Image
+                                        </div>
+                                        <div class="item-name">
+                                            Name
+                                        </div>
+                                        <div class="item-name">
+                                            AC
+                                        </div>
+                                        <div class="item-name">
+                                            Health
+                                        </div>
+                                    </li>
+                                    <ol class="item-list">
+                                        {{#each enemies}}
+                                        <li class="item flexrow">
+                                            <div class="item-name">
+                                                <img src="{{img}}" alt="{{name}}" width="75px"></img>
+                                            </div>
+                                            <div class="item-name">
+                                                {{name}}
+                                            </div>
+                                            <div class="item-name">
+                                                {{{ac}}}
+                                            </div>
+                                            <div class="item-name">
+                                                {{{hp}}}
+                                            </div>
+                                        </li>
+                                        {{/each}}
+                                    </ol>
+                                </ol>
+                            </div>
+                        </section>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

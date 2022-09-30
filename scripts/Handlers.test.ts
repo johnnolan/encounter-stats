@@ -213,6 +213,62 @@ describe("Handlers", () => {
         "handlers.OnRenderCombatTracker"
       );
     });
+
+    test("it should add the combatant and any enemies", async () => {
+      (global as any).game = {
+        actors: {
+          get: jest.fn().mockReturnValue({ name: "Actor Name" }),
+        },
+      };
+      mockStatManagerIsInCombat.mockResolvedValue(true);
+      mockCombatFlagIsSet.mockReturnValueOnce(true);
+      await OnRenderCombatTracker({
+        hasCombat: true,
+        combat: {
+          scene: {
+            id: "sceneId",
+            name: "Scene Name",
+            thumb: "/img/scene.webp",
+          },
+          combatants: [
+            {
+              actorId: "actorId",
+              tokenId: "tokenId",
+              initiative: 19,
+              type: "character"
+            },
+            {
+              actorId: "actorId",
+              tokenId: "tokenId",
+              name: "Orc",
+              initiative: 110,
+              type: "npc",
+              actor: {
+                img: "/img/orc.webp"
+                system: {
+                  attributes: {
+                    ac: {
+                      value: 10
+                    }
+                  }
+                }
+              }
+            },
+          ],
+        },
+      });
+      expect(mockLoggerLog).not.toBeCalled();
+      expect(mockStatAddCombatant).toBeCalledWith(
+        { name: "Actor Name" },
+        "tokenId",
+        19
+      );
+      expect(mockStatSave).toBeCalled();
+      expect(mockLoggerDebug).toBeCalledWith(
+        "Combatants Added",
+        "handlers.OnRenderCombatTracker"
+      );
+    });
   });
 
   describe("OnCreateCombat", () => {
