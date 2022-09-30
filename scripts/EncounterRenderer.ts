@@ -6,21 +6,16 @@ class EncounterRenderer {
     let renderData = encounter;
 
     renderData.enemyNumber = renderData.enemies.length;
-    for (let i = 0; i < renderData.combatants.length; i++) {
-      const combatant = renderData.combatants[i];
+    for (const combatant of renderData.combatants) {
       if (combatant.type !== "character") {
         renderData.combatants.pop(combatant);
       }
     }
 
-    for (let i = 0; i < renderData.combatants.length; i++) {
-      const combatant = renderData.combatants[i];
-
+    for (const combatant of renderData.combatants) {
       // Attacks
       combatant.rounds = [];
-      for (let j = 0; j < combatant.events.length; j++) {
-        const event = combatant.events[j];
-
+      for (const event of combatant.events) {
         event.damageOrHeal = await this.getHealOrDamageClass(event.actionType);
         event.rollAdvDis = event.advantage
           ? "advantage"
@@ -49,7 +44,7 @@ class EncounterRenderer {
         round.attacks.push(event);
       }
 
-      // Killsfor (let value of arr) {
+      // Kills
       for (const kill of combatant.kills) {
         if (!combatant.rounds[kill.round - 1]) {
           combatant.rounds[kill.round - 1] = {
