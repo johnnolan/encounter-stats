@@ -233,7 +233,7 @@ export default class Stat {
   }
 
   GetCombatantStats(actorId: string): EncounterCombatant | undefined {
-    return this._encounter.combatants.find((f) => f.id === actorId);
+    return this._encounter?.combatants?.find((f) => f.id === actorId);
   }
 
   GetCombatantStatsByTokenId(tokenId: string): EncounterCombatant | undefined {
@@ -241,6 +241,7 @@ export default class Stat {
   }
 
   async Save(): Promise<void> {
+    if (!this._encounter?.combatants) return;
     this.GenerateCombatantStats();
     this.GetTopStats();
     await StatManager.SaveStat(this._encounter);
