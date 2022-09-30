@@ -174,6 +174,7 @@ declare global {
     name: string;
     img: string;
     ac: number;
+    hp: number;
   };
 
   type Encounter = {

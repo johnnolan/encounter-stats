@@ -82,6 +82,7 @@ export async function OnRenderCombatTracker(
           name: combatant.name,
           img: combatant.actor.img,
           ac: combatant.actor.system.attributes.ac.value,
+          hp: combatant.actor.system.attributes.hp.value,
         });
       } else {
         stat.AddCombatant(actor, tokenId, initiative);

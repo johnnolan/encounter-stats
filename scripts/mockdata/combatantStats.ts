@@ -49,10 +49,11 @@ export const combatantStats = {
                     "isFumble": false,
                     "disadvantage": false,
                     "attackTotal": 18,
-                    "damageTotal": 0,
+                    "damageTotal": 12,
                     "item": {
                         "name": "Flame Tongue Greatsword",
-                        "itemLink": "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}"
+                        "itemLink": "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
+                        "img": "/img/greatsword.webp"
                     }
                 },
                 {
@@ -69,11 +70,66 @@ export const combatantStats = {
                     "damageTotal": 0,
                     "item": {
                         "name": "Flame Tongue Greatsword",
-                        "itemLink": "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}"
+                        "itemLink": "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
+                        "img": "/img/greatsword.webp"
+                    }
+                },
+                {
+                    "id": null,
+                    "actionType": "mwak",
+                    "round": 2,
+                    "tokenId":  "hoTFHXIbChPmVzQq",
+                    "actorId": "5H4YnyD6zf9vcJ3P",
+                    "advantage": false,
+                    "isCritical": false,
+                    "isFumble": false,
+                    "disadvantage": false,
+                    "attackTotal": 0,
+                    "damageTotal": 0,
+                    "item": {
+                        "name": "Flame Tongue Greatsword",
+                        "itemLink": "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
+                        "img": "/img/greatsword.webp"
                     }
                 }
             ],
-            "health": [],
+            "kills": [
+                {
+                    "round": 1,
+                    "tokenName": "Orc"
+                },
+                {
+                    "round": 2,
+                    "tokenName": "Siren"
+                }
+            ],
+            "health": [
+                {
+                    "round": 1,
+                    "actorId": "wW0GeYsY9pCTcwxx",
+                    "max": 10,
+                    "current": 10,
+                    "previous": 10
+                },
+                {
+                    "round": 1,
+                    "actorId": "wW0GeYsY9pCTcwxx",
+                    "max": 24,
+                    "current": 24,
+                    "previous": 10,
+                    "diff": 14,
+                    "isheal": true
+                },
+                {
+                    "round": 2,
+                    "actorId": "wW0GeYsY9pCTcwxx",
+                    "max": 24,
+                    "current": 19,
+                    "previous": 24,
+                    "diff": 5,
+                    "isdamage": true
+                }
+            ],
             "summaryList": {
                 "min": 0,
                 "max": 0,
@@ -81,35 +137,17 @@ export const combatantStats = {
                 "total": 0
             },
             "roundSummary": {
-                "individual": {
-                    "1": [
+                "totals": [
                         {
                             "damageTotal": 2,
                             "round": 1
-                        }
-                    ],
-                    "2": [
-                        {
-                            "damageTotal": 4,
-                            "round": 2
                         },
                         {
-                            "damageTotal": 4,
+                            "damageTotal": 8,
                             "round": 2
                         }
                     ]
                 },
-                "totals": [
-                    {
-                        "round": "1",
-                        "damageTotal": 2
-                    },
-                    {
-                        "round": "2",
-                        "damageTotal": 8
-                    }
-                ]
-            }
         },
         {
             "name": "Displacer Beast",
