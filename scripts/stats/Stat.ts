@@ -243,7 +243,6 @@ export default class Stat {
   async Save(): Promise<void> {
     this.GenerateCombatantStats();
     this.GetTopStats();
-    console.log("fvtt saved", this._encounter);
     await StatManager.SaveStat(this._encounter);
   }
 
