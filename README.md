@@ -12,6 +12,8 @@
 
 Capture your Players attacks, damage, healing, dice rolls, custom events and more. Store the results into a Journal for individual encounters and the entire campaign.
 
+**NOTE FOR MIDI-QOL USERS: You must use targeting in order for this module to record your stats correctly**
+
 ## Current features are
 
 * Works with standard roles, `midi-qol` and `dnd5e`

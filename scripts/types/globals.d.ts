@@ -126,6 +126,21 @@ declare global {
         };
       };
     }>;
+    hitTargets: Array<{
+      id: string;
+      sheet: {
+        actor: {
+          name: string;
+          system: {
+            attributes: {
+              ac: {
+                value: number;
+              };
+            };
+          };
+        };
+      };
+    }>;
   }
 
   interface MidiQolEventItem {
