@@ -3,81 +3,53 @@
     <div class="fvtt-enc-stats_actor_stat">
       <h2 class="fvtt-enc-stats_enemies">{{localize "EncounterStats.template.MostNatural20s"}}</h2>
       <ol class="fvtt-enc-stats_campaign_ol">
+        {{#each nat20}}
         <li class="item flexrow campaign-row">
-          Orc
+          {{name}}
           <div class="item-name">
-            1
+            {{value}}
           </div>
         </li>
-        <li class="item flexrow campaign-row">
-          Lorena Aldabra
-          <div class="item-name">
-            1
-          </div>
-        </li>
-        <li class="item flexrow campaign-row">
-          Fighter
-          <div class="item-name">
-            3
-          </div>
-        </li>
+        {{/each}}
       </ol>
     </div>
     <div class="fvtt-enc-stats_actor_stat">
       <h2 class="fvtt-enc-stats_enemies">{{localize "EncounterStats.template.MostNatural1s"}}</h2>
       <ol class="fvtt-enc-stats_campaign_ol">
+        {{#each nat1}}
         <li class="item flexrow campaign-row">
-          Fighter
+          {{name}}
           <div class="item-name">
-            7
+            {{value}}
           </div>
         </li>
-        <li class="item flexrow campaign-row">
-          Orc
-          <div class="item-name">
-            1
-          </div>
-        </li>
-        <li class="item flexrow campaign-row">
-          Lorena Aldabra
-          <div class="item-name">
-            1
-          </div>
-        </li>
+        {{/each}}
       </ol>
     </div>
     <div class="fvtt-enc-stats_actor_stat">
       <h2 class="fvtt-enc-stats_enemies">{{localize "EncounterStats.template.most_healing"}}</h2>
       <ol class="fvtt-enc-stats_campaign_ol">
+        {{#each heals}}
         <li class="item flexrow campaign-row">
-          Graa
+          {{name}}
           <div class="item-name">
-            1
+            {{value}}
           </div>
         </li>
+        {{/each}}
       </ol>
     </div>
     <div class="fvtt-enc-stats_actor_stat">
       <h2 class="fvtt-enc-stats_enemies">{{localize "EncounterStats.template.most_kills"}}</h2>
       <ol class="fvtt-enc-stats_campaign_ol">
+        {{#each kills}}
         <li class="item flexrow campaign-row">
-          Fighter
+          {{name}}
           <div class="item-name">
-            1
+            {{value}}
           </div>
         </li>
-        <li class="item flexrow campaign-row">
-          Graa
-          <div class="item-name">
-            1
-          </div>
-        </li>
-        <li class="item flexrow campaign-row">
-          Lorena Aldabra
-          <div class="item-name">
-            1
-          </div>
-        </li>
+        {{/each}}
       </ol>
     </div>
   </div>
@@ -86,345 +58,107 @@
   <hr>
   <h2 class="fvtt-enc-stats_enemies">{{localize "EncounterStats.template.Natural20s"}}</h2>
   <div>
-    29 September 2022
+    {{#each criticalHistory}}
+    {{date}}
     <ol class="item-list">
+      {{#each entries}}
       <li class="item flexrow campaign-row">
-        Fighter
+        {{actorName}}
         <div class="item-name">
-          Battleaxe
+          {{flavor}}
         </div>
         <div class="item-name">
-          29 September 2022 19:19
+          {{date}}
         </div>
       </li>
-      <li class="item flexrow campaign-row">
-        Fighter
-        <div class="item-name">
-          Battleaxe
-        </div>
-        <div class="item-name">
-          29 September 2022 19:19
-        </div>
-      </li>
-      <li class="item flexrow campaign-row">
-        Fighter
-        <div class="item-name">
-          Battleaxe
-        </div>
-        <div class="item-name">
-          29 September 2022 19:21
-        </div>
-      </li>
+      {{/each}}
     </ol>
-    30 September 2022
-    <ol class="item-list">
-      <li class="item flexrow campaign-row">
-        Orc
-        <div class="item-name">
-          Greataxe
-        </div>
-        <div class="item-name">
-          30 September 2022 20:17
-        </div>
-      </li>
-      <li class="item flexrow campaign-row">
-        Lorena Aldabra
-        <div class="item-name">
-          Unarmed Strike
-        </div>
-        <div class="item-name">
-          30 September 2022 20:47
-        </div>
-      </li>
-    </ol>
+    {{/each}}
   </div>
   <hr>
   <h2 class="fvtt-enc-stats_enemies">{{localize "EncounterStats.template.Natural1s"}}</h2>
   <div>
-    30 September 2022
+    {{#each fumbleHistory}}
+    {{date}}
     <ol class="item-list">
+      {{#each entries}}
       <li class="item flexrow campaign-row">
-        Fighter
+        {{actorName}}
         <div class="item-name">
-          Battleaxe
+          {{flavor}}
         </div>
         <div class="item-name">
-          30 September 2022 18:10
+          {{date}}
         </div>
       </li>
-      <li class="item flexrow campaign-row">
-        Fighter
-        <div class="item-name">
-          Battleaxe
-        </div>
-        <div class="item-name">
-          30 September 2022 18:22
-        </div>
-      </li>
-      <li class="item flexrow campaign-row">
-        Fighter
-        <div class="item-name">
-          Battleaxe
-        </div>
-        <div class="item-name">
-          30 September 2022 18:22
-        </div>
-      </li>
-      <li class="item flexrow campaign-row">
-        Orc
-        <div class="item-name">
-          Greataxe
-        </div>
-        <div class="item-name">
-          30 September 2022 20:28
-        </div>
-      </li>
-      <li class="item flexrow campaign-row">
-        Lorena Aldabra
-        <div class="item-name">
-          Unarmed Strike
-        </div>
-        <div class="item-name">
-          30 September 2022 20:34
-        </div>
-      </li>
+      {{/each}}
     </ol>
-    29 September 2022
-    <ol class="item-list">
-      <li class="item flexrow campaign-row">
-        Fighter
-        <div class="item-name">
-          Battleaxe
-        </div>
-        <div class="item-name">
-          29 September 2022 19:16
-        </div>
-      </li>
-      <li class="item flexrow campaign-row">
-        Fighter
-        <div class="item-name">
-          Battleaxe
-        </div>
-        <div class="item-name">
-          29 September 2022 19:21
-        </div>
-      </li>
-      <li class="item flexrow campaign-row">
-        Fighter
-        <div class="item-name">
-          Battleaxe
-        </div>
-        <div class="item-name">
-          29 September 2022 19:21
-        </div>
-      </li>
-      <li class="item flexrow campaign-row">
-        Fighter
-        <div class="item-name">
-          Battleaxe
-        </div>
-        <div class="item-name">
-          29 September 2022 19:26
-        </div>
-      </li>
-    </ol>
+    {{/each}}
   </div>
   <hr>
   <h2 class="fvtt-enc-stats_enemies">{{localize "EncounterStats.template.Healing"}}</h2>
   <div>
-    30 September 2022
+    {{#each healsHistory}}
+    {{date}}
     <ol class="item-list">
+      {{#each entries}}
       <li class="item flexrow campaign-row">
-        Graa
+        {{actorName}}
         <div class="item-name">
-          @UUID[Actor.2ybHnw0DeYqwDPyV.Item.yAmmCAv5PSEM8X5f]{Potion of Healing (Greater)}
+          {{flavor}}
         </div>
         <div class="item-name">
-          15
+          {{total}}
         </div>
         <div class="item-name">
-          30 September 2022 20:03
+          {{date}}
         </div>
       </li>
+      {{/each}}
     </ol>
+    {{/each}}
   </div>
   <hr>
   <h2 class="fvtt-enc-stats_enemies">{{localize "EncounterStats.template.kills"}}</h2>
   <div>
-    30 September 2022
+    {{#each killsHistory}}
+    {{date}}
     <ol class="item-list">
+      {{#each entries}}
       <li class="item flexrow campaign-row">
-        Graa
+        {{actorName}}
         <div class="item-name">
-          Orc
+          {{flavor}}
         </div>
         <div class="item-name">
-          30 September 2022 20:00
+          {{date}}
         </div>
       </li>
-      <li class="item flexrow campaign-row">
-        Lorena Aldabra
-        <div class="item-name">
-          Orc Boss
-        </div>
-        <div class="item-name">
-          30 September 2022 20:04
-        </div>
-      </li>
+      {{/each}}
     </ol>
-    29 September 2022
-    <ol class="item-list">
-      <li class="item flexrow campaign-row">
-        Fighter
-        <div class="item-name">
-          Orc
-        </div>
-        <div class="item-name">
-          29 September 2022 19:22
-        </div>
-      </li>
-    </ol>
+    {{/each}}
   </div>
+
+  {{#each killsHistory}}
   <hr>
-  <h2 class="fvtt-enc-stats_enemies">HDYWTDT</h2>
+  <h2 class="fvtt-enc-stats_enemies">{{name}}</h2>
+  {{#each events}}
   <div>
-    19 September 2022
+    {{date}}
     <ol class="item-list">
+      {{#each entries}}
       <li class="item flexrow campaign-row">
-        Graa S'oua
+        {{actorName}}
         <div class="item-name">
-          How do you want to do this?
+          {{flavor}}
         </div>
         <div class="item-name">
-          19 September 2022 19:49
+          {{date}}
         </div>
       </li>
+      {{/each}}
     </ol>
   </div>
-  <div>
-    18 September 2022
-    <ol class="item-list">
-      <li class="item flexrow campaign-row">
-        Graa S'oua
-        <div class="item-name">
-          How do you want to do this?
-        </div>
-        <div class="item-name">
-          19 September 2022 19:49
-        </div>
-      </li>
-    </ol>
-  </div>
-  <h2 class="fvtt-enc-stats_enemies">You can certainly try</h2>
-  <div>
-    19 September 2022
-    <ol class="item-list">
-      <li class="item flexrow campaign-row">
-        Said it!
-        <div class="item-name">
-          19 September 2022 19:50
-        </div>
-      </li>
-      <li class="item flexrow campaign-row">
-        Said it!
-        <div class="item-name">
-          19 September 2022 19:51
-        </div>
-      </li>
-      <li class="item flexrow campaign-row">
-        Said it!
-        <div class="item-name">
-          19 September 2022 19:52
-        </div>
-      </li>
-    </ol>
-  </div>
-  <div>
-    18 September 2022
-    <ol class="item-list">
-      <li class="item flexrow campaign-row">
-        Said it!
-        <div class="item-name">
-          19 September 2022 19:50
-        </div>
-      </li>
-      <li class="item flexrow campaign-row">
-        Said it!
-        <div class="item-name">
-          19 September 2022 19:51
-        </div>
-      </li>
-      <li class="item flexrow campaign-row">
-        Said it!
-        <div class="item-name">
-          19 September 2022 19:52
-        </div>
-      </li>
-    </ol>
-  </div>
-  <h2 class="fvtt-enc-stats_enemies">Wild Magic Surge</h2>
-  <div>
-    24 September 2022
-    <ol class="item-list">
-      <li class="item flexrow campaign-row">
-        Graa S'oua
-        <div class="item-name">
-          The caster begins to glow. (As Light spell, no save)
-        </div>
-        <div class="item-name">
-          24 September 2022 08:58
-        </div>
-      </li>
-      <li class="item flexrow campaign-row">
-        Graa S'oua
-        <div class="item-name">
-          The next piece of metal the caster touches turns to gold.
-        </div>
-        <div class="item-name">
-          24 September 2022 08:59
-        </div>
-      </li>
-      <li class="item flexrow campaign-row">
-        Graa S'oua
-        <div class="item-name">
-          Wild Magic Surge with Roll 1
-        </div>
-        <div class="item-name">
-          24 September 2022 09:01
-        </div>
-      </li>
-      <li class="item flexrow campaign-row">
-        Graa S'oua
-        <div class="item-name">
-          Tides of Chaos Wild Magic Surge
-        </div>
-        <div class="item-name">
-          24 September 2022 09:01
-        </div>
-      </li>
-      <li class="item flexrow campaign-row">
-        Graa S'oua
-        <div class="item-name">
-          Tides of Chaos Wild Magic Surge
-        </div>
-        <div class="item-name">
-          24 September 2022 09:18
-        </div>
-      </li>
-    </ol>
-  </div>
-  <div>
-    30 September 2022
-    <ol class="item-list">
-      <li class="item flexrow campaign-row">
-        Graa
-        <div class="item-name">
-          Tides of Chaos Wild Magic Surge
-        </div>
-        <div class="item-name">
-          30 September 2022 20:00
-        </div>
-      </li>
-    </ol>
-  </div>
+  {{/each}}
+  {{/each}}
 </div>

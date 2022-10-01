@@ -1,5 +1,4 @@
 import CampaignRenderer from "./CampaignRenderer";
-import { Generate } from "./CampaignTemplate";
 import EncounterJournal from "./EncounterJournal";
 import { RoleType } from "./enums";
 import Dates from "./Helpers/Dates";
