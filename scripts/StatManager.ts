@@ -24,7 +24,7 @@ class StatManager {
     }
     await CombatFlag.Save(STORAGE_NAME, encounter);
 
-    const markup = await EncounterRenderer.RenderEncounter(encounter);
+    const markup = await EncounterRenderer.Render(encounter);
 
     await EncounterJournal.UpdateJournalData(
       markup.html,

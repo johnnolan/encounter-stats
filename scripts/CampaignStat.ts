@@ -1,3 +1,4 @@
+import CampaignRenderer from "./CampaignRenderer";
 import { Generate } from "./CampaignTemplate";
 import EncounterJournal from "./EncounterJournal";
 import { RoleType } from "./enums";
@@ -136,10 +137,7 @@ export default class CampaignStat {
 
   static async Save(campaignStats: CampaignStats) {
     Gamemaster.SetStats(campaignStats);
-    EncounterJournal.UpdateJournalData(
-      Generate(campaignStats),
-      "campaignstats",
-      "view"
-    );
+    const markup = await CampaignRenderer.Render(campaignStats);
+    EncounterJournal.UpdateJournalData(markup.html, "campaignstats", "view");
   }
 }
