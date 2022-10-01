@@ -1,19 +1,16 @@
 class CampaignRenderer {
   static async Render(campaignStats: CampaignStats) {
-    let renderData = {};
-    renderData.nat1 = await this.GenerateSummaryRow(campaignStats, "nat1");
-    renderData.nat20 = await this.GenerateSummaryRow(campaignStats, "nat20");
-    renderData.heals = await this.GenerateSummaryRow(campaignStats, "heals");
-    renderData.kills = await this.GenerateSummaryRow(campaignStats, "kills");
-    renderData.criticalHistory = await this.GenerateRollRow(
-      campaignStats.nat20
-    );
-    renderData.fumbleHistory = await this.GenerateRollRow(campaignStats.nat1);
-    renderData.healsHistory = await this.GenerateHealRow(campaignStats.heals);
-    renderData.killsHistory = await this.GenerateKillsRow(campaignStats.kills);
-    renderData.customEventHistory = await this.GenerateCustomEventRows(
-      campaignStats
-    );
+    const renderData: CampaignRender = {
+      nat1: await this.GenerateSummaryRow(campaignStats, "nat1"),
+      nat20: await this.GenerateSummaryRow(campaignStats, "nat20"),
+      heals: await this.GenerateSummaryRow(campaignStats, "heals"),
+      kills: await this.GenerateSummaryRow(campaignStats, "kills"),
+      criticalHistory: await this.GenerateRollRow(campaignStats.nat20),
+      fumbleHistory: await this.GenerateRollRow(campaignStats.nat1),
+      healsHistory: await this.GenerateHealRow(campaignStats.heals),
+      killsHistory: await this.GenerateKillsRow(campaignStats.kills),
+      customEventHistory: await this.GenerateCustomEventRows(campaignStats),
+    };
 
     const template_file = "./modules/encounter-stats/templates/campaign_1.hbs";
     const rendered_html = await renderTemplate(template_file, renderData);
@@ -22,7 +19,7 @@ class CampaignRenderer {
   }
 
   private static async GenerateCustomEventRows(campaignStats: CampaignStats) {
-    const data = [];
+    const data: Array<CampaignCustomData> = [];
     let statList = campaignStats.custom;
 
     if (statList.length === 0) return;
@@ -55,7 +52,7 @@ class CampaignRenderer {
         );
         if (dateStatList?.length === 0) return;
 
-        const entry = {
+        const entry: CampaignRollRowData = {
           date: statItem.dateDisplay,
           entries: [],
         };
@@ -77,10 +74,10 @@ class CampaignRenderer {
   }
 
   private static async GenerateHealRow(campaignStatEntry) {
-    const data = [];
+    const data: Array<CampaignRollRowData> = [];
 
     campaignStatEntry.reverse().forEach((metric) => {
-      const entry = {
+      const entry: CampaignRollRowData = {
         date: metric.dateDisplay,
         entries: [],
       };
@@ -100,10 +97,10 @@ class CampaignRenderer {
   }
 
   private static async GenerateKillsRow(campaignStatEntry) {
-    const data = [];
+    const data: Array<CampaignRollRowData> = [];
 
     campaignStatEntry.reverse().forEach((metric) => {
-      const entry = {
+      const entry: CampaignRollRowData = {
         date: metric.dateDisplay,
         entries: [],
       };
@@ -122,10 +119,10 @@ class CampaignRenderer {
   }
 
   private static async GenerateRollRow(campaignStatEntry) {
-    const data = [];
+    const data: Array<CampaignRollRowData> = [];
 
     campaignStatEntry.reverse().forEach((metric) => {
-      const entry = {
+      const entry: CampaignRollRowData = {
         date: metric.dateDisplay,
         entries: [],
       };
@@ -147,7 +144,7 @@ class CampaignRenderer {
     campaignStats: CampaignStats,
     type: string
   ) {
-    const data = [];
+    const data: Array<CampaignRollData> = [];
 
     let statList;
 
@@ -180,7 +177,7 @@ class CampaignRenderer {
         return prev;
       }, {});
 
-    const result = [];
+    const result: Array<CampaignRollData> = [];
     Object.entries(flattenedResults).forEach(([key, value]) => {
       result.push({
         name: key,
