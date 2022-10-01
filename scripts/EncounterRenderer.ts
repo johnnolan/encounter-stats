@@ -2,7 +2,7 @@ import Stat from "./stats/Stat";
 import Trans from "./Helpers/Trans";
 
 class EncounterRenderer {
-  static async RenderEncounter(encounter: Encounter) {
+  static async Render(encounter: Encounter) {
     let renderData = encounter;
 
     renderData.enemyNumber = renderData.enemies.length;

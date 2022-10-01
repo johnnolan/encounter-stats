@@ -14,7 +14,7 @@ describe("EncounterRenderer", () => {
 
   describe("RenderEncounter", () => {
     test("it generates the journal entry and saves the json data", async () => {
-      const resultFunction = await EncounterRenderer.RenderEncounter(combatantStats);
+      const resultFunction = await EncounterRenderer.Render(combatantStats);
       const result = resultFunction.data;
 
       expect(result.overview.scene).toStrictEqual(

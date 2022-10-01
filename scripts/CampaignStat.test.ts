@@ -1,3 +1,4 @@
+import CampaignRenderer from "./CampaignRenderer";
 import CampaignStat from "./CampaignStat";
 import EncounterJournal from "./EncounterJournal";
 import { RoleType } from "./enums";
@@ -9,6 +10,9 @@ Gamemaster.SetStats = mockGamemasterSetStats;
 
 const mockEncounterJournalUpdateJournalData = jest.fn();
 EncounterJournal.UpdateJournalData = mockEncounterJournalUpdateJournalData;
+
+const mockCampaignRendererRender = jest.fn().mockResolvedValue("<html></html>");
+CampaignRenderer.Render = mockCampaignRendererRender;
 
 beforeEach(() => {
   mockGamemasterGetStats.mockClear();

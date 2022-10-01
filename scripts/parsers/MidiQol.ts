@@ -56,6 +56,10 @@ class MidiQol {
         return;
       }
 
+      if (actor.type !== "character") {
+        return;
+      }
+
       return <DiceTrackParse>{
         isCritical: workflow.isCritical,
         isFumble: workflow.isFumble,

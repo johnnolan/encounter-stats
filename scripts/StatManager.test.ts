@@ -96,7 +96,7 @@ describe("StatManager", () => {
     test("it generates the journal entry and saves the json data", async () => {
       
       const mockEncounterRendererRenderEncounter = jest.fn().mockResolvedValueOnce({ html: "<p>test</p>" });
-      EncounterRenderer.RenderEncounter = mockEncounterRendererRenderEncounter;
+      EncounterRenderer.Render = mockEncounterRendererRenderEncounter;
       await StatManager.SaveStat({ encounterId: "encounterId" });
       expect(mockCombatFlagSave).toBeCalledWith("encounter-stats-data", {
         encounterId: "encounterId",

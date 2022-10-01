@@ -5,6 +5,7 @@ const midiWorkflow: MidiQolWorkflow = {
   id: "d75gppsau45ypm2m",
   actor: {
     id: "5H4YnyD6zf9vcJ3P",
+    type: "character",
   },
   isCritical: false,
   isFumble: false,
@@ -66,6 +67,7 @@ const midiWorkflowDisadvantage: MidiQolWorkflow = {
   id: "d75gppsau45ypm2m",
   actor: {
     id: "5H4YnyD6zf9vcJ3P",
+    type: "character",
   },
   isCritical: false,
   isFumble: false,
@@ -127,6 +129,46 @@ const midiWorkflowNoDiceRoll: MidiQolWorkflow = {
   id: "d75gppsau45ypm2m",
   actor: {
     id: "5H4YnyD6zf9vcJ3P",
+    type: "character",
+  },
+  isCritical: false,
+  isFumble: false,
+  workflowType: "test",
+  item: {
+    id: "itemId",
+    name: "Flame Tongue Greatsword",
+    link: "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
+    type: "sword",
+    img: "itemImageUrl",
+    system: {
+      actionType: "mwak",
+    },
+  },
+  hitTargets: new Set([{}, {}]),
+  targets: [
+    {
+      id: "tokenId",
+      sheet: {
+        actor: {
+          name: "Acolyte",
+          system: {
+            attributes: {
+              ac: {
+                value: 10,
+              },
+            },
+          },
+        },
+      },
+    },
+  ],
+};
+
+const midiWorkflowNoDiceRollNpc: MidiQolWorkflow = {
+  id: "d75gppsau45ypm2m",
+  actor: {
+    id: "5H4YnyD6zf9vcJ3P",
+    type: "npc",
   },
   isCritical: false,
   isFumble: false,
@@ -287,6 +329,7 @@ describe("MidiQol", () => {
             get: jest.fn().mockReturnValue({
               id: "actorId",
               name: "Actor Name",
+              type: "character",
             }),
           },
         };
@@ -314,6 +357,24 @@ describe("MidiQol", () => {
 
       test("it returns the correct EncounterMidiWorkflow", async () => {
         const result = MidiQol.RollCheck(midiWorkflow);
+        expect(result).toBeUndefined();
+      });
+    });
+
+    describe("if its an npc", () => {
+      beforeEach(() => {
+        (global as any).game = {
+          actors: {
+            get: jest.fn().mockReturnValue({
+              id: "5H4YnyD6zf9vcJ3P",
+              type: "npc",
+            }),
+          },
+        };
+      });
+
+      test("it should return undefined", async () => {
+        const result = MidiQol.RollCheck(midiWorkflowNoDiceRollNpc);
         expect(result).toBeUndefined();
       });
     });
