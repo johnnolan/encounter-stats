@@ -5,7 +5,9 @@
       <ol class="fvtt-enc-stats_campaign_ol">
         {{#each nat20}}
         <li class="item flexrow campaign-row">
-          {{name}}
+          <div class="item-name">
+            {{name}}
+          </div>
           <div class="item-name">
             {{value}}
           </div>
@@ -18,7 +20,9 @@
       <ol class="fvtt-enc-stats_campaign_ol">
         {{#each nat1}}
         <li class="item flexrow campaign-row">
-          {{name}}
+          <div class="item-name">
+            {{name}}
+          </div>
           <div class="item-name">
             {{value}}
           </div>
@@ -31,7 +35,9 @@
       <ol class="fvtt-enc-stats_campaign_ol">
         {{#each heals}}
         <li class="item flexrow campaign-row">
-          {{name}}
+          <div class="item-name">
+            {{name}}
+          </div>
           <div class="item-name">
             {{value}}
           </div>
@@ -44,7 +50,9 @@
       <ol class="fvtt-enc-stats_campaign_ol">
         {{#each kills}}
         <li class="item flexrow campaign-row">
-          {{name}}
+          <div class="item-name">
+            {{name}}
+          </div>
           <div class="item-name">
             {{value}}
           </div>
@@ -59,11 +67,13 @@
   <h2 class="fvtt-enc-stats_enemies">{{localize "EncounterStats.template.Natural20s"}}</h2>
   <div>
     {{#each criticalHistory}}
-    {{date}}
+    <p>{{date}}</p>
     <ol class="item-list">
       {{#each entries}}
       <li class="item flexrow campaign-row">
-        {{actorName}}
+        <div class="item-name">
+          {{actorName}}
+        </div>
         <div class="item-name">
           {{flavor}}
         </div>
@@ -79,11 +89,13 @@
   <h2 class="fvtt-enc-stats_enemies">{{localize "EncounterStats.template.Natural1s"}}</h2>
   <div>
     {{#each fumbleHistory}}
-    {{date}}
+    <p>{{date}}</p>
     <ol class="item-list">
       {{#each entries}}
       <li class="item flexrow campaign-row">
-        {{actorName}}
+        <div class="item-name">
+          {{actorName}}
+        </div>
         <div class="item-name">
           {{flavor}}
         </div>
@@ -99,11 +111,13 @@
   <h2 class="fvtt-enc-stats_enemies">{{localize "EncounterStats.template.Healing"}}</h2>
   <div>
     {{#each healsHistory}}
-    {{date}}
+    <p>{{date}}</p>
     <ol class="item-list">
       {{#each entries}}
       <li class="item flexrow campaign-row">
-        {{actorName}}
+        <div class="item-name">
+          {{actorName}}
+        </div>
         <div class="item-name">
           {{flavor}}
         </div>
@@ -122,11 +136,13 @@
   <h2 class="fvtt-enc-stats_enemies">{{localize "EncounterStats.template.kills"}}</h2>
   <div>
     {{#each killsHistory}}
-    {{date}}
+    <p>{{date}}</p>
     <ol class="item-list">
       {{#each entries}}
       <li class="item flexrow campaign-row">
-        {{actorName}}
+        <div class="item-name">
+          {{actorName}}
+        </div>
         <div class="item-name">
           {{flavor}}
         </div>
@@ -144,11 +160,13 @@
   <h2 class="fvtt-enc-stats_enemies">{{name}}</h2>
   {{#each events}}
   <div>
-    {{date}}
+    <p>{{date}}</p>
     <ol class="item-list">
       {{#each entries}}
       <li class="item flexrow campaign-row">
-        {{actorName}}
+        <div class="item-name">
+          {{actorName}}
+        </div>
         <div class="item-name">
           {{flavor}}
         </div>
