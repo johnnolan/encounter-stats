@@ -38,6 +38,8 @@ Capture your Players attacks, damage, healing, dice rolls, custom events and mor
 - Kills
 - Support Actions
 - Battlefield Actions
+- Times a user has been downed
+- Overview of Encounter including Scene details and enemies faced
 
 [![Example](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example.jpg)](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example.jpg)
 #### Campaign Stats
