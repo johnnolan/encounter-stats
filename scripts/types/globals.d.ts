@@ -29,6 +29,40 @@ declare global {
     combat: Combat;
   }
 
+  interface CampaignRender {
+    nat1: Array<CampaignRollData>;
+    nat20: Array<CampaignRollData>;
+    heals: Array<CampaignRollData>;
+    kills: Array<CampaignRollData>;
+    criticalHistory: Array<CampaignRollRowData>;
+    fumbleHistory: Array<CampaignRollRowData>;
+    healsHistory: Array<CampaignRollRowData>;
+    killsHistory: Array<CampaignRollRowData>;
+    customEventHistory: Array<CampaignCustomData>;
+  }
+
+  type CampaignCustomData = {
+    name: string;
+    events: Array<CampaignRollRowData>;
+  }
+
+  type CampaignRollData = {
+    name: string;
+    value: string;
+  };
+
+  type CampaignRollRowData = {
+    date: string;
+    entries: Array<CampaignRollRowDataItem>;
+  };
+
+  type CampaignRollRowDataItem = {
+    actorName: string;
+    flavor: string;
+    date: string;
+    total?: number;
+  };
+
   interface CustomHookEvent {
     EventName: string;
     FlavorText: string;
