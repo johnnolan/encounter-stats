@@ -16,34 +16,34 @@
         <div class="fvtt-enc-stats_actor_statlist flexrow">
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>{{localize "EncounterStats.template.Start"}}</p>
+                    {{localize "EncounterStats.template.Start"}}
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
-                    {{overview.start}}
+                    <p>{{overview.start}}</p>
                 </div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>{{localize "EncounterStats.template.Finished"}}</p>
+                    {{localize "EncounterStats.template.Finished"}}
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
-                    {{overview.end}}
+                    <p>{{overview.end}}</p>
                 </div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>{{localize "EncounterStats.template.TotalRounds"}}</p>
+                    {{localize "EncounterStats.template.TotalRounds"}}
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
-                    {{round}}
+                    <p>{{round}}</p>
                 </div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>{{localize "EncounterStats.template.NumberofEnemies"}}</p>
+                    {{localize "EncounterStats.template.NumberofEnemies"}}
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
-                    {{enemyNumber}}
+                    <p>{{enemyNumber}}</p>
                 </div>
             </div>
         </div>
@@ -53,34 +53,34 @@
         <div class="fvtt-enc-stats_actor_statlist flexrow">
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>{{localize "EncounterStats.template.most_damage_overall"}}</p>
+                    {{localize "EncounterStats.template.most_damage_overall"}}
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
-                    {{{top.maxDamage}}}
+                    <p>{{{top.maxDamage}}}</p>
                 </div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>{{localize "EncounterStats.template.most_damage_per_turn"}}</p>
+                    {{localize "EncounterStats.template.most_damage_per_turn"}}
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
-                    {{{top.mostDamageInOneTurn}}}
+                    <p>{{{top.mostDamageInOneTurn}}}</p>
                 </div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>{{localize "EncounterStats.template.highest_average_damage"}}</p>
+                    {{localize "EncounterStats.template.highest_average_damage"}}
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
-                    {{{top.highestAvgDamage}}}
+                    <p>{{{top.highestAvgDamage}}}</p>
                 </div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>{{localize "EncounterStats.template.highest_damage_in_1_hit"}}</p>
+                    {{localize "EncounterStats.template.highest_damage_in_1_hit"}}
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
-                    {{{top.highestMaxDamage}}}
+                    <p>{{{top.highestMaxDamage}}}</p>
                 </div>
             </div>
         </div>
@@ -90,34 +90,34 @@
         <div class="fvtt-enc-stats_actor_statlist flexrow">
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>{{localize "EncounterStats.template.most_kills"}}</p>
+                    {{localize "EncounterStats.template.most_kills"}}
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
-                    {{{top.mostKills}}}
+                    <p>{{{top.mostKills}}}</p>
                 </div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>{{localize "EncounterStats.template.most_healing"}}</p>
+                    {{localize "EncounterStats.template.most_healing"}}
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
-                    {{{top.mostHealing}}}
+                    <p>{{{top.mostHealing}}}</p>
                 </div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>{{localize "EncounterStats.template.most_support_actions"}}</p>
+                    {{localize "EncounterStats.template.most_support_actions"}}
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
-                    {{{top.mostSupportActions}}}
+                    <p>{{{top.mostSupportActions}}}</p>
                 </div>
             </div>
             <div class="fvtt-enc-stats_actor_stat">
                 <div class="fvtt-enc-stats_actor_stat-key">
-                    <p>{{localize "EncounterStats.template.battlefield_actions"}}</p>
+                    {{localize "EncounterStats.template.battlefield_actions"}}
                 </div>
                 <div class="fvtt-enc-stats_actor_stat-value">
-                    {{{top.mostBattlefieldActions}}}
+                    <p>{{{top.mostBattlefieldActions}}}</p>
                 </div>
             </div>
         </div>
@@ -134,10 +134,18 @@
                             <img src="{{img}}" alt="{{name}}" />
                             <div class="fvtt-enc-stats_actor_stat">
                                 <div class="fvtt-enc-stats_actor_stat-key">
-                                    <p>{{localize "EncounterStats.template.initiative"}}</p>
+                                    {{localize "EncounterStats.template.initiative"}}
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat-value">
-                                    <p><span>{{initiative}}</span></p>
+                                    <span>{{initiative}}</span>
+                                </div>
+                            </div>
+                            <div class="fvtt-enc-stats_actor_stat">
+                                <div class="fvtt-enc-stats_actor_stat-key">
+                                    {{localize "EncounterStats.template.Downed_Count"}}
+                                </div>
+                                <div class="fvtt-enc-stats_actor_stat-value">
+                                    <span>{{downed}}</span>
                                 </div>
                             </div>
                         </div>
@@ -146,7 +154,7 @@
                             <div class="fvtt-enc-stats_actor_statlist flexrow">
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>{{localize "EncounterStats.template.startinghp"}}</p>
+                                        {{localize "EncounterStats.template.startinghp"}}
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{hp}}</span><span class="sep">/</span><span>{{max}}</span></p>
@@ -154,7 +162,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>{{localize "EncounterStats.template.finalhp"}}</p>
+                                        {{localize "EncounterStats.template.finalhp"}}
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{finalhp}}</span><span class="sep">/</span><span>{{max}}</span></p>
@@ -162,7 +170,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>{{localize "EncounterStats.template.ac"}}</p>
+                                        {{localize "EncounterStats.template.ac"}}
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{ac}}</span></p>
@@ -170,7 +178,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>{{localize "EncounterStats.template.damage_total"}}</p>
+                                        {{localize "EncounterStats.template.damage_total"}}
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{summaryList.total}}</span></p>
@@ -178,7 +186,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>{{localize "EncounterStats.template.min_damage"}}</p>
+                                        {{localize "EncounterStats.template.min_damage"}}
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{summaryList.min}}</span></p>
@@ -186,7 +194,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>{{localize "EncounterStats.template.max_damage"}}</p>
+                                        {{localize "EncounterStats.template.max_damage"}}
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{summaryList.max}}</span></p>
@@ -194,7 +202,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>{{localize "EncounterStats.template.avg_damage"}}</p>
+                                        {{localize "EncounterStats.template.avg_damage"}}
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{summaryList.avg}}</span></p>
@@ -204,7 +212,7 @@
                             <div class="fvtt-enc-stats_actor_statlist flexrow">
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>{{localize "EncounterStats.template.Charisma"}}</p>
+                                        {{localize "EncounterStats.template.Charisma"}}
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{abilities.cha}}</span></p>
@@ -212,7 +220,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>{{localize "EncounterStats.template.Constitution"}}</p>
+                                        {{localize "EncounterStats.template.Constitution"}}
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{abilities.con}}</span>
@@ -221,7 +229,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>{{localize "EncounterStats.template.Dexterity"}}</p>
+                                        {{localize "EncounterStats.template.Dexterity"}}
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{abilities.dex}}</span>
@@ -230,7 +238,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>{{localize "EncounterStats.template.Intelligence"}}</p>
+                                        {{localize "EncounterStats.template.Intelligence"}}
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{abilities.int}}</span></p>
@@ -238,7 +246,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>{{localize "EncounterStats.template.Strength"}}</p>
+                                        {{localize "EncounterStats.template.Strength"}}
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{abilities.str}}</span></p>
@@ -246,7 +254,7 @@
                                 </div>
                                 <div class="fvtt-enc-stats_actor_stat">
                                     <div class="fvtt-enc-stats_actor_stat-key">
-                                        <p>{{localize "EncounterStats.template.Wisdom"}}</p>
+                                        {{localize "EncounterStats.template.Wisdom"}}
                                     </div>
                                     <div class="fvtt-enc-stats_actor_stat-value">
                                         <p><span>{{abilities.wis}}</span></p>
