@@ -150,6 +150,89 @@ export const combatantStats = {
                 },
         },
         {
+            "name": "Graa",
+            "id": "5H4YnyD6zf9vcJ3Q",
+            "tokenId": "hoTFHXIbChPmVzQ2",
+            "img": "tokens/pcs/lorena/graa_topdown_resting.png",
+            "type": "character",
+            "abilities": {
+                "cha": 12,
+                "con": 12,
+                "dex": 12,
+                "int": 12,
+                "str": 12,
+                "wis": 12,
+            },
+            "hp": 12,
+            "max": 16,
+            "ac": 12,
+            "events": [],
+            "kills": [],
+            "health": [
+                {
+                    "round": 1,
+                    "actorId": "wW0GeYsY9pCTcwxx",
+                    "max": 10,
+                    "current": 10,
+                    "previous": 10
+                },
+                {
+                    "round": 1,
+                    "actorId": "wW0GeYsY9pCTcwxx",
+                    "max": 24,
+                    "current": 24,
+                    "previous": 10,
+                    "diff": 14,
+                    "isheal": true
+                },
+                {
+                    "round": 2,
+                    "actorId": "wW0GeYsY9pCTcwxx",
+                    "max": 24,
+                    "current": 0,
+                    "previous": 24,
+                    "diff": 24,
+                    "isdamage": true
+                },
+                {
+                    "round": 2,
+                    "actorId": "wW0GeYsY9pCTcwxx",
+                    "max": 24,
+                    "current": 5,
+                    "previous": 0,
+                    "diff": 5,
+                    "isheal": true
+                },
+                {
+                    "round": 2,
+                    "actorId": "wW0GeYsY9pCTcwxx",
+                    "max": 24,
+                    "current": 0,
+                    "previous": 5,
+                    "diff": 5,
+                    "isdamage": true
+                }
+            ],
+            "summaryList": {
+                "min": 0,
+                "max": 0,
+                "avg": 0,
+                "total": 0
+            },
+            "roundSummary": {
+                "totals": [
+                        {
+                            "damageTotal": 2,
+                            "round": 1
+                        },
+                        {
+                            "damageTotal": 8,
+                            "round": 2
+                        }
+                    ]
+                },
+        },
+        {
             "name": "Displacer Beast",
             "id": "39qXw7GSzTEwGW2G",
             "tokenId": "39qXw7GSzTEwGW2D",

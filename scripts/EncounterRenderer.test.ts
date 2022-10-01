@@ -26,7 +26,7 @@ describe("EncounterRenderer", () => {
 
       expect(result.overview.start).toBe("16 September 2022 07:23");
       expect(result.overview.end).toBe("16 September 2022 08:56");
-      expect(result.combatants.length).toBe(1);
+      expect(result.combatants.length).toBe(2);
 
       const combatant = result.combatants[0];
       expect(combatant.name).toBe("Lorena Aldabra");
@@ -76,6 +76,12 @@ describe("EncounterRenderer", () => {
 
       expect(combatant.rounds[0].damageTotal).toBe(2);
       expect(combatant.rounds[1].damageTotal).toBe(8);
+
+      expect(combatant.downed).toBe(0);
+
+      const combatant2 = result.combatants[1];
+      expect(combatant2.name).toBe("Graa");
+      expect(combatant2.downed).toBe(2);
     });
   });
 });

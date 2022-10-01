@@ -59,7 +59,12 @@ class EncounterRenderer {
       }
 
       // Health
+      let downedCount = 0;
       for (const health of combatant.health) {
+        if (health.isdamage && health.current < 1) {
+          downedCount++;
+        }
+
         if (!combatant.rounds[health.round - 1]) {
           combatant.rounds[health.round - 1] = {
             round: health.round,
@@ -76,6 +81,7 @@ class EncounterRenderer {
           });
         }
       }
+      combatant.downed = downedCount;
 
       // Damage
       for (const total of combatant.roundSummary.totals) {
