@@ -85,8 +85,14 @@ class EncounterRenderer {
 
       // Damage
       for (const total of combatant.roundSummary.totals) {
-        combatant.rounds.find((f) => f.round === total.round).damageTotal =
-          total.damageTotal;
+        const roundData = combatant.rounds.find(
+          (f) => f?.round === total.round
+        );
+        if (!roundData) {
+          combatant.rounds[total.round - 1] = total.round ?? 0;
+        } else {
+          roundData.damageTotal = total.damageTotal;
+        }
       }
     }
 
