@@ -148,7 +148,6 @@ class EncounterJournal {
           flags: {},
           sort: sortValue,
         });
-        console.log("fvtt", sortValue);
         sortValue = sortValue + 1000;
       }
     }
