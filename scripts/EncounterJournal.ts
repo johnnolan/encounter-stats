@@ -111,11 +111,20 @@ class EncounterJournal {
       return;
     }
 
-    await journalEntryPage?.update({
-      text: {
-        content: data,
-      },
-    });
+    await game.journal?.getName(this.JOURNAL_TITLE).updateEmbeddedDocuments(
+      "JournalEntryPage",
+      [
+        {
+          _id: journalEntryPage._id,
+          flags: {},
+          type: "text",
+          text: {
+            content: data,
+          },
+        },
+      ],
+      { diff: false, render: false }
+    );
 
     this.SortJournalData();
   }
