@@ -111,28 +111,19 @@ class EncounterJournal {
       return;
     }
 
-    await game.journal?.getName(this.JOURNAL_TITLE).updateEmbeddedDocuments(
-      "JournalEntryPage",
-      [
-        {
-          _id: journalEntryPage._id,
-          flags: {},
-          type: "text",
-          text: {
-            content: data,
-          },
-        },
-      ],
-      { diff: false, render: false }
-    );
+    await EncounterJournal.UpdateJournalPage({
+      _id: journalEntryPage._id,
+      flags: journalEntryPage.flags,
+      text: {
+        content: data,
+      },
+    });
 
-    this.SortJournalData();
+    await this.SortJournalData();
   }
 
   private static async SortJournalData() {
-    const journalEntry = game.journal?.find(
-      (e) => e.name === "Encounter Statistics"
-    );
+    const journalEntry = game.journal?.getName(this.JOURNAL_TITLE);
 
     let sortValue = 2000;
 
@@ -142,20 +133,34 @@ class EncounterJournal {
       )
     );
 
-    sortedJournalsByName.forEach((journalEntryPage) => {
+    for (let [index, journalEntryPage] of sortedJournalsByName.entries()) {
       if (
         journalEntryPage.getFlag("encounter-stats", "campaignstats") === "view"
       ) {
-        journalEntryPage.update({
+        await EncounterJournal.UpdateJournalPage({
+          _id: journalEntryPage._id,
+          flags: {},
           sort: 1000,
         });
       } else {
-        journalEntryPage.update({
+        await EncounterJournal.UpdateJournalPage({
+          _id: journalEntryPage._id,
+          flags: {},
           sort: sortValue,
         });
+        console.log("fvtt", sortValue);
         sortValue = sortValue + 1000;
       }
-    });
+    }
+  }
+
+  private static async UpdateJournalPage(update: unknown) {
+    await game.journal
+      ?.getName(this.JOURNAL_TITLE)
+      .updateEmbeddedDocuments("JournalEntryPage", [update], {
+        diff: false,
+        render: false,
+      });
   }
 
   // Temporary for migration from Journal
