@@ -5,7 +5,7 @@ class EncounterRenderer {
   static async Render(encounter: Encounter) {
     let renderData = encounter;
 
-    renderData.enemyNumber = renderData.enemies.length;
+    renderData.enemyNumber = renderData.enemies?.length ?? 0;
     for (const combatant of renderData.combatants) {
       if (combatant.type !== "character") {
         renderData.combatants.pop(combatant);
