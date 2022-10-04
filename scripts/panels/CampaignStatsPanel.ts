@@ -32,6 +32,9 @@ export class CampaignStatsPanel extends FormApplication {
 
   deleteStatistics() {
     Gamemaster.DeleteStats();
+    return ui.notifications?.info(
+      Trans.Get("Settings.CampaignStatsDeleted")
+    );
   }
 
   // @ts-expect-error TS(2416): Property '_updateObject' in type 'ChatSettingsPane... Remove this comment to see the full error message
@@ -53,6 +56,9 @@ export class CampaignStatsPanel extends FormApplication {
       json = JSON.parse(json);
     }
     CampaignStat.Save(json);
+    return ui.notifications?.info(
+      Trans.Get("Settings.CampaignStatsImported")
+    );
   }
 
   async importFromJSONDialog() {

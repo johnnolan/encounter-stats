@@ -77,5 +77,7 @@
     "EncounterStats.Settings.Configure": "Configure",
     "EncounterStats.Settings.Import": "Import",
     "EncounterStats.Settings.FileUploadError": "You did not upload a data file!",
-    "EncounterStats.Settings.Cancel": "Cancel"
+    "EncounterStats.Settings.Cancel": "Cancel",
+    "EncounterStats.Settings.CampaignStatsDeleted": "Successfully deleted campaign stats.",
+    "EncounterStats.Settings.CampaignStatsImported": "Successfully imported campaign stats."
 }
