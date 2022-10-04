@@ -85,7 +85,7 @@ export async function OnRenderCombatTracker(
           hp: combatant.actor.system.attributes.hp.value,
         });
       } else {
-        stat.AddCombatant(actor, tokenId, initiative);
+        await stat.AddCombatant(actor, tokenId, initiative);
       }
     }
   }

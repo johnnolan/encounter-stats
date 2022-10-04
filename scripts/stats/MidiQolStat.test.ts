@@ -110,20 +110,20 @@ describe("MidiQol", () => {
   });
   describe("If you add a new Attack", () => {
 
-    test("and it has a missing actor id", () => {
-      midiQolStat.AddCombatant(actor, "tokenId", 12);
+    test("and it has a missing actor id", async () => {
+      await midiQolStat.AddCombatant(actor, "tokenId", 12);
       midiQolStat.AddAttack({ actor: {} });
       midiQolStat.Save();
       expect(mockLoggerError).toHaveBeenCalled();
     });
-    test("and actor does not match the combatant", () => {
-      midiQolStat.AddCombatant(actor, "tokenId", 13);
+    test("and actor does not match the combatant", async () => {
+      await midiQolStat.AddCombatant(actor, "tokenId", 13);
       midiQolStat.AddAttack({ actor: { id: "wrongId" } });
       midiQolStat.Save();
       expect(mockLoggerError).toHaveBeenCalled();
     });
-    test("the initial midiQolStats all return 0", () => {
-      midiQolStat.AddCombatant(actor, "tokenId", 14);
+    test("the initial midiQolStats all return 0", async () => {
+      await midiQolStat.AddCombatant(actor, "tokenId", 14);
       midiQolStat.Save();
       expect(midiQolStat.encounter.combatants.length).toBe(1);
       const combatantResult = midiQolStat.GetCombatantStats("eMyoELkOwFNPGEK8");
@@ -151,8 +151,8 @@ describe("MidiQol", () => {
         totals: [],
       });
     });
-    test("you can get the combatant by actor id", () => {
-      midiQolStat.AddCombatant(actor, "tokenId");
+    test("you can get the combatant by actor id", async () => {
+      await midiQolStat.AddCombatant(actor, "tokenId", 1);
       midiQolStat.AddAttack(encounterMidiWorkflow);
       midiQolStat.AddAttack(encounterMidiWorkflow2);
       midiQolStat.AddAttack(encounterMidiWorkflowHeal);

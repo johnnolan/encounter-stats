@@ -243,26 +243,26 @@ describe("Stat", () => {
       stat = new Stat(encounterId);
     });
 
-    test("it shows the abilities of the combatant", () => {
-      stat.AddCombatant(actor, "tokenId", null);
+    test("it shows the abilities of the combatant", async () => {
+      await stat.AddCombatant(actor, "tokenId", null);
       expect(stat.encounter.combatants[0].abilities.cha).toBe(19);
     });
 
-    test("it shows the Encounter has one combatant", () => {
-      stat.AddCombatant(actor, "tokenId", null);
+    test("it shows the Encounter has one combatant", async () => {
+      await stat.AddCombatant(actor, "tokenId", null);
       expect(stat.encounter.combatants.length).toBe(1);
     });
 
-    test("you can get the combatant by actor id", () => {
-      stat.AddCombatant(actor, "tokenId", null);
+    test("you can get the combatant by actor id", async () => {
+      await stat.AddCombatant(actor, "tokenId", null);
       expect(stat.encounter.combatants.length).toBe(1);
       expect(stat.GetCombatantStats("eMyoELkOwFNPGEK8")?.id).toBe(
         "eMyoELkOwFNPGEK8"
       );
     });
 
-    test("you can get the combatant by actor id", () => {
-      stat.AddCombatant(actor, "tokenId", null);
+    test("you can get the combatant by actor id", async () => {
+      await stat.AddCombatant(actor, "tokenId", null);
       expect(stat.encounter.combatants.length).toBe(1);
       expect(stat.GetCombatantStatsByTokenId("tokenId")?.id).toBe(
         "eMyoELkOwFNPGEK8"
@@ -285,8 +285,8 @@ describe("Stat", () => {
     });
 
     describe("If you add a new Kill", () => {
-      test("you can see the kill added", () => {
-        stat.AddCombatant(actor, "tokenId", null);
+      test("you can see the kill added", async () => {
+        await stat.AddCombatant(actor, "tokenId", null);
         stat.AddKill("Acolyte", "tokenId");
         stat.Save();
         expect(stat.encounter.combatants.length).toBe(1);
@@ -295,8 +295,8 @@ describe("Stat", () => {
         );
       });
 
-      test("you can see a Log message if not valid", () => {
-        stat.AddCombatant(actor, "tokenId", null);
+      test("you can see a Log message if not valid", async () => {
+        await stat.AddCombatant(actor, "tokenId", null);
         stat.AddKill("Acolyte", "tokenIdError");
         stat.Save();
         expect(mockLoggerWarn).toBeCalled();
@@ -308,8 +308,8 @@ describe("Stat", () => {
     });
 
     describe("If you update Health", () => {
-      test("you can see healing done", () => {
-        stat.AddCombatant(actor, "tokenId", null);
+      test("you can see healing done", async () => {
+        await stat.AddCombatant(actor, "tokenId", null);
         stat.UpdateHealth({
           id: "eMyoELkOwFNPGEK8",
           system: {
@@ -351,8 +351,8 @@ describe("Stat", () => {
         expect(combatantResult?.health[0].previous).toBe(80);
       });
 
-      test("you can a log message when no actor passes", () => {
-        stat.AddCombatant(actor, "tokenId", null);
+      test("you can a log message when no actor passes", async () => {
+        await stat.AddCombatant(actor, "tokenId", null);
         stat.UpdateHealth({
           system: {
             attributes: {
@@ -371,8 +371,8 @@ describe("Stat", () => {
       });
     });
 
-    test("you can a log message when no actor can be found", () => {
-      stat.AddCombatant(actor, "tokenId", null);
+    test("you can a log message when no actor can be found", async () => {
+      await stat.AddCombatant(actor, "tokenId", null);
       stat.UpdateHealth({
         id: "eMyoELkOwFNPGEK9",
         system: {
@@ -391,15 +391,15 @@ describe("Stat", () => {
       expect(combatantResult?.health.length).toBe(0);
     });
 
-    test("do not add the same actor twice", () => {
-      stat.AddCombatant(actor, "tokenId", null);
-      stat.AddCombatant(actor, "tokenId", null);
+    test("do not add the same actor twice", async () => {
+      await stat.AddCombatant(actor, "tokenId", null);
+      await stat.AddCombatant(actor, "tokenId", null);
 
       expect(stat.encounter.combatants.length).toBe(1);
     });
 
-    test("you can a log message when errored actor is passed", () => {
-      stat.AddCombatant({}, "tokenId", null);
+    test("you can a log message when errored actor is passed", async () => {
+      await stat.AddCombatant({}, "tokenId", null);
       expect(mockLoggerWarn).toBeCalledWith(
         "No valid actor passed [object Object]",
         "stat.AddCombatant",
@@ -407,52 +407,32 @@ describe("Stat", () => {
       );
     });
 
-    describe("you can a log message when errored actor is passed", () => {
-      beforeEach(() => {
-        (global as any).canvas = {
-          tokens: {
-            get: jest.fn().mockReturnValue({
-              img: undefined,
-            }),
-          },
-        };
-      });
-      test("you can a log message when errored actor is passed", () => {
-        stat.AddCombatant(actor, "tokenIdError", null);
-        expect(mockLoggerWarn).toBeCalledWith(
-          "No tokenImage for TokenID tokenIdError",
-          "stat.AddCombatant",
-          "tokenIdError"
-        );
-      });
-    });
-
     test("initiative gets updated correctly", async () => {
-      stat.AddCombatant(actor, "tokenId", null);
+      await stat.AddCombatant(actor, "tokenId", null);
       expect(stat.encounter.combatants.length).toBe(1);
       expect(stat.encounter.combatants[0].initiative).toBeNull();
-      stat.AddCombatant(actor, "tokenId", 19);
+      await stat.AddCombatant(actor, "tokenId", 19);
       expect(stat.encounter.combatants[0].initiative).toBe(19);
     });
 
     test("initiative order is correct", async () => {
-      stat.AddCombatant(actor, "tokenId", null);
-      stat.AddCombatant(actorTwo, "tokenId", null);
-      stat.AddCombatant(actorThree, "tokenId", null);
+      await stat.AddCombatant(actor, "tokenId", null);
+      await stat.AddCombatant(actorTwo, "tokenId", null);
+      await stat.AddCombatant(actorThree, "tokenId", null);
       expect(stat.encounter.combatants.length).toBe(3);
       expect(stat.encounter.combatants[0].initiative).toBeNull();
-      stat.AddCombatant(actor, "tokenId", 9);
-      stat.AddCombatant(actorTwo, "tokenId", 18);
-      stat.AddCombatant(actorThree, "tokenId", 21);
+      await stat.AddCombatant(actor, "tokenId", 9);
+      await stat.AddCombatant(actorTwo, "tokenId", 18);
+      await stat.AddCombatant(actorThree, "tokenId", 21);
       expect(stat.encounter.combatants[0].initiative).toBe(21);
       expect(stat.encounter.combatants[1].initiative).toBe(18);
       expect(stat.encounter.combatants[2].initiative).toBe(9);
     });
 
-    test("you return if the actor is not a character", () => {
+    test("you return if the actor is not a character", async () => {
       const newActor = actor;
       newActor.type = "npc";
-      stat.AddCombatant(newActor, "tokenId", null);
+      await stat.AddCombatant(newActor, "tokenId", null);
 
       expect(stat.encounter.combatants.length).toBe(0);
     });
