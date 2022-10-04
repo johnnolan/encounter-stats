@@ -111,7 +111,7 @@ class EncounterJournal {
       return;
     }
 
-    await EncounterJournal.UpdateJournalPage({
+    await EncounterJournal._updateJournalPage({
       _id: journalEntryPage._id,
       flags: journalEntryPage.flags,
       text: {
@@ -137,13 +137,13 @@ class EncounterJournal {
       if (
         journalEntryPage.getFlag("encounter-stats", "campaignstats") === "view"
       ) {
-        await EncounterJournal.UpdateJournalPage({
+        await EncounterJournal._updateJournalPage({
           _id: journalEntryPage._id,
           flags: {},
           sort: 1000,
         });
       } else {
-        await EncounterJournal.UpdateJournalPage({
+        await EncounterJournal._updateJournalPage({
           _id: journalEntryPage._id,
           flags: {},
           sort: sortValue,
@@ -153,7 +153,7 @@ class EncounterJournal {
     }
   }
 
-  private static async UpdateJournalPage(update: unknown) {
+  private static async _updateJournalPage(update: unknown) {
     await game.journal
       ?.getName(this.JOURNAL_TITLE)
       .updateEmbeddedDocuments("JournalEntryPage", [update], {
