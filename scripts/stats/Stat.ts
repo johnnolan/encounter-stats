@@ -126,19 +126,12 @@ export default class Stat {
     this._encounter.enemies.push(enemy);
   }
 
-  AddCombatant(actor: Actor, tokenId: string, initiative: number | null) {
-    const tokenImage = canvas?.tokens?.get(tokenId)?.img;
-    if (!tokenImage) {
-      Logger.warn(
-        `No tokenImage for TokenID ${tokenId}`,
-        "stat.AddCombatant",
-        tokenId
-      );
-    }
+  async AddCombatant(actor: Actor, tokenId: string, initiative: number | null) {
     if (!actor || !actor.id || !actor.name) {
       Logger.warn(`No valid actor passed ${actor}`, "stat.AddCombatant", actor);
       return;
     }
+    const tokenImage = await actor.getTokenImages();
 
     if (!Stat.IsValidCombatant(actor?.type)) return;
 
@@ -146,7 +139,7 @@ export default class Stat {
       name: actor.name,
       id: actor.id,
       tokenId: tokenId,
-      img: tokenImage ? tokenImage : actor.img,
+      img: tokenImage.length > 0 ? tokenImage[0] : actor.img,
       type: actor.type,
       hp: actor.system.attributes.hp.value,
       max: actor.system.attributes.hp.max,

@@ -4,6 +4,7 @@ export const actor: Actor = {
     min: 1,
     value: 1,
   }),
+  getTokenImages: jest.fn().mockResolvedValue(["dndbeyond/Graa-S-oua.jpeg"]),
   get: jest.fn().mockReturnValue({
       items: [
         {

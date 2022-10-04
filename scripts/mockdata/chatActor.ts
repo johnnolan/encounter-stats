@@ -1,5 +1,6 @@
 export const chatActor: Actor = {
   id: "5H4YnyD6zf9vcJ3P",
+  getTokenImages: jest.fn().mockResolvedValue(["dndbeyond/Graa-S-oua.jpeg"]),
   name: "Graa S'oua",
   type: "character",
   img: "dndbeyond/Graa-S-oua.jpeg",
