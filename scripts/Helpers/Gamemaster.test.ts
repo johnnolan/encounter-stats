@@ -1,11 +1,15 @@
+import CampaignStat from "../CampaignStat";
 import Gamemaster from "./Gamemaster";
 
 const mockSetFlag = jest.fn();
 const mockGetFlag = jest.fn();
+const mockCampaignStatSave = jest.fn();
+CampaignStat.Save = mockCampaignStatSave;
 
 beforeEach(() => {
   mockSetFlag.mockClear();
   mockGetFlag.mockClear();
+  mockCampaignStatSave.mockClear();
 });
 
 describe("Gamemaster", () => {
@@ -152,6 +156,7 @@ describe("Gamemaster", () => {
       });
       test("it deletes and resets the data", async () => {
         Gamemaster.DeleteStats();
+        expect(mockCampaignStatSave).toBeCalledWith(Gamemaster.DEFAULT_DATA);
         expect(mockSetFlag).toBeCalledWith("encounter-stats", "campaign-stats", Gamemaster.DEFAULT_DATA);
       });
     });

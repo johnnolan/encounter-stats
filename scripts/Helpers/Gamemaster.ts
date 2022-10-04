@@ -1,3 +1,5 @@
+import CampaignStat from "../CampaignStat";
+
 class Gamemaster {
   static readonly FLAG_SCOPE = "encounter-stats";
   static readonly FLAG_NAME = "campaign-stats";
@@ -34,6 +36,7 @@ class Gamemaster {
       this.FLAG_NAME,
       Gamemaster.DEFAULT_DATA
     );
+    CampaignStat.Save(Gamemaster.DEFAULT_DATA);
   }
 }
 
