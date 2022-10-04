@@ -52,6 +52,8 @@ class EncounterJournal {
         "flags.encounter-stats.encounterId": encounterId,
       },
     ]);
+
+    await this.SortJournalData();
   }
 
   // Temporary for migration from Journal
@@ -78,7 +80,7 @@ class EncounterJournal {
       );
       return;
     }
-    journalEntry.createEmbeddedDocuments("JournalEntryPage", [
+    await journalEntry.createEmbeddedDocuments("JournalEntryPage", [
       {
         name: "Campaign Statistics",
         type: "text",
@@ -118,8 +120,6 @@ class EncounterJournal {
         content: data,
       },
     });
-
-    await this.SortJournalData();
   }
 
   private static async SortJournalData() {
