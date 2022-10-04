@@ -52,6 +52,8 @@ class EncounterJournal {
         "flags.encounter-stats.encounterId": encounterId,
       },
     ]);
+
+    await this.SortJournalData();
   }
 
   // Temporary for migration from Journal
@@ -78,7 +80,7 @@ class EncounterJournal {
       );
       return;
     }
-    journalEntry.createEmbeddedDocuments("JournalEntryPage", [
+    await journalEntry.createEmbeddedDocuments("JournalEntryPage", [
       {
         name: "Campaign Statistics",
         type: "text",
@@ -111,28 +113,17 @@ class EncounterJournal {
       return;
     }
 
-    await game.journal?.getName(this.JOURNAL_TITLE).updateEmbeddedDocuments(
-      "JournalEntryPage",
-      [
-        {
-          _id: journalEntryPage._id,
-          flags: {},
-          type: "text",
-          text: {
-            content: data,
-          },
-        },
-      ],
-      { diff: false, render: false }
-    );
-
-    this.SortJournalData();
+    await EncounterJournal._updateJournalPage({
+      _id: journalEntryPage._id,
+      flags: journalEntryPage.flags,
+      text: {
+        content: data,
+      },
+    });
   }
 
   private static async SortJournalData() {
-    const journalEntry = game.journal?.find(
-      (e) => e.name === "Encounter Statistics"
-    );
+    const journalEntry = game.journal?.getName(this.JOURNAL_TITLE);
 
     let sortValue = 2000;
 
@@ -142,20 +133,33 @@ class EncounterJournal {
       )
     );
 
-    sortedJournalsByName.forEach((journalEntryPage) => {
+    for (let [index, journalEntryPage] of sortedJournalsByName.entries()) {
       if (
         journalEntryPage.getFlag("encounter-stats", "campaignstats") === "view"
       ) {
-        journalEntryPage.update({
+        await EncounterJournal._updateJournalPage({
+          _id: journalEntryPage._id,
+          flags: {},
           sort: 1000,
         });
       } else {
-        journalEntryPage.update({
+        await EncounterJournal._updateJournalPage({
+          _id: journalEntryPage._id,
+          flags: {},
           sort: sortValue,
         });
         sortValue = sortValue + 1000;
       }
-    });
+    }
+  }
+
+  private static async _updateJournalPage(update: unknown) {
+    await game.journal
+      ?.getName(this.JOURNAL_TITLE)
+      .updateEmbeddedDocuments("JournalEntryPage", [update], {
+        diff: false,
+        render: false,
+      });
   }
 
   // Temporary for migration from Journal
