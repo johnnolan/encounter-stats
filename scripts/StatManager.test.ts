@@ -4,10 +4,10 @@ import Logger from "./Helpers/Logger";
 import EncounterJournal from "./EncounterJournal";
 import EncounterRenderer from "./EncounterRenderer";
 
-const mockCombatFlagIsSet = jest.fn();
+const mockCombatFlagIsCurrentSceneCombatSet = jest.fn();
 const mockCombatFlagGet = jest.fn();
 const mockCombatFlagSave = jest.fn();
-CombatFlag.IsSet = mockCombatFlagIsSet;
+CombatFlag.IsCurrentSceneCombatSet = mockCombatFlagIsCurrentSceneCombatSet;
 CombatFlag.Get = mockCombatFlagGet;
 CombatFlag.Save = mockCombatFlagSave;
 
@@ -18,7 +18,7 @@ const mockLoggerError = jest.fn();
 Logger.error = mockLoggerError;
 
 beforeEach(() => {
-  mockCombatFlagIsSet.mockClear();
+  mockCombatFlagIsCurrentSceneCombatSet.mockClear();
   mockCombatFlagGet.mockClear();
   mockCombatFlagSave.mockClear();
   mockEncounterJournalUpdateJournalData.mockClear();
@@ -39,9 +39,9 @@ describe("StatManager", () => {
           active: false,
         },
       };
-      mockCombatFlagIsSet.mockReturnValueOnce(true);
+      mockCombatFlagIsCurrentSceneCombatSet.mockReturnValueOnce(false);
       const isInCombat = await StatManager.IsInCombat();
-      expect(mockCombatFlagIsSet).toBeCalledWith("encounter-stats-data");
+      expect(mockCombatFlagIsCurrentSceneCombatSet).toBeCalledWith("encounter-stats-data");
       expect(isInCombat).toBeFalsy();
     });
 
@@ -51,9 +51,9 @@ describe("StatManager", () => {
           active: false,
         },
       };
-      mockCombatFlagIsSet.mockReturnValueOnce(false);
+      mockCombatFlagIsCurrentSceneCombatSet.mockReturnValueOnce(false);
       const isInCombat = await StatManager.IsInCombat();
-      expect(mockCombatFlagIsSet).toBeCalledWith("encounter-stats-data");
+      expect(mockCombatFlagIsCurrentSceneCombatSet).toBeCalledWith("encounter-stats-data");
       expect(isInCombat).toBeFalsy();
     });
 
@@ -63,9 +63,9 @@ describe("StatManager", () => {
           active: true,
         },
       };
-      mockCombatFlagIsSet.mockReturnValueOnce(true);
+      mockCombatFlagIsCurrentSceneCombatSet.mockReturnValueOnce(true);
       const isInCombat = await StatManager.IsInCombat();
-      expect(mockCombatFlagIsSet).toBeCalledWith("encounter-stats-data");
+      expect(mockCombatFlagIsCurrentSceneCombatSet).toBeCalledWith("encounter-stats-data");
       expect(isInCombat).toBeTruthy();
     });
   });

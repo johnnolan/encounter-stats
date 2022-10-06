@@ -14,20 +14,18 @@ beforeEach(() => {
 const multiCombat = [combatOne, combatTwo];
 
 describe("CombatFlag", () => {
-  describe("IsSet", () => {
+  describe("IsCurrentSceneCombatSet", () => {
     describe("given a flag is set on the active combat", () => {
       beforeEach(() => {
         (global as any).game = {
-          combats: [
-            {
-              active: true,
-              getFlag: jest.fn().mockReturnValue({}),
-            },
-          ],
+          combat: {
+            active: true,
+            getFlag: jest.fn().mockReturnValue({}),
+          },
         };
       });
       test("it returns true", async () => {
-        const result = await CombatFlag.IsSet(STORAGE_NAME);
+        const result = await CombatFlag.IsCurrentSceneCombatSet(STORAGE_NAME);
         expect(result).toBeTruthy();
       });
     });
@@ -35,16 +33,14 @@ describe("CombatFlag", () => {
     describe("given no flag is set on the active combat", () => {
       beforeEach(() => {
         (global as any).game = {
-          combats: [
-            {
-              active: true,
-              getFlag: jest.fn().mockReturnValue(undefined),
-            },
-          ],
+          combat: {
+            active: true,
+            getFlag: jest.fn().mockReturnValue(undefined),
+          },
         };
       });
       test("it returns false", async () => {
-        const result = await CombatFlag.IsSet(STORAGE_NAME);
+        const result = await CombatFlag.IsCurrentSceneCombatSet(STORAGE_NAME);
         expect(result).toBeFalsy();
       });
     });
@@ -52,11 +48,11 @@ describe("CombatFlag", () => {
     describe("given there is no active combat", () => {
       beforeEach(() => {
         (global as any).game = {
-          combats: [],
+          combat: undefined,
         };
       });
       test("it returns false", async () => {
-        const result = await CombatFlag.IsSet(STORAGE_NAME);
+        const result = await CombatFlag.IsCurrentSceneCombatSet(STORAGE_NAME);
         expect(result).toBeFalsy();
       });
     });
@@ -64,16 +60,14 @@ describe("CombatFlag", () => {
     describe("given there is no active combat but combat is set", () => {
       beforeEach(() => {
         (global as any).game = {
-          combats: [
-            {
-              active: false,
-              getFlag: jest.fn().mockReturnValue({}),
-            },
-          ],
+          combat: {
+            active: false,
+            getFlag: jest.fn().mockReturnValue({}),
+          },
         };
       });
       test("it returns false", async () => {
-        const result = await CombatFlag.IsSet(STORAGE_NAME);
+        const result = await CombatFlag.IsCurrentSceneCombatSet(STORAGE_NAME);
         expect(result).toBeFalsy();
       });
     });
@@ -115,12 +109,10 @@ describe("CombatFlag", () => {
     describe("given there is no valid active combat", () => {
       beforeEach(() => {
         (global as any).game = {
-          combats: [
-            {
-              active: false,
-              getFlag: jest.fn().mockReturnValue({}),
-            },
-          ],
+          combat: {
+            active: false,
+            getFlag: jest.fn().mockReturnValue({}),
+          },
         };
       });
       test("it returns undefined", async () => {
@@ -133,6 +125,10 @@ describe("CombatFlag", () => {
       describe("given no actor id is passed", () => {
         beforeEach(() => {
           (global as any).game = {
+            combat: {
+              active: true,
+              getFlag: jest.fn().mockReturnValue(combatOne),
+            },
             combats: [
               {
                 active: true,
@@ -156,6 +152,10 @@ describe("CombatFlag", () => {
         describe("and the actor is in the active combat", () => {
           beforeEach(() => {
             (global as any).game = {
+              combat: {
+                active: true,
+                getFlag: jest.fn().mockReturnValue(combatOne),
+              },
               combats: [
                 {
                   active: true,
@@ -181,6 +181,10 @@ describe("CombatFlag", () => {
         describe("and the actor is not in the active combat", () => {
           beforeEach(() => {
             (global as any).game = {
+              combat: {
+                active: true,
+                getFlag: jest.fn().mockReturnValue(combatOne),
+              },
               combats: [
                 {
                   active: true,
@@ -206,6 +210,10 @@ describe("CombatFlag", () => {
         describe("and the actor is not in any combat", () => {
           beforeEach(() => {
             (global as any).game = {
+              combat: {
+                active: true,
+                getFlag: jest.fn().mockReturnValue(combatOne),
+              },
               combats: [
                 {
                   active: true,

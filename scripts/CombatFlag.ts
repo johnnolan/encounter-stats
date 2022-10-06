@@ -1,21 +1,17 @@
 export default class CombatFlag {
-  static async IsSet(item: string): boolean {
-    const combat = await game.combats.find((f) => f.active);
+  static async IsCurrentSceneCombatSet(item: string): boolean {
+    if (!game.combat?.active) return false;
 
-    if (!combat) return false;
-
-    return combat.getFlag("encounter-stats", item) !== undefined;
+    return game.combat?.getFlag("encounter-stats", item) !== undefined;
   }
 
   static async Get(
     item: string,
     actorId?: string
   ): Promise<Encounter | undefined> {
-    if (!(await CombatFlag.IsSet(item))) return;
+    if (!(await CombatFlag.IsCurrentSceneCombatSet(item))) return;
 
-    let flagValue = await game.combats
-      .find((f) => f.active)
-      .getFlag("encounter-stats", item);
+    let flagValue = game.combat?.getFlag("encounter-stats", item);
 
     // if actorId is passed
     if (actorId) {

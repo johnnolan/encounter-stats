@@ -6,10 +6,8 @@ import EncounterRenderer from "./EncounterRenderer";
 
 class StatManager {
   static async IsInCombat() {
-    const isFlagSet = await CombatFlag.IsSet(STORAGE_NAME);
-    if (!game.combat?.active && isFlagSet) {
-      return false;
-    }
+    const isFlagSet = await CombatFlag.IsCurrentSceneCombatSet(STORAGE_NAME);
+
     return isFlagSet;
   }
 
