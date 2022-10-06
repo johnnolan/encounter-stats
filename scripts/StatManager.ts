@@ -5,10 +5,8 @@ import { STORAGE_NAME } from "./Settings";
 import EncounterRenderer from "./EncounterRenderer";
 
 class StatManager {
-  static async IsInCombat() {
-    const isFlagSet = await CombatFlag.IsCurrentSceneCombatSet(STORAGE_NAME);
-
-    return isFlagSet;
+  static IsInCombat() {
+    return CombatFlag.IsCurrentSceneCombatSet(STORAGE_NAME);
   }
 
   static async GetStat(actorId?: string): Promise<Encounter | undefined> {

@@ -1,5 +1,5 @@
 export default class CombatFlag {
-  static async IsCurrentSceneCombatSet(item: string): boolean {
+  static IsCurrentSceneCombatSet(item: string): boolean {
     if (!game.combat?.active) return false;
 
     return game.combat?.getFlag("encounter-stats", item) !== undefined;
@@ -9,7 +9,7 @@ export default class CombatFlag {
     item: string,
     actorId?: string
   ): Promise<Encounter | undefined> {
-    if (!(await CombatFlag.IsCurrentSceneCombatSet(item))) return;
+    if (!CombatFlag.IsCurrentSceneCombatSet(item)) return;
 
     let flagValue = game.combat?.getFlag("encounter-stats", item);
 

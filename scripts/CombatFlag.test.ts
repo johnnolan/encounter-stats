@@ -25,7 +25,7 @@ describe("CombatFlag", () => {
         };
       });
       test("it returns true", async () => {
-        const result = await CombatFlag.IsCurrentSceneCombatSet(STORAGE_NAME);
+        const result = CombatFlag.IsCurrentSceneCombatSet(STORAGE_NAME);
         expect(result).toBeTruthy();
       });
     });
@@ -40,7 +40,7 @@ describe("CombatFlag", () => {
         };
       });
       test("it returns false", async () => {
-        const result = await CombatFlag.IsCurrentSceneCombatSet(STORAGE_NAME);
+        const result = CombatFlag.IsCurrentSceneCombatSet(STORAGE_NAME);
         expect(result).toBeFalsy();
       });
     });
@@ -52,7 +52,7 @@ describe("CombatFlag", () => {
         };
       });
       test("it returns false", async () => {
-        const result = await CombatFlag.IsCurrentSceneCombatSet(STORAGE_NAME);
+        const result = CombatFlag.IsCurrentSceneCombatSet(STORAGE_NAME);
         expect(result).toBeFalsy();
       });
     });
@@ -67,7 +67,7 @@ describe("CombatFlag", () => {
         };
       });
       test("it returns false", async () => {
-        const result = await CombatFlag.IsCurrentSceneCombatSet(STORAGE_NAME);
+        const result = CombatFlag.IsCurrentSceneCombatSet(STORAGE_NAME);
         expect(result).toBeFalsy();
       });
     });

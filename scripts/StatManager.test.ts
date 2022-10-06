@@ -40,8 +40,10 @@ describe("StatManager", () => {
         },
       };
       mockCombatFlagIsCurrentSceneCombatSet.mockReturnValueOnce(false);
-      const isInCombat = await StatManager.IsInCombat();
-      expect(mockCombatFlagIsCurrentSceneCombatSet).toBeCalledWith("encounter-stats-data");
+      const isInCombat = StatManager.IsInCombat();
+      expect(mockCombatFlagIsCurrentSceneCombatSet).toBeCalledWith(
+        "encounter-stats-data"
+      );
       expect(isInCombat).toBeFalsy();
     });
 
@@ -52,8 +54,10 @@ describe("StatManager", () => {
         },
       };
       mockCombatFlagIsCurrentSceneCombatSet.mockReturnValueOnce(false);
-      const isInCombat = await StatManager.IsInCombat();
-      expect(mockCombatFlagIsCurrentSceneCombatSet).toBeCalledWith("encounter-stats-data");
+      const isInCombat = StatManager.IsInCombat();
+      expect(mockCombatFlagIsCurrentSceneCombatSet).toBeCalledWith(
+        "encounter-stats-data"
+      );
       expect(isInCombat).toBeFalsy();
     });
 
@@ -64,8 +68,10 @@ describe("StatManager", () => {
         },
       };
       mockCombatFlagIsCurrentSceneCombatSet.mockReturnValueOnce(true);
-      const isInCombat = await StatManager.IsInCombat();
-      expect(mockCombatFlagIsCurrentSceneCombatSet).toBeCalledWith("encounter-stats-data");
+      const isInCombat = StatManager.IsInCombat();
+      expect(mockCombatFlagIsCurrentSceneCombatSet).toBeCalledWith(
+        "encounter-stats-data"
+      );
       expect(isInCombat).toBeTruthy();
     });
   });
@@ -94,8 +100,9 @@ describe("StatManager", () => {
     });
 
     test("it generates the journal entry and saves the json data", async () => {
-      
-      const mockEncounterRendererRenderEncounter = jest.fn().mockResolvedValueOnce({ html: "<p>test</p>" });
+      const mockEncounterRendererRenderEncounter = jest
+        .fn()
+        .mockResolvedValueOnce({ html: "<p>test</p>" });
       EncounterRenderer.Render = mockEncounterRendererRenderEncounter;
       await StatManager.SaveStat({ encounterId: "encounterId" });
       expect(mockCombatFlagSave).toBeCalledWith("encounter-stats-data", {

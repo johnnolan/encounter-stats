@@ -187,7 +187,7 @@ describe("Handlers", () => {
           get: jest.fn().mockReturnValue({ name: "Actor Name" }),
         },
       };
-      mockStatManagerIsInCombat.mockResolvedValue(true);
+      mockStatManagerIsInCombat.mockReturnValue(true);
       mockCombatFlagIsSet.mockReturnValueOnce(true);
       await OnRenderCombatTracker({
         hasCombat: true,
@@ -220,7 +220,7 @@ describe("Handlers", () => {
           get: jest.fn().mockReturnValue({ name: "Actor Name" }),
         },
       };
-      mockStatManagerIsInCombat.mockResolvedValue(true);
+      mockStatManagerIsInCombat.mockReturnValue(true);
       mockCombatFlagIsSet.mockReturnValueOnce(true);
       await OnRenderCombatTracker({
         hasCombat: true,
@@ -355,7 +355,7 @@ describe("Handlers", () => {
     });
 
     test("it should not enter the workflow if chattype is wrong", async () => {
-      mockStatManagerIsInCombat.mockResolvedValue(true);
+      mockStatManagerIsInCombat.mockReturnValue(true);
       mockCombatFlagIsSet.mockReturnValueOnce(true);
       await OnEncounterWorkflowComplete({}, "asd");
       expect(mockDND5eStatAddAttack).not.toBeCalled();
@@ -363,7 +363,7 @@ describe("Handlers", () => {
     });
 
     test("it should Add a DND5e Attack if that type", async () => {
-      mockStatManagerIsInCombat.mockResolvedValue(true);
+      mockStatManagerIsInCombat.mockReturnValue(true);
       mockCombatFlagIsSet.mockReturnValueOnce(true);
       await OnEncounterWorkflowComplete({
         actor: {
@@ -380,7 +380,7 @@ describe("Handlers", () => {
     });
 
     test("it should Add a Midi Attack if that type", async () => {
-      mockStatManagerIsInCombat.mockResolvedValue(true);
+      mockStatManagerIsInCombat.mockReturnValue(true);
       mockCombatFlagIsSet.mockReturnValueOnce(true);
       await OnEncounterWorkflowComplete({
         actor: {
