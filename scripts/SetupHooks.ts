@@ -259,7 +259,7 @@ export default class SetupHooks {
   }
 
   static async updateActorToken(actor: Actor, diff: unknown) {
-    if (await StatManager.IsInCombat()) {
+    if (StatManager.IsInCombat()) {
       if (
         actor.name &&
         !actor.hasPlayerOwner &&
