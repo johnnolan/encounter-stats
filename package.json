@@ -27,7 +27,7 @@
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.1",
     "@typhonjs-fvtt/eslint-config-foundry.js": "^0.8.0",
-    "babel-jest": "^29.2.1",
+    "babel-jest": "^29.2.2",
     "dayjs": "^1.11.6",
     "esbuild": "^0.15.12",
     "esbuild-sass-plugin": "^2.4.0",
