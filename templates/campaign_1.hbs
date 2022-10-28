@@ -155,28 +155,28 @@
     {{/each}}
   </div>
 
-  {{#each killsHistory}}
+  {{#each customEventHistory}}
   <hr>
   <h2 class="fvtt-enc-stats_enemies">{{name}}</h2>
-  {{#each events}}
-  <div>
-    <p>{{date}}</p>
-    <ol class="item-list">
-      {{#each entries}}
-      <li class="item flexrow campaign-row">
-        <div class="item-name">
-          {{actorName}}
-        </div>
-        <div class="item-name">
-          {{flavor}}
-        </div>
-        <div class="item-name">
-          {{date}}
-        </div>
-      </li>
-      {{/each}}
-    </ol>
-  </div>
-  {{/each}}
+    {{#each events}}
+    <div>
+      <p>{{date}}</p>
+      <ol class="item-list">
+        {{#each entries}}
+        <li class="item flexrow campaign-row">
+          <div class="item-name">
+            {{actorName}}
+          </div>
+          <div class="item-name">
+            {{flavor}}
+          </div>
+          <div class="item-name">
+            {{date}}
+          </div>
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+    {{/each}}
   {{/each}}
 </div>
