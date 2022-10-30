@@ -41,27 +41,27 @@ declare global {
     customEventHistory: Array<CampaignCustomData>;
   }
 
-  type CampaignCustomData = {
+  interface CampaignCustomData {
     name: string;
     events: Array<CampaignRollRowData>;
   }
 
-  type CampaignRollData = {
+  interface CampaignRollData {
     name: string;
     value: string;
-  };
+  }
 
-  type CampaignRollRowData = {
+  interface CampaignRollRowData {
     date: string;
     entries: Array<CampaignRollRowDataItem>;
-  };
+  }
 
-  type CampaignRollRowDataItem = {
+  interface CampaignRollRowDataItem {
     actorName: string;
     flavor: string;
     date: string;
     total?: number;
-  };
+  }
 
   interface CustomHookEvent {
     EventName: string;
@@ -95,38 +95,38 @@ declare global {
     custom: Array<CampaignStat>;
   }
 
-  type DateOptions = {
+  interface DateOptions {
     id: string;
     dateTimeDisplay: string;
     dateDisplay: string;
-  };
+  }
 
-  type DiceTrack = {
+  interface DiceTrack {
     actorName: string;
     flavor: string;
     date: string;
-  };
+  }
 
-  type HealTrack = {
+  interface HealTrack {
     actorName: string;
     itemLink: string;
     spellName: string;
     total: number;
     date: string;
-  };
+  }
 
-  type KillTrack = {
+  interface KillTrack {
     actorName: string;
     tokenName: string;
     date: string;
-  };
+  }
 
-  type DiceTrackParse = {
+  interface DiceTrackParse {
     name: string;
     flavor: string;
     isCritical: boolean;
     isFumble: boolean;
-  };
+  }
 
   interface MidiQolWorkflow {
     id: string;
@@ -207,7 +207,7 @@ declare global {
     type: CombatDetailType;
   }
 
-  type EncounterOverview = {
+  interface EncounterOverview {
     start: string;
     end: string;
     realDate: string;
@@ -216,17 +216,17 @@ declare global {
       name: string;
       thumb: string;
     };
-  };
+  }
 
-  type Enemies = {
+  interface Enemies {
     tokenId: string;
     name: string;
     img: string;
     ac: number;
     hp: number;
-  };
+  }
 
-  type Encounter = {
+  interface Encounter {
     encounterId?: string;
     overview: EncounterOverview;
     round: number;
@@ -234,9 +234,9 @@ declare global {
     combatants: Array<EncounterCombatant>;
     top: EncounterTop;
     templateHealthCheck: Array<HealthCheck>;
-  };
+  }
 
-  type EncounterTop = {
+  interface EncounterTop {
     maxDamage: string;
     mostDamageInOneTurn: string;
     highestAvgDamage: string;
@@ -245,7 +245,7 @@ declare global {
     mostHealing: string;
     mostSupportActions: string;
     mostBattlefieldActions: string;
-  };
+  }
 
   interface CombatantEvent {
     id: string;
@@ -307,9 +307,9 @@ declare global {
     total: number;
   }
 
-  type HealthCheck = {
+  interface HealthCheck {
     name: string;
-  };
+  }
 
   interface EventItem {
     id: string;
