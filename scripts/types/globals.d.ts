@@ -22,30 +22,11 @@ declare global {
     };
   }
 
-  interface HookRenderCombatTrackerData {
-    user: User;
-    combats: Array<Combat>;
-    combatCount: number;
-    hasCombat: boolean;
-    combat: Combat;
-  }
-
-  interface CustomHookEvent {
-    EventName: string;
-    FlavorText: string;
-    actorId?: string;
-  }
-
   interface CustomDataEvent {
     EventName: string;
     FlavorText: string;
     actorName?: string;
     date: string;
-  }
-
-  interface HookUpdateCombatRound {
-    round: number;
-    turn: number;
   }
 
   interface CampaignStat {
