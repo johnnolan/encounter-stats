@@ -28,10 +28,6 @@ class StatManager {
       encounter.encounterId
     );
   }
-
-  static RemoveStat() {
-    CombatFlag.Remove();
-  }
 }
 
 export default StatManager;

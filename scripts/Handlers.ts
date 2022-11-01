@@ -6,8 +6,9 @@ import DND5eStat from "./stats/DND5eStat";
 import CampaignStat from "./CampaignStat";
 import { ChatType, RoleType } from "./enums";
 import Logger from "./Helpers/Logger";
+import { EncounterWorkflow } from "EncounterWorkflow";
 
-export function OnCustomEvent(customEvent: CustomHookEvent): void {
+export function OnCustomEvent(customEvent: HookCustomEvent): void {
   CampaignStat.AddCustomEvent(customEvent);
 }
 

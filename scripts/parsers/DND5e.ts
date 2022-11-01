@@ -1,3 +1,4 @@
+import { EncounterWorkflow } from "EncounterWorkflow";
 import { CombatDetailType } from "../enums";
 
 export default class DND5e {

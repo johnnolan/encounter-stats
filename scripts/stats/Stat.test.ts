@@ -4,6 +4,7 @@ jest.mock("../StatManager");
 import StatManager from "../StatManager";
 import { actor, actorTwo, actorThree } from "../mockdata/actors";
 import { CombatDetailType } from "../enums";
+import { EncounterWorkflow } from "EncounterWorkflow";
 
 const mockLoggerLog = jest.fn();
 const mockLoggerWarn = jest.fn();
@@ -123,7 +124,6 @@ describe("Stat", () => {
     const encounterId = "encounterId";
     beforeEach(() => {
       stat = new Stat(encounterId);
-      StatManager.RemoveStat.mockImplementation(() => true);
       StatManager.SaveStat.mockImplementation(() => true);
     });
 
@@ -159,11 +159,6 @@ describe("Stat", () => {
         },
         templateHealthCheck: [],
       });
-    });
-
-    test("it calls RemoveStat", () => {
-      stat.Delete();
-      expect(StatManager.RemoveStat).toBeCalled();
     });
 
     test("it calls SaveStat", () => {

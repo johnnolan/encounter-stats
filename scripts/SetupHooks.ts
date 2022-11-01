@@ -70,7 +70,7 @@ export default class SetupHooks {
 
       Hooks.on(
         "encounter-stats.customEvent",
-        async function (customEvent: CustomHookEvent) {
+        async function (customEvent: HookCustomEvent) {
           OnCustomEvent(customEvent);
         }
       );
@@ -215,7 +215,7 @@ export default class SetupHooks {
 
       window.Hooks.on(
         "encounter-stats.customEvent",
-        async function (customEvent: CustomHookEvent) {
+        async function (customEvent: HookCustomEvent) {
           game.socket?.emit(SetupHooks.SOCKET_NAME, {
             event: "encounter-stats.customEvent",
             data: {
