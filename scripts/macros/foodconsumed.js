@@ -3,7 +3,7 @@ const form = `<form>
 </form>`;
 
 function handleSubmit(html) {
-  const formElement = html[0].querySelector('form');
+  const formElement = html[0].querySelector("form");
   const formData = new FormDataExtended(formElement);
   const formDataObject = formData.toObject();
 

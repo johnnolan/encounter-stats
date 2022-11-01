@@ -240,10 +240,6 @@ export default class Stat {
     await StatManager.SaveStat(this._encounter);
   }
 
-  Delete(): void {
-    StatManager.RemoveStat();
-  }
-
   private SetTopEncounter(top: EncounterTop) {
     this._encounter.top = top;
   }

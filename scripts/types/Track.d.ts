@@ -1,9 +1,3 @@
-interface DiceTrack {
-  actorName: string;
-  flavor: string;
-  date: string;
-}
-
 interface HealTrack {
   actorName: string;
   itemLink: string;
