@@ -97,6 +97,65 @@ export default class CampaignStat {
     await this.Save(campaignStats);
   }
 
+  static async AddRollStreak(
+    result: number,
+    actorName: string,
+    actorId: string
+  ) {
+    const campaignStats = await this.Get();
+    const date = Dates.now;
+
+    if (!campaignStats.rollstreaklog) {
+      campaignStats.rollstreaklog = [];
+    }
+    if (!campaignStats.rollstreak) {
+      campaignStats.rollstreak = [];
+    }
+
+    let streakLogEntry = campaignStats.rollstreaklog.find(
+      (f) => f.actorId === actorId
+    );
+    if (!streakLogEntry) {
+      campaignStats.rollstreaklog.push(<RollStreakLog>{
+        actorId,
+        result,
+      });
+    } else {
+      console.log(streakLogEntry.result)
+      console.log(result)
+      console.log(streakLogEntry.result === result)
+      if (streakLogEntry.result === result) {
+        const rollStreakEntries = campaignStats.rollstreak.filter(
+          (f) => f.actorId === actorId
+        );
+        if (!rollStreakEntries || rollStreakEntries.length === 0) {
+          campaignStats.rollstreak.push(<RollStreakTrack>{
+            actorId: actorId,
+            actorName: actorName,
+            dateDisplay: date.dateDisplay,
+            roll: result,
+            total: 2,
+          });
+        } else {
+          // TODO: Check here for more than two rolls
+          // TODO: Add completely new streak with new number
+          rollStreakEntries[rollStreakEntries.length - 1].total =
+            rollStreakEntries[rollStreakEntries.length - 1].total + 1;
+        }
+      } else {
+        const elementIndex = campaignStats.rollstreaklog.findIndex(
+          (fi) => fi.actorId === actorId
+        );
+        campaignStats.rollstreaklog[elementIndex].result = result;
+      }
+    }
+
+    console.log(campaignStats.rollstreaklog);
+    console.log(campaignStats.rollstreak);
+
+    await this.Save(campaignStats);
+  }
+
   static async AddCustomEvent(customEvent: HookCustomEvent) {
     const campaignStats = await this.Get();
     if (!campaignStats.custom) {

@@ -8,6 +8,7 @@ import {
   OnTrackDice,
   OnTrackDiceRoll,
   OnCustomEvent,
+  OnTrackRollStreak,
 } from "./Handlers";
 import StatManager from "./StatManager";
 import DND5e from "./parsers/DND5e";
@@ -175,6 +176,7 @@ export default class SetupHooks {
                 roll?.terms[0]?.results?.find((f) => f.active === true)
                   .result ?? 0,
               alias: actor.name,
+              actorId: actor.id,
               flavor: roll.options.flavor,
             },
           });
@@ -191,6 +193,7 @@ export default class SetupHooks {
                 roll?.terms[0]?.results?.find((f) => f.active === true)
                   .result ?? 0,
               alias: actor.name,
+              actorId: actor.id,
               flavor: roll.options.flavor,
             },
           });
@@ -207,6 +210,7 @@ export default class SetupHooks {
                 roll?.terms[0]?.results?.find((f) => f.active === true)
                   .result ?? 0,
               alias: actor.name,
+              actorId: actor.id,
               flavor: roll.options.flavor,
             },
           });
@@ -253,6 +257,7 @@ export default class SetupHooks {
             payload.data.alias,
             payload.data.flavor
           );
+          OnTrackRollStreak(payload.data.result, payload.data.alias, payload.data.actorId);
           break;
       }
     });
