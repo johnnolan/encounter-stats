@@ -133,7 +133,7 @@ class EncounterJournal {
       )
     );
 
-    for (let [index, journalEntryPage] of sortedJournalsByName.entries()) {
+    for (const [, journalEntryPage] of sortedJournalsByName.entries()) {
       if (
         journalEntryPage.getFlag("encounter-stats", "campaignstats") === "view"
       ) {

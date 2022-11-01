@@ -3,7 +3,7 @@ import Trans from "./Helpers/Trans";
 
 class EncounterRenderer {
   static async Render(encounter: Encounter) {
-    let renderData = encounter;
+    const renderData = encounter;
 
     renderData.enemyNumber = renderData.enemies?.length ?? 0;
     for (const combatant of renderData.combatants) {
@@ -40,7 +40,7 @@ class EncounterRenderer {
         if (!combatant.rounds[event.round - 1].attacks) {
           combatant.rounds[event.round - 1].attacks = [];
         }
-        let round = combatant.rounds[event.round - 1];
+        const round = combatant.rounds[event.round - 1];
         round.attacks.push(event);
       }
 
@@ -54,7 +54,7 @@ class EncounterRenderer {
         if (!combatant.rounds[kill.round - 1].kills) {
           combatant.rounds[kill.round - 1].kills = [];
         }
-        let round = combatant.rounds[kill.round - 1];
+        const round = combatant.rounds[kill.round - 1];
         round.kills.push({ tokenName: kill.tokenName });
       }
 
@@ -73,7 +73,7 @@ class EncounterRenderer {
         if (!combatant.rounds[health.round - 1].health) {
           combatant.rounds[health.round - 1].health = [];
         }
-        let round = combatant.rounds[health.round - 1];
+        const round = combatant.rounds[health.round - 1];
         if (health.diff) {
           round.health.push({
             current: health.current,

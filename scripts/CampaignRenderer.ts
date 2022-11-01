@@ -20,15 +20,14 @@ class CampaignRenderer {
 
   private static async GenerateCustomEventRows(campaignStats: CampaignStats) {
     const data: Array<CampaignCustomData> = [];
-    let statList = campaignStats.custom;
+    const statList = campaignStats.custom;
 
     if (statList.length === 0) return;
 
     // Get unique EventIds
-    const eventIds = [].concat
-      .apply(
-        [],
-        statList?.map((m) =>
+    const eventIds = []
+      .concat(
+        ...statList?.map((m) =>
           m.data.map((im) => {
             return im.EventName;
           })
@@ -163,12 +162,11 @@ class CampaignRenderer {
         break;
     }
 
-    const flattenedResults = [].concat
-      .apply(
-        [],
-        statList?.map((m) =>
-          m.data.map((im) => {
-            return im.actorName;
+    const flattenedResults = []
+      .concat(
+        ...statList?.map((m) =>
+          m.data?.map((im) => {
+            return im?.actorName;
           })
         )
       )

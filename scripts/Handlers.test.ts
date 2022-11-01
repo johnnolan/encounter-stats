@@ -44,9 +44,6 @@ const mockStatGetCombatantStatsByTokenId = jest.spyOn(Stat.prototype, "GetCombat
 const mockStatGetCombatantStats = jest.spyOn(Stat.prototype, "GetCombatantStats").mockImplementation();
 const mockStatAddKill = jest.spyOn(Stat.prototype, "AddKill").mockImplementation();
 const mockStatSave = jest.spyOn(Stat.prototype, "Save").mockImplementation();
-const mockStatDelete = jest
-.spyOn(Stat.prototype, "Delete")
-.mockImplementation();
 
 const mockDND5eStatAddAttack = jest.spyOn(DND5eStat.prototype, "AddAttack").mockImplementation();
 const mockMidiQolStatAddAttack = jest.spyOn(MidiQolStat.prototype, "AddAttack").mockImplementation();
@@ -63,7 +60,6 @@ Logger.warn = mockLoggerWarn;
 const mockCombatFlagIsSet = jest.fn();
 const mockCombatFlagGet = jest.fn();
 const mockCombatFlagSave = jest.fn();
-CombatFlag.IsSet = mockCombatFlagIsSet;
 CombatFlag.Get = mockCombatFlagGet;
 CombatFlag.Save = mockCombatFlagSave;
 
@@ -81,7 +77,6 @@ beforeEach(() => {
   mockStatGetCombatantStatsByTokenId.mockClear();
   mockStatGetCombatantStats.mockClear();
   mockStatSave.mockClear();
-  mockStatDelete.mockClear();
   mockStatUpdateHealth.mockClear();
   mockStatAddKill.mockClear();
   mockDND5eStatAddAttack.mockClear();

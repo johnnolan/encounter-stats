@@ -97,7 +97,7 @@ export default class CampaignStat {
     await this.Save(campaignStats);
   }
 
-  static async AddCustomEvent(customEvent: CustomHookEvent) {
+  static async AddCustomEvent(customEvent: HookCustomEvent) {
     const campaignStats = await this.Get();
     if (!campaignStats.custom) {
       campaignStats.custom = [];
