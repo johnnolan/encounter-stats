@@ -1,3 +1,5 @@
+import { MODULE_ID, OPT_SETTINGS_DICE_STREAK_ENABLE } from "./Settings";
+
 class CampaignRenderer {
   static async Render(campaignStats: CampaignStats) {
     const renderData: CampaignRender = {
@@ -98,6 +100,11 @@ class CampaignRenderer {
 
   private static async GenerateKillStreakRow(campaignStatEntry) {
     const data: Array<CampaignRollRowData> = [];
+    if (
+      !game.settings.get(`${MODULE_ID}`, `${OPT_SETTINGS_DICE_STREAK_ENABLE}`)
+    ) {
+      return data;
+    }
 
     campaignStatEntry.reverse().forEach((rollStreak: RollStreakTrack) => {
       const entry: CampaignRollRowData = {

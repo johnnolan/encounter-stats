@@ -3,6 +3,7 @@ import EncounterJournal from "./EncounterJournal";
 import { RoleType } from "./enums";
 import Dates from "./Helpers/Dates";
 import Gamemaster from "./Helpers/Gamemaster";
+import { MODULE_ID, OPT_SETTINGS_DICE_STREAK_ENABLE } from "./Settings";
 
 export default class CampaignStat {
   static async AddKill(actorName: string, tokenName: string) {
@@ -102,6 +103,12 @@ export default class CampaignStat {
     actorName: string,
     actorId: string
   ) {
+    if (
+      !game.settings.get(`${MODULE_ID}`, `${OPT_SETTINGS_DICE_STREAK_ENABLE}`)
+    ) {
+      return;
+    }
+
     const campaignStats = await this.Get();
     const date = Dates.now;
 

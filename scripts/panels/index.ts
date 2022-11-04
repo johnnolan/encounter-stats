@@ -1,5 +1,4 @@
-import { CampaignStatsPanel } from "./CampaignStatsPanel";
+import CampaignStatsPanel from "./CampaignStatsPanel";
+import CampaignTrackingPanel from "./CampaignTrackingPanel";
 
-export {
-  CampaignStatsPanel,
-};
+export { CampaignStatsPanel, CampaignTrackingPanel };

@@ -7,6 +7,8 @@
     "EncounterStats.opt_compendium_link_enable_hint": "Replaces spell/weapon names with a link to the Compendium entry of that item. Disable this if you are getting undefined in your attack stats.",
     "EncounterStats.opt_compendium_link_system_name": "Compendium prefix",
     "EncounterStats.opt_compendium_link_system_hint": "Pattern is 'dnd5e.items.fCRftM4QxEDkeu0a' where dnd5e is the subtext in brackets in the Compendium group.",
+    "EncounterStats.opt_enable_dice_streak_name": "Track Dice Streaks",
+    "EncounterStats.opt_enable_dice_streak_hint": "Track the number of times a player rolls the same result on a D20.",
     "EncounterStats.template.most_damage_overall": "Most Damage Overall",
     "EncounterStats.template.most_damage_per_turn": "Most Damage in 1 turn",
     "EncounterStats.template.highest_average_damage": "Highest Average Damage",
@@ -82,5 +84,6 @@
     "EncounterStats.Settings.FileUploadError": "You did not upload a data file!",
     "EncounterStats.Settings.Cancel": "Cancel",
     "EncounterStats.Settings.CampaignStatsDeleted": "Successfully deleted campaign stats.",
-    "EncounterStats.Settings.CampaignStatsImported": "Successfully imported campaign stats."
+    "EncounterStats.Settings.CampaignStatsImported": "Successfully imported campaign stats.",
+    "EncounterStats.Settings.CampaignTrackingOptions": "Configure Campaign Tracking Options"
 }
