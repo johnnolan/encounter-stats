@@ -9,6 +9,7 @@ class CampaignRenderer {
       fumbleHistory: await this.GenerateRollRow(campaignStats.nat1),
       healsHistory: await this.GenerateHealRow(campaignStats.heals),
       killsHistory: await this.GenerateKillsRow(campaignStats.kills),
+      rollstreak: await this.GenerateKillStreakRow(campaignStats.rollstreak),
       customEventHistory: await this.GenerateCustomEventRows(campaignStats),
     };
 
@@ -89,6 +90,27 @@ class CampaignRenderer {
           total: healTrack.total,
         });
       });
+      data.push(entry);
+    });
+
+    return data;
+  }
+
+  private static async GenerateKillStreakRow(campaignStatEntry) {
+    const data: Array<CampaignRollRowData> = [];
+
+    campaignStatEntry.reverse().forEach((rollStreak: RollStreakTrack) => {
+      const entry: CampaignRollRowData = {
+        date: rollStreak.dateDisplay,
+        entries: [],
+      };
+
+      entry.entries.push({
+        actorName: rollStreak.actorName,
+        flavor: `<strong>${rollStreak.roll}</strong> - <i>${rollStreak.total}</i>`,
+        date: rollStreak.dateDisplay,
+      });
+
       data.push(entry);
     });
 

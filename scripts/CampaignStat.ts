@@ -112,7 +112,7 @@ export default class CampaignStat {
       campaignStats.rollstreak = [];
     }
 
-    let streakLogEntry = campaignStats.rollstreaklog.find(
+    const streakLogEntry = campaignStats.rollstreaklog.find(
       (f) => f.actorId === actorId
     );
     if (!streakLogEntry) {
@@ -142,7 +142,8 @@ export default class CampaignStat {
       }
     }
 
-    
+    // TODO: Optionally send a message to chat on a streak
+    // TODO: Check attack rolls get tracked
 
     await this.Save(campaignStats);
   }
