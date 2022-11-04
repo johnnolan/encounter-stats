@@ -1,3 +1,4 @@
+import { EncounterWorkflow } from "EncounterWorkflow";
 import { CombatDetailType } from "../enums";
 import Logger from "../Helpers/Logger";
 
@@ -38,6 +39,7 @@ class MidiQol {
       isFumble: workflow.isFumble,
       enemyHit: enemiesHit,
       type: CombatDetailType.MidiQol,
+      diceTotal: workflow.d20AttackRoll,
     };
   }
 

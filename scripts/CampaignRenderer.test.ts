@@ -6,6 +6,9 @@ beforeEach(() => {
     i18n: {
       format: jest.fn().mockReturnValue("TestKeyValue"),
     },
+    settings: {
+      get: jest.fn().mockReturnValue(false),
+    },
   };
   (global as any).renderTemplate = jest.fn().mockResolvedValue("<html></html>");
 });

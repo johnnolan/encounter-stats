@@ -3,6 +3,7 @@ import CampaignStat from "./CampaignStat";
 import EncounterJournal from "./EncounterJournal";
 import { RoleType } from "./enums";
 import Gamemaster from "./Helpers/Gamemaster";
+import "../__mocks__/chat-message";
 
 const mockGamemasterGetStats = jest.spyOn(Gamemaster, "GetStats", "get");
 const mockGamemasterSetStats = jest.fn();
@@ -35,6 +36,132 @@ describe("CampaignStat", () => {
     jest.useFakeTimers().setSystemTime(new Date("01 January 2020"));
   });
 
+  describe("If I have no provious Roll Streak setup", () => {
+    beforeEach(() => {
+      (global as any).game = {
+        i18n: {
+          format: jest.fn().mockReturnValue("TestKeyValue"),
+        },
+        settings: {
+          get: jest.fn().mockReturnValue(true),
+        },
+      };
+      mockGamemasterGetStats.mockReturnValue({
+        kills: [],
+        heals: [],
+        nat20: [],
+        nat1: [],
+        custom: [],
+      });
+      jest.spyOn(CampaignStat, "Save");
+    });
+
+    test("it adds the Roll Streak correctly", async () => {
+      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
+      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
+      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
+      await CampaignStat.AddRollStreak(1, "Graa", "2ybHnw0DeYqwDPyV");
+      expect(mockEncounterJournalUpdateJournalData).toBeCalled();
+      expect(mockGamemasterSetStats).toBeCalled();
+      expect(mockGamemasterSetStats).toBeCalledWith({
+        kills: [],
+        heals: [],
+        nat20: [],
+        nat1: [],
+        custom: [],
+        rollstreak: [
+          {
+            "actorId": "2ybHnw0DeYqwDPyV",
+            "actorName": "Graa",
+            "dateDisplay": "01 January 2020",
+            "roll": 9,
+            "total": 3
+          }
+        ],
+        rollstreaklog: [
+          {
+            actorId: "2ybHnw0DeYqwDPyV",
+            results: [1],
+          },
+        ],
+      });
+    });
+  });
+
+  describe("If I add a new Roll Streak", () => {
+    beforeEach(() => {
+      (global as any).game = {
+        i18n: {
+          format: jest.fn().mockReturnValue("TestKeyValue"),
+        },
+        settings: {
+          get: jest.fn().mockReturnValue(true),
+        },
+      };
+      mockGamemasterGetStats.mockReturnValue({
+        kills: [],
+        heals: [],
+        nat20: [],
+        nat1: [],
+        custom: [],
+        rollstreak: [
+          {
+            "actorId": "2ybHnw0DeYqwDPyV",
+            "actorName": "Graa",
+            "dateDisplay": "01 November 2022",
+            "roll": 4,
+            "total": 3
+          }
+        ],
+        rollstreaklog: [
+          {
+            actorId: "2ybHnw0DeYqwDPyV",
+            results: [9],
+          },
+        ],
+      });
+      jest.spyOn(CampaignStat, "Save");
+    });
+
+    test("it adds the Roll Streak correctly", async () => {
+      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
+      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
+      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
+      await CampaignStat.AddRollStreak(1, "Graa", "2ybHnw0DeYqwDPyV");
+      expect(mockEncounterJournalUpdateJournalData).toBeCalled();
+      expect(mockGamemasterSetStats).toBeCalled();
+      expect(mockGamemasterSetStats).toBeCalledWith({
+        kills: [],
+        heals: [],
+        nat20: [],
+        nat1: [],
+        custom: [],
+        rollstreak: [
+          {
+            "actorId": "2ybHnw0DeYqwDPyV",
+            "actorName": "Graa",
+            "dateDisplay": "01 November 2022",
+            "roll": 4,
+            "total": 3
+          },
+          {
+            "actorId": "2ybHnw0DeYqwDPyV",
+            "actorName": "Graa",
+            "dateDisplay": "01 January 2020",
+            "roll": 9,
+            "total": 4
+          }
+        ],
+        rollstreaklog: [
+          {
+            actorId: "2ybHnw0DeYqwDPyV",
+            results: [1],
+          },
+        ],
+      });
+    });
+  });
+
   describe("If I add a new Kill", () => {
     beforeEach(() => {
       mockGamemasterGetStats.mockReturnValue({
@@ -43,6 +170,8 @@ describe("CampaignStat", () => {
         nat20: [],
         nat1: [],
         custom: [],
+        rollstreak: [],
+        rollstreaklog: [],
       });
       jest.spyOn(CampaignStat, "Save");
     });
@@ -75,6 +204,8 @@ describe("CampaignStat", () => {
         nat20: [],
         nat1: [],
         custom: [],
+        rollstreak: [],
+        rollstreaklog: [],
       });
     });
   });
@@ -87,6 +218,8 @@ describe("CampaignStat", () => {
         nat20: [],
         nat1: [],
         custom: [],
+        rollstreak: [],
+        rollstreaklog: [],
       });
       jest.spyOn(CampaignStat, "Save");
     });
@@ -133,6 +266,8 @@ describe("CampaignStat", () => {
         nat20: [],
         nat1: [],
         custom: [],
+        rollstreak: [],
+        rollstreaklog: [],
       });
     });
   });
@@ -145,6 +280,8 @@ describe("CampaignStat", () => {
         nat20: [],
         nat1: [],
         custom: [],
+        rollstreak: [],
+        rollstreaklog: [],
       });
       jest.spyOn(CampaignStat, "Save");
     });
@@ -185,6 +322,8 @@ describe("CampaignStat", () => {
           },
         ],
         custom: [],
+        rollstreak: [],
+        rollstreaklog: [],
       });
     });
   });
@@ -197,6 +336,8 @@ describe("CampaignStat", () => {
         nat20: [],
         nat1: [],
         custom: [],
+        rollstreak: [],
+        rollstreaklog: [],
       });
       jest.spyOn(CampaignStat, "Save");
     });
@@ -237,6 +378,8 @@ describe("CampaignStat", () => {
         ],
         nat1: [],
         custom: [],
+        rollstreak: [],
+        rollstreaklog: [],
       });
     });
 
@@ -278,6 +421,8 @@ describe("CampaignStat", () => {
             ],
           },
         ],
+        rollstreak: [],
+        rollstreaklog: [],
       });
     });
   });

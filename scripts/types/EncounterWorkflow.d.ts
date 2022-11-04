@@ -4,6 +4,7 @@ interface EncounterWorkflow {
   id: string;
   actor: {
     id: string;
+    actorName: string;
   };
   item?: EventItem;
   damageTotal?: number;
@@ -17,4 +18,5 @@ interface EncounterWorkflow {
   actionType?: string;
   enemyHit?: Array<EnemyHit>;
   type: CombatDetailType;
+  diceTotal: number;
 }

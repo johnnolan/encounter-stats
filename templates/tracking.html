@@ -1,0 +1,55 @@
+<form class="flexcol" autocomplete="off">
+  <section class="content">
+    {{#each modules}} {{#if this.isString}}
+    <div class="form-group">
+      <label>{{this.displayname}}</label>
+      <div class="form-fields">
+        <input
+          type="text"
+          name="{{this.module}}.{{this.key}}"
+          value="{{this.value}}"
+          data-dtype="{{this.type}}"
+        />
+      </div>
+
+      <p class="notes">{{this.hint}}</p>
+    </div>
+    {{/if}}
+    {{#if this.isBoolean}}
+    <div class="form-group">
+      <label>{{this.displayname}}</label>
+      <div class="form-fields">
+        <input type="checkbox"
+          name="{{this.module}}.{{this.key}}"
+          data-dtype="{{this.type}}"
+          {{#if this.value}}checked{{/if}}>
+      </div>
+
+      <p class="notes">{{this.hint}}</p>
+    </div>
+    {{/if}}
+    {{#if this.isArray}}
+    <div class="form-group">
+      <label>{{this.displayname}}</label>
+      <div class="form-fields">
+        <select name="{{this.module}}.{{this.key}}" 
+          data-dtype="{{this.type}}">
+          {{#each this.choicesSelect}}
+            <option value="{{this.key}}"
+              {{#if this.selected}}selected{{/if}}
+            >{{this.value}}</option>
+          {{/each}}
+        </select>
+      </div>
+
+      <p class="notes">{{this.hint}}</p>
+    </div>
+    {{/if}}
+    {{/each}}
+    <div class="form-group">
+      <button class="wild-magic-surge-5e-save-btn" type="submit" name="submit">
+        <em class="far fa-save"></em> Save Changes
+      </button>
+    </div>
+  </section>
+</form>

@@ -3,7 +3,7 @@ import Gamemaster from "../Helpers/Gamemaster";
 import Trans from "../Helpers/Trans";
 import { MODULE_NAME } from "../Settings";
 
-export class CampaignStatsPanel extends FormApplication {
+export default class CampaignStatsPanel extends FormApplication {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       title: Trans.Get("Settings.StatisticsManagement"),
@@ -55,6 +55,7 @@ export class CampaignStatsPanel extends FormApplication {
     if (typeof json === "string") {
       json = JSON.parse(json);
     }
+    Gamemaster.DeleteStats();
     CampaignStat.Save(json);
     return ui.notifications?.info(
       Trans.Get("Settings.CampaignStatsImported")

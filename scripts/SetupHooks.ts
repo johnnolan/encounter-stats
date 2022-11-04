@@ -8,6 +8,7 @@ import {
   OnTrackDice,
   OnTrackDiceRoll,
   OnCustomEvent,
+  OnTrackRollStreak,
 } from "./Handlers";
 import StatManager from "./StatManager";
 import DND5e from "./parsers/DND5e";
@@ -59,11 +60,18 @@ export default class SetupHooks {
         window.Hooks.on(
           "midi-qol.RollComplete",
           async function (workflow: MidiQolWorkflow) {
-            OnEncounterWorkflowComplete(
-              MidiQol.ParseWorkflow(workflow),
-              ChatType.MidiQol
-            );
-            OnTrackDice(MidiQol.RollCheck(workflow));
+            const rollCheck = MidiQol.RollCheck(workflow);
+            const midiWorkflow = MidiQol.ParseWorkflow(workflow);
+            OnEncounterWorkflowComplete(midiWorkflow, ChatType.MidiQol);
+            OnTrackDice(rollCheck);
+
+            if (rollCheck && midiWorkflow) {
+              OnTrackRollStreak(
+                midiWorkflow.diceTotal,
+                rollCheck.name,
+                midiWorkflow.actor.id
+              );
+            }
           }
         );
       }
@@ -175,6 +183,7 @@ export default class SetupHooks {
                 roll?.terms[0]?.results?.find((f) => f.active === true)
                   .result ?? 0,
               alias: actor.name,
+              actorId: actor.id,
               flavor: roll.options.flavor,
             },
           });
@@ -191,6 +200,7 @@ export default class SetupHooks {
                 roll?.terms[0]?.results?.find((f) => f.active === true)
                   .result ?? 0,
               alias: actor.name,
+              actorId: actor.id,
               flavor: roll.options.flavor,
             },
           });
@@ -207,6 +217,7 @@ export default class SetupHooks {
                 roll?.terms[0]?.results?.find((f) => f.active === true)
                   .result ?? 0,
               alias: actor.name,
+              actorId: actor.id,
               flavor: roll.options.flavor,
             },
           });
@@ -236,9 +247,24 @@ export default class SetupHooks {
         case "midi-qol.RollComplete":
           OnEncounterWorkflowComplete(payload.data.workflow, ChatType.MidiQol);
           OnTrackDice(payload.data.rollCheck);
+          OnTrackRollStreak(
+            payload.data.workflow.diceTotal,
+            payload.data.rollCheck.name,
+            payload.data.workflow.actor.id
+          );
+          break;
+        case "dnd5e.rollAttack":
+          OnEncounterWorkflowComplete(
+            payload.data.EncounterWorkflow,
+            payload.data.ChatType
+          );
+          OnTrackRollStreak(
+            payload.data.EncounterWorkflow.diceTotal,
+            payload.data.EncounterWorkflow.actorName,
+            payload.data.EncounterWorkflow.actorId
+          );
           break;
         case "dnd5e.useItem":
-        case "dnd5e.rollAttack":
         case "dnd5e.rollDamage":
           OnEncounterWorkflowComplete(
             payload.data.EncounterWorkflow,
@@ -252,6 +278,11 @@ export default class SetupHooks {
             payload.data.result,
             payload.data.alias,
             payload.data.flavor
+          );
+          OnTrackRollStreak(
+            payload.data.result,
+            payload.data.alias,
+            payload.data.actorId
           );
           break;
       }

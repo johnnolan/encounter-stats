@@ -12,6 +12,16 @@ export function OnCustomEvent(customEvent: HookCustomEvent): void {
   CampaignStat.AddCustomEvent(customEvent);
 }
 
+export async function OnTrackRollStreak(
+  result: number,
+  actorName: string,
+  actorId: string
+): Promise<void> {
+  if (!result) return;
+
+  CampaignStat.AddRollStreak(result, actorName, actorId);
+}
+
 export async function OnTrackDiceRoll(
   result: number,
   alias: string,

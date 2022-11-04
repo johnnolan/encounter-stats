@@ -154,6 +154,30 @@
     </ol>
     {{/each}}
   </div>
+  {{#if rollstreak}}
+    <hr>
+    <h2 class="fvtt-enc-stats_enemies">{{localize "EncounterStats.template.roll_streaks"}}</h2>
+    <div>
+      {{#each rollstreak}}
+      <p>{{date}}</p>
+      <ol class="item-list">
+        {{#each entries}}
+        <li class="item flexrow campaign-row">
+          <div class="item-name">
+            {{actorName}}
+          </div>
+          <div class="item-name">
+            {{localize "EncounterStats.template.rolled"}} {{{flavor}}} {{localize "EncounterStats.template.times"}}
+          </div>
+          <div class="item-name">
+            {{date}}
+          </div>
+        </li>
+        {{/each}}
+      </ol>
+      {{/each}}
+    </div>
+  {{/if}}
 
   {{#each customEventHistory}}
   <hr>

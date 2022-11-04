@@ -1,3 +1,5 @@
+import { MODULE_ID, OPT_SETTINGS_DICE_STREAK_ENABLE } from "./Settings";
+
 class CampaignRenderer {
   static async Render(campaignStats: CampaignStats) {
     const renderData: CampaignRender = {
@@ -9,6 +11,7 @@ class CampaignRenderer {
       fumbleHistory: await this.GenerateRollRow(campaignStats.nat1),
       healsHistory: await this.GenerateHealRow(campaignStats.heals),
       killsHistory: await this.GenerateKillsRow(campaignStats.kills),
+      rollstreak: await this.GenerateKillStreakRow(campaignStats.rollstreak),
       customEventHistory: await this.GenerateCustomEventRows(campaignStats),
     };
 
@@ -89,6 +92,36 @@ class CampaignRenderer {
           total: healTrack.total,
         });
       });
+      data.push(entry);
+    });
+
+    return data;
+  }
+
+  private static async GenerateKillStreakRow(campaignStatEntry) {
+    const data: Array<CampaignRollRowData> = [];
+    if (
+      !game.settings.get(`${MODULE_ID}`, `${OPT_SETTINGS_DICE_STREAK_ENABLE}`)
+    ) {
+      return data;
+    }
+
+    if (!campaignStatEntry) {
+      return;
+    }
+
+    campaignStatEntry.reverse().forEach((rollStreak: RollStreakTrack) => {
+      const entry: CampaignRollRowData = {
+        date: rollStreak.dateDisplay,
+        entries: [],
+      };
+
+      entry.entries.push({
+        actorName: rollStreak.actorName,
+        flavor: `<strong>${rollStreak.roll}</strong> - <i>${rollStreak.total}</i>`,
+        date: rollStreak.dateDisplay,
+      });
+
       data.push(entry);
     });
 

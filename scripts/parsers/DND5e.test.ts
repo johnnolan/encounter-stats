@@ -71,6 +71,7 @@ describe("Default", () => {
             id: HookDND5e_rollAttack_item.actor.id,
           },
           attackTotal: 20,
+          diceTotal: undefined,
           advantage: true,
           disadvantage: false,
           isFumble: false,
@@ -92,6 +93,7 @@ describe("Default", () => {
           },
           attackTotal: 0,
           advantage: false,
+          diceTotal: undefined,
           disadvantage: true,
           isFumble: false,
           type: CombatDetailType.Attack,
@@ -111,6 +113,7 @@ describe("Default", () => {
           id: `${HookDND5eUseItem.id}${HookDND5e_rollDamage_item.actor.id}`,
           actor: {
             id: HookDND5e_rollDamage_item.actor.id,
+            actorName: "JB Player",
           },
           damageTotal: 33,
           damageMultipleEnemiesTotal: 33,
@@ -136,6 +139,7 @@ describe("Default", () => {
           id: `${HookDND5eUseItem.id}${HookDND5e_rollDamage_item.actor.id}`,
           actor: {
             id: HookDND5e_rollDamage_item.actor.id,
+            actorName: "JB Player",
           },
           damageTotal: 0,
           damageMultipleEnemiesTotal: 0,
@@ -170,6 +174,7 @@ describe("Default", () => {
         id: `${HookDND5eUseItem.id}${HookDND5e_rollDamage_item.actor.id}`,
         actor: {
           id: HookDND5e_rollDamage_item.actor.id,
+          actorName: "JB Player",
         },
         damageTotal: 33,
         damageMultipleEnemiesTotal: 66,

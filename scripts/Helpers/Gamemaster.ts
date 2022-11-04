@@ -9,6 +9,8 @@ class Gamemaster {
     nat20: [],
     heals: [],
     custom: [],
+    rollstreak: [],
+    rollstreaklog: [],
   };
 
   static get GetActor(): Actor {
