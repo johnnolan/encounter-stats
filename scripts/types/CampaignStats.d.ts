@@ -37,5 +37,5 @@ interface DiceTrack {
 
 interface RollStreakLog {
   actorId: string;
-  result: number;
+  results: Array<number>;
 }

@@ -118,40 +118,31 @@ export default class CampaignStat {
     if (!streakLogEntry) {
       campaignStats.rollstreaklog.push(<RollStreakLog>{
         actorId,
-        result,
+        results: [result],
       });
     } else {
-      console.log(streakLogEntry.result)
-      console.log(result)
-      console.log(streakLogEntry.result === result)
-      if (streakLogEntry.result === result) {
-        const rollStreakEntries = campaignStats.rollstreak.filter(
-          (f) => f.actorId === actorId
-        );
-        if (!rollStreakEntries || rollStreakEntries.length === 0) {
+      const logIndex = campaignStats.rollstreaklog.findIndex(
+        (fi) => fi.actorId === actorId
+      );
+      const actorStreakLog = campaignStats.rollstreaklog[logIndex].results;
+      if (actorStreakLog.indexOf(result) > -1) {
+        actorStreakLog.push(result);
+      } else {
+        if (actorStreakLog.length > 1) {
+          // Save to streak length and result
           campaignStats.rollstreak.push(<RollStreakTrack>{
             actorId: actorId,
             actorName: actorName,
             dateDisplay: date.dateDisplay,
-            roll: result,
-            total: 2,
+            roll: actorStreakLog[0],
+            total: actorStreakLog.length,
           });
-        } else {
-          // TODO: Check here for more than two rolls
-          // TODO: Add completely new streak with new number
-          rollStreakEntries[rollStreakEntries.length - 1].total =
-            rollStreakEntries[rollStreakEntries.length - 1].total + 1;
         }
-      } else {
-        const elementIndex = campaignStats.rollstreaklog.findIndex(
-          (fi) => fi.actorId === actorId
-        );
-        campaignStats.rollstreaklog[elementIndex].result = result;
+        campaignStats.rollstreaklog[logIndex].results = [result]; // Reset to new number
       }
     }
 
-    console.log(campaignStats.rollstreaklog);
-    console.log(campaignStats.rollstreak);
+    
 
     await this.Save(campaignStats);
   }
