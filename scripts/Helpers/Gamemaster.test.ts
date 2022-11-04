@@ -82,6 +82,8 @@ describe("Gamemaster", () => {
             nat20: [],
             heals: [],
             custom: [],
+            rollstreak: [],
+            rollstreaklog: [],
           });
         });
       });

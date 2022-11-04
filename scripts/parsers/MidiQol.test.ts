@@ -221,6 +221,7 @@ describe("MidiQol", () => {
           damageMultipleEnemiesTotal: 42,
           workflowType: "test",
           attackTotal: 12,
+          diceTotal: undefined,
           damageTotal: 21,
           item: {
             id: "itemId",
@@ -257,6 +258,7 @@ describe("MidiQol", () => {
           isCritical: false,
           isFumble: false,
           disadvantage: true,
+          diceTotal: undefined,
           damageMultipleEnemiesTotal: 42,
           workflowType: "test",
           attackTotal: 12,
@@ -297,6 +299,7 @@ describe("MidiQol", () => {
           advantage: false,
           isCritical: false,
           isFumble: false,
+          diceTotal: undefined,
           disadvantage: false,
           damageMultipleEnemiesTotal: 0,
           workflowType: "test",

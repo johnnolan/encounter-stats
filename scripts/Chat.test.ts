@@ -1,5 +1,5 @@
 import Chat from "./Chat";
-import "../__mocks__/index";
+import "../__mocks__/chat-message";
 
 describe("Chat", () => {
   beforeEach(() => {
