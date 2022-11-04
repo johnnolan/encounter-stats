@@ -55,6 +55,7 @@ export default class CampaignStatsPanel extends FormApplication {
     if (typeof json === "string") {
       json = JSON.parse(json);
     }
+    Gamemaster.DeleteStats();
     CampaignStat.Save(json);
     return ui.notifications?.info(
       Trans.Get("Settings.CampaignStatsImported")

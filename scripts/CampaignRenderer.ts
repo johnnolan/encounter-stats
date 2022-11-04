@@ -106,6 +106,10 @@ class CampaignRenderer {
       return data;
     }
 
+    if (!campaignStatEntry) {
+      return;
+    }
+
     campaignStatEntry.reverse().forEach((rollStreak: RollStreakTrack) => {
       const entry: CampaignRollRowData = {
         date: rollStreak.dateDisplay,
