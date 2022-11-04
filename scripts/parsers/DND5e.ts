@@ -24,6 +24,7 @@ export default class DND5e {
         id: item.id + actor.id,
         actor: {
           id: actor.id,
+          actorName: actor.name,
         },
         damageTotal: roll?.total ?? 0,
         damageMultipleEnemiesTotal: roll?.total
@@ -44,6 +45,7 @@ export default class DND5e {
         advantage: roll?.options.advantageMode === 1 ? true : false,
         disadvantage: roll?.options.advantageMode === -1 ? true : false,
         type: type,
+        diceTotal: roll?.dice[0]?.total,
       };
     } else if (type === CombatDetailType.ItemCard) {
       return <EncounterWorkflow>{

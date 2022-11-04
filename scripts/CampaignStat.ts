@@ -143,7 +143,6 @@ export default class CampaignStat {
     }
 
     // TODO: Optionally send a message to chat on a streak
-    // TODO: Check attack rolls get tracked
 
     await this.Save(campaignStats);
   }

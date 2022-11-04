@@ -12,6 +12,7 @@ interface MidiQolWorkflow {
   };
   damageTotal: number;
   attackTotal: number;
+  d20AttackRoll: number;
   workflowType: string;
   isCritical: boolean;
   isFumble: boolean;
