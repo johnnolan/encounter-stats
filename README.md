@@ -16,7 +16,7 @@ Capture your Players attacks, damage, healing, dice rolls, custom events and mor
 
 ## Current features are
 
-* Works with standard roles, `midi-qol` and `dnd5e`
+* Works with standard roles, `midi-qol` and standalone `dnd5e`
 * [Track your own custom campaign events via Macros](#track-your-own-custom-campaign-events)
 * Enemies must be targetted in order for kills to be registered
     * Multiple targets will show roll damage and roll damage x targets
@@ -26,6 +26,9 @@ Capture your Players attacks, damage, healing, dice rolls, custom events and mor
 * Import/Export campaign stats as JSON from the Settings menu.
     * **All campaign stats are saved against the Gamemaster. If you delete the Gamemaster user you will lose your data.**
     * Use this functionality to make backups before major changes to version upgrades and the Gamemaster user.
+* Dice Roll Streak tracking. Tracks how many times in a row you roll the same value on a d20 to the campaign journal and **optionally** to chat.
+
+[![Example](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/roll-streak-chat-message.jpg)](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/roll-streak-chat-message.jpg)
 
 #### Encounter Tracking
 
@@ -48,11 +51,12 @@ Capture your Players attacks, damage, healing, dice rolls, custom events and mor
 - Natural 20s
 - Kills
 - Heals
+- Dice Roll Streaks
 - Your own custom events!
 
 [![Example Campaign](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example-campaign.jpg)](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example-campaign.jpg)
 
-**Note: Due to time and life I will not be adding other systems or modules except midi-qol at this time**
+[![Example Dice Roll Streak Journal Entry](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/roll-streak-journal.jpg)](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/roll-streak-journal.jpg)
 
 ## Simple Calendar Integration
 

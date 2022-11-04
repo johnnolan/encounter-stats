@@ -1,9 +1,15 @@
 import CampaignRenderer from "./CampaignRenderer";
+import Chat from "./Chat";
 import EncounterJournal from "./EncounterJournal";
 import { RoleType } from "./enums";
 import Dates from "./Helpers/Dates";
 import Gamemaster from "./Helpers/Gamemaster";
-import { MODULE_ID, OPT_SETTINGS_DICE_STREAK_ENABLE } from "./Settings";
+import Trans from "./Helpers/Trans";
+import {
+  MODULE_ID,
+  OPT_SETTINGS_DICE_STREAK_ENABLE,
+  OPT_SETTINGS_DICE_STREAK_TO_CHAT_ENABLE,
+} from "./Settings";
 
 export default class CampaignStat {
   static async AddKill(actorName: string, tokenName: string) {
@@ -144,12 +150,27 @@ export default class CampaignStat {
             roll: actorStreakLog[0],
             total: actorStreakLog.length,
           });
+
+          if (
+            game.settings.get(
+              `${MODULE_ID}`,
+              `${OPT_SETTINGS_DICE_STREAK_TO_CHAT_ENABLE}`
+            )
+          ) {
+            await Chat.Send(
+              `<h2>${Trans.Get(
+                "template.roll_streak"
+              )}!</h2><p>@Actor[${actorName}] ${Trans.Get(
+                "template.rolled_a"
+              )} [[${actorStreakLog[0]}]] <strong>${
+                actorStreakLog.length
+              }</strong> ${Trans.Get("template.times_in_a_row")}!</p>`
+            );
+          }
         }
         campaignStats.rollstreaklog[logIndex].results = [result]; // Reset to new number
       }
     }
-
-    // TODO: Optionally send a message to chat on a streak
 
     await this.Save(campaignStats);
   }

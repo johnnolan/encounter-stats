@@ -3,6 +3,7 @@ import {
   OPT_ENABLE,
   OPT_ENABLE_EXPORT_JSON,
   OPT_SETTINGS_DICE_STREAK_ENABLE,
+  OPT_SETTINGS_DICE_STREAK_TO_CHAT_ENABLE,
 } from "./Settings";
 import Trans from "./Helpers/Trans";
 import { CampaignStatsPanel, CampaignTrackingPanel } from "./panels";
@@ -56,6 +57,19 @@ class ModuleSettings {
       {
         name: Trans.Get("opt_enable_dice_streak_name"),
         hint: Trans.Get("opt_enable_dice_streak_hint"),
+        scope: "world",
+        config: false,
+        default: true,
+        type: Boolean,
+      }
+    );
+
+    game.settings.register(
+      `${MODULE_ID}`,
+      `${OPT_SETTINGS_DICE_STREAK_TO_CHAT_ENABLE}`,
+      {
+        name: Trans.Get("opt_enable_dice_streak_to_chat_name"),
+        hint: Trans.Get("opt_enable_dice_streak_to_chat_hint"),
         scope: "world",
         config: false,
         default: true,

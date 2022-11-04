@@ -1,5 +1,5 @@
 import Trans from "../Helpers/Trans";
-import { MODULE_NAME, OPT_SETTINGS_DICE_STREAK_ENABLE } from "../Settings";
+import { MODULE_NAME, OPT_SETTINGS_DICE_STREAK_ENABLE, OPT_SETTINGS_DICE_STREAK_TO_CHAT_ENABLE } from "../Settings";
 import { SettingsList, UpdateObject } from "./Helpers";
 
 export default class CampaignTrackingPanel extends FormApplication {
@@ -22,6 +22,7 @@ export default class CampaignTrackingPanel extends FormApplication {
   getData() {
     const settings = [
       OPT_SETTINGS_DICE_STREAK_ENABLE,
+      OPT_SETTINGS_DICE_STREAK_TO_CHAT_ENABLE,
     ];
 
     return {
