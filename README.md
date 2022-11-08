@@ -113,4 +113,4 @@ Encounter Statistics is released under the [MIT License](./LICENSE).
 
 For issues, please raise a bug in Github and use the Report a Bug option in the settings to get debug information to help me reproduce the issue easily on my computer. I will try and fix things depending on fatherhood responsibilities [https://github.com/johnnolan/encounter-stats/issues](https://github.com/johnnolan/encounter-stats/issues)
 
-You can also find me lurking around on the Foundry VTT Discord [https://discord.gg/foundryvtt](https://discord.gg/foundryvtt). My Discord Tag is `JB#2780`.
+You can also find me on the Foundry VTT Discord [https://discord.gg/foundryvtt](https://discord.gg/foundryvtt). My Discord Tag is `JB#2780`.
