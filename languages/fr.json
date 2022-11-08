@@ -81,5 +81,16 @@
 	"EncounterStats.template.Constitution": "Constitution",
 	"EncounterStats.template.Downed_Count": "Compte à rebours",
 	"EncounterStats.Settings.CampaignStatsDeleted": "Stat de campagnes effacées avec succès.",
-	"EncounterStats.Settings.CampaignStatsImported": "Stats de campagne importées avec succès."
+	"EncounterStats.Settings.CampaignStatsImported": "Stats de campagne importées avec succès.",
+	"EncounterStats.opt_enable_dice_streak_to_chat_name": "Message de chat sur les flux de dés",
+	"EncounterStats.opt_enable_dice_streak_to_chat_hint": "Afficher un message dans la discussion lorsqu'un joueur obtient le même résultat sur un D20.",
+	"EncounterStats.template.rolled": "Lancés",
+	"EncounterStats.template.times": "temps",
+	"EncounterStats.template.roll_streaks": "Roulements",
+	"EncounterStats.template.roll_streak": "Roulements",
+	"EncounterStats.template.rolled_a": "roulé un",
+	"EncounterStats.template.times_in_a_row": "fois d'affilée",
+	"EncounterStats.Settings.CampaignTrackingOptions": "Configurer les options de suivi de la campagne",
+	"EncounterStats.opt_enable_dice_streak_name": "Suivre les séquences de dés",
+	"EncounterStats.opt_enable_dice_streak_hint": "Suivre le nombre de fois qu'un joueur obtient le même résultat sur un D20."
 }
