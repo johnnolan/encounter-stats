@@ -30,6 +30,10 @@ Capture your Players attacks, damage, healing, dice rolls, custom events and mor
 
 [![Example](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/roll-streak-chat-message.jpg)](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/roll-streak-chat-message.jpg)
 
+### Watch an overview of Encounter Stats on YouTube
+
+[![Watch an overview of Encounter Stats on YouTube](https://img.youtube.com/vi/HDY5PTmmbSo/0.jpg)](https://www.youtube.com/watch?v=HDY5PTmmbSo)
+
 #### Encounter Tracking
 
 - Players attacks
