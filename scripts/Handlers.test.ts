@@ -1,6 +1,5 @@
 import {
   OnCreateCombat,
-  OnDeleteCombat,
   OnEncounterWorkflowComplete,
   OnRenderCombatTracker,
   OnTrackDice,
@@ -18,6 +17,7 @@ import EncounterJournal from "./EncounterJournal";
 import DND5eStat from "./stats/DND5eStat";
 import MidiQolStat from "./stats/MidiQolStat";
 import CombatFlag from "./CombatFlag";
+import "../__mocks__/deepClone";
 
 const mockCampaignStatAddRole = jest.fn();
 const mockCampaignStatAddKill = jest.fn();

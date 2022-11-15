@@ -10,10 +10,16 @@ class StatManager {
   }
 
   static async GetStat(actorId?: string): Promise<Encounter | undefined> {
-    return await CombatFlag.Get(STORAGE_NAME, actorId);
+    const encounterStat = await CombatFlag.Get(STORAGE_NAME, actorId);
+    return deepClone(encounterStat);
   }
 
   static async SaveStat(encounter: Encounter) {
+    const currentEncounter = await StatManager.GetStat();
+    if (currentEncounter) {
+      const diff = diffObject(currentEncounter, encounter);
+      if (Object.keys(diff)?.length < 1) return;
+    }
     if (!encounter?.encounterId) {
       Logger.error(`No encounterId to save stat`, "statmanager.SaveStat");
       return;

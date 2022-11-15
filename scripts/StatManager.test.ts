@@ -3,6 +3,7 @@ import CombatFlag from "./CombatFlag";
 import Logger from "./Helpers/Logger";
 import EncounterJournal from "./EncounterJournal";
 import EncounterRenderer from "./EncounterRenderer";
+import "../__mocks__/deepClone";
 
 const mockCombatFlagIsCurrentSceneCombatSet = jest.fn();
 const mockCombatFlagGet = jest.fn();
