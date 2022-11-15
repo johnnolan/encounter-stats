@@ -2,6 +2,7 @@ import "./game";
 import "./chat-message";
 import "./roll";
 import "./const";
+import "./deepClone";
 import "./renderTemplate";
 import "./textEditor";
 import "./config";
