@@ -25,3 +25,8 @@ jobs:
     uses: ./.github/workflows/sonar_cloud_job.yml
     secrets:
       SONARCLOUD_SECRET: ${{ secrets.SONARCLOUD_TOKEN }}
+
+  dependabot:
+    name: Dependabot Approve and Auto Merge
+    needs: ['lint', 'test']
+    uses: ./.github/workflows/dependabot-approve-and-auto-merge_job.yml
