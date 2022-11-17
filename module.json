@@ -7,7 +7,7 @@
 	"manifestPlusVersion": "1.0.0",
 	"compatibility": {
 		"minimum": 10,
-		"verified": "10.285",
+		"verified": "10.290",
 		"maximum": 10
 	},
 	"authors": [
