@@ -31,7 +31,7 @@
     "dayjs": "^1.11.6",
     "esbuild": "^0.15.14",
     "esbuild-sass-plugin": "^2.4.0",
-    "eslint": "^8.27.0",
+    "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "foundryvtt-simple-calendar": "^2.1.58",
