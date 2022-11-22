@@ -27,9 +27,9 @@ export default class DND5eStat extends Stat {
         newCombatantEvent.damageTotal = workflow.damageTotal;
         newCombatantEvent.damageMultipleEnemiesTotal =
           workflow.damageMultipleEnemiesTotal;
+        newCombatantEvent.isCritical = workflow.isCritical;
       } else if (workflow.type === CombatDetailType.Attack) {
         newCombatantEvent.attackTotal = workflow.attackTotal;
-        newCombatantEvent.isCritical = workflow.isCritical;
         newCombatantEvent.isFumble = workflow.isFumble;
         newCombatantEvent.advantage = workflow.advantage;
         newCombatantEvent.disadvantage = workflow.disadvantage;
