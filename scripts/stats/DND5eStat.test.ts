@@ -51,6 +51,7 @@ const encounterDefaultWorkflowDamage: EncounterWorkflow = {
   },
   damageTotal: 41,
   damageMultipleEnemiesTotal: 41,
+  isCritical: false,
   type: CombatDetailType.Damage,
 };
 
@@ -136,7 +137,6 @@ describe("DND5eStat", () => {
         },
         round: 1,
         attackTotal: 19,
-        isCritical: false,
         isFumble: false,
         advantage: true,
         disadvantage: false,
