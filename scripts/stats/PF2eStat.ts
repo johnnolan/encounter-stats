@@ -18,17 +18,15 @@ export default class PF2eStat extends Stat {
         (f) => f.id === workflow.id && f.round === this.currentRound
       ) !== undefined;
 
-    if (isExistingEvent) {
+    if (isExistingEvent && workflow.type === CombatDetailType.Damage) {
       const newCombatantEvent = combatantStat.events
         .filter((f) => f.id === workflow.id)
         .reverse()[0];
 
-      if (workflow.type === CombatDetailType.Damage) {
-        newCombatantEvent.damageTotal = workflow.damageTotal;
-        newCombatantEvent.damageMultipleEnemiesTotal =
-          workflow.damageMultipleEnemiesTotal;
-        newCombatantEvent.isCritical = workflow.isCritical;
-      }
+      newCombatantEvent.damageTotal = workflow.damageTotal;
+      newCombatantEvent.damageMultipleEnemiesTotal =
+        workflow.damageMultipleEnemiesTotal;
+      newCombatantEvent.isCritical = workflow.isCritical;
     } else {
       if (workflow.type === CombatDetailType.Attack) {
         const newCombatantEvent = <CombatantEvent>{
