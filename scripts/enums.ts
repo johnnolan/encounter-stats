@@ -40,4 +40,5 @@ export enum ValidRollEvent {
 export enum ChatType {
   DND5e = 1,
   MidiQol = 2,
+  PF2e = 3,
 }
