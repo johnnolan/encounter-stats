@@ -7,6 +7,7 @@ import CampaignStat from "./CampaignStat";
 import { ChatType, RoleType } from "./enums";
 import Logger from "./Helpers/Logger";
 import { EncounterWorkflow } from "EncounterWorkflow";
+import PF2eStat from "./stats/PF2eStat";
 
 export function OnCustomEvent(customEvent: HookCustomEvent): void {
   CampaignStat.AddCustomEvent(customEvent);
@@ -139,6 +140,8 @@ export async function OnEncounterWorkflowComplete(
   let stat: DND5eStat | MidiQolStat;
   if (chatType === ChatType.DND5e) {
     stat = new DND5eStat();
+  } else if (chatType === ChatType.PF2e) {
+    stat = new PF2eStat();
   } else if (chatType === ChatType.MidiQol) {
     stat = new MidiQolStat();
   } else {

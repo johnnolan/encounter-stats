@@ -6,3 +6,4 @@ test-results/
 .vscode/
 eslint_report.json
 build-copy.js
+build-copy-pi.js

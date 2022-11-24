@@ -12,11 +12,16 @@
 
 Capture your Players attacks, damage, healing, dice rolls, custom events and more. Store the results into a Journal for individual encounters and the entire campaign.
 
+## Supported Systems
+
+* `dnd5e`
+* `pf2e` (**ALPHA** - please do not submit bug tickets yet, once in BETA I would love your feedback! See the issues on github tagged [PF2e](https://github.com/johnnolan/encounter-stats/labels/pf2e) for upcoming work)
+
 **NOTE FOR MIDI-QOL USERS: You must use targeting in order for this module to record your stats correctly**
 
 ## Current features are
 
-* Works with standard roles, `midi-qol` and standalone `dnd5e`
+* Works with standard roles and `midi-qol`
 * [Track your own custom campaign events via Macros](#track-your-own-custom-campaign-events)
 * Enemies must be targetted in order for kills to be registered
     * Multiple targets will show roll damage and roll damage x targets
