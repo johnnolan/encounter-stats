@@ -15,7 +15,7 @@ Capture your Players attacks, damage, healing, dice rolls, custom events and mor
 ## Supported Systems
 
 * `dnd5e`
-* `pf2e` (**ALPHA** - please do not submit bug tickets yet, once in BETA I would love your feedback!)
+* `pf2e` (**ALPHA** - please do not submit bug tickets yet, once in BETA I would love your feedback! See the issues on github tagged [PF2e](https://github.com/johnnolan/encounter-stats/labels/pf2e) for upcoming work)
 
 **NOTE FOR MIDI-QOL USERS: You must use targeting in order for this module to record your stats correctly**
 

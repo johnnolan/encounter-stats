@@ -29,7 +29,6 @@ export const HookPF2eChatMessageDamage: ChatMessage = {
       halflingLucky: false,
       configured: true,
     },
-    dice: [],
     formula: "2d20kh + 0 + 2 + 4",
     terms: [
       {
