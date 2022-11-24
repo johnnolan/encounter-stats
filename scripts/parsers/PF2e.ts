@@ -3,7 +3,7 @@ import { CombatDetailType } from "../enums";
 
 export default class PF2e {
   static async ParseHook(
-    item: Item,
+    chatMessage: ChatMessage,
     actor: Actor,
     type: CombatDetailType,
     roll: Roll | undefined
@@ -21,7 +21,7 @@ export default class PF2e {
 
     if (type === CombatDetailType.Damage) {
       return <EncounterWorkflow>{
-        id: item.id + actor.id,
+        id: chatMessage.id + actor.id,
         actor: {
           id: actor.id,
           actorName: actor.name,
@@ -35,16 +35,16 @@ export default class PF2e {
       };
     } else if (type === CombatDetailType.Attack) {
       return <EncounterWorkflow>{
-        id: item.id + actor.id,
+        id: chatMessage.id + actor.id,
         actor: {
           id: actor.id,
         },
         item: {
-          id: item.id,
-          name: item.name,
-          link: item.link,
-          type: item.type,
-          img: item.img,
+          id: chatMessage.id,
+          name: chatMessage.name,
+          link: chatMessage.link,
+          type: chatMessage.type,
+          img: chatMessage.img,
         },
         attackTotal: roll?.total ?? 0,
         isFumble:
