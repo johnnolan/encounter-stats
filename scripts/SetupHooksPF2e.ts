@@ -28,8 +28,16 @@ export default class SetupHooksPF2e {
         "createChatMessage",
         async function (chatMessagePF2e: ChatMessage) {
           Logger.debug("ChatMessagePF2e", "SetupHooksPF2e", chatMessagePF2e);
-          const chatType = chatMessagePF2e.flags.pf2e.context.type;
-          if (chatType === "attack-roll") {
+          let chatType = chatMessagePF2e?.flags?.pf2e?.context?.type;
+          if (!chatType) {
+            if (chatMessagePF2e.isDamageRoll) {
+              chatType = "damage-roll";
+            } else {
+              return;
+            }
+          }
+
+          if (chatType === "attack-roll" || chatType === "spell-attack-roll") {
             const workflow = await PF2e.ParseHook(
               chatMessagePF2e.item,
               chatMessagePF2e.item.actor,
@@ -43,18 +51,15 @@ export default class SetupHooksPF2e {
               workflow.actorId
             );
           }
-          /*game.socket?.emit(SetupHooksPF2e.SOCKET_NAME, {
-            event: "pf2e.rollAttack",
-            data: {
-              EncounterWorkflow: await PF2e.ParseHook(
-                item,
-                item.actor,
-                CombatDetailType.Attack,
-                roll
-              ),
-              ChatType: ChatType.DND5e,
-            },
-          });*/
+          if (chatType === "damage-roll") {
+            const workflow = await PF2e.ParseHook(
+              chatMessagePF2e.item,
+              chatMessagePF2e.item.actor,
+              CombatDetailType.Damage,
+              chatMessagePF2e.roll
+            );
+            OnEncounterWorkflowComplete(workflow, ChatType.PF2e);
+          }
         }
       );
       window.Hooks.on(
@@ -127,31 +132,7 @@ export default class SetupHooksPF2e {
           case "encounter-stats.customEvent":
             OnCustomEvent(payload.data.customEvent);
             break;
-          case "midi-qol.RollComplete":
-            OnEncounterWorkflowComplete(
-              payload.data.workflow,
-              ChatType.MidiQol
-            );
-            OnTrackDice(payload.data.rollCheck);
-            OnTrackRollStreak(
-              payload.data.workflow.diceTotal,
-              payload.data.rollCheck.name,
-              payload.data.workflow.actor.id
-            );
-            break;
-          case "dnd5e.rollAttack":
-            OnEncounterWorkflowComplete(
-              payload.data.EncounterWorkflow,
-              payload.data.ChatType
-            );
-            OnTrackRollStreak(
-              payload.data.EncounterWorkflow.diceTotal,
-              payload.data.EncounterWorkflow.actorName,
-              payload.data.EncounterWorkflow.actorId
-            );
-            break;
           case "dnd5e.useItem":
-          case "dnd5e.rollDamage":
             OnEncounterWorkflowComplete(
               payload.data.EncounterWorkflow,
               payload.data.ChatType
