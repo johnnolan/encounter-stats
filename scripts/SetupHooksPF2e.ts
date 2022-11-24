@@ -150,12 +150,6 @@ export default class SetupHooksPF2e {
           case "encounter-stats.customEvent":
             OnCustomEvent(payload.data.customEvent);
             break;
-          case "dnd5e.useItem":
-            OnEncounterWorkflowComplete(
-              payload.data.EncounterWorkflow,
-              payload.data.ChatType
-            );
-            break;
         }
       }
     );

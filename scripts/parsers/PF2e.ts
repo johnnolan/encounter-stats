@@ -51,7 +51,7 @@ export default class PF2e {
           roll?.terms[0]?.results?.find((f) => f.active === true).result === 1,
         advantage: roll?.options.advantageMode === 1 ? true : false,
         disadvantage: roll?.options.advantageMode === -1 ? true : false,
-        actionType: item.system.actionType,
+        actionType: "mwak", // TODO: Parse different attack types
         enemyHit: enemiesHit,
         type: type,
         diceTotal: roll?.dice[0]?.total,
