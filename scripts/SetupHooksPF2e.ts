@@ -40,15 +40,17 @@ export default class SetupHooksPF2e {
           if (chatType === "attack-roll" || chatType === "spell-attack-roll") {
             const workflow = await PF2e.ParseHook(
               chatMessagePF2e.item,
-              chatMessagePF2e.item.actor,
+              chatMessagePF2e.actor,
               CombatDetailType.Attack,
               chatMessagePF2e.roll
             );
             OnEncounterWorkflowComplete(workflow, ChatType.PF2e);
             OnTrackRollStreak(
-              workflow.diceTotal,
-              workflow.actorName,
-              workflow.actorId
+              chatMessagePF2e.roll?.terms[0]?.results?.find(
+                (f) => f.active === true
+              ).result ?? 0,
+              chatMessagePF2e.actor.name,
+              chatMessagePF2e.actor.id
             );
           }
           if (chatType === "damage-roll") {
@@ -59,6 +61,22 @@ export default class SetupHooksPF2e {
               chatMessagePF2e.roll
             );
             OnEncounterWorkflowComplete(workflow, ChatType.PF2e);
+          }
+          if (chatType === "saving-throw" || chatType.indexOf("-check") > 0) {
+            OnTrackDiceRoll(
+              chatMessagePF2e.roll?.terms[0]?.results?.find(
+                (f) => f.active === true
+              ).result ?? 0,
+              chatMessagePF2e.actor.name,
+              chatMessagePF2e?.flags?.pf2e?.modifierName
+            );
+            OnTrackRollStreak(
+              chatMessagePF2e.roll?.terms[0]?.results?.find(
+                (f) => f.active === true
+              ).result ?? 0,
+              chatMessagePF2e.actor.name,
+              chatMessagePF2e.actor.id
+            );
           }
         }
       );
@@ -136,20 +154,6 @@ export default class SetupHooksPF2e {
             OnEncounterWorkflowComplete(
               payload.data.EncounterWorkflow,
               payload.data.ChatType
-            );
-            break;
-          case "dnd5e.rollAbilityTest":
-          case "dnd5e.rollAbilitySave":
-          case "dnd5e.rollSkill":
-            OnTrackDiceRoll(
-              payload.data.result,
-              payload.data.alias,
-              payload.data.flavor
-            );
-            OnTrackRollStreak(
-              payload.data.result,
-              payload.data.alias,
-              payload.data.actorId
             );
             break;
         }
