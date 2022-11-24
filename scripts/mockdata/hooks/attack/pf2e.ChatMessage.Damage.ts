@@ -1,5 +1,4 @@
 import { HookDND5eActor } from "./dnd5e.actor";
-import { HookDND5e_rollAttack_d20roll } from "./dnd5e.rollAttack.d20roll";
 
 export const HookPF2eChatMessageDamage: ChatMessage = {
   actor: HookDND5eActor,

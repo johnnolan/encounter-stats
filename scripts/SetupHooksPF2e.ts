@@ -5,14 +5,11 @@ import {
   OnEncounterWorkflowComplete,
   OnUpdateHealth,
   OnTrackKill,
-  OnTrackDice,
   OnTrackDiceRoll,
   OnCustomEvent,
   OnTrackRollStreak,
 } from "./Handlers";
 import StatManager from "./StatManager";
-import DND5e from "./parsers/DND5e";
-import MidiQol from "./parsers/MidiQol";
 import { CombatDetailType, ChatType } from "./enums";
 import Stat from "./stats/Stat";
 import Logger from "./Helpers/Logger";
