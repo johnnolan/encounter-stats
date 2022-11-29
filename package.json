@@ -30,7 +30,7 @@
     "babel-jest": "^29.3.1",
     "dayjs": "^1.11.6",
     "esbuild": "^0.15.16",
-    "esbuild-sass-plugin": "^2.4.1",
+    "esbuild-sass-plugin": "^2.4.2",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
