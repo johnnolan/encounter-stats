@@ -24,7 +24,6 @@ export default class SetupHooksPF2e {
       window.Hooks.on(
         "createChatMessage",
         async function (chatMessagePF2e: ChatMessage) {
-          Logger.debug("ChatMessagePF2e", "SetupHooksPF2e", chatMessagePF2e);
           let chatType = chatMessagePF2e?.flags?.pf2e?.context?.type;
           if (!chatType) {
             if (chatMessagePF2e.isDamageRoll) {
