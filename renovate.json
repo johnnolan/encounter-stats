@@ -14,27 +14,28 @@
     },
     "packageRules": [
         {
+            "matchPackagePatterns": ["*"],
+            "matchUpdateTypes": ["minor", "patch"],
+            "groupName": "all non-major dependencies",
+            "groupSlug": "all-minor-patch",
             "automerge": true,
-            "groupName": "Patch & Minor Updates",
-            "groupSlug": "all-minor-patch-updates",
-            "matchPackagePatterns": [
-                "*"
-            ],
-            "matchUpdateTypes": [
-                "minor",
-                "patch"
-            ],
-            "prPriority": 1,
-            "stabilityDays": 3
-        }
+            "labels": ["dependencies"]
+          },
+          {
+            "matchPackagePatterns": ["*"],
+            "matchUpdateTypes": ["major"],
+            "labels": ["dependencies", "breaking"]
+          },
+          {
+            "matchPackagePatterns": ["*"],
+            "matchUpdateTypes": ["digest"],
+            "groupName": "all digests",
+            "groupSlug": "all-digest-patch",
+            "automerge": true,
+            "schedule": ["before 3am on Monday"],
+            "labels": ["digest"]
+          }
     ],
-    "major": {
-        "labels": [
-            "Dependencies",
-            "Renovate"
-        ],
-        "prPriority": 0
-    },
     "vulnerabilityAlerts": {
         "groupName": "Vulnerability Patches",
         "dependencyDashboardApproval": false,
