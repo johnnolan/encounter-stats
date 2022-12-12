@@ -8,7 +8,6 @@ jobs:
   publish_sonar_cloud:
     name: Publish Sonar Cloud
     runs-on: ubuntu-latest
-    if: ${{ github.actor != 'dependabot[bot]' }}
 
     steps:
       - name: Checkout
