@@ -1,49 +1,11 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "extends": [
-        "config:base"
-    ],
-    "branchPrefix": "renovate-",
-    "commitMessageAction": "Renovate Update",
-    "labels": [
-        "Dependencies",
-        "Renovate"
-    ],
-    "lockFileMaintenance": {
-        "enabled": true
-    },
-    "packageRules": [
-        {
-            "matchPackagePatterns": ["*"],
-            "matchUpdateTypes": ["minor", "patch"],
-            "groupName": "all non-major dependencies",
-            "groupSlug": "all-minor-patch",
-            "automerge": true,
-            "labels": ["dependencies"]
-          },
-          {
-            "matchPackagePatterns": ["*"],
-            "matchUpdateTypes": ["major"],
-            "labels": ["dependencies", "breaking"]
-          },
-          {
-            "matchPackagePatterns": ["*"],
-            "matchUpdateTypes": ["digest"],
-            "groupName": "all digests",
-            "groupSlug": "all-digest-patch",
-            "automerge": true,
-            "schedule": ["before 3am on Monday"],
-            "labels": ["digest"]
-          }
-    ],
-    "vulnerabilityAlerts": {
-        "groupName": "Vulnerability Patches",
-        "dependencyDashboardApproval": false,
-        "stabilityDays": 0,
-        "rangeStrategy": "update-lockfile",
-        "commitMessagePrefix": "[SECURITY]",
-        "branchTopic": "{{{datasource}}}-{{{depName}}}-vulnerability",
-        "prCreation": "immediate",
-        "prPriority": 2
-    }
+        "config:base",
+        "schedule:daily",
+        ":pinAllExceptPeerDependencies",
+        ":automergeAll",
+        "npm:unpublishSafe",
+        "group:all"
+    ]
 }
