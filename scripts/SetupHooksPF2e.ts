@@ -12,7 +12,6 @@ import {
 import StatManager from "./StatManager";
 import { CombatDetailType, ChatType } from "./enums";
 import Stat from "./stats/Stat";
-import Logger from "./Helpers/Logger";
 import PF2e from "./parsers/PF2e";
 
 export default class SetupHooksPF2e {

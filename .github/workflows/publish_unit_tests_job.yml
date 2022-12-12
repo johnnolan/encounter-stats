@@ -27,7 +27,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: eslint_report
-          path: eslint_report.json
+          path: .
 
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
@@ -43,14 +43,8 @@ jobs:
           min-line-coverage: 50
           min-method-coverage: 50
 
-      # - name: Annotate Code Linting Results
-      #   uses: ataylorme/eslint-annotate-action@v2
-      #   with:
-      #     repo-token: "${{ secrets.GITHUB_TOKEN }}"
-      #     report-json: "eslint_report.json"
-
-      # - name: Upload ESLint report
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: eslint_report.json
-      #     path: eslint_report.json
+      - name: Annotate Code Linting Results
+        uses: ataylorme/eslint-annotate-action@v2
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          report-json: "eslint_report.json"
