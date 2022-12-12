@@ -5,7 +5,6 @@ jobs:
   publish_unit_tests:
     name: Publish Unit Tests
     runs-on: ubuntu-latest
-    if: ${{ github.actor != 'dependabot[bot]' }}
 
     steps:
       - name: Download Junit Artifact
