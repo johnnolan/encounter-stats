@@ -30,6 +30,7 @@ class CampaignRenderer {
     // Get unique EventIds
     const eventIds = []
       .concat(
+        // eslint-disable-next-line no-unsafe-optional-chaining
         ...statList?.map((m) =>
           m.data.map((im) => {
             return im.EventName;
@@ -197,6 +198,7 @@ class CampaignRenderer {
 
     const flattenedResults = []
       .concat(
+        // eslint-disable-next-line no-unsafe-optional-chaining
         ...statList?.map((m) =>
           m.data?.map((im) => {
             return im?.actorName;

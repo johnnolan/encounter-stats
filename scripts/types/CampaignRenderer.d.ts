@@ -7,7 +7,7 @@ interface CampaignRender {
   fumbleHistory: Array<CampaignRollRowData>;
   healsHistory: Array<CampaignRollRowData>;
   killsHistory: Array<CampaignRollRowData>;
-  rollstreak: Array<CampaignRollRowData>;
+  rollstreak: Array<CampaignRollRowData> | undefined;
   customEventHistory: Array<CampaignCustomData> | undefined;
 }
 
