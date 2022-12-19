@@ -2,7 +2,7 @@ name: "[Workflow] Release"
 
 on:
   release:
-    types: [published]
+    types: [released]
 
 jobs:
   create_changelog_commit:
