@@ -22,13 +22,6 @@ jobs:
         latest-version: ${{ github.event.release.tag_name }}
         release-notes: ${{ github.event.release.body }}
 
-    - name: Commit updated CHANGELOG
-      uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        branch: ${{ github.event.release.target_commitish }}
-        commit_message: Update CHANGELOG
-        file_pattern: CHANGELOG.md
-
     - name: Setup Node
       uses: actions/setup-node@v3
       with:
@@ -75,3 +68,10 @@ jobs:
         artifacts: './module.json, ./module.zip'
         body: ${{ github.event.release.body }}
         allowUpdates: true
+
+    - name: Commit updated CHANGELOG
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        branch: ${{ github.event.release.target_commitish }}
+        commit_message: Update CHANGELOG
+        file_pattern: CHANGELOG.md
