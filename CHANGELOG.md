@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.6.31 - 2022-12-21
+
+### Bug Fixes
+
+- Commit changelog after release
+
 ## 2.6.30 - 2022-12-21
 
 ### Refactor
