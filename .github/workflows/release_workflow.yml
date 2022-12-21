@@ -86,3 +86,4 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: './module.json, ./module.zip'
         body: ${{ github.event.release.body }}
+        allowUpdates: true
