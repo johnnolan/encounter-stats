@@ -1,23 +1,5 @@
 # Changelog
 
-## 2.6.26 - 2022-12-21
-
-### Bug Fixes
-
-- General Dependency updates
-
-## 2.6.25 - 2022-12-21
-
-### Bug Fixes
-
-- General Dependency updates
-
-## 2.6.24 - 2022-12-21
-
-### Features
-
-- Adds new changelog.md
-
 ## [2.6.22](https://github.com/johnnolan/encounter-stats/releases/tag/2.6.22)
 
 ### Features
