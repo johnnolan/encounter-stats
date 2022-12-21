@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.6.27 - 2022-12-21
+
+### Features
+
+- Adds new changelog.md to releases
+
 ## [2.6.22](https://github.com/johnnolan/encounter-stats/releases/tag/2.6.22)
 
 ### Features
