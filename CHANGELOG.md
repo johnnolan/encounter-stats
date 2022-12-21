@@ -1,29 +1,5 @@
 # Changelog
 
-## 2.6.31 - 2022-12-21
-
-### Bug Fixes
-
-- Commit changelog after release
-
-## 2.6.30 - 2022-12-21
-
-### Refactor
-
-- Simplify Release Workflow
-
-## 2.6.29 - 2022-12-21
-
-### Bug Fixes
-
-- Fix for latest CHANGELOG being in release
-
-## 2.6.28 - 2022-12-21
-
-### Bug Fixes
-
-- Add missing styles from release
-
 ## 2.6.27 - 2022-12-21
 
 ### Features
