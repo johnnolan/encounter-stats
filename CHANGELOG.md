@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.6.30 - 2022-12-21
+
+### Refactor
+
+- Simplify Release Workflow
+
 ## 2.6.29 - 2022-12-21
 
 ### Bug Fixes
