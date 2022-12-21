@@ -29,6 +29,13 @@ jobs:
         commit_message: Update CHANGELOG
         file_pattern: CHANGELOG.md
 
+    - name: Upload CHANGELOG.md Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: CHANGELOG
+        path: |
+          CHANGELOG.md
+
   create_tag_publish:
     name: Build assets and Publish to release
     runs-on: ubuntu-latest
@@ -59,6 +66,13 @@ jobs:
 
     - name: Build Module
       run: yarn run build
+
+    - name: Download CHANGELOG.md Artifact
+      id: changelog_artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: CHANGELOG
+        path: CHANGELOG.md
     
     # Substitute the Manifest and Download URLs in the module.json
     - name: Substitute Manifest and Download Links For Versioned Ones
