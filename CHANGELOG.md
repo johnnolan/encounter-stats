@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.6.25 - 2022-12-21
+
+### Bug Fixes
+
+- General Dependency updates
+
 ## 2.6.24 - 2022-12-21
 
 ### Features
