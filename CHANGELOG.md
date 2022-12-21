@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.6.28 - 2022-12-21
+
+### Bug Fixes
+
+- Add missing styles from release
+
 ## 2.6.27 - 2022-12-21
 
 ### Features
