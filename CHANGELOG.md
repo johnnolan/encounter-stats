@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.6.29 - 2022-12-21
+
+### Bug Fixes
+
+- Fix for latest CHANGELOG being in release
+
 ## 2.6.28 - 2022-12-21
 
 ### Bug Fixes
