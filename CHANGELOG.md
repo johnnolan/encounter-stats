@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.6.24 - 2022-12-21
+
+### Features
+
+- Adds new changelog.md
+
 ## [2.6.22](https://github.com/johnnolan/encounter-stats/releases/tag/2.6.22)
 
 ### Features
@@ -23,13 +29,13 @@
 
 ### Bug Fixes
 
--  Fix for custom criticals tracked in combat
+- Fix for custom criticals tracked in combat
 
 ## [2.4.8](https://github.com/johnnolan/encounter-stats/releases/tag/2.4.8)
 
 ### Features
 
--  Translated using Weblate (Spanish)
+- Translated using Weblate (Spanish)
 
 ## [2.4.7](https://github.com/johnnolan/encounter-stats/releases/tag/2.4.7)
 
