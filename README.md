@@ -5,7 +5,7 @@
 ![GitHub package.json version](https://img.shields.io/github/release/johnnolan/encounter-stats)
 ![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fencounter-stats&colorB=4aa94a)
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/johnnolan/encounter-stats/%5BWorkflow%5D%20Main)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/johnnolan/encounter-stats/main_workflow.yml?branch=main)
 [![license](https://img.shields.io/badge/license-MIT-blue)](https://github.com/johnnolan/encounter-stats/blob/main/LICENSE)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=johnnolan_encounter-stats&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=johnnolan_encounter-stats)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=johnnolan_encounter-stats&metric=coverage)](https://sonarcloud.io/summary/new_code?id=johnnolan_encounter-stats)
