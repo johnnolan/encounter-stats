@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.6.33 - 2023-01-09
+
+### Translation
+
+- Translated using Weblate (German) by @SirMotte
+
 ## 2.6.32 - 2022-12-21
 
 ### Refactor
