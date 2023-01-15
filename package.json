@@ -29,7 +29,7 @@
     "@typhonjs-fvtt/eslint-config-foundry.js": "0.8.0",
     "babel-jest": "29.3.1",
     "dayjs": "1.11.7",
-    "esbuild": "0.16.16",
+    "esbuild": "0.16.17",
     "esbuild-sass-plugin": "2.4.5",
     "eslint": "8.31.0",
     "eslint-config-prettier": "8.6.0",
@@ -39,7 +39,7 @@
     "jest-junit": "15.0.0",
     "prettier": "2.8.2",
     "sass": "1.57.1",
-    "ts-jest": "29.0.3",
+    "ts-jest": "29.0.4",
     "typescript": "4.9.4"
   },
   "jest-junit": {
