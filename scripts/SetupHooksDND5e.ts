@@ -81,19 +81,18 @@ export default class SetupHooksDND5e {
         window.Hooks.on(
           "rsr5e.rollProcessed",
           async function (workflow: ReadySetRollWorkflow) {
-            if (workflow.fields.length === 5) {
-              const rollCheck = ReadySetRoll.RollCheck(workflow);
-              const readySetRollWorkflow = ReadySetRoll.ParseWorkflow(workflow);
-              OnEncounterWorkflowComplete(readySetRollWorkflow, ChatType.RSR);
-              OnTrackDice(rollCheck);
+            const rollData = ReadySetRoll.ParseRollData(workflow);
+            const rollCheck = ReadySetRoll.RollCheck(workflow);
+            const readySetRollWorkflow = ReadySetRoll.ParseWorkflow(workflow);
+            OnEncounterWorkflowComplete(readySetRollWorkflow, ChatType.RSR);
+            OnTrackDice(rollCheck);
 
-              if (rollCheck && readySetRollWorkflow) {
-                OnTrackRollStreak(
-                  readySetRollWorkflow.diceTotal,
-                  rollCheck.name,
-                  readySetRollWorkflow.actor.id
-                );
-              }
+            if (rollCheck && readySetRollWorkflow && rollData.attackData) {
+              OnTrackRollStreak(
+                readySetRollWorkflow.diceTotal,
+                rollCheck.name,
+                readySetRollWorkflow.actor.id
+              );
             }
           }
         );

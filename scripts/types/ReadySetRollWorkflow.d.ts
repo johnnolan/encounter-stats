@@ -64,3 +64,8 @@ interface ReadySetRollEventItem {
     actionType: string;
   };
 }
+
+interface ReadySetRollRollData {
+  attackData: unknown;
+  damageData: unknown;
+}

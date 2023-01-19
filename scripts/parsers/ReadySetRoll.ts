@@ -3,6 +3,16 @@ import { CombatDetailType } from "../enums";
 import Logger from "../Helpers/Logger";
 
 class ReadySetRoll {
+  static ParseRollData(workflow: ReadySetRollWorkflow): ReadySetRollRollData {
+    const attackData = workflow.fields.find((f) => f[0] === "attack");
+    const damageData = workflow.fields.find((f) => f[0] === "damage");
+
+    return {
+      attackData: attackData,
+      damageData: damageData,
+    };
+  }
+
   static ParseWorkflow(workflow: ReadySetRollWorkflow): EncounterWorkflow {
     const enemiesHit: Array<EnemyHit> = []; /*workflow.targets.map(
       (m) =>
@@ -12,8 +22,7 @@ class ReadySetRoll {
         }
     );*/
 
-    const attackData = workflow.fields.find((f) => f[0] === "attack");
-    const damageData = workflow.fields.find((f) => f[0] === "damage");
+    const rollData = this.ParseRollData(workflow);
 
     return <EncounterWorkflow>{
       id: workflow.messageId,
@@ -28,15 +37,19 @@ class ReadySetRoll {
         img: workflow.item.img,
       },
       actionType: workflow.item.system.actionType,
-      damageTotal: damageData ? damageData[1].baseRoll?.total : 0,
-      attackTotal: attackData ? attackData[1].roll?.total : 0,
+      damageTotal: rollData.damageData
+        ? rollData.damageData[1].baseRoll?.total
+        : 0,
+      attackTotal: rollData.attackData ? rollData.attackData[1].roll?.total : 0,
       advantage: workflow.params.hasAdvantage,
       disadvantage: workflow.params.hasDisadvantage,
       isCritical: workflow.params.isCrit,
       isFumble: workflow.params.isFumble,
       enemyHit: enemiesHit,
       type: CombatDetailType.ReadySetRoll,
-      diceTotal: attackData ? attackData[1].roll?.total : undefined,
+      diceTotal: rollData.attackData
+        ? rollData.attackData[1].roll?.total
+        : undefined,
     };
   }
 
