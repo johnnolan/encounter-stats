@@ -1,7 +1,21 @@
 import Logger from "../Helpers/Logger";
+import StatManager from "../StatManager";
 import Stat from "./Stat";
 
 export default class ReadySetRollStat extends Stat {
+  async UpdateDamageForLastAttack(tokenId: string, damage: number) {
+    const stat = new Stat();
+    stat.encounter = await StatManager.GetStat();
+    const combatantStat = stat.GetCombatantStatsByTokenId(tokenId);
+    if (combatantStat.events.length > 0) {
+      const lastStat = combatantStat.events[combatantStat.events.length - 1];
+      const lastDamageValue = lastStat.damageMultipleEnemiesTotal ?? 0;
+      lastStat.damageMultipleEnemiesTotal = lastDamageValue + damage;
+    }
+
+    await stat.Save();
+  }
+
   AddAttack(workflow: EncounterWorkflow) {
     if (!workflow?.actor?.id) {
       Logger.error(`No Actor ID in encounter`, "rsr5e.rollProcessed", workflow);

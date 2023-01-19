@@ -16,6 +16,7 @@ import MidiQol from "./parsers/MidiQol";
 import { CombatDetailType, ChatType } from "./enums";
 import Stat from "./stats/Stat";
 import ReadySetRoll from "./parsers/ReadySetRoll";
+import ReadySetRollStat from "./stats/ReadySetRollStat";
 
 export default class SetupHooksDND5e {
   static SOCKET_NAME = "module.encounter-stats";
@@ -52,8 +53,8 @@ export default class SetupHooksDND5e {
 
       window.Hooks.on(
         "updateToken",
-        async function (actor: Actor, diff: unknown) {
-          await SetupHooksDND5e.updateActorToken(actor, diff);
+        async function (actor: Actor, diff: unknown, diffResult: unknown) {
+          await SetupHooksDND5e.updateActorToken(actor, diff, diffResult);
         }
       );
 
@@ -116,10 +117,10 @@ export default class SetupHooksDND5e {
       );
       window.Hooks.on(
         "updateToken",
-        async function (actor: Actor, diff: unknown) {
+        async function (actor: Actor, diff: unknown, diffResult: unknown) {
           game.socket?.emit(SetupHooksDND5e.SOCKET_NAME, {
             event: "updateToken",
-            data: { data: actor, diff: diff },
+            data: { data: actor, diff: diff, diffResult: diffResult },
           });
         }
       );
@@ -350,7 +351,11 @@ export default class SetupHooksDND5e {
     );
   }
 
-  static async updateActorToken(actor: Actor, diff: unknown) {
+  static async updateActorToken(
+    actor: Actor,
+    diff: unknown,
+    diffResult: unknown = undefined
+  ) {
     if (StatManager.IsInCombat()) {
       if (
         actor.name &&
@@ -359,6 +364,20 @@ export default class SetupHooksDND5e {
         game.combat?.current?.tokenId
       ) {
         OnTrackKill(actor.name, game.combat.current.tokenId);
+      }
+      if (
+        actor.name &&
+        game.modules.get("ready-set-roll-5e")?.active &&
+        !actor.hasPlayerOwner &&
+        diffResult &&
+        diffResult.dhp < 0 &&
+        game.combat?.current?.tokenId
+      ) {
+        const r = new ReadySetRollStat();
+        await r.UpdateDamageForLastAttack(game.combat?.current?.tokenId, diffResult.dhp);
+        // TODO: Update current combat tokens last attack with dhp
+        // What about multiple? Set property to say multiple, if is false, 0 then add each after?
+        //OnTrackKill(actor.name, game.combat.current.tokenId);
       }
     }
     if (
