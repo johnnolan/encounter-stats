@@ -3,6 +3,7 @@ export enum CombatDetailType {
   Attack = "attack",
   ItemCard = "itemCard",
   MidiQol = "midiqol",
+  ReadySetRoll = "readysetroll",
   None = "none",
 }
 
@@ -41,4 +42,5 @@ export enum ChatType {
   DND5e = 1,
   MidiQol = 2,
   PF2e = 3,
+  RSR = 4,
 }

@@ -15,6 +15,7 @@ import DND5e from "./parsers/DND5e";
 import MidiQol from "./parsers/MidiQol";
 import { CombatDetailType, ChatType } from "./enums";
 import Stat from "./stats/Stat";
+import ReadySetRoll from "./parsers/ReadySetRoll";
 
 export default class SetupHooksDND5e {
   static SOCKET_NAME = "module.encounter-stats";
@@ -76,6 +77,28 @@ export default class SetupHooksDND5e {
         );
       }
 
+      if (game.modules.get("ready-set-roll-5e")?.active) {
+        window.Hooks.on(
+          "rsr5e.rollProcessed",
+          async function (workflow: ReadySetRollWorkflow) {
+            if (workflow.fields.length === 5) {
+              const rollCheck = ReadySetRoll.RollCheck(workflow);
+              const readySetRollWorkflow = ReadySetRoll.ParseWorkflow(workflow);
+              OnEncounterWorkflowComplete(readySetRollWorkflow, ChatType.RSR);
+              OnTrackDice(rollCheck);
+
+              if (rollCheck && readySetRollWorkflow) {
+                OnTrackRollStreak(
+                  readySetRollWorkflow.diceTotal,
+                  rollCheck.name,
+                  readySetRollWorkflow.actor.id
+                );
+              }
+            }
+          }
+        );
+      }
+
       Hooks.on(
         "encounter-stats.customEvent",
         async function (customEvent: HookCustomEvent) {
@@ -116,8 +139,26 @@ export default class SetupHooksDND5e {
         );
       }
 
+      if (game.modules.get("ready-set-roll-5e")?.active) {
+        window.Hooks.on(
+          "rsr5e.rollProcessed",
+          async function (workflow: ReadySetRollWorkflow) {
+            game.socket?.emit(SetupHooksDND5e.SOCKET_NAME, {
+              event: "rsr5e.rollProcessed",
+              data: {
+                workflow: ReadySetRoll.ParseWorkflow(workflow),
+                rollCheck: ReadySetRoll.RollCheck(workflow),
+              },
+            });
+          }
+        );
+      }
+
       window.Hooks.on("dnd5e.useItem", async function (item: Item) {
-        if (!game.modules.get("midi-qol")?.active) {
+        if (
+          !game.modules.get("midi-qol")?.active &&
+          !game.modules.get("ready-set-roll-5e")?.active
+        ) {
           game.socket?.emit(SetupHooksDND5e.SOCKET_NAME, {
             event: "dnd5e.useItem",
             data: {
@@ -136,7 +177,10 @@ export default class SetupHooksDND5e {
       window.Hooks.on(
         "dnd5e.rollAttack",
         async function (item: Item5e, roll: Roll) {
-          if (!game.modules.get("midi-qol")?.active) {
+          if (
+            !game.modules.get("midi-qol")?.active &&
+            !game.modules.get("ready-set-roll-5e")?.active
+          ) {
             game.socket?.emit(SetupHooksDND5e.SOCKET_NAME, {
               event: "dnd5e.rollAttack",
               data: {
@@ -156,7 +200,10 @@ export default class SetupHooksDND5e {
       window.Hooks.on(
         "dnd5e.rollDamage",
         async function (item: Item5e, roll: Roll) {
-          if (!game.modules.get("midi-qol")?.active) {
+          if (
+            !game.modules.get("midi-qol")?.active &&
+            !game.modules.get("ready-set-roll-5e")?.active
+          ) {
             game.socket?.emit(SetupHooksDND5e.SOCKET_NAME, {
               event: "dnd5e.rollDamage",
               data: {
@@ -245,6 +292,15 @@ export default class SetupHooksDND5e {
         switch (payload.event) {
           case "encounter-stats.customEvent":
             OnCustomEvent(payload.data.customEvent);
+            break;
+          case "rsr5e.rollProcessed":
+            OnEncounterWorkflowComplete(payload.data.workflow, ChatType.RSR);
+            OnTrackDice(payload.data.rollCheck);
+            OnTrackRollStreak(
+              payload.data.workflow.diceTotal,
+              payload.data.rollCheck.name,
+              payload.data.workflow.actor.id
+            );
             break;
           case "midi-qol.RollComplete":
             OnEncounterWorkflowComplete(
