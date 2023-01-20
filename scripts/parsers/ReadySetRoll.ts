@@ -4,12 +4,16 @@ import Logger from "../Helpers/Logger";
 
 class ReadySetRoll {
   static ParseRollData(workflow: ReadySetRollWorkflow): ReadySetRollRollData {
+    //const regRollResult = /(\d+).*/g;
     const attackData = workflow.fields.find((f) => f[0] === "attack");
     const damageData = workflow.fields.find((f) => f[0] === "damage");
-
+    /*const rollResult = parseInt(
+      attackData[1].roll?.result.replace(regRollResult, "$1")
+    );*/
     return {
       attackData: attackData,
       damageData: damageData,
+      //rollResult: rollResult,
     };
   }
 
@@ -47,9 +51,7 @@ class ReadySetRoll {
       isFumble: workflow.params.isFumble,
       enemyHit: enemiesHit,
       type: CombatDetailType.ReadySetRoll,
-      diceTotal: rollData.attackData
-        ? rollData.attackData[1].roll?.total
-        : undefined,
+      diceTotal: undefined,
     };
   }
 
