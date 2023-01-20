@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.7.0 - 2023-01-20
+
+### Features
+
+Adds Ready Set Roll for D&D5e support. Current features not supported are
+
+- Does not track targeted enemies so saves and damage across multiple targets is not currently supported
+- D20 Attack rolls do not count towards dice sprees
+
 ## 2.6.33 - 2023-01-09
 
 ### Translation
