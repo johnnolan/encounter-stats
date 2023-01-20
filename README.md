@@ -25,10 +25,13 @@ Capture your Players attacks, damage, healing, dice rolls, custom events and mor
 
 ## Supported Modules
 
+Key points when using in conjunction with this module
+
 - MIDI-QOL
     - You must use targeting in order for this module to record your stats correctly
 - Ready Set Roll for D&D5e
     - Does not track targeted enemies so saves and damage across multiple targets is not currently supported
+    - Attack rolls do not count towards dice sprees
 
 ## Current features are
 
