@@ -4,27 +4,16 @@ import Logger from "../Helpers/Logger";
 
 class ReadySetRoll {
   static ParseRollData(workflow: ReadySetRollWorkflow): ReadySetRollRollData {
-    //const regRollResult = /(\d+).*/g;
     const attackData = workflow.fields.find((f) => f[0] === "attack");
     const damageData = workflow.fields.find((f) => f[0] === "damage");
-    /*const rollResult = parseInt(
-      attackData[1].roll?.result.replace(regRollResult, "$1")
-    );*/
     return {
       attackData: attackData,
       damageData: damageData,
-      //rollResult: rollResult,
     };
   }
 
   static ParseWorkflow(workflow: ReadySetRollWorkflow): EncounterWorkflow {
-    const enemiesHit: Array<EnemyHit> = []; /*workflow.targets.map(
-      (m) =>
-        <EnemyHit>{
-          tokenId: m.id,
-          name: m.sheet.actor.name,
-        }
-    );*/
+    const enemiesHit: Array<EnemyHit> = [];
 
     const rollData = this.ParseRollData(workflow);
 

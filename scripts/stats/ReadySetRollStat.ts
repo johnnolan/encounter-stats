@@ -1,8 +1,9 @@
 import Logger from "../Helpers/Logger";
+import StatManager from "../StatManager";
 import Stat from "./Stat";
 
 export default class ReadySetRollStat extends Stat {
-  /*async UpdateDamageForLastAttack(tokenId: string, damage: number) {
+  async UpdateDamageForLastAttack(tokenId: string, damage: number) {
     const stat = new Stat();
     stat.encounter = await StatManager.GetStat();
     const combatantStat = stat.GetCombatantStatsByTokenId(tokenId);
@@ -14,11 +15,8 @@ export default class ReadySetRollStat extends Stat {
       console.log("encstat after", lastStat.damageMultipleEnemiesTotal)
     }
 
-    // TODO:
-    // 1: Not updating multiple times, race condition of the events?
-
     await stat.Save();
-  }*/
+  }
 
   AddAttack(workflow: EncounterWorkflow) {
     if (!workflow?.actor?.id) {

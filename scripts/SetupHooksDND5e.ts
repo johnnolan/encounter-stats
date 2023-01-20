@@ -81,19 +81,10 @@ export default class SetupHooksDND5e {
         window.Hooks.on(
           "rsr5e.rollProcessed",
           async function (workflow: ReadySetRollWorkflow) {
-            //const rollData = ReadySetRoll.ParseRollData(workflow);
             const rollCheck = ReadySetRoll.RollCheck(workflow);
             const readySetRollWorkflow = ReadySetRoll.ParseWorkflow(workflow);
             OnEncounterWorkflowComplete(readySetRollWorkflow, ChatType.RSR);
             OnTrackDice(rollCheck);
-
-            /*if (rollCheck && readySetRollWorkflow && rollData.attackData) {
-              OnTrackRollStreak(
-                readySetRollWorkflow.diceTotal,
-                rollCheck.name,
-                readySetRollWorkflow.actor.id
-              );
-            }*/
           }
         );
       }
@@ -360,20 +351,6 @@ export default class SetupHooksDND5e {
       ) {
         OnTrackKill(actor.name, game.combat.current.tokenId);
       }
-      /*if (
-        actor.name &&
-        game.modules.get("ready-set-roll-5e")?.active &&
-        !actor.hasPlayerOwner &&
-        diffResult &&
-        diffResult.dhp < 0 &&
-        game.combat?.current?.tokenId
-      ) {
-        const r = new ReadySetRollStat();
-        await r.UpdateDamageForLastAttack(game.combat?.current?.tokenId, diffResult.dhp);
-        // TODO: Update current combat tokens last attack with dhp
-        // What about multiple? Set property to say multiple, if is false, 0 then add each after?
-        //OnTrackKill(actor.name, game.combat.current.tokenId);
-      }*/
     }
     if (
       diff.system?.attributes?.hp &&
