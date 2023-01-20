@@ -1,5 +1,4 @@
 import Logger from "../Helpers/Logger";
-import StatManager from "../StatManager";
 import Stat from "./Stat";
 
 export default class ReadySetRollStat extends Stat {

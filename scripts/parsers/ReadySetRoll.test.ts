@@ -350,7 +350,7 @@ describe("ReadySetRoll", () => {
           isFumble: false,
           disadvantage: false,
           attackTotal: 12,
-          diceTotal: 12,
+          diceTotal: undefined,
           damageTotal: 21,
           item: {
             id: "itemId",

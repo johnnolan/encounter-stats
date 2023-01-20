@@ -350,11 +350,7 @@ export default class SetupHooksDND5e {
     );
   }
 
-  static async updateActorToken(
-    actor: Actor,
-    diff: unknown,
-    diffResult: unknown = undefined
-  ) {
+  static async updateActorToken(actor: Actor, diff: unknown) {
     if (StatManager.IsInCombat()) {
       if (
         actor.name &&
