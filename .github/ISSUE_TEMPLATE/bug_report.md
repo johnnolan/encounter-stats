@@ -11,7 +11,16 @@ assignees: johnnolan
 A clear and concise description of what the bug is.
 
 **What version of FoundryVTT are you using?**
-Version 0.8.7? 0.7.9?
+Foundry Version: 
+
+**What version of dnd5e are you using?**
+DND5e Version: 
+
+**What roll module are you using?**
+
+- [ ] None
+- [ ] Midi-QOL
+- [ ] Ready Set Roll for DND5e
 
 **To Reproduce**
 Steps to reproduce the behavior:
@@ -20,8 +29,8 @@ Steps to reproduce the behavior:
 3. Scroll down to '....'
 4. See error
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+**Screenshot any console errors**
+A screenshot of any console errors if there are any
 
 **Screenshots**
 Please add a screenshot of your chat log and the report with the problem. This helps us identify your setup correctly 

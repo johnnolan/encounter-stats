@@ -21,13 +21,20 @@ Capture your Players attacks, damage, healing, dice rolls, custom events and mor
 ## Supported Systems
 
 * `dnd5e`
-* `pf2e` (**ALPHA** - please do not submit bug tickets yet, once in BETA I would love your feedback! See the issues on github tagged [PF2e](https://github.com/johnnolan/encounter-stats/labels/pf2e) for upcoming work)
+* `pf2e` (**ALPHA** - See the issues on github tagged [PF2e](https://github.com/johnnolan/encounter-stats/labels/pf2e) for upcoming work)
 
-**NOTE FOR MIDI-QOL USERS: You must use targeting in order for this module to record your stats correctly**
+## Supported Modules
+
+Key points when using in conjunction with this module
+
+- MIDI-QOL
+    - You must use targeting in order for this module to record your stats correctly
+- Ready Set Roll for D&D5e
+    - Does not track targeted enemies so saves and damage across multiple targets is not currently supported
+    - Attack rolls do not count towards dice sprees
 
 ## Current features are
 
-* Works with standard roles and `midi-qol`
 * [Track your own custom campaign events via Macros](#track-your-own-custom-campaign-events)
 * Enemies must be targetted in order for kills to be registered
     * Multiple targets will show roll damage and roll damage x targets
@@ -103,10 +110,6 @@ Hooks.callAll(`encounter-stats.customEvent`, {
 In the campaign report, the results look like so
 
 [![Example Custom Campaign Report](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/custom-events.jpg)](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/custom-events.jpg)
-
-## Dependencies
-
-* `dnd5e` game system
 
 ## Contributing
 
