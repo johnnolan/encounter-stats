@@ -286,11 +286,6 @@ export default class SetupHooksDND5e {
           case "rsr5e.rollProcessed":
             OnEncounterWorkflowComplete(payload.data.workflow, ChatType.RSR);
             OnTrackDice(payload.data.rollCheck);
-            OnTrackRollStreak(
-              payload.data.workflow.diceTotal,
-              payload.data.rollCheck.name,
-              payload.data.workflow.actor.id
-            );
             break;
           case "midi-qol.RollComplete":
             OnEncounterWorkflowComplete(
