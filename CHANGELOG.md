@@ -1,5 +1,22 @@
 # Changelog
 
+## 2.8.0 - 2023-01-26
+
+### Features
+
+#### Party Encounter Statistics
+
+Now tracks the following in individual encounter reports and stores the history in Campaign Statistics. Aims to aid with encounter design.
+
+- Damage for encounter
+- Average damage per Round
+- Lowest round of damage
+- Highest round of damage
+
+#### Print Journals to PDF for sharing and saving offline
+
+Provided by my new module [Export Journal to HTML](https://foundryvtt.com/packages/export-journal-html).
+
 ## 2.7.0 - 2023-01-20
 
 ### Features
