@@ -9,6 +9,7 @@ interface CampaignRender {
   killsHistory: Array<CampaignRollRowData>;
   rollstreak: Array<CampaignRollRowData> | undefined;
   customEventHistory: Array<CampaignCustomData> | undefined;
+  partySummary: Array<CampaignPartyEncounterStats> | undefined;
 }
 
 interface CampaignCustomData {

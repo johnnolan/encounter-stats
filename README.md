@@ -80,12 +80,19 @@ Key points when using in conjunction with this module
 
 #### Campaign Stats
 
+- Party Encounter Statistics - aids with encounter design
+    - Damage for encounter
+    - Average damage per Round
+    - Lowest round of damage
+    - Highest round of damage
 - Natural 1s
 - Natural 20s
 - Kills
 - Heals
 - Dice Roll Streaks
 - Your own custom events!
+
+[![Party Summary Campaign](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/party-summary-campaign.jpg)](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/party-summary-campaign.jpg)
 
 [![Example Campaign](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example-campaign.jpg)](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example-campaign.jpg)
 

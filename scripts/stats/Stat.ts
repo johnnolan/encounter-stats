@@ -526,18 +526,18 @@ export default class Stat {
     }
 
     this._setPartySummary({
-      averageDamagePerRound: averageDamagePerRound,
-      lowestDamagePerRound: lowestDamagePerRound,
-      highestDamagePerRound: highestDamagePerRound,
-      totalDamage: totalDamage,
+      averageDamagePerRound: Math.round(averageDamagePerRound),
+      lowestDamagePerRound: Math.round(lowestDamagePerRound),
+      highestDamagePerRound: Math.round(highestDamagePerRound),
+      totalDamage: Math.round(totalDamage),
       totalDamagePerRound: totalDamagePerRound,
     });
 
     return {
-      averageDamagePerRound: averageDamagePerRound,
-      lowestDamagePerRound: lowestDamagePerRound,
-      highestDamagePerRound: highestDamagePerRound,
-      totalDamage: totalDamage,
+      averageDamagePerRound: Math.round(averageDamagePerRound),
+      lowestDamagePerRound: Math.round(lowestDamagePerRound),
+      highestDamagePerRound: Math.round(highestDamagePerRound),
+      totalDamage: Math.round(totalDamage),
       totalDamagePerRound: totalDamagePerRound,
     };
   }

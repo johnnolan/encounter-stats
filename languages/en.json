@@ -75,6 +75,7 @@
     "EncounterStats.template.party_total_damage": "Damage for encounter",
     "EncounterStats.template.party_lowest_damage_round": "Lowest round of damage",
     "EncounterStats.template.party_highest_damage_round": "Highest round of damage",
+    "EncounterStats.template.date": "Date",
     "EncounterStats.actiontypes.heal": "Heal",
     "EncounterStats.actiontypes.msak": "Melee Spell Attack",
     "EncounterStats.actiontypes.rsak": "Ranged Spell Attack",

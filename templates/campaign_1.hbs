@@ -1,5 +1,34 @@
 <div class="fvtt-enc-stats_top fvtt-enc-stats_campaign_top">
   <div class="flexrow">
+      <h2 class="fvtt-enc-stats_enemies">{{localize "EncounterStats.template.party_section_title"}}</h2>
+  </div>
+  <div class="flexrow">
+      <table>
+          <thead>
+            <tr>
+              <td>{{localize "EncounterStats.template.date"}}</td>
+              <td>{{localize "EncounterStats.template.party_average_damage_round"}}</td>
+              <td>{{localize "EncounterStats.template.party_lowest_damage_round"}}</td>
+              <td>{{localize "EncounterStats.template.party_highest_damage_round"}}</td>
+              <td>{{localize "EncounterStats.template.party_total_damage"}}</td>
+            </tr>
+        </thead>
+        <tbody>
+          {{#each partySummary}}
+            <tr>
+              <td>{{date}}</td>
+              <td>{{averageDamagePerRound}}</td>
+              <td>{{lowestDamagePerRound}}</td>
+              <td>{{highestDamagePerRound}}</td>
+              <td>{{totalDamage}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+  </div>
+</div>
+<div class="fvtt-enc-stats_top fvtt-enc-stats_campaign_top">
+  <div class="flexrow">
     <div class="fvtt-enc-stats_actor_stat">
       <h2 class="fvtt-enc-stats_enemies">{{localize "EncounterStats.template.MostNatural20s"}}</h2>
       <ol class="fvtt-enc-stats_campaign_ol">

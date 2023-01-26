@@ -3,7 +3,7 @@ import CampaignStat from "../CampaignStat";
 class Gamemaster {
   static readonly FLAG_SCOPE = "encounter-stats";
   static readonly FLAG_NAME = "campaign-stats";
-  static readonly DEFAULT_DATA = {
+  static readonly DEFAULT_DATA: CampaignStats = {
     kills: [],
     nat1: [],
     nat20: [],
@@ -11,6 +11,14 @@ class Gamemaster {
     custom: [],
     rollstreak: [],
     rollstreaklog: [],
+    partySummary: [],
+    partySummaryTotal: {
+      averageDamagePerRound: 0,
+      lowestDamagePerRound: 0,
+      highestDamagePerRound: 0,
+      totalDamage: 0,
+      totalDamagePerRound: [],
+    },
   };
 
   static get GetActor(): Actor {
