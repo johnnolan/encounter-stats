@@ -40,6 +40,13 @@ export default class Stat {
           mostBattlefieldActions: ",",
         },
         templateHealthCheck: [],
+        partySummary: {
+          averageDamagePerRound: 0,
+          lowestDamagePerRound: 0,
+          highestDamagePerRound: 0,
+          totalDamage: 0,
+          totalDamagePerRound: [],
+        },
       };
     }
   }
@@ -237,11 +244,16 @@ export default class Stat {
     if (!this._encounter?.combatants) return;
     this.GenerateCombatantStats();
     this.GetTopStats();
+    this._partySummary(this._encounter);
     await StatManager.SaveStat(this._encounter);
   }
 
   private SetTopEncounter(top: EncounterTop) {
     this._encounter.top = top;
+  }
+
+  private _setPartySummary(partyStats: PartyEncounterStats) {
+    this._encounter.partySummary = partyStats;
   }
 
   private GenerateCombatantStats(): void {
@@ -459,6 +471,75 @@ export default class Stat {
       mostSupportActions: `${mostSupportActions.name}<br />${mostSupportActions.total}`,
       mostBattlefieldActions: `${mostBattlefieldActions.name}<br />${mostBattlefieldActions.total}`,
     });
+  }
+
+  private _partySummary(encounter: Encounter): PartyEncounterStats | void {
+    if (encounter.combatants.length === 0) {
+      return;
+    }
+    const result = encounter.combatants
+      .filter((f) => f.type === "character")
+      .map((m) => {
+        return {
+          totals: m.roundSummary.totals,
+        };
+      })
+      .reduce((a, b) => {
+        return {
+          totals: a.totals?.concat(b.totals) ?? {},
+        };
+      });
+
+    let totalDamage = 0;
+    const totalDamagePerRound: Array<EncounterRoundTotal> = [];
+    if (result?.totals.length > 0) {
+      totalDamage =
+        result.totals.reduce((accu, item) => accu + item.damageTotal, 0) ?? 0;
+
+      result.totals.reduce(function (res, value) {
+        if (!res[value.round]) {
+          res[value.round] = { round: value.round, damageTotal: 0 };
+          totalDamagePerRound.push(res[value.round]);
+        }
+        res[value.round].damageTotal += value.damageTotal;
+        return res;
+      }, {});
+    }
+
+    let averageDamagePerRound = 0;
+    let lowestDamagePerRound = 0;
+    let highestDamagePerRound = 0;
+    if (totalDamagePerRound.length > 0) {
+      averageDamagePerRound = totalDamage / totalDamagePerRound.length;
+      lowestDamagePerRound =
+        totalDamagePerRound?.reduce(function (previousValue, currentValue) {
+          return currentValue.damageTotal < previousValue.damageTotal
+            ? currentValue
+            : previousValue;
+        }).damageTotal ?? 0;
+      highestDamagePerRound =
+        totalDamagePerRound?.reduce(function (previousValue, currentValue) {
+          return currentValue.damageTotal > previousValue.damageTotal
+            ? currentValue
+            : previousValue;
+        }).damageTotal ?? 0;
+    }
+
+    this._setPartySummary({
+      averageDamagePerRound: averageDamagePerRound,
+      lowestDamagePerRound: lowestDamagePerRound,
+      highestDamagePerRound: highestDamagePerRound,
+      totalDamage: totalDamage,
+      totalDamagePerRound: totalDamagePerRound,
+    });
+
+    return {
+      averageDamagePerRound: averageDamagePerRound,
+      lowestDamagePerRound: lowestDamagePerRound,
+      highestDamagePerRound: highestDamagePerRound,
+      totalDamage: totalDamage,
+      totalDamagePerRound: totalDamagePerRound,
+    };
   }
 
   private GroupBy(xs, key) {
