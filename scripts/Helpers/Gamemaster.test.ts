@@ -135,6 +135,8 @@ describe("Gamemaster", () => {
             nat20: [],
             heals: [],
             custom: [],
+            partySummary: [],
+            partySummaryTotal: {}
           });
         });
       });
