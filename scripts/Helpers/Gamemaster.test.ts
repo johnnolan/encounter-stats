@@ -84,6 +84,14 @@ describe("Gamemaster", () => {
             custom: [],
             rollstreak: [],
             rollstreaklog: [],
+            partySummary: [],
+            partySummaryTotal: {
+              averageDamagePerRound: 0,
+              lowestDamagePerRound: 0,
+              highestDamagePerRound: 0,
+              totalDamage: 0,
+              totalDamagePerRound: [],
+            }
           });
         });
       });
@@ -106,6 +114,8 @@ describe("Gamemaster", () => {
                   nat20: [],
                   heals: [],
                   custom: [],
+                  partySummary: [],
+                  partySummaryTotal: {}
                 }),
               },
             ],
