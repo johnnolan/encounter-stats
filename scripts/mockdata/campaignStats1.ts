@@ -250,5 +250,80 @@ export const campaignStats1: CampaignStat = {
               }
           ]
       }
-  ]
+  ],
+  "partySummary": [
+    {
+      "averageDamagePerRound": 29,
+      "lowestDamagePerRound": 22,
+      "highestDamagePerRound": 37,
+      "totalDamage": 86,
+      "totalDamagePerRound": [
+        {
+          "round": 1,
+          "damageTotal": 22
+        },
+        {
+          "round": 2,
+          "damageTotal": 27
+        },
+        {
+          "round": 3,
+          "damageTotal": 37
+        }
+      ],
+      "date": "26 January 2023 20:17",
+      "encounterId": "GrrOw8FO412BR7Lg"
+    },
+    {
+      "averageDamagePerRound": 31,
+      "lowestDamagePerRound": 15,
+      "highestDamagePerRound": 48,
+      "totalDamage": 124,
+      "totalDamagePerRound": [
+        {
+          "round": 1,
+          "damageTotal": 48
+        },
+        {
+          "round": 2,
+          "damageTotal": 20
+        },
+        {
+          "round": 3,
+          "damageTotal": 15
+        },
+        {
+          "round": 4,
+          "damageTotal": 41
+        }
+      ],
+      "date": "26 January 2023 20:19",
+      "encounterId": "4EzxpZN9fo1qZS22"
+    },
+    {
+      "averageDamagePerRound": 24,
+      "lowestDamagePerRound": 17,
+      "highestDamagePerRound": 30,
+      "totalDamage": 47,
+      "totalDamagePerRound": [
+        {
+          "round": 1,
+          "damageTotal": 17
+        },
+        {
+          "round": 2,
+          "damageTotal": 30
+        }
+      ],
+      "date": "26 January 2023 20:23",
+      "encounterId": "r3op9dfkTxLwJWDZ"
+    }
+  ],
+  "partySummaryTotal": {
+    "averageDamagePerRound": 0,
+    "lowestDamagePerRound": 0,
+    "highestDamagePerRound": 0,
+    "totalDamage": 0,
+    "totalDamagePerRound": []
+  }
 };

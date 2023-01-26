@@ -3,8 +3,9 @@ import Logger from "../Helpers/Logger";
 jest.mock("../StatManager");
 import StatManager from "../StatManager";
 import { actor, actorTwo, actorThree } from "../mockdata/actors";
-import { CombatDetailType } from "../enums";
-import { EncounterWorkflow } from "EncounterWorkflow";
+import { combatantStats } from "../mockdata/combatantStats";
+import { combatantStatsSingleCharacter } from "../mockdata/combatantStatsSingleCharacter";
+import { combatantStatsBlank } from "../mockdata/combatantStatsBlank";
 
 const mockLoggerLog = jest.fn();
 const mockLoggerWarn = jest.fn();
@@ -34,91 +35,65 @@ const encounter: Encounter = {
   templateHealthCheck: [],
 };
 
-const encounterMidiWorkflow: EncounterWorkflow = {
-  id: "d75gppsau45ypm2m",
-  actionType: "mwak",
-  actor: {
-    id: "eMyoELkOwFNPGEK8",
-  },
-  advantage: true,
-  isCritical: false,
-  isFumble: false,
-  disadvantage: false,
-  damageMultipleEnemiesTotal: 0,
-  workflowType: "test",
-  attackTotal: 12,
-  damageTotal: 20,
-  item: {
-    id: "itemId",
-    name: "Flame Tongue Greatsword",
-    link: "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
-    type: "sword",
-    img: "itemImageUrl",
-  },
-  enemyHit: [
-    {
-      name: "Acolyte",
-      tokenId: "tokenId",
-    },
-  ],
-  type: CombatDetailType.MidiQol,
-};
-
-const encounterMidiWorkflow2: EncounterWorkflow = {
-  id: "d75gppsau45ypm2b",
-  actionType: "mwak",
-  actor: {
-    id: "eMyoELkOwFNPGEK8",
-  },
-  advantage: true,
-  isCritical: false,
-  isFumble: false,
-  disadvantage: false,
-  damageMultipleEnemiesTotal: 0,
-  workflowType: "test",
-  attackTotal: 12,
-  damageTotal: 15,
-  item: {
-    id: "itemId",
-    name: "Flame Tongue Greatsword",
-    link: "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
-    type: "sword",
-    img: "itemImageUrl",
-  },
-  enemyHit: [
-    {
-      name: "Acolyte",
-      tokenId: "tokenId",
-    },
-  ],
-  type: CombatDetailType.MidiQol,
-};
-
-const encounterMidiWorkflowHeal: EncounterWorkflow = {
-  id: "d75gppsau45ypm2c",
-  actionType: "heal",
-  actor: {
-    id: "eMyoELkOwFNPGEK8",
-  },
-  advantage: true,
-  isCritical: false,
-  isFumble: false,
-  disadvantage: false,
-  damageMultipleEnemiesTotal: 0,
-  workflowType: "test",
-  attackTotal: 12,
-  damageTotal: 15,
-  item: {
-    id: "itemId",
-    name: "Flame Tongue Greatsword",
-    link: "@Compendium[dnd5e.items.WWb4vAmh18sMAxfY]{Flame Tongue Greatsword}",
-    type: "sword",
-    img: "itemImageUrl",
-  },
-  type: CombatDetailType.MidiQol,
-};
-
 describe("Stat", () => {
+  describe("If you get the correct party stats", () => {
+    test("it returns the correct values", () => {
+      const encounterId = "encounterId";
+      const stat = new Stat(encounterId);
+      const result = stat._partySummary(combatantStats);
+      expect(result).toStrictEqual({
+        averageDamagePerRound: 10,
+        lowestDamagePerRound: 4,
+        highestDamagePerRound: 16,
+        totalDamage: 20,
+        totalDamagePerRound: [
+          {
+            damageTotal: 4,
+            round: 1,
+          },
+          {
+            damageTotal: 16,
+            round: 2,
+          },
+        ],
+      });
+    });
+    test("it returns the correct values with one character", () => {
+      const encounterId = "encounterId";
+      const stat = new Stat(encounterId);
+      const result = stat._partySummary(combatantStatsSingleCharacter);
+      expect(result).toStrictEqual({
+        averageDamagePerRound: 5,
+        lowestDamagePerRound: 2,
+        highestDamagePerRound: 8,
+        totalDamage: 10,
+        totalDamagePerRound: [
+          {
+            damageTotal: 2,
+            round: 1,
+          },
+          {
+            damageTotal: 8,
+            round: 2,
+          },
+        ],
+      });
+    });
+    test("it returns the correct values if empty combat", () => {
+      const encounterId = "encounterId";
+      const stat = new Stat(encounterId);
+      const result = stat._partySummary(combatantStatsBlank);
+      expect(result).toBeUndefined();
+      expect(stat._encounter.partySummary).toStrictEqual({
+        averageDamagePerRound: 0,
+        lowestDamagePerRound: 0,
+        highestDamagePerRound: 0,
+        totalDamage: 0,
+        totalDamagePerRound: [],
+      });
+    });
+  });
+
   describe("If it is a new encounter", () => {
     let stat: Stat;
     const encounterId = "encounterId";
@@ -158,6 +133,13 @@ describe("Stat", () => {
           mostBattlefieldActions: ",",
         },
         templateHealthCheck: [],
+        partySummary: {
+          averageDamagePerRound: 0,
+          highestDamagePerRound: 0,
+          lowestDamagePerRound: 0,
+          totalDamage: 0,
+          totalDamagePerRound: [],
+        },
       });
     });
 

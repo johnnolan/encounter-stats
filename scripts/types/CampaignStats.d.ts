@@ -6,6 +6,13 @@ interface CampaignStats {
   rollstreak: Array<RollStreakTrack>;
   custom: Array<CampaignStat>;
   rollstreaklog: Array<RollStreakLog>;
+  partySummary: Array<CampaignPartyEncounterStats>;
+  partySummaryTotal: PartyEncounterStats;
+}
+
+interface CampaignPartyEncounterStats extends PartyEncounterStats {
+  encounterId: string;
+  date: string;
 }
 
 interface CampaignStat {

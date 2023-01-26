@@ -122,6 +122,43 @@
             </div>
         </div>
     </div>
+    <h1>{{localize "EncounterStats.template.party_section_title"}}</h1>
+    <div class="fvtt-enc-stats_top">
+        <div class="fvtt-enc-stats_actor_statlist flexrow">
+            <div class="fvtt-enc-stats_actor_stat">
+                <div class="fvtt-enc-stats_actor_stat-key">
+                    {{localize "EncounterStats.template.party_total_damage"}}
+                </div>
+                <div class="fvtt-enc-stats_actor_stat-value">
+                    <p>{{{partySummary.totalDamage}}}</p>
+                </div>
+            </div>
+            <div class="fvtt-enc-stats_actor_stat">
+                <div class="fvtt-enc-stats_actor_stat-key">
+                    {{localize "EncounterStats.template.party_average_damage_round"}}
+                </div>
+                <div class="fvtt-enc-stats_actor_stat-value">
+                    <p>{{{partySummary.averageDamagePerRound}}}</p>
+                </div>
+            </div>
+            <div class="fvtt-enc-stats_actor_stat">
+                <div class="fvtt-enc-stats_actor_stat-key">
+                    {{localize "EncounterStats.template.party_lowest_damage_round"}}
+                </div>
+                <div class="fvtt-enc-stats_actor_stat-value">
+                    <p>{{{partySummary.lowestDamagePerRound}}}</p>
+                </div>
+            </div>
+            <div class="fvtt-enc-stats_actor_stat">
+                <div class="fvtt-enc-stats_actor_stat-key">
+                    {{localize "EncounterStats.template.party_highest_damage_round"}}
+                </div>
+                <div class="fvtt-enc-stats_actor_stat-value">
+                    <p>{{{partySummary.highestDamagePerRound}}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <h1>{{localize "EncounterStats.template.Combatants"}}</h1>
     <div class="fvtt-enc-stats_combatants">

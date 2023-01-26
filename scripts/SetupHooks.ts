@@ -1,3 +1,4 @@
+import { OnDeleteCombat } from "./Handlers";
 import SetupHooksDND5e from "./SetupHooksDND5e";
 import SetupHooksPF2e from "./SetupHooksPF2e";
 
@@ -10,5 +11,9 @@ export default class SetupHooks {
     } else if (game.system.id === "pf2e") {
       SetupHooksPF2e.Setup();
     }
+
+    window.Hooks.on("preDeleteCombat", async function (_combat: Combat) {
+      OnDeleteCombat(_combat);
+    });
   }
 }

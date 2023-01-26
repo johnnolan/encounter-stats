@@ -13,6 +13,7 @@ class CampaignRenderer {
       killsHistory: await this.GenerateKillsRow(campaignStats.kills),
       rollstreak: await this.GenerateKillStreakRow(campaignStats.rollstreak),
       customEventHistory: await this.GenerateCustomEventRows(campaignStats),
+      partySummary: [...campaignStats.partySummary].reverse(),
     };
 
     const template_file = "./modules/encounter-stats/templates/campaign_1.hbs";

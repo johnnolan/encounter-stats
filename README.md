@@ -35,6 +35,9 @@ Key points when using in conjunction with this module
 
 ## Current features are
 
+* [Encounter/Combat tracking (Click for more details)](#encounter-tracking)
+* [Campaign tracking (Click for more details)](#campaign-stats)
+* Save Journal reports to PDF (Install [Export Journal to HTML](https://foundryvtt.com/packages/export-journal-html))
 * [Track your own custom campaign events via Macros](#track-your-own-custom-campaign-events)
 * Enemies must be targetted in order for kills to be registered
     * Multiple targets will show roll damage and roll damage x targets
@@ -54,6 +57,11 @@ Key points when using in conjunction with this module
 
 #### Encounter Tracking
 
+- Party Encounter Statistics - aids with encounter design
+    - Damage for encounter
+    - Average damage per Round
+    - Lowest round of damage
+    - Highest round of damage
 - Players attacks
 - Damage
 - HP
@@ -66,15 +74,25 @@ Key points when using in conjunction with this module
 - Times a user has been downed
 - Overview of Encounter including Scene details and enemies faced
 
+[![Party Summary](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/party-summary.jpg)](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/party-summary.jpg)
+
 [![Example](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example.jpg)](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example.jpg)
+
 #### Campaign Stats
 
+- Party Encounter Statistics - aids with encounter design
+    - Damage for encounter
+    - Average damage per Round
+    - Lowest round of damage
+    - Highest round of damage
 - Natural 1s
 - Natural 20s
 - Kills
 - Heals
 - Dice Roll Streaks
 - Your own custom events!
+
+[![Party Summary Campaign](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/party-summary-campaign.jpg)](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/party-summary-campaign.jpg)
 
 [![Example Campaign](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example-campaign.jpg)](https://raw.githubusercontent.com/johnnolan/encounter-stats/main/images/example-campaign.jpg)
 

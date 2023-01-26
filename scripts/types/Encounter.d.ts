@@ -6,6 +6,7 @@ interface Encounter {
   combatants: Array<EncounterCombatant>;
   top: EncounterTop;
   templateHealthCheck: Array<HealthCheck>;
+  partySummary: PartyEncounterStats;
 }
 
 interface EncounterTop {
@@ -17,6 +18,14 @@ interface EncounterTop {
   mostHealing: string;
   mostSupportActions: string;
   mostBattlefieldActions: string;
+}
+
+interface PartyEncounterStats {
+  averageDamagePerRound: number;
+  lowestDamagePerRound: number;
+  highestDamagePerRound: number;
+  totalDamage: number;
+  totalDamagePerRound: Array<RoundDamage>;
 }
 
 interface HealthCheck {

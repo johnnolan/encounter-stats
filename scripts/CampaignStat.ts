@@ -208,6 +208,25 @@ export default class CampaignStat {
     await this.Save(campaignStats);
   }
 
+  static async AddPartyEncounterStat(
+    partyStat: PartyEncounterStats,
+    encounterId: string
+  ) {
+    const campaignPartyEncounterStat: CampaignPartyEncounterStats = {
+      ...partyStat,
+      date: Dates.now.dateTimeDisplay,
+      encounterId,
+    };
+    const campaignStats = await this.Get();
+    if (!campaignStats.partySummary) {
+      campaignStats.partySummary = [];
+    }
+
+    campaignStats.partySummary.push(campaignPartyEncounterStat);
+
+    await this.Save(campaignStats);
+  }
+
   static async Get(): Promise<CampaignStats> {
     return Gamemaster.GetStats;
   }

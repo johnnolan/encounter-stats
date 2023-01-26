@@ -40,6 +40,21 @@ export async function OnTrackDiceRoll(
   }
 }
 
+export async function OnDeleteCombat(combat: Combat): Promise<void> {
+  if (!combat) {
+    Logger.log(`No combat`, "handlers.OnDeleteCombat", combat);
+    return;
+  }
+  if (!StatManager.IsInCombat()) return;
+  const stat = new Stat();
+  stat.encounter = await StatManager.GetStat();
+
+  CampaignStat.AddPartyEncounterStat(
+    stat.encounter.partySummary,
+    stat.encounter.encounterId ?? ""
+  );
+}
+
 export async function OnUpdateCombat(currentRound: number): Promise<void> {
   if (!currentRound) {
     Logger.log(`No new round`, "handlers.OnUpdateCombat", currentRound);
