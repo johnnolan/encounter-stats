@@ -8,6 +8,8 @@ import "../__mocks__/chat-message";
 const mockGamemasterGetStats = jest.spyOn(Gamemaster, "GetStats", "get");
 const mockGamemasterSetStats = jest.fn();
 Gamemaster.SetStats = mockGamemasterSetStats;
+const mock_sendRollStreakChatMessage = jest.fn();
+CampaignStat._sendRollStreakChatMessage = mock_sendRollStreakChatMessage;
 
 const mockEncounterJournalUpdateJournalData = jest.fn();
 EncounterJournal.UpdateJournalData = mockEncounterJournalUpdateJournalData;
@@ -62,6 +64,8 @@ describe("CampaignStat", () => {
       await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
       await CampaignStat.AddRollStreak(1, "Graa", "2ybHnw0DeYqwDPyV");
       expect(mockEncounterJournalUpdateJournalData).toBeCalled();
+      expect(mock_sendRollStreakChatMessage).toBeCalled();
+      expect(mock_sendRollStreakChatMessage).toBeCalledTimes(2);
       expect(mockGamemasterSetStats).toBeCalled();
       expect(mockGamemasterSetStats).toBeCalledWith({
         kills: [],
@@ -127,8 +131,11 @@ describe("CampaignStat", () => {
       await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
       await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
       await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
+      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
       await CampaignStat.AddRollStreak(1, "Graa", "2ybHnw0DeYqwDPyV");
       expect(mockEncounterJournalUpdateJournalData).toBeCalled();
+      expect(mock_sendRollStreakChatMessage).toBeCalled();
+      expect(mock_sendRollStreakChatMessage).toBeCalledTimes(6);
       expect(mockGamemasterSetStats).toBeCalled();
       expect(mockGamemasterSetStats).toBeCalledWith({
         kills: [],
@@ -149,7 +156,7 @@ describe("CampaignStat", () => {
             "actorName": "Graa",
             "dateDisplay": "01 January 2020",
             "roll": 9,
-            "total": 4
+            "total": 5
           }
         ],
         rollstreaklog: [
