@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.8.1 - 2023-01-27
+
+### Features
+
+- Show roll streak message after each increment instead of at the end of a streak
+
 ## 2.8.0 - 2023-01-26
 
 ### Features
