@@ -140,6 +140,14 @@ export default class CampaignStat {
       const actorStreakLog = campaignStats.rollstreaklog[logIndex].results;
       if (actorStreakLog.indexOf(result) > -1) {
         actorStreakLog.push(result);
+        if (
+          game.settings.get(
+            `${MODULE_ID}`,
+            `${OPT_SETTINGS_DICE_STREAK_TO_CHAT_ENABLE}`
+          )
+        ) {
+          this._sendRollStreakChatMessage(actorName, actorStreakLog);
+        }
       } else {
         if (actorStreakLog.length > 1) {
           // Save to streak length and result
@@ -150,29 +158,27 @@ export default class CampaignStat {
             roll: actorStreakLog[0],
             total: actorStreakLog.length,
           });
-
-          if (
-            game.settings.get(
-              `${MODULE_ID}`,
-              `${OPT_SETTINGS_DICE_STREAK_TO_CHAT_ENABLE}`
-            )
-          ) {
-            await Chat.Send(
-              `<h2>${Trans.Get(
-                "template.roll_streak"
-              )}!</h2><p>@Actor[${actorName}] ${Trans.Get(
-                "template.rolled_a"
-              )} [[${actorStreakLog[0]}]] <strong>${
-                actorStreakLog.length
-              }</strong> ${Trans.Get("template.times_in_a_row")}!</p>`
-            );
-          }
         }
         campaignStats.rollstreaklog[logIndex].results = [result]; // Reset to new number
       }
     }
 
     await this.Save(campaignStats);
+  }
+
+  static async _sendRollStreakChatMessage(
+    actorName: string,
+    actorStreakLog: number[]
+  ): Promise<void> {
+    await Chat.Send(
+      `<h2>${Trans.Get(
+        "template.roll_streak"
+      )}!</h2><p>@Actor[${actorName}] ${Trans.Get("template.rolled_a")} [[${
+        actorStreakLog[0]
+      }]] <strong>${actorStreakLog.length}</strong> ${Trans.Get(
+        "template.times_in_a_row"
+      )}!</p>`
+    );
   }
 
   static async AddCustomEvent(customEvent: HookCustomEvent) {
