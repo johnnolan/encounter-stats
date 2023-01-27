@@ -92,5 +92,11 @@
 	"EncounterStats.template.times_in_a_row": "fois d'affilée",
 	"EncounterStats.Settings.CampaignTrackingOptions": "Configurer les options de suivi de la campagne",
 	"EncounterStats.opt_enable_dice_streak_name": "Suivre les séquences de dés",
-	"EncounterStats.opt_enable_dice_streak_hint": "Suivre le nombre de fois qu'un joueur obtient le même résultat sur un D20."
+	"EncounterStats.opt_enable_dice_streak_hint": "Suivre le nombre de fois qu'un joueur obtient le même résultat sur un D20.",
+	"EncounterStats.template.party_section_title": "Statistiques du groupe",
+	"EncounterStats.template.party_average_damage_round": "Dégâts moyens par round",
+	"EncounterStats.template.party_total_damage": "Dégâts pour la rencontre",
+	"EncounterStats.template.party_lowest_damage_round": "Le round le plus faible en dégâts",
+	"EncounterStats.template.date": "Date",
+	"EncounterStats.template.party_highest_damage_round": "Le round le plus élevé en dégâts"
 }
