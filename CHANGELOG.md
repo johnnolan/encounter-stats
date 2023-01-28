@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.8.2 - 2023-01-28
+
+### Translation
+
+- Translated using Weblate (French)
+
 ## 2.8.1 - 2023-01-27
 
 ### Features
