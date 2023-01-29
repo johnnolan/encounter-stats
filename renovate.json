@@ -2,7 +2,7 @@
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "extends": [
         "config:base",
-        "schedule:weekends",
+        "schedule:daily",
         ":pinAllExceptPeerDependencies",
         ":automergeAll",
         "npm:unpublishSafe",
