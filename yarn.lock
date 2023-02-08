@@ -1810,15 +1810,10 @@
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.11.tgz#d421b6c527a3037f7c84433fd2c4229e016863d3"
   integrity sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==
 
-"@types/node@*":
+"@types/node@*", "@types/node@18.11.19":
   version "18.11.19"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.11.19.tgz#35e26df9ec441ab99d73e99e9aca82935eea216d"
   integrity sha512-YUgMWAQBWLObABqrvx8qKO1enAvBUdjZOAWQ5grBAkp5LQv45jBvYKZ3oFS9iKRCQyFjqw6iuEa1vmFqtxYLZw==
-
-"@types/node@18.11.18":
-  version "18.11.18"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.11.18.tgz#8dfb97f0da23c2293e554c5a50d61ef134d7697f"
-  integrity sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==
 
 "@types/prettier@^2.1.5":
   version "2.7.2"
@@ -2858,10 +2853,10 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.7.tgz#609f39207cb614b89d0765b477cb2d437fbf9787"
   integrity sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==
 
-foundryvtt-simple-calendar@2.1.73:
-  version "2.1.73"
-  resolved "https://registry.yarnpkg.com/foundryvtt-simple-calendar/-/foundryvtt-simple-calendar-2.1.73.tgz#4d12ec6280ba07c99d267923baaff0d61290194a"
-  integrity sha512-v9+B1g0/SNvPuKgPMjbdP++DIShCnjrXEjP6GOIYOaiJYbUdgC5oHScaWfQlRw+3jIY20xSOF34qDyBy0u4Smg==
+foundryvtt-simple-calendar@2.1.80:
+  version "2.1.80"
+  resolved "https://registry.yarnpkg.com/foundryvtt-simple-calendar/-/foundryvtt-simple-calendar-2.1.80.tgz#2e0d52fef9b9ac9b956244a3f615608b2d732955"
+  integrity sha512-LbrrDTslkZAHB252EuU01QZqrjiLv8L/jMp0QWKCWJGwCWWnys93UeKiBVQGrw6lKzLuGBDZ80sl7G8rNc2Y1w==
   dependencies:
     file-saver "^2.0.5"
 
