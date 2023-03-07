@@ -173,7 +173,7 @@ export default class CampaignStat {
     await Chat.Send(
       `<h2>${Trans.Get(
         "template.roll_streak"
-      )}!</h2><p>@Actor[${actorName}] ${Trans.Get("template.rolled_a")} [[${
+      )}!</h2><p>${actorName} ${Trans.Get("template.rolled_a")} [[${
         actorStreakLog[0]
       }]] <strong>${actorStreakLog.length}</strong> ${Trans.Get(
         "template.times_in_a_row"
