@@ -39,6 +39,7 @@ describe("Default", () => {
           actor: {
             id: HookDND5eUseItem.actor.id,
           },
+          tokenName: "Graa S'oua",
           item: {
             id: HookDND5eUseItem.id,
             name: "Fire Bolt",
@@ -70,6 +71,7 @@ describe("Default", () => {
           actor: {
             id: HookDND5e_rollAttack_item.actor.id,
           },
+          tokenName: "Graa S'oua",
           attackTotal: 20,
           diceTotal: undefined,
           advantage: true,
@@ -91,6 +93,7 @@ describe("Default", () => {
           actor: {
             id: HookDND5e_rollAttack_item.actor.id,
           },
+          tokenName: "Graa S'oua",
           attackTotal: 0,
           advantage: false,
           diceTotal: undefined,
