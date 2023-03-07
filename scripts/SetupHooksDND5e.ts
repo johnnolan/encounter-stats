@@ -326,7 +326,7 @@ export default class SetupHooksDND5e {
             );
             OnTrackRollStreak(
               payload.data.result,
-              payload.data.tokenName,
+              payload.data.tokenName ?? payload.data.actorName,
               payload.data.actorId
             );
             break;
