@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.8.4 - 2023-03-07
+
+### Bug Fixes
+
+- Show Token Name instead of Actor Name on Roll Streak messages to prevent hidden NPC names showing.
+
 ## 2.8.3 - 2023-03-03
 
 ### Versioning
