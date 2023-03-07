@@ -44,7 +44,7 @@ export default class SetupHooksPF2e {
               chatMessagePF2e.roll?.terms[0]?.results?.find(
                 (f) => f.active === true
               ).result ?? 0,
-              chatMessagePF2e.actor.name,
+              chatMessagePF2e.token.name,
               chatMessagePF2e.actor.id
             );
           }
@@ -69,7 +69,7 @@ export default class SetupHooksPF2e {
               chatMessagePF2e.roll?.terms[0]?.results?.find(
                 (f) => f.active === true
               ).result ?? 0,
-              chatMessagePF2e.actor.name,
+              chatMessagePF2e.token.name,
               chatMessagePF2e.actor.id
             );
           }

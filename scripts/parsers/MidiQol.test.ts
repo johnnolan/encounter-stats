@@ -6,6 +6,9 @@ const midiWorkflow: MidiQolWorkflow = {
   actor: {
     id: "5H4YnyD6zf9vcJ3P",
     type: "character",
+    prototypeToken: {
+      name: "Graa Token Name",
+    }
   },
   isCritical: false,
   isFumble: false,
@@ -333,6 +336,9 @@ describe("MidiQol", () => {
               id: "actorId",
               name: "Actor Name",
               type: "character",
+              prototypeToken: {
+                name: "Actor Name Token"
+              }
             }),
           },
         };
@@ -345,6 +351,7 @@ describe("MidiQol", () => {
           isFumble: false,
           flavor: "Flame Tongue Greatsword",
           name: "Actor Name",
+          tokenName: "Actor Name Token",
         });
       });
     });
