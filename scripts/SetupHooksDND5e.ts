@@ -70,7 +70,7 @@ export default class SetupHooksDND5e {
             if (rollCheck && midiWorkflow) {
               OnTrackRollStreak(
                 midiWorkflow.diceTotal,
-                rollCheck.name, // Token Name
+                rollCheck.tokenName ?? rollCheck.name,
                 midiWorkflow.actor.id
               );
             }
@@ -300,7 +300,7 @@ export default class SetupHooksDND5e {
             OnTrackDice(payload.data.rollCheck);
             OnTrackRollStreak(
               payload.data.workflow.diceTotal,
-              payload.data.rollCheck.name, // Token Name
+              payload.data.rollCheck.tokenName ?? payload.data.rollCheck.name,
               payload.data.workflow.actor.id
             );
             break;

@@ -67,6 +67,7 @@ class MidiQol {
         isFumble: workflow.isFumble,
         flavor: workflow.item.name,
         name: actor.name,
+        tokenName: actor.prototypeToken.name ?? actor.name,
       };
     }
   }
