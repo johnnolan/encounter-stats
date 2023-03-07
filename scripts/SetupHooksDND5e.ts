@@ -16,6 +16,7 @@ import MidiQol from "./parsers/MidiQol";
 import { CombatDetailType, ChatType } from "./enums";
 import Stat from "./stats/Stat";
 import ReadySetRoll from "./parsers/ReadySetRoll";
+import { EncounterWorkflow } from "EncounterWorkflow";
 
 export default class SetupHooksDND5e {
   static SOCKET_NAME = "module.encounter-stats";
@@ -69,7 +70,7 @@ export default class SetupHooksDND5e {
             if (rollCheck && midiWorkflow) {
               OnTrackRollStreak(
                 midiWorkflow.diceTotal,
-                rollCheck.name,
+                rollCheck.name, // Token Name
                 midiWorkflow.actor.id
               );
             }
@@ -222,6 +223,7 @@ export default class SetupHooksDND5e {
               alias: actor.name,
               actorId: actor.id,
               flavor: roll.options.flavor,
+              tokenName: actor.prototypeToken.name,
             },
           });
         }
@@ -239,6 +241,7 @@ export default class SetupHooksDND5e {
               alias: actor.name,
               actorId: actor.id,
               flavor: roll.options.flavor,
+              tokenName: actor.prototypeToken.name,
             },
           });
         }
@@ -256,6 +259,7 @@ export default class SetupHooksDND5e {
               alias: actor.name,
               actorId: actor.id,
               flavor: roll.options.flavor,
+              tokenName: actor.prototypeToken.name,
             },
           });
         }
@@ -279,6 +283,7 @@ export default class SetupHooksDND5e {
     game.socket?.on(
       SetupHooksDND5e.SOCKET_NAME,
       async function (payload: unknown) {
+        const encounterData = <EncounterWorkflow>payload.data.EncounterWorkflow;
         switch (payload.event) {
           case "encounter-stats.customEvent":
             OnCustomEvent(payload.data.customEvent);
@@ -295,27 +300,21 @@ export default class SetupHooksDND5e {
             OnTrackDice(payload.data.rollCheck);
             OnTrackRollStreak(
               payload.data.workflow.diceTotal,
-              payload.data.rollCheck.name,
+              payload.data.rollCheck.name, // Token Name
               payload.data.workflow.actor.id
             );
             break;
           case "dnd5e.rollAttack":
-            OnEncounterWorkflowComplete(
-              payload.data.EncounterWorkflow,
-              payload.data.ChatType
-            );
+            OnEncounterWorkflowComplete(encounterData, payload.data.ChatType);
             OnTrackRollStreak(
-              payload.data.EncounterWorkflow.diceTotal,
-              payload.data.EncounterWorkflow.actorName,
-              payload.data.EncounterWorkflow.actorId
+              encounterData.diceTotal,
+              encounterData.tokenName ?? encounterData.actor.actorName,
+              encounterData.actor.id
             );
             break;
           case "dnd5e.useItem":
           case "dnd5e.rollDamage":
-            OnEncounterWorkflowComplete(
-              payload.data.EncounterWorkflow,
-              payload.data.ChatType
-            );
+            OnEncounterWorkflowComplete(encounterData, payload.data.ChatType);
             break;
           case "dnd5e.rollAbilityTest":
           case "dnd5e.rollAbilitySave":
@@ -327,7 +326,7 @@ export default class SetupHooksDND5e {
             );
             OnTrackRollStreak(
               payload.data.result,
-              payload.data.alias,
+              payload.data.tokenName,
               payload.data.actorId
             );
             break;

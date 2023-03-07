@@ -39,6 +39,7 @@ export default class DND5e {
         actor: {
           id: actor.id,
         },
+        tokenName: actor.prototypeToken.name,
         attackTotal: roll?.total ?? 0,
         isFumble:
           roll?.terms[0]?.results?.find((f) => f.active === true).result === 1,
@@ -53,6 +54,7 @@ export default class DND5e {
         actor: {
           id: actor.id,
         },
+        tokenName: actor.prototypeToken.name,
         item: {
           id: item.id,
           name: item.name,

@@ -6,6 +6,7 @@ interface EncounterWorkflow {
     id: string;
     actorName: string;
   };
+  tokenName?: string;
   item?: EventItem;
   damageTotal?: number;
   damageMultipleEnemiesTotal?: number;
