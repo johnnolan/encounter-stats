@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.8.6 - 2023-05-01
+
+### Translations
+
+- New Polish translation from github user @Lioheart, thank you!
+
+### Features
+
+- Now adds enemies to the Encounter if they are added to the combat tracker after round 1. Previously if you added surprise enemies in later rounds the Encounter Journal would not record them. Thanks @weepingminotaur
+
 ## 2.8.4 - 2023-03-07
 
 ### Bug Fixes
