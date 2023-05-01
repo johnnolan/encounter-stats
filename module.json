@@ -77,6 +77,11 @@
 			"lang": "de",
 			"name": "Deutsch",
 			"path": "languages/de.json"
+		},
+		{
+			"lang": "pl",
+			"name": "polski",
+			"path": "languages/pl.json"
 		}
 	],
 	"readme": "https://github.com/johnnolan/encounter-stats/blob/main/README.md",
