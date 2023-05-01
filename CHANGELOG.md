@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.8.7 - 2023-05-01
+
+### Bug fixes
+
+- Enable adding new combatants to Encounter Journal for DND5e system
+
 ## 2.8.6 - 2023-05-01
 
 ### Translations
