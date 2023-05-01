@@ -90,8 +90,8 @@ export default class SetupHooksPF2e {
       });
       window.Hooks.on(
         "updateCombat",
-        async function (_combat: Combat, data: HookUpdateCombatRound) {
-          OnUpdateCombat(data.round);
+        async function (combat: Combat, data: HookUpdateCombatRound) {
+          OnUpdateCombat(data.round, combat);
         }
       );
 
