@@ -55,7 +55,10 @@ export async function OnDeleteCombat(combat: Combat): Promise<void> {
   );
 }
 
-export async function OnUpdateCombat(currentRound: number): Promise<void> {
+export async function OnUpdateCombat(
+  currentRound: number | undefined,
+  combat: Combat | undefined = undefined
+): Promise<void> {
   if (!currentRound) {
     Logger.log(`No new round`, "handlers.OnUpdateCombat", currentRound);
     return;
@@ -63,6 +66,33 @@ export async function OnUpdateCombat(currentRound: number): Promise<void> {
   if (!StatManager.IsInCombat()) return;
   const stat = new Stat();
   stat.encounter = await StatManager.GetStat();
+
+  const totalCombatants =
+    stat?.encounter?.combatants?.length ??
+    0 + stat?.encounter?.enemies?.length ??
+    0;
+
+  if (combat && totalCombatants < combat.combatants.size) {
+    const combatantsList = combat.combatants;
+    for (const combatant of combatantsList) {
+      if (combatant.isNPC) {
+        if (
+          !stat.encounter.enemies.some((e) => e.tokenId === combatant.tokenId)
+        ) {
+          const actor = game.actors?.get(combatant.actorId);
+          if (actor) {
+            stat.AddEnemy(<Enemies>{
+              tokenId: combatant.tokenId,
+              name: combatant.name,
+              img: combatant.actor.img,
+              ac: combatant.actor.system.attributes.ac.value,
+              hp: combatant.actor.system.attributes.hp.value,
+            });
+          }
+        }
+      }
+    }
+  }
 
   stat.UpdateRound(currentRound);
   stat.UpdateEnd();

@@ -13,8 +13,8 @@ A clear and concise description of what the bug is.
 **What version of FoundryVTT are you using?**
 Foundry Version: 
 
-**What version of dnd5e are you using?**
-DND5e Version: 
+**What version of dnd5e or Pf2e are you using?**
+Version: 
 
 **What roll module are you using?**
 

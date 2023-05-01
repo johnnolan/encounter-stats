@@ -7,8 +7,6 @@
 
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/johnnolan/encounter-stats/main_workflow.yml?branch=main)
 [![license](https://img.shields.io/badge/license-MIT-blue)](https://github.com/johnnolan/encounter-stats/blob/main/LICENSE)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=johnnolan_encounter-stats&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=johnnolan_encounter-stats)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=johnnolan_encounter-stats&metric=coverage)](https://sonarcloud.io/summary/new_code?id=johnnolan_encounter-stats)
 
 [![Translation status](https://weblate.foundryvtt-hub.com/widgets/encounter-stats/-/287x66-black.png)](https://weblate.foundryvtt-hub.com/engage/encounter-stats/)
 
