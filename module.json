@@ -7,8 +7,8 @@
 	"manifestPlusVersion": "1.0.0",
 	"compatibility": {
 		"minimum": 10,
-		"verified": "10.291",
-		"maximum": 10
+		"verified": "11.301",
+		"maximum": 11
 	},
 	"authors": [
 		{
@@ -26,16 +26,16 @@
 				"manifest": "https://raw.githubusercontent.com/foundryvtt/dnd5e/master/system.json",
 				"compatibility": {
 					"minimum": "2.0.2",
-					"verified": "2.1.5"
+					"verified": "2.2.1"
 				}
 			},
 			{
 				"id": "pf2e",
 				"type": "system",
-				"manifest": "https://github.com/foundryvtt/pf2e/releases/download/4.4.0/system.json",
+				"manifest": "https://github.com/foundryvtt/pf2e/releases/download/4.12.9/system.json",
 				"compatibility": {
 					"minimum": "4.4.0",
-					"verified": "4.8.3"
+					"verified": "4.12.9"
 				}
 			}
 		]
