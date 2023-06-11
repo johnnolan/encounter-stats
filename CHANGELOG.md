@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.9.1 - 2023-06-11
+
+### Feature
+
+- Update to Foundry V11
+
 ## 2.8.7 - 2023-05-01
 
 ### Bug fixes
