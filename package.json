@@ -18,8 +18,8 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@babel/eslint-parser": "7.21.8",
-    "@babel/preset-env": "7.22.4",
+    "@babel/eslint-parser": "7.22.5",
+    "@babel/preset-env": "7.22.5",
     "@jest/types": "29.5.0",
     "@league-of-foundry-developers/foundry-vtt-types": "9.280.0",
     "@types/jest": "29.5.2",
