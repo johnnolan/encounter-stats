@@ -2859,10 +2859,10 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.7.tgz#609f39207cb614b89d0765b477cb2d437fbf9787"
   integrity sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==
 
-foundryvtt-simple-calendar@2.3.6:
-  version "2.3.6"
-  resolved "https://registry.yarnpkg.com/foundryvtt-simple-calendar/-/foundryvtt-simple-calendar-2.3.6.tgz#f4e76d8f6cfa8855518075489d54760e6042d618"
-  integrity sha512-rODcxNlis0is7Lve+bZVeE9ASITVctoJE0xDA/gSR6d81k/E+ftPb6BcsfIlWy3T8Ns2TGy4N9fDSKoi1LJN2w==
+foundryvtt-simple-calendar@2.3.13:
+  version "2.3.13"
+  resolved "https://registry.yarnpkg.com/foundryvtt-simple-calendar/-/foundryvtt-simple-calendar-2.3.13.tgz#12c5eebd789d6a0167747b7110560dbb6bd94dc8"
+  integrity sha512-qnDiXmmgxj+r642oPDgwcPlMI4INwRUhHVhZVbTsVGd+MZO1WEtjhK7QJV0+n4x45P6Jit9+2VDqMoqNzwfXeQ==
   dependencies:
     file-saver "^2.0.5"
 
