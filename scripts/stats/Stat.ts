@@ -80,7 +80,7 @@ export default class Stat {
       Logger.warn(
         `No combatant statistics for TokenID ${tokenId}`,
         "stat.AddKill",
-        tokenId
+        tokenId,
       );
       return;
     }
@@ -103,7 +103,7 @@ export default class Stat {
       Logger.warn(
         `No combatant statistics for TokenID ${actor.id}`,
         "stat.UpdateHealth",
-        actor
+        actor,
       );
       return;
     }
@@ -180,17 +180,17 @@ export default class Stat {
     };
 
     let currentCombatant = this._encounter.combatants.find(
-      (f) => f.id === newCombatant.id
+      (f) => f.id === newCombatant.id,
     );
 
     if (!currentCombatant) {
       this._encounter.combatants.push(newCombatant);
       currentCombatant = this._encounter.combatants.find(
-        (f) => f.id === newCombatant.id
+        (f) => f.id === newCombatant.id,
       );
       if (currentCombatant?.initiative) {
         this._encounter.combatants.sort((a, b) =>
-          (a.initiative ?? 0) > (b.initiative ?? 0) ? 1 : -1
+          (a.initiative ?? 0) > (b.initiative ?? 0) ? 1 : -1,
         );
       }
     }
@@ -198,7 +198,7 @@ export default class Stat {
     if (!currentCombatant?.initiative && newCombatant.initiative) {
       currentCombatant.initiative = newCombatant.initiative;
       this._encounter.combatants.sort((a, b) =>
-        (a.initiative ?? 0) < (b.initiative ?? 0) ? 1 : -1
+        (a.initiative ?? 0) < (b.initiative ?? 0) ? 1 : -1,
       );
     }
   }
@@ -277,13 +277,13 @@ export default class Stat {
       });
 
       combatantStat.roundSummary = this.GetRoundSummaryStats(
-        combatantTotalDamagePerRound
+        combatantTotalDamagePerRound,
       );
     });
   }
 
   private GetRoundSummaryStats(
-    encounterRoundTotals: Array<EncounterRoundTotal>
+    encounterRoundTotals: Array<EncounterRoundTotal>,
   ) {
     const individual = this.GroupBy(encounterRoundTotals, "round");
     const rounds = <EncounterRoundSummary>{
@@ -304,7 +304,7 @@ export default class Stat {
   }
 
   private GetSummaryStatsFromArray(
-    combatantTotalDamage: Array<number>
+    combatantTotalDamage: Array<number>,
   ): CombatantEventSummaryList {
     if (combatantTotalDamage.length === 0) {
       return {
@@ -320,7 +320,7 @@ export default class Stat {
       max: Math.max(...combatantTotalDamage),
       avg: Math.round(
         combatantTotalDamage.reduce(this.AddAccumulator, 0) /
-          combatantTotalDamage.length
+          combatantTotalDamage.length,
       ),
       total: combatantTotalDamage.reduce(this.AddAccumulator, 0),
     };

@@ -61,7 +61,7 @@ class ModuleSettings {
         config: false,
         default: true,
         type: Boolean,
-      }
+      },
     );
 
     game.settings.register(
@@ -74,7 +74,7 @@ class ModuleSettings {
         config: false,
         default: true,
         type: Boolean,
-      }
+      },
     );
   }
 }

@@ -15,7 +15,7 @@ export default class ReadySetRollStat extends Stat {
       Logger.log(
         `No combatant found for Actor ID ${workflow.actor.id}`,
         "rsr5e.rollProcessed",
-        workflow
+        workflow,
       );
       return;
     }

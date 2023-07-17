@@ -9,7 +9,7 @@ class MidiQol {
         <EnemyHit>{
           tokenId: m.id,
           name: m.sheet.actor.name,
-        }
+        },
     );
 
     return <EncounterWorkflow>{
@@ -53,7 +53,7 @@ class MidiQol {
         Logger.log(
           `No actor found for actorId ${actorId}`,
           "midiqol.RollCheck",
-          workflow
+          workflow,
         );
         return;
       }

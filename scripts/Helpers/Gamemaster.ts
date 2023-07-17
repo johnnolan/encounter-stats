@@ -44,7 +44,7 @@ class Gamemaster {
     Gamemaster.GetActor.setFlag(
       this.FLAG_SCOPE,
       this.FLAG_NAME,
-      Gamemaster.DEFAULT_DATA
+      Gamemaster.DEFAULT_DATA,
     );
     CampaignStat.Save(Gamemaster.DEFAULT_DATA);
   }

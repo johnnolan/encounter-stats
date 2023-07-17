@@ -17,7 +17,7 @@ export function OnCustomEvent(customEvent: HookCustomEvent): void {
 export async function OnTrackRollStreak(
   result: number,
   actorName: string,
-  actorId: string
+  actorId: string,
 ): Promise<void> {
   if (!result) return;
 
@@ -27,7 +27,7 @@ export async function OnTrackRollStreak(
 export async function OnTrackDiceRoll(
   result: number,
   alias: string,
-  flavor: string
+  flavor: string,
 ): Promise<void> {
   if (!result) return;
 
@@ -51,13 +51,13 @@ export async function OnDeleteCombat(combat: Combat): Promise<void> {
 
   CampaignStat.AddPartyEncounterStat(
     stat.encounter.partySummary,
-    stat.encounter.encounterId ?? ""
+    stat.encounter.encounterId ?? "",
   );
 }
 
 export async function OnUpdateCombat(
   currentRound: number | undefined,
-  combat: Combat | undefined = undefined
+  combat: Combat | undefined = undefined,
 ): Promise<void> {
   if (!currentRound) {
     Logger.log(`No new round`, "handlers.OnUpdateCombat", currentRound);
@@ -102,13 +102,13 @@ export async function OnUpdateCombat(
 }
 
 export async function OnRenderCombatTracker(
-  combatData: HookRenderCombatTrackerData
+  combatData: HookRenderCombatTrackerData,
 ): Promise<void> {
   if (!combatData.hasCombat) {
     Logger.log(
       `Combat Tracker Event has no combat active`,
       "handlers.OnRenderCombatTracker",
-      combatData
+      combatData,
     );
     return;
   }
@@ -119,7 +119,7 @@ export async function OnRenderCombatTracker(
   stat.UpdateScene(
     combatData.combat.scene?.id ?? "",
     combatData.combat.scene?.name ?? "",
-    combatData.combat.scene?.thumb ?? ""
+    combatData.combat.scene?.thumb ?? "",
   );
 
   let addEnemies = false;
@@ -172,14 +172,14 @@ export async function OnTrackDice(diceTrackParsed: DiceTrackParse | undefined) {
     CampaignStat.AddRole(
       diceTrackParsed.isCritical ? RoleType.Critial : RoleType.Fumble,
       diceTrackParsed.name,
-      diceTrackParsed.flavor
+      diceTrackParsed.flavor,
     );
   }
 }
 
 export async function OnEncounterWorkflowComplete(
   workflow: EncounterWorkflow | undefined,
-  chatType: ChatType
+  chatType: ChatType,
 ): Promise<void> {
   if (!StatManager.IsInCombat()) return;
   if (!workflow) return;
@@ -211,13 +211,13 @@ export async function OnEncounterWorkflowComplete(
         combatantStat.name,
         workflow.item.link,
         workflow.item.name,
-        workflow.damageTotal ?? 0
+        workflow.damageTotal ?? 0,
       );
     } else {
       Logger.warn(
         `Missing Combatant for Heal`,
         "handlers.OnEncounterWorkflowComplete",
-        workflow
+        workflow,
       );
     }
   }
@@ -233,7 +233,7 @@ export async function OnUpdateHealth(actor: Actor): Promise<void> {
 
 export async function OnTrackKill(
   targetName: string,
-  tokenId: string
+  tokenId: string,
 ): Promise<void> {
   if (!StatManager.IsInCombat()) return;
   const stat = new Stat();

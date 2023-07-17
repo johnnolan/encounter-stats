@@ -15,7 +15,7 @@ export default class DND5eStat extends Stat {
     // Get any existing event, if so merge object and update
     const isExistingEvent: boolean =
       combatantStat.events.find(
-        (f) => f.id === workflow.id && f.round === this.currentRound
+        (f) => f.id === workflow.id && f.round === this.currentRound,
       ) !== undefined;
 
     if (isExistingEvent && workflow.type !== CombatDetailType.ItemCard) {

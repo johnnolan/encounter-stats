@@ -6,14 +6,14 @@ export default class DND5e {
     item: Item,
     actor: Actor,
     type: CombatDetailType,
-    roll: Roll | undefined
+    roll: Roll | undefined,
   ): Promise<EncounterWorkflow | undefined> {
     const enemiesHit: Array<EnemyHit> = game.user?.targets.map(
       (m) =>
         <EnemyHit>{
           tokenId: m.id,
           name: m.name,
-        }
+        },
     );
 
     const numberOfEnemiesHit =

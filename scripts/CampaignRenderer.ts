@@ -35,12 +35,12 @@ class CampaignRenderer {
         ...statList?.map((m) =>
           m.data.map((im) => {
             return im.EventName;
-          })
-        )
+          }),
+        ),
       )
       .reduce(
         (unique, item) => (unique.includes(item) ? unique : [...unique, item]),
-        []
+        [],
       );
 
     // Foreach eventid
@@ -52,7 +52,7 @@ class CampaignRenderer {
       statList.forEach((statItem) => {
         // filter statList
         const dateStatList = statItem.data.filter(
-          (f) => f.EventName === eventName
+          (f) => f.EventName === eventName,
         );
         if (dateStatList?.length === 0) return;
 
@@ -176,7 +176,7 @@ class CampaignRenderer {
 
   private static async GenerateSummaryRow(
     campaignStats: CampaignStats,
-    type: string
+    type: string,
   ) {
     const data: Array<CampaignRollData> = [];
 
@@ -200,11 +200,12 @@ class CampaignRenderer {
     const flattenedResults = []
       .concat(
         // eslint-disable-next-line no-unsafe-optional-chaining
-        ...statList?.map((m) =>
-          m.data?.map((im) => {
-            return im?.actorName;
-          })
-        )
+        ...statList?.map(
+          (m) =>
+            m.data?.map((im) => {
+              return im?.actorName;
+            }),
+        ),
       )
       .reduce(function (prev, cur) {
         prev[cur] = (prev[cur] || 0) + 1;

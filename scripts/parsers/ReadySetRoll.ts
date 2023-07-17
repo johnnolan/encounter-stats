@@ -54,7 +54,7 @@ class ReadySetRoll {
         Logger.log(
           `No actor found for actorId ${actorId}`,
           "rsr5e.rollProcessed",
-          workflow
+          workflow,
         );
         return;
       }

@@ -11,7 +11,7 @@ export default class Chat {
    */
   static async Send(message: string): Promise<void> {
     const gmsToWhisper = ChatMessage.getWhisperRecipients("GM").map(
-      (u: User) => u.id
+      (u: User) => u.id,
     );
 
     const chatData = {

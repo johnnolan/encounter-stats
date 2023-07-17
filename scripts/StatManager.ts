@@ -31,7 +31,7 @@ class StatManager {
     await EncounterJournal.UpdateJournalData(
       markup.html,
       "encounterId",
-      encounter.encounterId
+      encounter.encounterId,
     );
   }
 }

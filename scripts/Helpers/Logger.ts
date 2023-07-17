@@ -2,7 +2,7 @@ class Logger {
   public static log(
     description: string,
     module = "global",
-    data: unknown = {}
+    data: unknown = {},
   ): void {
     console.log("Encounter Stats", module, description, data);
   }
@@ -10,7 +10,7 @@ class Logger {
   public static debug(
     description: string,
     module = "global",
-    data: unknown = {}
+    data: unknown = {},
   ): void {
     console.debug("Encounter Stats", module, description, data);
   }
@@ -18,7 +18,7 @@ class Logger {
   public static warn(
     description: string,
     module = "global",
-    data: unknown = {}
+    data: unknown = {},
   ): void {
     console.warn("Encounter Stats", module, description, data);
   }
@@ -26,7 +26,7 @@ class Logger {
   public static error(
     description: string,
     module = "global",
-    data: unknown = {}
+    data: unknown = {},
   ): void {
     console.error("Encounter Stats", module, description, data);
   }

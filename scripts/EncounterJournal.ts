@@ -17,7 +17,7 @@ class EncounterJournal {
       {
         name: this.JOURNAL_TITLE,
       },
-      { renderSheet: false, activate: false }
+      { renderSheet: false, activate: false },
     );
 
     await EncounterJournal.CreateCampaignJournalEntryPage();
@@ -31,13 +31,13 @@ class EncounterJournal {
     }
 
     const journalEntry = game.journal?.find(
-      (e: JournalEntry) => e.name === this.JOURNAL_TITLE
+      (e: JournalEntry) => e.name === this.JOURNAL_TITLE,
     );
 
     if (!journalEntry) {
       Logger.error(
         `No Journal found with name ${this.JOURNAL_TITLE}`,
-        "encounterjournal.CreateJournalEntryPage"
+        "encounterjournal.CreateJournalEntryPage",
       );
       return;
     }
@@ -62,7 +62,7 @@ class EncounterJournal {
       ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
       ?.pages.find(
         (e: JournalEntryPage) =>
-          e.getFlag("encounter-stats", "campaignstats") === "data"
+          e.getFlag("encounter-stats", "campaignstats") === "data",
       );
 
     journalEntryPage.delete();
@@ -70,13 +70,13 @@ class EncounterJournal {
 
   static async CreateCampaignJournalEntryPage() {
     const journalEntry = game.journal?.find(
-      (e: JournalEntry) => e.name === this.JOURNAL_TITLE
+      (e: JournalEntry) => e.name === this.JOURNAL_TITLE,
     );
 
     if (!journalEntry) {
       Logger.error(
         `No Journal found with name ${this.JOURNAL_TITLE}`,
-        "encounterjournal.CreateCampaignJournalEntryPage"
+        "encounterjournal.CreateCampaignJournalEntryPage",
       );
       return;
     }
@@ -96,19 +96,19 @@ class EncounterJournal {
   static async UpdateJournalData(
     data: string,
     flagName: string,
-    flagValue: string
+    flagValue: string,
   ) {
     const journalEntryPage = game.journal
       ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
       ?.pages.find(
         (e: JournalEntryPage) =>
-          e.getFlag("encounter-stats", flagName) === flagValue
+          e.getFlag("encounter-stats", flagName) === flagValue,
       );
 
     if (!journalEntryPage) {
       Logger.error(
         `No Journal found with name ${this.JOURNAL_TITLE} and ${flagName} ${flagValue}`,
-        "encounterjournal.UpdateJournalData"
+        "encounterjournal.UpdateJournalData",
       );
       return;
     }
@@ -129,8 +129,8 @@ class EncounterJournal {
 
     const sortedJournalsByName = new Map(
       [...journalEntry.pages.entries()].sort((a, b) =>
-        a.name > b.name ? 1 : -1
-      )
+        a.name > b.name ? 1 : -1,
+      ),
     );
 
     for (const [, journalEntryPage] of sortedJournalsByName.entries()) {
@@ -168,7 +168,7 @@ class EncounterJournal {
       ?.find((e: JournalEntry) => e.name === this.JOURNAL_TITLE)
       ?.pages.find(
         (e: JournalEntryPage) =>
-          e.getFlag("encounter-stats", "campaignstats") === "data"
+          e.getFlag("encounter-stats", "campaignstats") === "data",
       );
 
     if (!journalEntryPage) {
@@ -177,7 +177,7 @@ class EncounterJournal {
 
     return <CampaignStats>(
       JSON.parse(
-        journalEntryPage.text.content.replace("<p>", "").replace("</p>", "")
+        journalEntryPage.text.content.replace("<p>", "").replace("</p>", ""),
       )
     );
   }

@@ -40,7 +40,7 @@ export default class CampaignStat {
     actorName: string,
     itemLink: string,
     spellName: string,
-    total: number
+    total: number,
   ) {
     const campaignStats = await this.Get();
     const date = Dates.now;
@@ -107,7 +107,7 @@ export default class CampaignStat {
   static async AddRollStreak(
     result: number,
     actorName: string,
-    actorId: string
+    actorId: string,
   ) {
     if (
       !game.settings.get(`${MODULE_ID}`, `${OPT_SETTINGS_DICE_STREAK_ENABLE}`)
@@ -126,7 +126,7 @@ export default class CampaignStat {
     }
 
     const streakLogEntry = campaignStats.rollstreaklog.find(
-      (f) => f.actorId === actorId
+      (f) => f.actorId === actorId,
     );
     if (!streakLogEntry) {
       campaignStats.rollstreaklog.push(<RollStreakLog>{
@@ -135,7 +135,7 @@ export default class CampaignStat {
       });
     } else {
       const logIndex = campaignStats.rollstreaklog.findIndex(
-        (fi) => fi.actorId === actorId
+        (fi) => fi.actorId === actorId,
       );
       const actorStreakLog = campaignStats.rollstreaklog[logIndex].results;
       if (actorStreakLog.indexOf(result) > -1) {
@@ -143,7 +143,7 @@ export default class CampaignStat {
         if (
           game.settings.get(
             `${MODULE_ID}`,
-            `${OPT_SETTINGS_DICE_STREAK_TO_CHAT_ENABLE}`
+            `${OPT_SETTINGS_DICE_STREAK_TO_CHAT_ENABLE}`,
           )
         ) {
           this._sendRollStreakChatMessage(actorName, actorStreakLog);
@@ -168,16 +168,16 @@ export default class CampaignStat {
 
   static async _sendRollStreakChatMessage(
     actorName: string,
-    actorStreakLog: number[]
+    actorStreakLog: number[],
   ): Promise<void> {
     await Chat.Send(
       `<h2>${Trans.Get(
-        "template.roll_streak"
+        "template.roll_streak",
       )}!</h2><p>${actorName} ${Trans.Get("template.rolled_a")} [[${
         actorStreakLog[0]
       }]] <strong>${actorStreakLog.length}</strong> ${Trans.Get(
-        "template.times_in_a_row"
-      )}!</p>`
+        "template.times_in_a_row",
+      )}!</p>`,
     );
   }
 
@@ -216,7 +216,7 @@ export default class CampaignStat {
 
   static async AddPartyEncounterStat(
     partyStat: PartyEncounterStats,
-    encounterId: string
+    encounterId: string,
   ) {
     const campaignPartyEncounterStat: CampaignPartyEncounterStats = {
       ...partyStat,
