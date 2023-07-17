@@ -23,32 +23,32 @@ interface ReadySetRollWorkflow {
       header: {
         title: string;
         slotLevel: number;
-      }
+      },
     ],
     [
       description: {
         content: string;
-      }
+      },
     ],
     [
       blank: {
         display: boolean;
-      }
+      },
     ],
     [
       attack: {
         roll: {
           total: number;
         };
-      }
+      },
     ],
     [
       damage: {
         baseRoll: {
           total: number;
         };
-      }
-    ]
+      },
+    ],
   ];
   processed: boolean;
   messageId: string;

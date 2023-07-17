@@ -37,15 +37,15 @@ export default class SetupHooksPF2e {
               chatMessagePF2e.item,
               chatMessagePF2e.actor,
               CombatDetailType.Attack,
-              chatMessagePF2e.roll
+              chatMessagePF2e.roll,
             );
             OnEncounterWorkflowComplete(workflow, ChatType.PF2e);
             OnTrackRollStreak(
               chatMessagePF2e.roll?.terms[0]?.results?.find(
-                (f) => f.active === true
+                (f) => f.active === true,
               ).result ?? 0,
               chatMessagePF2e.token.name,
-              chatMessagePF2e.actor.id
+              chatMessagePF2e.actor.id,
             );
           }
           if (chatType === "damage-roll") {
@@ -53,37 +53,37 @@ export default class SetupHooksPF2e {
               chatMessagePF2e.item,
               chatMessagePF2e.item.actor,
               CombatDetailType.Damage,
-              chatMessagePF2e.roll
+              chatMessagePF2e.roll,
             );
             OnEncounterWorkflowComplete(workflow, ChatType.PF2e);
           }
           if (chatType === "saving-throw" || chatType.indexOf("-check") > 0) {
             OnTrackDiceRoll(
               chatMessagePF2e.roll?.terms[0]?.results?.find(
-                (f) => f.active === true
+                (f) => f.active === true,
               ).result ?? 0,
               chatMessagePF2e.actor.name,
-              chatMessagePF2e?.flags?.pf2e?.modifierName
+              chatMessagePF2e?.flags?.pf2e?.modifierName,
             );
             OnTrackRollStreak(
               chatMessagePF2e.roll?.terms[0]?.results?.find(
-                (f) => f.active === true
+                (f) => f.active === true,
               ).result ?? 0,
               chatMessagePF2e.token.name,
-              chatMessagePF2e.actor.id
+              chatMessagePF2e.actor.id,
             );
           }
-        }
+        },
       );
       window.Hooks.on(
         "renderCombatTracker",
         async function (
           _combatTracker: CombatTracker,
           _element: string,
-          combatData: HookRenderCombatTrackerData
+          combatData: HookRenderCombatTrackerData,
         ) {
           OnRenderCombatTracker(combatData);
-        }
+        },
       );
       window.Hooks.on("createCombat", async function (data: Combat) {
         OnCreateCombat(data);
@@ -92,28 +92,28 @@ export default class SetupHooksPF2e {
         "updateCombat",
         async function (combat: Combat, data: HookUpdateCombatRound) {
           OnUpdateCombat(data.round, combat);
-        }
+        },
       );
 
       window.Hooks.on(
         "updateActor",
         async function (actor: Actor, diff: unknown) {
           await SetupHooksPF2e.updateActorToken(actor, diff);
-        }
+        },
       );
 
       window.Hooks.on(
         "updateToken",
         async function (actor: Actor, diff: unknown) {
           await SetupHooksPF2e.updateActorToken(actor, diff);
-        }
+        },
       );
 
       Hooks.on(
         "encounter-stats.customEvent",
         async function (customEvent: HookCustomEvent) {
           OnCustomEvent(customEvent);
-        }
+        },
       );
     } else {
       window.Hooks.on(
@@ -123,7 +123,7 @@ export default class SetupHooksPF2e {
             event: "updateActor",
             data: { data: actor, diff: diff },
           });
-        }
+        },
       );
       window.Hooks.on(
         "updateToken",
@@ -132,7 +132,7 @@ export default class SetupHooksPF2e {
             event: "updateToken",
             data: { data: actor, diff: diff },
           });
-        }
+        },
       );
     }
   }
@@ -146,7 +146,7 @@ export default class SetupHooksPF2e {
             OnCustomEvent(payload.data.customEvent);
             break;
         }
-      }
+      },
     );
   }
 

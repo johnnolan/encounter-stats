@@ -7,7 +7,7 @@ export default class CombatFlag {
 
   static async Get(
     item: string,
-    actorId?: string
+    actorId?: string,
   ): Promise<Encounter | undefined> {
     if (!CombatFlag.IsCurrentSceneCombatSet(item)) return;
 
@@ -21,13 +21,13 @@ export default class CombatFlag {
         const flagValueSearchAcrossCombats = await game.combats.find((f) =>
           f
             .getFlag("encounter-stats", item)
-            .combatants.find((h) => h.id === actorId)
+            .combatants.find((h) => h.id === actorId),
         );
         if (!flagValueSearchAcrossCombats) return;
 
         flagValue = flagValueSearchAcrossCombats.getFlag(
           "encounter-stats",
-          item
+          item,
         );
         // If not undefined, return that combat
       }

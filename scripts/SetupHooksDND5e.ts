@@ -29,10 +29,10 @@ export default class SetupHooksDND5e {
         async function (
           _combatTracker: CombatTracker,
           _element: string,
-          combatData: HookRenderCombatTrackerData
+          combatData: HookRenderCombatTrackerData,
         ) {
           OnRenderCombatTracker(combatData);
-        }
+        },
       );
       window.Hooks.on("createCombat", async function (data: Combat) {
         OnCreateCombat(data);
@@ -41,21 +41,21 @@ export default class SetupHooksDND5e {
         "updateCombat",
         async function (combat: Combat, data: HookUpdateCombatRound) {
           OnUpdateCombat(data.round, combat);
-        }
+        },
       );
 
       window.Hooks.on(
         "updateActor",
         async function (actor: Actor, diff: unknown) {
           await SetupHooksDND5e.updateActorToken(actor, diff);
-        }
+        },
       );
 
       window.Hooks.on(
         "updateToken",
         async function (actor: Actor, diff: unknown, diffResult: unknown) {
           await SetupHooksDND5e.updateActorToken(actor, diff, diffResult);
-        }
+        },
       );
 
       if (game.modules.get("midi-qol")?.active) {
@@ -71,10 +71,10 @@ export default class SetupHooksDND5e {
               OnTrackRollStreak(
                 midiWorkflow.diceTotal,
                 rollCheck.tokenName ?? rollCheck.name,
-                midiWorkflow.actor.id
+                midiWorkflow.actor.id,
               );
             }
-          }
+          },
         );
       }
 
@@ -86,7 +86,7 @@ export default class SetupHooksDND5e {
             const readySetRollWorkflow = ReadySetRoll.ParseWorkflow(workflow);
             OnEncounterWorkflowComplete(readySetRollWorkflow, ChatType.RSR);
             OnTrackDice(rollCheck);
-          }
+          },
         );
       }
 
@@ -94,7 +94,7 @@ export default class SetupHooksDND5e {
         "encounter-stats.customEvent",
         async function (customEvent: HookCustomEvent) {
           OnCustomEvent(customEvent);
-        }
+        },
       );
     } else {
       window.Hooks.on(
@@ -104,7 +104,7 @@ export default class SetupHooksDND5e {
             event: "updateActor",
             data: { data: actor, diff: diff },
           });
-        }
+        },
       );
       window.Hooks.on(
         "updateToken",
@@ -113,7 +113,7 @@ export default class SetupHooksDND5e {
             event: "updateToken",
             data: { data: actor, diff: diff, diffResult: diffResult },
           });
-        }
+        },
       );
       if (game.modules.get("midi-qol")?.active) {
         window.Hooks.on(
@@ -126,7 +126,7 @@ export default class SetupHooksDND5e {
                 rollCheck: MidiQol.RollCheck(workflow),
               },
             });
-          }
+          },
         );
       }
 
@@ -141,7 +141,7 @@ export default class SetupHooksDND5e {
                 rollCheck: ReadySetRoll.RollCheck(workflow),
               },
             });
-          }
+          },
         );
       }
 
@@ -157,7 +157,7 @@ export default class SetupHooksDND5e {
                 item,
                 item.actor,
                 CombatDetailType.ItemCard,
-                undefined
+                undefined,
               ),
               ChatType: ChatType.DND5e,
             },
@@ -179,13 +179,13 @@ export default class SetupHooksDND5e {
                   item,
                   item.actor,
                   CombatDetailType.Attack,
-                  roll
+                  roll,
                 ),
                 ChatType: ChatType.DND5e,
               },
             });
           }
-        }
+        },
       );
 
       window.Hooks.on(
@@ -202,13 +202,13 @@ export default class SetupHooksDND5e {
                   item,
                   item.actor,
                   CombatDetailType.Damage,
-                  roll
+                  roll,
                 ),
                 ChatType: ChatType.DND5e,
               },
             });
           }
-        }
+        },
       );
 
       window.Hooks.on(
@@ -226,7 +226,7 @@ export default class SetupHooksDND5e {
               tokenName: actor.prototypeToken.name,
             },
           });
-        }
+        },
       );
 
       window.Hooks.on(
@@ -244,7 +244,7 @@ export default class SetupHooksDND5e {
               tokenName: actor.prototypeToken.name,
             },
           });
-        }
+        },
       );
 
       window.Hooks.on(
@@ -262,7 +262,7 @@ export default class SetupHooksDND5e {
               tokenName: actor.prototypeToken.name,
             },
           });
-        }
+        },
       );
 
       window.Hooks.on(
@@ -274,7 +274,7 @@ export default class SetupHooksDND5e {
               customEvent: customEvent,
             },
           });
-        }
+        },
       );
     }
   }
@@ -295,13 +295,13 @@ export default class SetupHooksDND5e {
           case "midi-qol.RollComplete":
             OnEncounterWorkflowComplete(
               payload.data.workflow,
-              ChatType.MidiQol
+              ChatType.MidiQol,
             );
             OnTrackDice(payload.data.rollCheck);
             OnTrackRollStreak(
               payload.data.workflow.diceTotal,
               payload.data.rollCheck.tokenName ?? payload.data.rollCheck.name,
-              payload.data.workflow.actor.id
+              payload.data.workflow.actor.id,
             );
             break;
           case "dnd5e.rollAttack":
@@ -309,7 +309,7 @@ export default class SetupHooksDND5e {
             OnTrackRollStreak(
               encounterData.diceTotal,
               encounterData.tokenName ?? encounterData.actor.actorName,
-              encounterData.actor.id
+              encounterData.actor.id,
             );
             break;
           case "dnd5e.useItem":
@@ -322,16 +322,16 @@ export default class SetupHooksDND5e {
             OnTrackDiceRoll(
               payload.data.result,
               payload.data.alias,
-              payload.data.flavor
+              payload.data.flavor,
             );
             OnTrackRollStreak(
               payload.data.result,
               payload.data.tokenName ?? payload.data.alias,
-              payload.data.actorId
+              payload.data.actorId,
             );
             break;
         }
-      }
+      },
     );
   }
 

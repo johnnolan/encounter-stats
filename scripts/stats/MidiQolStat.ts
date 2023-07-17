@@ -7,7 +7,7 @@ export default class MidiQolStat extends Stat {
       Logger.error(
         `No Actor ID in encounter`,
         "midiqolstat.AddAttack",
-        workflow
+        workflow,
       );
       return;
     }
@@ -19,7 +19,7 @@ export default class MidiQolStat extends Stat {
       Logger.log(
         `No combatant found for Actor ID ${workflow.actor.id}`,
         "midiqolstat.AddAttack",
-        workflow
+        workflow,
       );
       return;
     }

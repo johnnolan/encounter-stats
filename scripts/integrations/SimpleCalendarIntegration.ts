@@ -4,10 +4,10 @@ export default class SimpleCalendarIntegration {
   }
 
   static GetCurrentDateToString() {
-    return `${SimpleCalendar.api.getCurrentDay()?.name} ${
-      SimpleCalendar.api?.getCurrentMonth()?.name
-    } ${SimpleCalendar.api?.getCurrentYear()?.numericRepresentation} ${
-      SimpleCalendar.api?.getCurrentYear()?.postfix
-    }`;
+    return `${SimpleCalendar.api.getCurrentDay()
+      ?.name} ${SimpleCalendar.api?.getCurrentMonth()
+      ?.name} ${SimpleCalendar.api?.getCurrentYear()
+      ?.numericRepresentation} ${SimpleCalendar.api?.getCurrentYear()
+      ?.postfix}`;
   }
 }
