@@ -2527,10 +2527,10 @@ es6-promise-polyfill@^1.2.0:
   resolved "https://registry.yarnpkg.com/es6-promise-polyfill/-/es6-promise-polyfill-1.2.0.tgz#f38925f23cb3e3e8ce6cda8ff774fcebbb090cde"
   integrity sha512-HHb0vydCpoclpd0ySPkRXMmBw80MRt1wM4RBJBlXkux97K7gleabZdsR0gvE1nNPM9mgOZIBTzjjXiPxf4lIqQ==
 
-esbuild-sass-plugin@2.12.0:
-  version "2.12.0"
-  resolved "https://registry.yarnpkg.com/esbuild-sass-plugin/-/esbuild-sass-plugin-2.12.0.tgz#b4c8c75b3aeb6d2f7a3f667b793b00524729caad"
-  integrity sha512-+k/5WM/Yf/Ur7ahn6XXxEPwa/lmuacLO7vrCIAJuvQapX1CiIHtlX/nc2eiMoJ6P6RvqZhKpQvIiwgYJonzHtw==
+esbuild-sass-plugin@2.13.0:
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/esbuild-sass-plugin/-/esbuild-sass-plugin-2.13.0.tgz#e577a354a2241d098d2d3733fddc90c490998709"
+  integrity sha512-tpuoCPjcigaG+nKTEmDLBcmt81LADhwa5nGYA6memd56bhf27puRFlbQThvPWjypk51dsfSc30I18s4OdsmDag==
   dependencies:
     resolve "^1.22.2"
     sass "^1.65.1"
