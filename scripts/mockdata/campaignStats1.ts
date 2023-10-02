@@ -137,7 +137,14 @@ export const campaignStats1: CampaignStat = {
                   "spellName": "Potion of Healing (Greater)",
                   "total": 15,
                   "date": "30 September 2022 20:03"
-              }
+              },
+              {
+                "actorName": "Graa",
+                "itemLink": "@UUID[Actor.2ybHnw0DeYqwDPyV.Item.yAmmCAv5PSEM8X5f]{Potion of Healing (Greater)}",
+                "spellName": "Potion of Healing (Greater)",
+                "total": 15,
+                "date": "30 September 2022 20:03"
+            }
           ]
       }
   ],

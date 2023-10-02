@@ -3,6 +3,7 @@ import {
   OPT_ENABLE,
   OPT_ENABLE_EXPORT_JSON,
   OPT_SETTINGS_DICE_STREAK_ENABLE,
+  OPT_SETTINGS_DICE_STREAK_THRESHOLD,
   OPT_SETTINGS_DICE_STREAK_TO_CHAT_ENABLE,
 } from "./Settings";
 import Trans from "./Helpers/Trans";
@@ -74,6 +75,19 @@ class ModuleSettings {
         config: false,
         default: true,
         type: Boolean,
+      },
+    );
+
+    game.settings.register(
+      `${MODULE_ID}`,
+      `${OPT_SETTINGS_DICE_STREAK_THRESHOLD}`,
+      {
+        name: Trans.Get("opt_enable_dice_streak_threshold_name"),
+        hint: Trans.Get("opt_enable_dice_streak_threshold_hint"),
+        scope: "world",
+        config: false,
+        default: "2",
+        type: String,
       },
     );
   }

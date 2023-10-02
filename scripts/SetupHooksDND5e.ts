@@ -13,7 +13,7 @@ import {
 import StatManager from "./StatManager";
 import DND5e from "./parsers/DND5e";
 import MidiQol from "./parsers/MidiQol";
-import { CombatDetailType, ChatType } from "./enums";
+import { CombatDetailType, ChatType, ChatRollMode } from "./enums";
 import Stat from "./stats/Stat";
 import ReadySetRoll from "./parsers/ReadySetRoll";
 import { EncounterWorkflow } from "EncounterWorkflow";
@@ -72,6 +72,7 @@ export default class SetupHooksDND5e {
                 midiWorkflow.diceTotal,
                 rollCheck.tokenName ?? rollCheck.name,
                 midiWorkflow.actor.id,
+                ChatRollMode[game.settings.get("core", "rollMode")],
               );
             }
           },
@@ -124,6 +125,8 @@ export default class SetupHooksDND5e {
               data: {
                 workflow: MidiQol.ParseWorkflow(workflow),
                 rollCheck: MidiQol.RollCheck(workflow),
+                chatRollMode:
+                  ChatRollMode[game.settings.get("core", "rollMode")],
               },
             });
           },
@@ -182,6 +185,8 @@ export default class SetupHooksDND5e {
                   roll,
                 ),
                 ChatType: ChatType.DND5e,
+                chatRollMode:
+                  ChatRollMode[game.settings.get("core", "rollMode")],
               },
             });
           }
@@ -205,6 +210,8 @@ export default class SetupHooksDND5e {
                   roll,
                 ),
                 ChatType: ChatType.DND5e,
+                chatRollMode:
+                  ChatRollMode[game.settings.get("core", "rollMode")],
               },
             });
           }
@@ -224,6 +231,7 @@ export default class SetupHooksDND5e {
               actorId: actor.id,
               flavor: roll.options.flavor,
               tokenName: actor.prototypeToken.name,
+              chatRollMode: ChatRollMode[game.settings.get("core", "rollMode")],
             },
           });
         },
@@ -242,6 +250,7 @@ export default class SetupHooksDND5e {
               actorId: actor.id,
               flavor: roll.options.flavor,
               tokenName: actor.prototypeToken.name,
+              chatRollMode: ChatRollMode[game.settings.get("core", "rollMode")],
             },
           });
         },
@@ -260,6 +269,7 @@ export default class SetupHooksDND5e {
               actorId: actor.id,
               flavor: roll.options.flavor,
               tokenName: actor.prototypeToken.name,
+              chatRollMode: ChatRollMode[game.settings.get("core", "rollMode")],
             },
           });
         },
@@ -302,6 +312,7 @@ export default class SetupHooksDND5e {
               payload.data.workflow.diceTotal,
               payload.data.rollCheck.tokenName ?? payload.data.rollCheck.name,
               payload.data.workflow.actor.id,
+              payload.data.chatRollMode,
             );
             break;
           case "dnd5e.rollAttack":
@@ -310,6 +321,7 @@ export default class SetupHooksDND5e {
               encounterData.diceTotal,
               encounterData.tokenName ?? encounterData.actor.actorName,
               encounterData.actor.id,
+              payload.data.chatRollMode,
             );
             break;
           case "dnd5e.useItem":
@@ -328,6 +340,7 @@ export default class SetupHooksDND5e {
               payload.data.result,
               payload.data.tokenName ?? payload.data.alias,
               payload.data.actorId,
+              payload.data.chatRollMode,
             );
             break;
         }

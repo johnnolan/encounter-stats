@@ -10,7 +10,7 @@ import {
   OnTrackRollStreak,
 } from "./Handlers";
 import StatManager from "./StatManager";
-import { CombatDetailType, ChatType } from "./enums";
+import { CombatDetailType, ChatType, ChatRollMode } from "./enums";
 import Stat from "./stats/Stat";
 import PF2e from "./parsers/PF2e";
 
@@ -23,6 +23,9 @@ export default class SetupHooksPF2e {
       window.Hooks.on(
         "createChatMessage",
         async function (chatMessagePF2e: ChatMessage) {
+          const chatRollMode = chatMessagePF2e.isContentVisible
+            ? ChatRollMode.publicroll
+            : ChatRollMode.selfroll;
           let chatType = chatMessagePF2e?.flags?.pf2e?.context?.type;
           if (!chatType) {
             if (chatMessagePF2e.isDamageRoll) {
@@ -46,6 +49,7 @@ export default class SetupHooksPF2e {
               ).result ?? 0,
               chatMessagePF2e.token.name,
               chatMessagePF2e.actor.id,
+              chatRollMode,
             );
           }
           if (chatType === "damage-roll") {
@@ -71,6 +75,7 @@ export default class SetupHooksPF2e {
               ).result ?? 0,
               chatMessagePF2e.token.name,
               chatMessagePF2e.actor.id,
+              chatRollMode,
             );
           }
         },

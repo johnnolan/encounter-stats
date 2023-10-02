@@ -1,7 +1,7 @@
 import CampaignRenderer from "./CampaignRenderer";
 import CampaignStat from "./CampaignStat";
 import EncounterJournal from "./EncounterJournal";
-import { RoleType } from "./enums";
+import { ChatRollMode, RoleType } from "./enums";
 import Gamemaster from "./Helpers/Gamemaster";
 import "../__mocks__/chat-message";
 
@@ -45,7 +45,11 @@ describe("CampaignStat", () => {
           format: jest.fn().mockReturnValue("TestKeyValue"),
         },
         settings: {
-          get: jest.fn().mockReturnValue(true),
+          get: jest.fn()
+          .mockReturnValueOnce(true).mockReturnValueOnce("2")
+          .mockReturnValueOnce(true).mockReturnValueOnce("2").mockReturnValueOnce(true)
+          .mockReturnValueOnce(true).mockReturnValueOnce("2").mockReturnValueOnce(true)
+          .mockReturnValueOnce(true).mockReturnValueOnce("2").mockReturnValueOnce(true),
         },
       };
       mockGamemasterGetStats.mockReturnValue({
@@ -59,10 +63,10 @@ describe("CampaignStat", () => {
     });
 
     test("it adds the Roll Streak correctly", async () => {
-      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
-      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
-      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
-      await CampaignStat.AddRollStreak(1, "Graa", "2ybHnw0DeYqwDPyV");
+      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV", ChatRollMode.publicroll);
+      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV", ChatRollMode.publicroll);
+      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV", ChatRollMode.publicroll);
+      await CampaignStat.AddRollStreak(1, "Graa", "2ybHnw0DeYqwDPyV", ChatRollMode.publicroll);
       expect(mockEncounterJournalUpdateJournalData).toBeCalled();
       expect(mock_sendRollStreakChatMessage).toBeCalled();
       expect(mock_sendRollStreakChatMessage).toBeCalledTimes(2);
@@ -99,7 +103,11 @@ describe("CampaignStat", () => {
           format: jest.fn().mockReturnValue("TestKeyValue"),
         },
         settings: {
-          get: jest.fn().mockReturnValue(true),
+          get: jest.fn()
+          .mockReturnValueOnce(true).mockReturnValueOnce("2")
+          .mockReturnValueOnce(true).mockReturnValueOnce("2").mockReturnValueOnce(true)
+          .mockReturnValueOnce(true).mockReturnValueOnce("2").mockReturnValueOnce(true)
+          .mockReturnValueOnce(true).mockReturnValueOnce("2").mockReturnValueOnce(true),
         },
       };
       mockGamemasterGetStats.mockReturnValue({
@@ -128,14 +136,14 @@ describe("CampaignStat", () => {
     });
 
     test("it adds the Roll Streak correctly", async () => {
-      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
-      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
-      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
-      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
-      await CampaignStat.AddRollStreak(1, "Graa", "2ybHnw0DeYqwDPyV");
+      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV", ChatRollMode.publicroll);
+      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV", ChatRollMode.publicroll);
+      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV", ChatRollMode.blindroll);
+      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV", ChatRollMode.blindroll);
+      await CampaignStat.AddRollStreak(1, "Graa", "2ybHnw0DeYqwDPyV", ChatRollMode.blindroll);
       expect(mockEncounterJournalUpdateJournalData).toBeCalled();
       expect(mock_sendRollStreakChatMessage).toBeCalled();
-      expect(mock_sendRollStreakChatMessage).toBeCalledTimes(6);
+      expect(mock_sendRollStreakChatMessage).toBeCalledTimes(3);
       expect(mockGamemasterSetStats).toBeCalled();
       expect(mockGamemasterSetStats).toBeCalledWith({
         kills: [],
@@ -150,19 +158,12 @@ describe("CampaignStat", () => {
             "dateDisplay": "01 November 2022",
             "roll": 4,
             "total": 3
-          },
-          {
-            "actorId": "2ybHnw0DeYqwDPyV",
-            "actorName": "Graa",
-            "dateDisplay": "01 January 2020",
-            "roll": 9,
-            "total": 5
           }
         ],
         rollstreaklog: [
           {
             actorId: "2ybHnw0DeYqwDPyV",
-            results: [1],
+            results: [9,9,9,9,9],
           },
         ],
       });

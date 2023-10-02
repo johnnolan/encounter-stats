@@ -221,7 +221,12 @@ class CampaignRenderer {
     });
 
     result.forEach((entry) => {
-      data.push({ name: entry.name, value: entry.value });
+      const existingValue = data.find(({ value }) => value === entry.value);
+      if (existingValue) {
+        existingValue.name = existingValue.name + " & " + entry.name;
+      } else {
+        data.push({ name: entry.name, value: entry.value });
+      }
     });
 
     return data;
