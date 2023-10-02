@@ -12,3 +12,4 @@ export const OPT_ENABLE_EXPORT_JSON = "enableExportJson";
 
 export const OPT_SETTINGS_DICE_STREAK_ENABLE = "enableDiceStreak";
 export const OPT_SETTINGS_DICE_STREAK_TO_CHAT_ENABLE = "enableDiceStreakToChat";
+export const OPT_SETTINGS_DICE_STREAK_THRESHOLD = "diceStreakThreshold";

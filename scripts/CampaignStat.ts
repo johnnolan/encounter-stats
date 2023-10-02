@@ -8,6 +8,7 @@ import Trans from "./Helpers/Trans";
 import {
   MODULE_ID,
   OPT_SETTINGS_DICE_STREAK_ENABLE,
+  OPT_SETTINGS_DICE_STREAK_THRESHOLD,
   OPT_SETTINGS_DICE_STREAK_TO_CHAT_ENABLE,
 } from "./Settings";
 
@@ -116,6 +117,14 @@ export default class CampaignStat {
       return;
     }
 
+    const diceStreakThreshold: number = parseInt(
+      <string>(
+        game.settings.get(
+          `${MODULE_ID}`,
+          `${OPT_SETTINGS_DICE_STREAK_THRESHOLD}`,
+        )
+      ),
+    );
     const campaignStats = await this.Get();
     const date = Dates.now;
 
@@ -146,12 +155,13 @@ export default class CampaignStat {
             `${MODULE_ID}`,
             `${OPT_SETTINGS_DICE_STREAK_TO_CHAT_ENABLE}`,
           ) &&
-          chatRollMode === ChatRollMode.publicroll.valueOf()
+          chatRollMode === ChatRollMode.publicroll.valueOf() &&
+          actorStreakLog.length >= diceStreakThreshold
         ) {
           this._sendRollStreakChatMessage(actorName, actorStreakLog);
         }
       } else {
-        if (actorStreakLog.length > 1) {
+        if (actorStreakLog.length >= diceStreakThreshold) {
           // Save to streak length and result
           campaignStats.rollstreak.push(<RollStreakTrack>{
             actorId: actorId,
