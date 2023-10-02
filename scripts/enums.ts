@@ -7,6 +7,13 @@ export enum CombatDetailType {
   None = "none",
 }
 
+export enum ChatRollMode {
+  selfroll = "selfroll",
+  publicroll = "publicroll",
+  gmroll = "gmroll",
+  blindroll = "blindroll",
+}
+
 export enum RoleType {
   Fumble = "fumble",
   Critial = "critical",

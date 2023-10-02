@@ -4,7 +4,7 @@ import Stat from "./stats/Stat";
 import MidiQolStat from "./stats/MidiQolStat";
 import DND5eStat from "./stats/DND5eStat";
 import CampaignStat from "./CampaignStat";
-import { ChatType, RoleType } from "./enums";
+import { ChatRollMode, ChatType, RoleType } from "./enums";
 import Logger from "./Helpers/Logger";
 import { EncounterWorkflow } from "EncounterWorkflow";
 import PF2eStat from "./stats/PF2eStat";
@@ -18,10 +18,10 @@ export async function OnTrackRollStreak(
   result: number,
   actorName: string,
   actorId: string,
+  chatRollMode: ChatRollMode,
 ): Promise<void> {
   if (!result) return;
-
-  CampaignStat.AddRollStreak(result, actorName, actorId);
+  CampaignStat.AddRollStreak(result, actorName, actorId, chatRollMode);
 }
 
 export async function OnTrackDiceRoll(

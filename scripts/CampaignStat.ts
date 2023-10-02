@@ -1,7 +1,7 @@
 import CampaignRenderer from "./CampaignRenderer";
 import Chat from "./Chat";
 import EncounterJournal from "./EncounterJournal";
-import { RoleType } from "./enums";
+import { ChatRollMode, RoleType } from "./enums";
 import Dates from "./Helpers/Dates";
 import Gamemaster from "./Helpers/Gamemaster";
 import Trans from "./Helpers/Trans";
@@ -108,6 +108,7 @@ export default class CampaignStat {
     result: number,
     actorName: string,
     actorId: string,
+    chatRollMode: ChatRollMode,
   ) {
     if (
       !game.settings.get(`${MODULE_ID}`, `${OPT_SETTINGS_DICE_STREAK_ENABLE}`)
@@ -144,7 +145,8 @@ export default class CampaignStat {
           game.settings.get(
             `${MODULE_ID}`,
             `${OPT_SETTINGS_DICE_STREAK_TO_CHAT_ENABLE}`,
-          )
+          ) &&
+          chatRollMode === ChatRollMode.publicroll
         ) {
           this._sendRollStreakChatMessage(actorName, actorStreakLog);
         }
