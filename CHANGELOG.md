@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.12.0 - 2023-10-02
+
+### Features
+
+- When a player rolls doesn't roll in public, streaks are hidden from the chat
+- Add your own threshold for dice streaks. Default is still 2 or more.
+- When you delete the campaign data from the setting menu you will get a forced download of your data to prevent accidental deletion
+- If more than one player is tieing for a top stat position their names are all displayed instead of alphabetical first
+
 ## 2.9.1 - 2023-06-11
 
 ### Feature
