@@ -262,6 +262,24 @@ describe("Stat", () => {
     });
 
     describe("If you add a new Kill", () => {
+      test("you can see None as the most kills with no kills", async () => {
+        await stat.AddCombatant(actor, "tokenId", null);
+        await stat.AddCombatant(actorTwo, "tokenId2", null);
+        stat.Save();
+        expect(stat.encounter.top.mostKills).toBe("None<br />0");
+      });
+
+      test("you can see the kill added with 2 sharing the same value", async () => {
+        await stat.AddCombatant(actor, "tokenId", null);
+        await stat.AddCombatant(actorTwo, "tokenId2", null);
+        stat.AddKill("Acolyte", "tokenId");
+        stat.AddKill("Acolyte2", "tokenId2");
+        stat.Save();
+        expect(stat.encounter.combatants.length).toBe(2);
+        expect(stat.encounter.top.mostKills).toBe("Graa S'oua & Actor 2<br />1");
+      });
+
+
       test("you can see the kill added", async () => {
         await stat.AddCombatant(actor, "tokenId", null);
         stat.AddKill("Acolyte", "tokenId");

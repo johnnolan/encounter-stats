@@ -21,22 +21,18 @@ describe("CampaignRenderer", () => {
 
       expect(result.nat1).toStrictEqual([
         { name: "Fighter", value: 7 },
-        { name: "Orc", value: 1 },
-        { name: "Lorena Aldabra", value: 1 },
+        { name: "Orc & Lorena Aldabra", value: 1 },
       ]);
 
       expect(result.nat20).toStrictEqual([
         { name: "Fighter", value: 3 },
-        { name: "Orc", value: 1 },
-        { name: "Lorena Aldabra", value: 1 },
+        { name: "Orc & Lorena Aldabra", value: 1 },
       ]);
 
-      expect(result.heals).toStrictEqual([{ name: "Graa", value: 1 }]);
+      expect(result.heals).toStrictEqual([{ name: "Graa", value: 2 }]);
 
       expect(result.kills).toStrictEqual([
-        { name: "Graa", value: 1 },
-        { name: "Lorena Aldabra", value: 1 },
-        { name: "Fighter", value: 1 },
+        { name: "Graa & Lorena Aldabra & Fighter", value: 1 },
       ]);
 
       expect(result.criticalHistory).toStrictEqual([
@@ -139,6 +135,13 @@ describe("CampaignRenderer", () => {
         {
           date: "30 September 2022",
           entries: [
+            {
+              actorName: "Graa",
+              flavor:
+                "@UUID[Actor.2ybHnw0DeYqwDPyV.Item.yAmmCAv5PSEM8X5f]{Potion of Healing (Greater)}",
+              date: "30 September 2022 20:03",
+              total: 15,
+            },
             {
               actorName: "Graa",
               flavor:

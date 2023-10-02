@@ -354,6 +354,17 @@ export default class Stat {
           total: m.kills.length,
         };
       })
+      .reduce((a, b) => {
+        const found = a.find((e) => e.total == b.total);
+        return (
+          found
+            ? found.name !== b.name
+              ? (found.name = found.name + " & " + b.name)
+              : (found.name = found.name)
+            : a.push({ ...b }),
+          a
+        );
+      }, [])
       .reduce(function (max, obj) {
         return obj.total > max.total ? obj : max;
       });
@@ -373,6 +384,17 @@ export default class Stat {
           }).length,
         };
       })
+      .reduce((a, b) => {
+        const found = a.find((e) => e.total == b.total);
+        return (
+          found
+            ? found.name !== b.name
+              ? (found.name = found.name + " & " + b.name)
+              : (found.name = found.name)
+            : a.push({ ...b }),
+          a
+        );
+      }, [])
       .reduce(function (max, obj) {
         return obj.total > max.total ? obj : max;
       });
@@ -392,6 +414,17 @@ export default class Stat {
           }).length,
         };
       })
+      .reduce((a, b) => {
+        const found = a.find((e) => e.total == b.total);
+        return (
+          found
+            ? found.name !== b.name
+              ? (found.name = found.name + " & " + b.name)
+              : (found.name = found.name)
+            : a.push({ ...b }),
+          a
+        );
+      }, [])
       .reduce(function (max, obj) {
         return obj.total > max.total ? obj : max;
       });
@@ -411,6 +444,17 @@ export default class Stat {
           }).length,
         };
       })
+      .reduce((a, b) => {
+        const found = a.find((e) => e.total == b.total);
+        return (
+          found
+            ? found.name !== b.name
+              ? (found.name = found.name + " & " + b.name)
+              : (found.name = found.name)
+            : a.push({ ...b }),
+          a
+        );
+      }, [])
       .reduce(function (max, obj) {
         return obj.total > max.total ? obj : max;
       });
