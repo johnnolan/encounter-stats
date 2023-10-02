@@ -1,7 +1,7 @@
 import CampaignRenderer from "./CampaignRenderer";
 import CampaignStat from "./CampaignStat";
 import EncounterJournal from "./EncounterJournal";
-import { RoleType } from "./enums";
+import { ChatRollMode, RoleType } from "./enums";
 import Gamemaster from "./Helpers/Gamemaster";
 import "../__mocks__/chat-message";
 
@@ -59,10 +59,10 @@ describe("CampaignStat", () => {
     });
 
     test("it adds the Roll Streak correctly", async () => {
-      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
-      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
-      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
-      await CampaignStat.AddRollStreak(1, "Graa", "2ybHnw0DeYqwDPyV");
+      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV", ChatRollMode.publicroll);
+      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV", ChatRollMode.publicroll);
+      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV", ChatRollMode.publicroll);
+      await CampaignStat.AddRollStreak(1, "Graa", "2ybHnw0DeYqwDPyV", ChatRollMode.publicroll);
       expect(mockEncounterJournalUpdateJournalData).toBeCalled();
       expect(mock_sendRollStreakChatMessage).toBeCalled();
       expect(mock_sendRollStreakChatMessage).toBeCalledTimes(2);
@@ -128,14 +128,14 @@ describe("CampaignStat", () => {
     });
 
     test("it adds the Roll Streak correctly", async () => {
-      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
-      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
-      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
-      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV");
-      await CampaignStat.AddRollStreak(1, "Graa", "2ybHnw0DeYqwDPyV");
+      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV", ChatRollMode.publicroll);
+      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV", ChatRollMode.publicroll);
+      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV", ChatRollMode.blindroll);
+      await CampaignStat.AddRollStreak(9, "Graa", "2ybHnw0DeYqwDPyV", ChatRollMode.blindroll);
+      await CampaignStat.AddRollStreak(1, "Graa", "2ybHnw0DeYqwDPyV", ChatRollMode.blindroll);
       expect(mockEncounterJournalUpdateJournalData).toBeCalled();
       expect(mock_sendRollStreakChatMessage).toBeCalled();
-      expect(mock_sendRollStreakChatMessage).toBeCalledTimes(6);
+      expect(mock_sendRollStreakChatMessage).toBeCalledTimes(4);
       expect(mockGamemasterSetStats).toBeCalled();
       expect(mockGamemasterSetStats).toBeCalledWith({
         kills: [],
