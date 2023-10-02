@@ -45,7 +45,11 @@ describe("CampaignStat", () => {
           format: jest.fn().mockReturnValue("TestKeyValue"),
         },
         settings: {
-          get: jest.fn().mockReturnValue(true),
+          get: jest.fn()
+          .mockReturnValueOnce(true).mockReturnValueOnce("2")
+          .mockReturnValueOnce(true).mockReturnValueOnce("2").mockReturnValueOnce(true)
+          .mockReturnValueOnce(true).mockReturnValueOnce("2").mockReturnValueOnce(true)
+          .mockReturnValueOnce(true).mockReturnValueOnce("2").mockReturnValueOnce(true),
         },
       };
       mockGamemasterGetStats.mockReturnValue({
@@ -99,7 +103,11 @@ describe("CampaignStat", () => {
           format: jest.fn().mockReturnValue("TestKeyValue"),
         },
         settings: {
-          get: jest.fn().mockReturnValue(true),
+          get: jest.fn()
+          .mockReturnValueOnce(true).mockReturnValueOnce("2")
+          .mockReturnValueOnce(true).mockReturnValueOnce("2").mockReturnValueOnce(true)
+          .mockReturnValueOnce(true).mockReturnValueOnce("2").mockReturnValueOnce(true)
+          .mockReturnValueOnce(true).mockReturnValueOnce("2").mockReturnValueOnce(true),
         },
       };
       mockGamemasterGetStats.mockReturnValue({
@@ -135,7 +143,7 @@ describe("CampaignStat", () => {
       await CampaignStat.AddRollStreak(1, "Graa", "2ybHnw0DeYqwDPyV", ChatRollMode.blindroll);
       expect(mockEncounterJournalUpdateJournalData).toBeCalled();
       expect(mock_sendRollStreakChatMessage).toBeCalled();
-      expect(mock_sendRollStreakChatMessage).toBeCalledTimes(4);
+      expect(mock_sendRollStreakChatMessage).toBeCalledTimes(3);
       expect(mockGamemasterSetStats).toBeCalled();
       expect(mockGamemasterSetStats).toBeCalledWith({
         kills: [],
@@ -150,19 +158,12 @@ describe("CampaignStat", () => {
             "dateDisplay": "01 November 2022",
             "roll": 4,
             "total": 3
-          },
-          {
-            "actorId": "2ybHnw0DeYqwDPyV",
-            "actorName": "Graa",
-            "dateDisplay": "01 January 2020",
-            "roll": 9,
-            "total": 5
           }
         ],
         rollstreaklog: [
           {
             actorId: "2ybHnw0DeYqwDPyV",
-            results: [1],
+            results: [9,9,9,9,9],
           },
         ],
       });
