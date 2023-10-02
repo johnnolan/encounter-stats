@@ -1,3 +1,4 @@
+/* eslint-disable no-self-assign */
 import StatManager from "../StatManager";
 import {
   CombatantType,
