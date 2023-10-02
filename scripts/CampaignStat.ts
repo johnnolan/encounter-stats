@@ -146,7 +146,7 @@ export default class CampaignStat {
             `${MODULE_ID}`,
             `${OPT_SETTINGS_DICE_STREAK_TO_CHAT_ENABLE}`,
           ) &&
-          chatRollMode === ChatRollMode.publicroll
+          chatRollMode === ChatRollMode.publicroll.valueOf()
         ) {
           this._sendRollStreakChatMessage(actorName, actorStreakLog);
         }
