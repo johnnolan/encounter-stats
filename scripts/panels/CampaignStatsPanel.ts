@@ -31,6 +31,13 @@ export default class CampaignStatsPanel extends FormApplication {
   }
 
   deleteStatistics() {
+    const filename = `encounter-stats-export.json`;
+    saveDataToFile(
+      JSON.stringify(Gamemaster.GetStats, null, 2),
+      "text/json",
+      filename
+    );
+
     Gamemaster.DeleteStats();
     return ui.notifications?.info(
       Trans.Get("Settings.CampaignStatsDeleted")
