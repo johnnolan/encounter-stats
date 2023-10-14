@@ -33,7 +33,7 @@
     "esbuild-sass-plugin": "2.16.0",
     "eslint": "8.51.0",
     "eslint-config-prettier": "9.0.0",
-    "eslint-plugin-prettier": "5.0.0",
+    "eslint-plugin-prettier": "5.0.1",
     "foundryvtt-simple-calendar": "2.4.3",
     "jest": "29.7.0",
     "jest-junit": "16.0.0",
