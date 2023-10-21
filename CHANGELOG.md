@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.12.1 - 2023-10-21
+
+### Bug Fixes
+
+- Replaces deprecated Roll with Rolls to stop warning in PF2e
+
 ## 2.12.0 - 2023-10-02
 
 ### Features
