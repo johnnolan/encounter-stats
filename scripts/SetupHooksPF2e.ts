@@ -34,19 +34,19 @@ export default class SetupHooksPF2e {
               return;
             }
           }
+          const firstChatRoll = chatMessagePF2e.rolls[0];
 
           if (chatType === "attack-roll" || chatType === "spell-attack-roll") {
             const workflow = await PF2e.ParseHook(
               chatMessagePF2e.item,
               chatMessagePF2e.actor,
               CombatDetailType.Attack,
-              chatMessagePF2e.roll,
+              firstChatRoll,
             );
             OnEncounterWorkflowComplete(workflow, ChatType.PF2e);
             OnTrackRollStreak(
-              chatMessagePF2e.roll?.terms[0]?.results?.find(
-                (f) => f.active === true,
-              ).result ?? 0,
+              firstChatRoll?.terms[0]?.results?.find((f) => f.active === true)
+                .result ?? 0,
               chatMessagePF2e.token.name,
               chatMessagePF2e.actor.id,
               chatRollMode,
@@ -57,22 +57,20 @@ export default class SetupHooksPF2e {
               chatMessagePF2e.item,
               chatMessagePF2e.item.actor,
               CombatDetailType.Damage,
-              chatMessagePF2e.roll,
+              firstChatRoll,
             );
             OnEncounterWorkflowComplete(workflow, ChatType.PF2e);
           }
           if (chatType === "saving-throw" || chatType.indexOf("-check") > 0) {
             OnTrackDiceRoll(
-              chatMessagePF2e.roll?.terms[0]?.results?.find(
-                (f) => f.active === true,
-              ).result ?? 0,
+              firstChatRoll?.terms[0]?.results?.find((f) => f.active === true)
+                .result ?? 0,
               chatMessagePF2e.actor.name,
               chatMessagePF2e?.flags?.pf2e?.modifierName,
             );
             OnTrackRollStreak(
-              chatMessagePF2e.roll?.terms[0]?.results?.find(
-                (f) => f.active === true,
-              ).result ?? 0,
+              firstChatRoll?.terms[0]?.results?.find((f) => f.active === true)
+                .result ?? 0,
               chatMessagePF2e.token.name,
               chatMessagePF2e.actor.id,
               chatRollMode,
