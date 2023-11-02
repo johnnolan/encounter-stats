@@ -12,7 +12,7 @@
     "EncounterStats.opt_enable_dice_streak_to_chat_name": "Track Dice Streaks Chat Message",
     "EncounterStats.opt_enable_dice_streak_to_chat_hint": "Show a message in Chat when a player rolls the same result on a D20.",
     "EncounterStats.opt_enable_dice_streak_threshold_name": "Dice Streak threshold to track",
-    "EncounterStats.opt_enable_dice_streak_threshold_hint": "Set the number pf consecutive dice rolls to alert for a streak.",
+    "EncounterStats.opt_enable_dice_streak_threshold_hint": "Set the number of consecutive dice rolls to alert for a streak.",
     "EncounterStats.template.most_damage_overall": "Most Damage Overall",
     "EncounterStats.template.most_damage_per_turn": "Most Damage in 1 turn",
     "EncounterStats.template.highest_average_damage": "Highest Average Damage",
