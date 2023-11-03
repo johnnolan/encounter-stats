@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.12.2 - 2023-11-03
+
+### Bug Fixes
+
+- Typo in EN language file fixed (thanks @jordant2355)
+
 ## 2.12.1 - 2023-10-21
 
 ### Bug Fixes
