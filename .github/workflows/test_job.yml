@@ -17,7 +17,7 @@ jobs:
 
       - name: Cache yarn dependencies
         id: cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ./node_modules
           key: modules-${{ hashFiles('yarn.lock') }}
@@ -30,14 +30,14 @@ jobs:
         run: yarn run test:coverage
 
       - name: Upload Clover Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: clover
           path: |
             coverage
 
       - name: Upload Junit Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: junit
           path: |
