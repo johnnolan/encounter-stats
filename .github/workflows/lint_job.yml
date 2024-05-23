@@ -17,7 +17,7 @@ jobs:
 
       - name: Cache yarn dependencies
         id: cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ./node_modules
           key: modules-${{ hashFiles('yarn.lock') }}
@@ -31,7 +31,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload ESLint Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: eslint_report
           path: |
