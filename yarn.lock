@@ -2669,12 +2669,13 @@ es6-promise-polyfill@^1.2.0:
   resolved "https://registry.yarnpkg.com/es6-promise-polyfill/-/es6-promise-polyfill-1.2.0.tgz#f38925f23cb3e3e8ce6cda8ff774fcebbb090cde"
   integrity sha512-HHb0vydCpoclpd0ySPkRXMmBw80MRt1wM4RBJBlXkux97K7gleabZdsR0gvE1nNPM9mgOZIBTzjjXiPxf4lIqQ==
 
-esbuild-sass-plugin@3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/esbuild-sass-plugin/-/esbuild-sass-plugin-3.3.0.tgz#a6664f8f73451dc15fe2748a8d3d334fb5f873af"
-  integrity sha512-btH77lGkASp1VHyji0dAanomatCwq1dmfrjAIjhv+GgR9LK2m1hbRr+t4kbjveyqCwmdBfRkboj+Pfaruok1Mg==
+esbuild-sass-plugin@3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/esbuild-sass-plugin/-/esbuild-sass-plugin-3.3.1.tgz#74d096127bff10072042de30119235f276655566"
+  integrity sha512-SnO1ls+d52n6j8gRRpjexXI8MsHEaumS0IdDHaYM29Y6gakzZYMls6i9ql9+AWMSQk/eryndmUpXEgT34QrX1A==
   dependencies:
     resolve "^1.22.8"
+    safe-identifier "^0.4.2"
     sass "^1.71.1"
 
 esbuild@0.21.4:
@@ -4285,6 +4286,11 @@ run-parallel@^1.1.9:
   integrity sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==
   dependencies:
     queue-microtask "^1.2.2"
+
+safe-identifier@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/safe-identifier/-/safe-identifier-0.4.2.tgz#cf6bfca31c2897c588092d1750d30ef501d59fcb"
+  integrity sha512-6pNbSMW6OhAi9j+N8V+U715yBQsaWJ7eyEUaOrawX+isg5ZxhUlV1NipNtgaKHmFGiABwt+ZF04Ii+3Xjkg+8w==
 
 sass@1.77.4, sass@^1.71.1:
   version "1.77.4"
