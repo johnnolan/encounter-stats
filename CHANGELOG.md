@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.12.3 - 2024-06-18
+
+### Translation
+
+- Translated using Weblate (Brazilian Portuguese)
+
 ## 2.12.2 - 2023-11-03
 
 ### Bug Fixes
