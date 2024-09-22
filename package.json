@@ -21,7 +21,7 @@
     "@babel/eslint-parser": "7.25.1",
     "@babel/preset-env": "7.25.4",
     "@jest/types": "29.6.3",
-    "@league-of-foundry-developers/foundry-vtt-types": "9.280.0",
+    "@league-of-foundry-developers/foundry-vtt-types": "9.280.1",
     "@types/jest": "29.5.13",
     "@types/node": "20.16.5",
     "@typescript-eslint/eslint-plugin": "8.6.0",
